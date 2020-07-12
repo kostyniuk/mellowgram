@@ -1,0 +1,45 @@
+{
+  "name": "mellowgram",
+  "version": "1.0.0",
+  "description": "Mellowgram is a social network for sharing ideas and chatting",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodemon",
+    "client:install": "npm install --prefix client",
+    "client:build": "npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kostyniuk/mellowgram.git"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "passportjs",
+    "session",
+    "express",
+    "postgres",
+    "react"
+  ],
+  "author": "Alex Kostyniuk <kostyniuk7@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kostyniuk/mellowgram/issues"
+  },
+  "homepage": "https://github.com/kostyniuk/mellowgram#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-pg-simple": "^6.1.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.2.1"
+  }
+}
