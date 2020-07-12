@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const db = require('../config/db');
+
 const signupRoute = require('./signup');
 const loginRoute = require('./login');
 const userRoute = require('./user/user');
@@ -19,6 +21,11 @@ router.use('/api/follow', followRoute);
 
 router.use('/api/test', (req, res, next) => {
   res.json('12');
+});
+
+router.use('/api/db', async (req, res, next) => {
+  const { rows } = await db.query('select * from user_info;');
+  res.json(rows);
 });
 
 module.exports = router;
