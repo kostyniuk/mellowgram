@@ -4,6 +4,7 @@ CREATE TABLE Person (
   bio VARCHAR(64) NOT NULL,
   email VARCHAR(32) NOT NULL,
   fullName VARCHAR(64) NOT NULL,
+  picture VARCHAR(100) NOT NULL,
   number_of_posts INTEGER NOT NULL
 );
 
