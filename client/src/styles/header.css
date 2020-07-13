@@ -11,8 +11,9 @@
 }
 nav {
   height: 75px;
-  background-color: #f7b1b1c2!important; 
-  background-color: #324312!important; 
+  background-color: rgb(247, 164, 164);
+  /* filter: alpha(opacity=50); Opacity for IE8 and lower */
+  /* zoom: 1; Fix for IE7 */
   position: relative;
 }
 .nav-items {
@@ -23,6 +24,7 @@ nav {
   margin-left: auto;
   width: 50%;
   height: 100%;
+
 }
 
 .logo {
@@ -30,13 +32,12 @@ nav {
   margin-top: 8px;
   margin-left: 8px;
   float: left;
-  color: hsl(0, 0%, 40%);
 }
 
 .logo a {
   vertical-align: middle;
   justify-content: center;
-  padding-left: 5px;;
+  padding-left: 5px;
   margin: auto;
   font-style: oblique;
 }
@@ -50,7 +51,7 @@ a {
 
 a:hover {
   color: #000 !important;
-  transition: color .4s ease-in-out;
+  transition: color 0.4s ease-in-out;
 }
 
 @media screen and (max-width: 768px) {
