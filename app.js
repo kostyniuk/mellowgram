@@ -32,7 +32,7 @@ app.use(
   session({
     store: new pgSession({
       pool: pgPool,
-      tableName: 'user_sessions',
+      tableName: 'sessions',
     }),
     secret: process.env.FOO_COOKIE_SECRET,
     saveUninitialized: false,
