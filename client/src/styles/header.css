@@ -12,6 +12,7 @@
 nav {
   height: 75px;
   background-color: rgb(247, 164, 164);
+  
   /* filter: alpha(opacity=50); Opacity for IE8 and lower */
   /* zoom: 1; Fix for IE7 */
   position: relative;
