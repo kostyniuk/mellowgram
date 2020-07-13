@@ -41,8 +41,6 @@ app.use(
   })
 );
 
-app.use((req, res, next))
-
 require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
