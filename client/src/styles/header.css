@@ -9,9 +9,9 @@
   margin: 0;
   padding: 0;
 }
-.header-nav {
+nav {
   height: 75px;
-  background-color: #f7b1b1c2 !important; 
+  background-color: #f7b1b1c2!important; 
   position: relative;
 }
 .nav-items {
@@ -40,14 +40,14 @@
   font-style: oblique;
 }
 
-.a-header {
+a {
   color: white;
   text-decoration: none;
   font-family: arial;
   font-weight: 600;
 }
 
-.a-header:hover {
+a:hover {
   color: #000 !important;
   transition: color .4s ease-in-out;
 }
