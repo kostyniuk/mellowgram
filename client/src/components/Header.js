@@ -5,7 +5,7 @@ import '../styles/header.css';
 const Header = () => {
   return (
     <div>
-      <nav>
+      <nav className='header-nav'>
         <div className='hamburger'>
           <span className='line'></span>
           <span className='line'></span>
@@ -13,18 +13,18 @@ const Header = () => {
         </div>
         <div class='logo'>
         <img src={process.env.PUBLIC_URL + '/apple-icon-60x60.png'} />
-        <a href='/' >Mellowgram</a>
+        <a className='a-header' href='/' >Mellowgram</a>
         </div>
         <ul className='nav-items'>
           <li className='nav-item'>
-            <a href='#'>About us</a>
+            <a className='a-header' href='#'>About us</a>
           </li>
           <li>|</li>
           <li className='nav-item'>
-            <a href='#'>Log in</a>
+            <a className='a-header' href='#'>Log in</a>
           </li>
           <li className='nav-item'>
-            <a href='#'>Sign up</a>
+            <a className='a-header' href='#'>Sign up</a>
           </li>
         </ul>
       </nav>

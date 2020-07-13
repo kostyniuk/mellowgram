@@ -9,7 +9,7 @@
   margin: 0;
   padding: 0;
 }
-nav {
+.header-nav {
   height: 75px;
   background-color: #f7b1b1c2;
   position: relative;
@@ -40,14 +40,14 @@ nav {
   font-style: oblique;
 }
 
-a {
+.a-header {
   color: white;
   text-decoration: none;
   font-family: arial;
   font-weight: 600;
 }
 
-a:hover {
+.a-header:hover {
   color: #000;
   transition: color .4s ease-in-out;
 }
