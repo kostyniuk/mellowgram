@@ -32,7 +32,7 @@ app.use(
   session({
     store: new pgSession({
       pool: pgPool,
-      tableName: 'sessions',
+      tableName: 'session',
     }),
     secret: process.env.FOO_COOKIE_SECRET,
     saveUninitialized: false,
@@ -45,16 +45,22 @@ require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req,res, next) => {
+  console.log({user: req.user, session: req.session})
+  next();
+})
+
 app.use('/api/public', express.static('public'));
 
 app.use(require('./routes'));
+
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')));
 
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
-}
+} 
 
 app.listen(PORT, () => {
   console.log(`Server has been started on http://localhost:${PORT}`);
