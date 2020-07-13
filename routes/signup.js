@@ -12,6 +12,8 @@ router.post('/', async (req, res, next) => {
   try {
     const { email, fullName, age, username, password } = req.body;
 
+    console.log(req.body)
+
     const hash = await genPassword(password, process.env.SALT);
 
     console.log({hash})

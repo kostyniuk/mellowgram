@@ -32,7 +32,7 @@ app.use(
   session({
     store: new pgSession({
       pool: pgPool,
-      tableName: 'session',
+      tableName: 'user_sessions',
     }),
     secret: process.env.FOO_COOKIE_SECRET,
     saveUninitialized: false,
@@ -40,6 +40,8 @@ app.use(
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // 30 days
   })
 );
+
+app.use((req, res, next))
 
 require('./config/passport');
 app.use(passport.initialize());
