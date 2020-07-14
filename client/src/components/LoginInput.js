@@ -48,7 +48,7 @@ const LoginInput = () => {
               <span>Facebook</span>
             </i>
           </div>
-          <div class='instagram'>
+          <div class='instagram' onClick={( ) => console.log('instagram')}>
             <i class='fa fa-instagram'>
               <span>Instagram</span>
             </i>

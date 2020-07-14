@@ -14,9 +14,11 @@
 }
 
 .containerInput {
+  
   top: 50%;
   left: 50%;
-  height: 40%;
+  height: 500px;
+  width: 1000px;
   position: absolute;
   transform: translate(-50%, -50%);
   background: var(--bg_color_dark);
@@ -55,7 +57,7 @@ span {
 
 .content h1 {
   padding-top: 10px;
-  padding: 10px;
+  padding: 20px;
   font-family: 'Montserrat', sans-serif, cursive;
   font-size: 30px;
   color: var(--text_dark);
@@ -112,7 +114,7 @@ button:hover {
 }
 
 hr {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 button a {
@@ -121,7 +123,7 @@ button a {
 }
 
 .login{
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
   color: black;
   border-radius: 10px;
@@ -132,23 +134,22 @@ button a {
 .links{
   display: flex;
   justify-content: space-around;
-  margin: 5px;
+  margin: 20px;
   cursor: pointer;
   color: black;
 }
 .facebook,.instagram,.google{
-  width: 90%;
   height: 45px;
   line-height: 45px;
 }
 .facebook{
-  width: 45%;
+  width: 30%;
   background: var(--blue);
   border: 1px var(--blue);
 }
 .instagram{
   right: 0;
-  width: 45%;
+  width: 30%;
   background: #d36e90;
   border: 1px solid #e68b96;
 }
@@ -161,7 +162,7 @@ button a {
 
 .google{
   right: 0;
-  width: 45%;
+  width: 30%;
   background: rgb(212, 201, 201);
   border: 1px solid rgb(212, 201, 201);
 }
@@ -181,7 +182,7 @@ i span{
   font-family: 'Montserrat', sans-serif;
 }
 .signup{
-  margin-top: 12px;
+  margin-top: 30px;
   font-size: 13px;
   color: #000;
   font-family: 'Montserrat',sans-serif;
