@@ -10,6 +10,7 @@ import {
 
 import Login from './pages/Login';
 import Header from './components/Header';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -17,7 +18,11 @@ function App() {
       <div className='container'>
         <Switch>
           <Redirect path='/' exact to='/login' />
-
+          <Route
+            exact
+            path='/signup'
+            render={(props) => <Signup {...props} />}
+          />
           <Route
             exact
             path='/header'

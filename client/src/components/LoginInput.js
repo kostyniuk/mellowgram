@@ -4,59 +4,59 @@ import '../styles/loginInput.css';
 
 const LoginInput = () => {
   return (
-    <div class='containerInput'>
-      <div class='image'>
+    <div className='containerInput'>
+      <div className='image'>
         <h1>
           Welcome To <span>Mellowgram</span>
         </h1>
       </div>
-      <div class='content'>
+      <div className='content'>
         <h1>Login</h1>
-        <div class='form-group'>
+        <div className='form-group'>
           <label>Username</label>
           <br />
           <input
             type='text'
-            class='form-control'
+            className='form-control'
             name=''
             id='txt'
             aria-describedby='helpId'
           />
         </div>
-        <div class='form-group'>
+        <div className='form-group'>
           <label>Password</label>
           <br />
-          <input type='password' class='form-control' name='' id='txt' />
+          <input type='password' className='form-control' name='' id='txt' />
         </div>
-        <a class='fp' href='index.html'>
+        <a className='fp' href='index.html'>
           Forgot Password?
         </a>
         <br />
-        <button type='button' class='btn'>
+        <button type='button' className='btn'>
           <a href='index.html'>Login</a>
         </button>
         <hr />
-        <div class='login'>Or login with</div>
-        <div class='links'>
-          <div class='google'>
-            <i class='fa fa-google'>
+        <div className='login'>Or login with</div>
+        <div className='links'>
+          <div className='google'>
+            <i className='fa fa-google'>
               <span>Google</span>
             </i>
           </div>
-          <div class='facebook'>
-            <i class='fa fa-facebook-f'>
+          <div className='facebook'>
+            <i className='fa fa-facebook-f'>
               <span>Facebook</span>
             </i>
           </div>
-          <div class='instagram' onClick={( ) => console.log('instagram')}>
-            <i class='fa fa-instagram'>
+          <div className='instagram' onClick={( ) => console.log('instagram')}>
+            <i className='fa fa-instagram'>
               <span>Instagram</span>
             </i>
           </div>
         </div>
-        <div class='signup'>
+        <div className='signup'>
           Don't have an account? &#8203;
-          <a href='#'>Sign up</a>
+          <a href='/signup'>Sign up</a>
         </div>
       </div>
     </div>

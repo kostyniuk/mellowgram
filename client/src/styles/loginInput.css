@@ -14,7 +14,7 @@
 }
 
 .containerInput {
-  
+  margin-top: 37.5px;
   top: 50%;
   left: 50%;
   height: 500px;
@@ -63,6 +63,13 @@ span {
   color: var(--text_dark);
 }
 
+.content h3 {
+  padding-top: 15px;
+  font-family: 'Montserrat', sans-serif, cursive;
+  font-size: 20px;
+  color: var(--text_dark);
+}
+
 #txt {
   margin: 8px;
   padding: 5px;
@@ -100,6 +107,10 @@ label {
   color: #000;
 }
 
+.form-group-signup {
+  margin-top: 5px;
+}
+
 button {
   padding: 10px 40px;
   margin-top: 10px;
@@ -123,7 +134,7 @@ button a {
 }
 
 .login{
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 10px;
   color: black;
   border-radius: 10px;
@@ -138,6 +149,11 @@ button a {
   cursor: pointer;
   color: black;
 }
+
+.links-signup {
+  margin: 15px;
+}
+
 .facebook,.instagram,.google{
   height: 45px;
   line-height: 45px;
@@ -182,7 +198,7 @@ i span{
   font-family: 'Montserrat', sans-serif;
 }
 .signup{
-  margin-top: 30px;
+  margin: 40px;
   font-size: 13px;
   color: #000;
   font-family: 'Montserrat',sans-serif;
@@ -195,3 +211,6 @@ i span{
   text-decoration: underline;
 }
 
+.signup-signup {
+  margin: 10px;
+}

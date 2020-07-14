@@ -36,7 +36,6 @@ const Header = () => {
       background: '#ebe6e7',
       borderRadius: 3,
       border: 0,
-      color: 'white',
       boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
     },
   })(TextField);
@@ -45,7 +44,7 @@ const Header = () => {
     <div>
       <nav className='header-nav'>
         <Hamburger handler={handleHamburger} />
-        <div class='logo'>
+        <div className='logo'>
           <a className='a-header' href='/'>
             Mellowgram
           </a>
@@ -54,8 +53,6 @@ const Header = () => {
           <li className='nav-item search-field'>
             <StyledTextField
               onKeyPress={searchHandler}
-              color='white'
-              // className={classes}
               id='input-with-icon-textfield'
               variant='outlined'
               placeholder='Search'
@@ -77,12 +74,12 @@ const Header = () => {
           </li>
           <li className={open ? 'disabled' : ''}>|</li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
-            <a className='a-header' href='#'>
+            <a className='a-header' href='/login'>
               Log in
             </a>
           </li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
-            <a className='a-header' href='#'>
+            <a className='a-header' href='/signup'>
               Sign up
             </a>
           </li>
