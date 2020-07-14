@@ -136,7 +136,7 @@ button a {
   cursor: pointer;
   color: black;
 }
-.facebook,.instagram{
+.facebook,.instagram,.google{
   width: 90%;
   height: 45px;
   line-height: 45px;
@@ -158,6 +158,19 @@ button a {
 .instagram:hover{
   background: #df2060;
 }
+
+.google{
+  right: 0;
+  width: 45%;
+  background: rgb(212, 201, 201);
+  border: 1px solid rgb(212, 201, 201);
+}
+.google:hover{
+  background: lightgray;
+  border: 1px solid lightgray;
+
+}
+
 .links i{
   font-size: 13px;
   margin: 0 auto
@@ -180,3 +193,4 @@ i span{
 .signup a:hover{
   text-decoration: underline;
 }
+

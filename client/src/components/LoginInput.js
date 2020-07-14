@@ -35,9 +35,14 @@ const LoginInput = () => {
         <button type='button' class='btn'>
           <a href='index.html'>Login</a>
         </button>
-        <hr/>
+        <hr />
         <div class='login'>Or login with</div>
         <div class='links'>
+          <div class='google'>
+            <i class='fa fa-google'>
+              <span>Google</span>
+            </i>
+          </div>
           <div class='facebook'>
             <i class='fa fa-facebook-f'>
               <span>Facebook</span>
@@ -50,7 +55,7 @@ const LoginInput = () => {
           </div>
         </div>
         <div class='signup'>
-          Don't have an account? &#8203; 
+          Don't have an account? &#8203;
           <a href='#'>Sign up</a>
         </div>
       </div>
