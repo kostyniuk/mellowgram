@@ -10,13 +10,13 @@
   padding: 0;
 }
 nav {
+  display: flex;
   height: 75px;
-  background-color: rgb(247, 164, 164);
-  
-  /* filter: alpha(opacity=50); Opacity for IE8 and lower */
-  /* zoom: 1; Fix for IE7 */
+  background-color: rgba(247, 166, 166, 0.8);
+  background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
   position: relative;
 }
+
 .nav-items {
   display: flex;
   justify-content: space-around;
@@ -28,9 +28,19 @@ nav {
 
 }
 
+.nav-search {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  width: 50%;
+  height: 100%;
+
+}
+
 .logo {
   display: flex;
-  margin-top: 8px;
+  margin-top: 5px;
   margin-left: 8px;
   float: left;
 }
