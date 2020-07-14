@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../styles/header.css';
 
 import { TextField, InputAdornment, withStyles } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
+const Hamburger = ({ handler }) => {
+  return (
+    <div className='hamburger' onClick={handler}>
+      <span className='line'></span>
+      <span className='line'></span>
+      <span className='line'></span>
+    </div>
+  );
+};
+
 const Header = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleHamburger = () => {
+    setOpen((prev) => !prev);
+  };
+
+  console.log({ open });
+
   const searchHandler = (e) => {
     if (e.key === 'Enter') {
       console.log('Enter is pressed');
@@ -26,11 +44,7 @@ const Header = () => {
   return (
     <div>
       <nav className='header-nav'>
-        <div className='hamburger'>
-          <span className='line'></span>
-          <span className='line'></span>
-          <span className='line'></span>
-        </div>
+        <Hamburger handler={handleHamburger} />
         <div class='logo'>
           <a className='a-header' href='/'>
             Mellowgram
@@ -40,7 +54,7 @@ const Header = () => {
           <li className='nav-item search-field'>
             <StyledTextField
               onKeyPress={searchHandler}
-              color="white"
+              color='white'
               // className={classes}
               id='input-with-icon-textfield'
               variant='outlined'
@@ -55,19 +69,19 @@ const Header = () => {
             />
           </li>
         </ul>
-        <ul className='nav-items'>
-          <li className='nav-item'>
+        <ul className={open ? 'nav-items show' : 'nav-items'}>
+          <li className={open ? 'nav-item fade' : 'nav-item'}>
             <a className='a-header' href='#'>
               About us
             </a>
           </li>
-          <li>|</li>
-          <li className='nav-item'>
+          <li className={open ? 'disabled' : ''}>|</li>
+          <li className={open ? 'nav-item fade' : 'nav-item'}>
             <a className='a-header' href='#'>
               Log in
             </a>
           </li>
-          <li className='nav-item'>
+          <li className={open ? 'nav-item fade' : 'nav-item'}>
             <a className='a-header' href='#'>
               Sign up
             </a>

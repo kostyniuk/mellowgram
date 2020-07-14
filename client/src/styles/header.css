@@ -65,6 +65,10 @@ a:hover {
   transition: color 0.4s ease-in-out;
 }
 
+.disabled {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
   .hamburger {
     position: absolute;
@@ -99,7 +103,7 @@ a:hover {
   .nav-items.show {
     display: flex;
     -webkit-clip-path: circle(1000px at 85% -20%);
-    clip-path: circle(1000px at 85% -20%);
+    clip-path: circle(2000px at 100% -20%);
     pointer-events: all;
   }
 
@@ -118,6 +122,10 @@ a:hover {
   }
   .nav-item:nth-child(3) {
     transition: all 0.5s ease 0.6s;
+  }
+
+  .nav-item:nth-child(4) {
+    transition: all 0.5s ease 0.8s;
   }
 
   .nav-item.fade {
