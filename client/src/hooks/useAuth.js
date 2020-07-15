@@ -1,7 +1,8 @@
-import { useEffect, useCallback, useReducer } from 'react';
+import { useEffect, useCallback, useReducer, useState } from 'react';
 import useFetch from './useFetch';
 
 import infoReducer from '../reducers/infoReducer';
+import { useScrollTrigger } from '@material-ui/core';
 
 const useAuth = () => {
   const [info, dispatch] = useReducer(infoReducer, {
@@ -11,18 +12,19 @@ const useAuth = () => {
     ready: false
   });
 
-  const { error, loading, request } = useFetch();
-  console.log({ error, loading, info });
+  const [loading, setLoading] = useState(true)
+
+  const { error, request } = useFetch();
 
   const fetchUser = useCallback(async () => {
     try {
-      const responce = await request('/api/isAuthenticated');
+      const responce = await request('/api/whoami');
       console.log({ responce });
 
       if (responce.success) {
         dispatch({
           type: 'fillOut',
-          props: { id: responce.data._id, username: responce.data.username },
+          props: { id: responce.data.id, username: responce.data.username },
         });
       } else {
         dispatch({
@@ -31,6 +33,7 @@ const useAuth = () => {
 
         });
       }
+      setLoading(false)
     } catch (e) {
       console.log(e);
     }
@@ -40,7 +43,7 @@ const useAuth = () => {
     fetchUser();
   }, [fetchUser]);
 
-  return { info };
+  return { info, loading };
 };
 
 export default useAuth;
