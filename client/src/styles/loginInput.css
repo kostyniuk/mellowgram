@@ -166,14 +166,14 @@ button a {
 .instagram{
   right: 0;
   width: 30%;
-  background: #d36e90;
-  border: 1px solid #e68b96;
+  background: var(--cream);
+  border: 1px solid var(--cream);
 }
 .facebook:hover{
   background: #3e61a8;
 }
 .instagram:hover{
-  background: #df2060;
+  background: var(--cream);
 }
 
 .google{
@@ -213,4 +213,16 @@ i span{
 
 .signup-signup {
   margin: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .image {
+    display: none;
+  }
+  .containerInput {
+    width: 100%;
+    height: 90%;
+  }
+
+
 }

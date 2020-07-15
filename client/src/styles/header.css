@@ -72,6 +72,11 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
+
+  .conteiner {
+    height: 70px;
+  }
+
   .hamburger {
     position: absolute;
     right: 5%;
