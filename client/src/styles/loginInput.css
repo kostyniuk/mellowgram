@@ -45,7 +45,7 @@
 }
 
 span {
-  color: black;
+  color: var(--text_dark);
 }
 
 .content {
@@ -136,7 +136,7 @@ button a {
 .login{
   margin-top: 15px;
   margin-bottom: 10px;
-  color: black;
+  color: var(--text_dark);
   border-radius: 10px;
   font-weight: bold;
   font-size: small;
@@ -147,7 +147,7 @@ button a {
   justify-content: space-around;
   margin: 20px;
   cursor: pointer;
-  color: black;
+  color: var(--text_dark);
 }
 
 .links-signup {
@@ -200,11 +200,11 @@ i span{
 .signup{
   margin: 40px;
   font-size: 13px;
-  color: #000;
+  color: var(--text_dark);
   font-family: 'Montserrat',sans-serif;
 }
 .signup a{
-  color: #3498db;
+  color: var(--blue);
   text-decoration: none;
 }
 .signup a:hover{
@@ -224,5 +224,19 @@ i span{
     height: 90%;
   }
 
+  .signup a{
+    font-size: 13px;
+    color: var(--blue);
+    text-decoration: none;
+  }
 
+  .login a{
+    font-size: 13px;
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  .signup-signup {
+    margin: 15px;
+  }
 }
