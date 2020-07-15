@@ -20,10 +20,13 @@ router.use('/api/like', likeRoute);
 router.use('/api/follow', followRoute);
 
 router.use('/api/test', (req, res, next) => {
+  console.log(req.user)
+
   res.json('12');
 });
 
 router.use('/api/db', async (req, res, next) => {
+  console.log(req.user)
   const { rows } = await db.query('select * from user_info;');
   res.json(rows);
 });

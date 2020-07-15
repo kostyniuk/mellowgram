@@ -25,7 +25,7 @@ const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false,
-  }
+  },
 });
 
 app.use(
@@ -45,10 +45,10 @@ require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req,res, next) => {
-  console.log({user: req.user, session: req.session})
+app.use((req, res, next) => {
+  console.log({ user: req.user, session: req.session });
   next();
-})
+});
 
 app.use('/api/public', express.static('public'));
 
@@ -60,7 +60,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
-} 
+}
 
 app.listen(PORT, () => {
   console.log(`Server has been started on http://localhost:${PORT}`);
