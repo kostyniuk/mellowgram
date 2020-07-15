@@ -46,6 +46,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (userId, done) => {
+  // TODO: It doesn't work if cookie responds to deleted user
   try {
     const {
       rows,
