@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../styles/loginInput.css';
 
-const LoginInput = () => {
+const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
   return (
     <div className='containerInput'>
       <div className='image'>
@@ -17,24 +17,35 @@ const LoginInput = () => {
           <br />
           <input
             type='text'
+            autoComplete='off'
+            value={form.username}
             className='form-control'
-            name=''
+            name='username'
             id='txt'
             aria-describedby='helpId'
+            onChange={changeHandler}
           />
         </div>
         <div className='form-group'>
           <label>Password</label>
           <br />
-          <input type='password' className='form-control' name='' id='txt' />
+          <input
+            type='password'
+            className='form-control'
+            name='password'
+            value={form.password}
+            id='txt'
+            onChange={changeHandler}
+          />
         </div>
-        <a className='fp' href='index.html'>
+        <a className='fp' href='/accounts/password/reset'>
           Forgot Password?
         </a>
         <br />
-        <button type='button' className='btn'>
-          <a href='index.html'>Login</a>
+        <button type='button' className='btn' onClick={submitHandler}>
+          <a href='#'>Login</a>
         </button>
+        { err && <h4 className='fp login-error'>Login unsuccesful</h4>}
         <hr />
         <div className='login'>Or login with</div>
         <div className='links'>
@@ -48,7 +59,7 @@ const LoginInput = () => {
               <span>Facebook</span>
             </i>
           </div>
-          <div className='instagram' onClick={( ) => console.log('instagram')}>
+          <div className='instagram' onClick={() => console.log('instagram')}>
             <i className='fa fa-instagram'>
               <span>Instagram</span>
             </i>

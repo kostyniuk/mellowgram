@@ -13,7 +13,10 @@ const useFetch = () => {
 
       if (!json.success) {
         setError(json.msg);
+        return json;
       }
+
+      setError(false);
       return json;
     } catch (e) {
       console.log(e);

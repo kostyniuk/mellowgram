@@ -22,8 +22,6 @@ const Header = () => {
     setOpen((prev) => !prev);
   };
 
-  console.log({ open });
-
   const searchHandler = (e) => {
     if (e.key === 'Enter') {
       console.log('Enter is pressed');

@@ -1,46 +1,47 @@
 import React, { useState } from 'react';
+
+import useFetch from '../hooks/useFetch';
+
 import LoginInput from '../components/LoginInput';
 import Header from '../components/Header';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [form, setForm] = useState({ username: '', password: '' });
   const [err, setErr] = useState(null);
-  const [textColor, setTextColor] = useState('text-danger');
 
-  const onSubmitForm = async (e) => {
-    e.preventDefault();
-    // try {
-    //   const body = { username, password };
-    //   const response = await fetch('http://localhost:3000/api/login', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(body),
-    //     credentials: 'include',
-    //   });
+  const { loading, error, request } = useFetch();
 
-    //   const jsonData = await response.json();
-    //   console.log({ jsonData });
-    //   if (jsonData.e) {
-    //     setErr(
-    //       'Sorry, your password was incorrect. Please double-check your password.'
-    //     );
-    //   } else {
-    //     setErr(false);
-    //     setTextColor('text-success');
-    //   }
+  console.log({ loading, error });
 
-    //   //window.location = '/';
-    // } catch (err) {
-    //   console.error(err.message);
-    // }
+  const updateStateHandler = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const submitHandler = async () => {
+    setForm({ username: '', password: '' });
+
+    const responce = await request('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    });
+
+    console.log({ responce });
   };
 
   return (
     <div>
       <Header />
       <div>
-        <LoginInput />
+        <LoginInput
+          err={error}
+          form={form}
+          changeHandler={updateStateHandler}
+          submitHandler={submitHandler}
+        />
       </div>
     </div>
   );

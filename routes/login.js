@@ -9,12 +9,12 @@ const router = express.Router();
 router.post('/', passport.authenticate('local', { failureRedirect: '/api/login/failure', successRedirect: '/api/login/success' }));
 
 router.get('/failure', (req, res, next) => {
-  res.json({ e: 'Authorization failed' });
+  res.json({ success: false, msg: 'Sorry, your password was incorrect. Please double-check your password.' });
 });
 
 router.get('/success', (req, res, next) => {
   console.log(req.session);
-  res.json({ info: 'Authorization successfull', username: req.session.username });
+  res.json({ success: true, username: req.session.username });
 });
 
 module.exports = router;
