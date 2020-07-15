@@ -15,15 +15,11 @@ import Login from './pages/Login';
 import Header from './components/Header';
 import Signup from './pages/Signup';
 import User from './pages/User';
-import Loader from './components/Loader';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   const { info, loading } = useAuth();
   console.log({ info, loading });
-
-  if (loading) {
-    return <Loader />;
-  }
 
   if (info.isAuthenticated) {
     return (
@@ -43,6 +39,7 @@ const App = () => {
               path='/:username'
               render={(props) => <User {...props} />}
             />
+            <Route render={(props) => <NotFound {...props} />} />
           </Switch>
         </div>
       </Router>
@@ -52,7 +49,7 @@ const App = () => {
       <Router>
         <div className='container'>
           <Switch>
-            {/* <Redirect path='/' exact to='/login' /> */}
+            <Redirect path='/' exact to='/login' />
             <Route exact path='/' component={<h1>asd</h1>}></Route>
             <Route
               exact
