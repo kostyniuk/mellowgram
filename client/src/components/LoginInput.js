@@ -17,12 +17,11 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
           <br />
           <input
             type='text'
-            autoComplete='off'
-            value={form.username}
             className='form-control'
             name='username'
             id='txt'
             aria-describedby='helpId'
+            value={form.username}
             onChange={changeHandler}
           />
         </div>
@@ -33,8 +32,8 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
             type='password'
             className='form-control'
             name='password'
-            value={form.password}
             id='txt'
+            value={form.password}
             onChange={changeHandler}
           />
         </div>
@@ -43,7 +42,7 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
         </a>
         <br />
         <button type='button' className='btn' onClick={submitHandler}>
-          <a href='#'>Login</a>
+          <a>Login</a>
         </button>
         {err && <h4 className='fp login-error'>{err}</h4>}
         <hr />
