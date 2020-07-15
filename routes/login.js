@@ -14,7 +14,12 @@ router.get('/failure', (req, res, next) => {
 
 router.get('/success', (req, res, next) => {
   console.log(req.session);
-  res.json({ success: true, username: req.session.username });
+  console.log(req.user);
+  res.redirect('/api/login/whoami')
 });
+
+router.get('/whoami', (req, res, next) => {
+  res.json({ success: true, username: req.user.username });
+})
 
 module.exports = router;
