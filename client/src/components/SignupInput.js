@@ -1,8 +1,7 @@
 import React from 'react';
-import Signup from '../pages/Signup';
 import '../styles/loginInput.css';
 
-const SignupInput = () => {
+const SignupInput = ({ err, form, changeHandler, submitHandler }) => {
   return (
     <div className='containerInput'>
       <div className='image'>
@@ -30,7 +29,7 @@ const SignupInput = () => {
             </i>
           </div>
         </div>
-        <span >OR</span>
+        <span>OR</span>
         <div className='form-group form-group-signup'>
           <label>Email</label>
           <br />
@@ -40,27 +39,51 @@ const SignupInput = () => {
             name='email'
             id='txt'
             aria-describedby='helpId'
+            value={form.email}
+            onChange={changeHandler}
           />
         </div>
         <div className='form-group'>
           <label>Full Name</label>
           <br />
-          <input type='text' className='form-control' name='fullName' id='txt' />
+          <input
+            type='text'
+            className='form-control'
+            name='fullName'
+            id='txt'
+            value={form.fullName}
+            onChange={changeHandler}
+          />
         </div>
         <div className='form-group'>
           <label>Username</label>
           <br />
-          <input type='text' className='form-control' name='userName' id='txt' />
+          <input
+            type='text'
+            className='form-control'
+            name='username'
+            id='txt'
+            value={form.username}
+            onChange={changeHandler}
+          />
         </div>
         <div className='form-group'>
           <label>Password</label>
           <br />
-          <input type='text' className='form-control' name='password' id='txt' />
+          <input
+            type='password'
+            className='form-control'
+            name='password'
+            id='txt'
+            value={form.password}
+            onChange={changeHandler}
+          />
         </div>
- 
-        <button type='button' className='btn'>
-          <a href='index.html'>Sign up</a>
+
+        <button type='button' className='btn' onClick={submitHandler}>
+          <a>Sign up</a>
         </button>
+        {err && <h4 className='fp login-error'>{err}</h4>}
         <div className='signup signup-signup'>
           Have an account? &#8203;
           <a href='/login'>Log in</a>

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 import useFetch from '../hooks/useFetch';
 
 import LoginInput from '../components/LoginInput';
 import Header from '../components/Header';
 
 const Login = () => {
+  const history = useHistory();
+
   const [form, setForm] = useState({ username: '', password: '' });
-  const [err, setErr] = useState(null);
 
   const { loading, error, request } = useFetch();
 
@@ -28,6 +31,10 @@ const Login = () => {
       },
       body: JSON.stringify(form),
     });
+
+    if (responce.success) {
+      return history.push(`/${responce.username}`);
+    }
 
     console.log({ responce });
   };
