@@ -21,6 +21,8 @@ const App = () => {
   const { info, loading } = useAuth();
   console.log({ info, loading });
 
+  if (loading) return <div></div>;
+
   if (info.isAuthenticated) {
     return (
       <Router>
