@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import '../styles/header.css';
 
-import { TextField, InputAdornment, withStyles } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+import AsyncSelect from '../components/AsyncSelect';
 
 const Hamburger = ({ handler }) => {
   return (
@@ -17,6 +17,7 @@ const Hamburger = ({ handler }) => {
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('');
 
   const handleHamburger = () => {
     setOpen((prev) => !prev);
@@ -29,14 +30,16 @@ const Header = () => {
     return;
   };
 
-  const StyledTextField = withStyles({
-    root: {
-      background: '#ebe6e7',
-      borderRadius: 3,
-      border: 0,
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    },
-  })(TextField);
+  const handleChange = (e) => {
+    setSelectedValue(e.value);
+  };
+
+  // if (selectedValue) {
+  //   return <Redirect to={`${selectedValue}`} />;
+  // }
+
+  console.log({ selectedValue });
+
 
   return (
     <div>
@@ -49,19 +52,7 @@ const Header = () => {
         </div>
         <ul className='nav-search'>
           <li className='nav-item search-field'>
-            <StyledTextField
-              onKeyPress={searchHandler}
-              id='input-with-icon-textfield'
-              variant='outlined'
-              placeholder='Search'
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <AsyncSelect handler={handleChange} selectedValue={selectedValue} />
           </li>
         </ul>
         <ul className={open ? 'nav-items show' : 'nav-items'}>
