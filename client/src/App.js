@@ -52,7 +52,6 @@ const App = () => {
         <div className='container'>
           <Switch>
             <Redirect path='/' exact to='/login' />
-            <Route exact path='/' component={<h1>asd</h1>}></Route>
             <Route
               exact
               path='/signup'
