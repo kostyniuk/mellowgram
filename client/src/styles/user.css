@@ -21,18 +21,17 @@
 .card[data-state='#about'] .card-main {
   padding-top: 0;
 }
-/* .card[data-state='#contact'] {
-  height: 450px;
+.card[data-state='#contact'] {
+  height: 430px;
 }
-.card[data-state='#experience'] {
+/* .card[data-state='#experience'] {
   height: 450px;
 } */
 .card.is-active .card-header {
   height: 80px;
 }
 .card.is-active .card-cover {
-  height: 100px;
-  top: -50px;
+  height: 90px;
 }
 .card.is-active .card-avatar {
   transform: none;
@@ -47,14 +46,19 @@
   transform: none;
 }
 .card.is-active .card-fullname {
-  bottom: 18px;
+  bottom: 25px;
   font-size: 19px;
 }
 .card.is-active .card-jobtitle {
-  bottom: 16px;
+  bottom: 10px;
   letter-spacing: 1px;
   font-size: 10px;
 }
+
+.svg-middle {
+  margin-top: 130px;
+}
+
 .card-header {
   position: relative;
   display: flex;
@@ -63,6 +67,11 @@
   width: 100%;
   transition: 0.3s;
 }
+
+.card-contact-center {
+  margin-top: 20px;
+}
+
 .card-header * {
   transition: 0.3s;
 }
@@ -124,22 +133,25 @@
   color: #000;
 }
 .card-content {
+  display: flex;
+  flex-direction: column;
   padding: 20px;
-  height: 80%;
 }
 .card-desc {
+  position: absolute;
   line-height: 1.6;
   color: #636b6f;
   font-size: 14px;
   margin: 0;
   text-align: left;
-  margin-top: 50px;
+  margin-top:  45px;
   font-weight: 400;
   font-family: 'DM Sans', sans-serif;
   word-wrap: break-word;
+  padding-right: 5px;
 }
 .card-social {
-  margin-top: -35px;
+  margin-top: 50px;
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -212,6 +224,8 @@
 .card-timeline {
   margin-top: 30px;
   position: relative;
+  height: 350px;
+  overflow-y: auto;
 }
 .card-timeline:after {
   background: linear-gradient(
@@ -275,13 +289,14 @@
   font-family: 'DM Sans', sans-serif;
   line-height: 1.6;
   cursor: pointer;
+  height: 40px;
 }
 .card-contact + .card-contact {
   margin-top: 16px;
 }
 .card-contact svg {
   flex-shrink: 0;
-  width: 30px;
+  width: 40px;
   min-height: 34px;
   margin-right: 12px;
   transition: 0.3s;
@@ -291,12 +306,7 @@
 .contact-me {
   border: 0;
   outline: none;
-  background: linear-gradient(
-    to right,
-    rgba(83, 200, 239, 0.8) 0%,
-    rgba(81, 106, 204, 0.8) 96%
-  );
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+
   color: #fff;
   padding: 12px 16px;
   width: 100%;
@@ -306,5 +316,8 @@
   font-size: 14px;
   font-weight: 500;
   font-family: 'Jost', sans-serif;
-  transition: 0.3s;
+}
+
+.contact-me:hover {
+  color: black;
 }

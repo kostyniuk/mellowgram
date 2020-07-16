@@ -34,12 +34,12 @@ const UserInfo = () => {
     if (targetSection === '#experience') {
       setSectionExperience((prev) => (prev += ' is-active'));
       setBtnExprerience('is-active');
-    } else if(targetSection ==='#about') {
-      setSectionAbout((prev) => (prev += ' is-active'))
-      setBtnAbout('is-active')
+    } else if (targetSection === '#about') {
+      setSectionAbout((prev) => (prev += ' is-active'));
+      setBtnAbout('is-active');
     } else {
-      setSectionContact((prev) => (prev += ' is-active'))
-      setBtnContact('is-active')
+      setSectionContact((prev) => (prev += ' is-active'));
+      setBtnContact('is-active');
     }
   };
 
@@ -49,20 +49,21 @@ const UserInfo = () => {
         <div class='card-cover'></div>
         <img
           class='card-avatar'
-          src='https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80'
+          src='/api/public/uploads/me_1.jpg'
           alt='avatar'
         />
-        <h1 class='card-fullname'>William Rocheald</h1>
-        <h2 class='card-jobtitle'>UI Developer</h2>
+        <h1 class='card-fullname'>Alex Kostyniuk</h1>
+        <h2 class='card-jobtitle'>JS Developer</h2>
       </div>
       <div class='card-main'>
         <div class={sectionAbout} id='about'>
           <div class='card-content'>
             <div class='card-subtitle'>ABOUT</div>
             <p class='card-desc'>
-              Whatever tattooed stumptown art party sriracha gentrify hashtag
-              intelligentsia
-              readymazcsaaaaaaaaaaaaaaaaaaaaacascsasacsacsacacscsacsccc
+              {/* Kyivs
+              20adsssss sssssssssss sssss */}
+              asdd dddddd dddd dd dddddddd ddd asd dddd dfas sfd sf sfsd sdf
+              sfsf fs f
             </p>
           </div>
           <div class='card-social'>
@@ -126,6 +127,38 @@ const UserInfo = () => {
                   Responsible for the encomposing brand expreience.
                 </div>
               </div>
+              <div class='card-item' data-year='2021'>
+                <div class='card-item-title'>
+                  Full-Stack Developer at <span>CodePen</span>
+                </div>
+                <div class='card-item-desc'>
+                  Responsible for the encomposing brand expreience.
+                </div>
+              </div>
+              <div class='card-item' data-year='2020'>
+                <div class='card-item-title'>
+                  Full-Stack Developer at <span>CodePen</span>
+                </div>
+                <div class='card-item-desc'>
+                  Responsible for the encomposing brand expreience.
+                </div>
+              </div>
+              <div class='card-item' data-year=''>
+                <div class='card-item-title'>
+                  Full-Stack Developer at <span>CodePen</span>
+                </div>
+                <div class='card-item-desc'>
+                  Responsible for the encomposing brand expreience.
+                </div>
+              </div>
+              <div class='card-item' data-year='2020'>
+                <div class='card-item-title'>
+                  Full-Stack Developer at <span>CodePen</span>
+                </div>
+                <div class='card-item-desc'>
+                  Responsible for the encomposing brand expreience.
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -146,10 +179,11 @@ const UserInfo = () => {
                   <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' />
                   <circle cx='12' cy='10' r='3' />
                 </svg>
-                Algonquin Rd, Three Oaks Vintage, MI, 49128
+                Algonquin Rd, Three Oaks Vintage
               </div>
-              <div class='card-contact'>
+              <div class='card-contact card-contact-center'>
                 <svg
+                  className='svg-middle'
                   xmlns='http://www.w3.org/2000/svg'
                   viewbox='0 0 24 24'
                   fill='none'
@@ -177,7 +211,7 @@ const UserInfo = () => {
                 </svg>
                 william@rocheald.com
               </div>
-              <button class='contact-me'>WORK TOGETHER</button>
+                <button className='contact-me'>WORK TOGETHER</button>
             </div>
           </div>
         </div>
@@ -190,10 +224,18 @@ const UserInfo = () => {
           >
             ABOUT
           </button>
-          <button className={btnExprerience} data-section='#experience' onClick={handleButtonClick}>
+          <button
+            className={btnExprerience}
+            data-section='#experience'
+            onClick={handleButtonClick}
+          >
             EXPERIENCE
           </button>
-          <button className={btnContact} data-section='#contact' onClick={handleButtonClick}>
+          <button
+            className={btnContact}
+            data-section='#contact'
+            onClick={handleButtonClick}
+          >
             CONTACT
           </button>
         </div>
