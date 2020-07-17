@@ -28,6 +28,7 @@ const AsyncSelectCustom = ({ handler }) => {
     <AsyncSelect
       placeholder='Search...'
       cacheOptions
+      noOptionsMessage={() => 'No such user'}
       loadOptions={promiseOptions}
       onChange={handler}
     />
