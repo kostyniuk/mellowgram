@@ -2,8 +2,19 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import '../styles/header.css';
+import Select from '../components/SettingsDropdown';
 
 import AsyncSelect from '../components/AsyncSelect';
+
+const categoryOptions = [
+  { text: 'Business', value: 'business', selected: false },
+  { text: 'Celebrity', value: 'celebrity', selected: false },
+  { text: 'Culture', value: 'culture', selected: false },
+  { text: 'Entertainment', value: 'entertainment', selected: false },
+  { text: 'Games', value: 'games', selected: false },
+  { text: 'Lifestyle', value: 'lifestyle', selected: false },
+  { text: 'Tech', value: 'tech', selected: false },
+];
 
 const Hamburger = ({ handler }) => {
   return (
@@ -40,7 +51,6 @@ const Header = () => {
 
   console.log({ selectedValue });
 
-
   return (
     <div>
       <nav className='header-nav'>
@@ -68,9 +78,16 @@ const Header = () => {
             </a>
           </li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
-            <a className='a-header' href='/signup'>
-              Sign up
-            </a>
+            {/* <a className='a-header' href='/signup'> */}
+              {/* Sign up */} */}
+              {/* <i class="fa fa-cog" aria-hidden="true"></i> */}
+              <Select
+                id='settings'
+                label='Settings'
+                defaultVal='Settings'
+                options={categoryOptions}
+              />
+            {/* </a> */}
           </li>
         </ul>
       </nav>
