@@ -13,7 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: url(dark_bg.jpg);
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   background-size: cover;
   filter: blur(30%);
   color: var(--text_light);
