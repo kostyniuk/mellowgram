@@ -3,6 +3,7 @@ import React, { Component, useState, useRef } from 'react';
 import AsyncSelect from 'react-select/async';
 
 import useFetch from '../hooks/useFetch';
+import { diskStorage } from 'multer';
 
 const AsyncSelectCustom = ({ handler }) => {
   const { request } = useFetch();

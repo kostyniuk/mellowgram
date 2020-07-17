@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'iCiel Gotham';
+    src: url('iCielGotham-Medium.eot');
+    src: url('iCielGotham-Medium.eot?#iefix') format('embedded-opentype'),
+        url('iCielGotham-Medium.woff2') format('woff2'),
+        url('iCielGotham-Medium.woff') format('woff'),
+        url('iCielGotham-Medium.svg#iCielGotham-Medium') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
