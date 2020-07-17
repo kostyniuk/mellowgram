@@ -218,7 +218,7 @@
 .card-timeline {
   margin-top: 30px;
   position: relative;
-  height: 350px;
+  height: 300px;
   overflow-y: auto;
 }
 .card-timeline:after {

@@ -1,8 +1,33 @@
 import React, { useState } from 'react';
 
 import '../styles/user.css';
+import Exprerience from './User/Experience';
 
 const UserInfo = () => {
+
+  const experience = [
+    {
+      id: 1,
+      year: 2021,
+      company: 'Spotify',
+      profession: 'JS Developer',
+      achievements: 'Developed new versions',
+    },
+    {
+      id: 2,
+      year: 2022,
+      company: 'Spotify',
+      profession: 'JS Developer',
+      achievements: 'New products',
+    },{
+      id: 3,
+      year: 2023,
+      company: 'Spotify',
+      profession: 'JS Developer',
+      achievements: 'New app',
+    },
+  ];
+
   const [btnAbout, setBtnAbout] = useState('is-active');
   const [btnExprerience, setBtnExprerience] = useState('');
   const [btnContact, setBtnContact] = useState('');
@@ -57,8 +82,7 @@ const UserInfo = () => {
           <div class='card-content'>
             <div class='card-subtitle'>ABOUT</div>
             <p class='card-desc'>
-              Kyivs
-              20adsssss sssssssssss sssss
+              Kyiv, 20, football and the NBA lover 🔥
               {/* asdd dddddd dddd dd dddddddd ddd asd dddd dfas sfd sf sfsd sdf
               sfsf fs f */}
             </p>
@@ -91,72 +115,8 @@ const UserInfo = () => {
         <div class={sectionExperience} id='experience'>
           <div class='card-content'>
             <div class='card-subtitle'>WORK EXPERIENCE</div>
-            <div class='card-timeline'>
-              <div class='card-item' data-year='2014'>
-                <div class='card-item-title'>
-                  Front-end Developer at <span>JotForm</span>
-                </div>
-                <div class='card-item-desc'>
-                  Disrupt stumptown retro everyday carry unicorn.
-                </div>
-              </div>
-              <div class='card-item' data-year='2016'>
-                <div class='card-item-title'>
-                  UI Developer at <span>GitHub</span>
-                </div>
-                <div class='card-item-desc'>
-                  Developed new conversion funnels and disrupt.
-                </div>
-              </div>
-              <div class='card-item' data-year='2018'>
-                <div class='card-item-title'>
-                  Illustrator at <span>Google</span>
-                </div>
-                <div class='card-item-desc'>
-                  Onboarding illustrations for App.
-                </div>
-              </div>
-              <div class='card-item' data-year='2020'>
-                <div class='card-item-title'>
-                  Full-Stack Developer at <span>CodePen</span>
-                </div>
-                <div class='card-item-desc'>
-                  Responsible for the encomposing brand expreience.
-                </div>
-              </div>
-              <div class='card-item' data-year='2021'>
-                <div class='card-item-title'>
-                  Full-Stack Developer at <span>CodePen</span>
-                </div>
-                <div class='card-item-desc'>
-                  Responsible for the encomposing brand expreience.
-                </div>
-              </div>
-              <div class='card-item' data-year='2020'>
-                <div class='card-item-title'>
-                  Full-Stack Developer at <span>CodePen</span>
-                </div>
-                <div class='card-item-desc'>
-                  Responsible for the encomposing brand expreience.
-                </div>
-              </div>
-              <div class='card-item' data-year=''>
-                <div class='card-item-title'>
-                  Full-Stack Developer at <span>CodePen</span>
-                </div>
-                <div class='card-item-desc'>
-                  Responsible for the encomposing brand expreience.
-                </div>
-              </div>
-              <div class='card-item' data-year='2020'>
-                <div class='card-item-title'>
-                  Full-Stack Developer at <span>CodePen</span>
-                </div>
-                <div class='card-item-desc'>
-                  Responsible for the encomposing brand expreience.
-                </div>
-              </div>
-            </div>
+
+            <Exprerience experience={experience} />
           </div>
         </div>
         <div class={sectionContact} id='contact'>
@@ -176,7 +136,7 @@ const UserInfo = () => {
                   <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' />
                   <circle cx='12' cy='10' r='3' />
                 </svg>
-                Algonquin Rd, Three Oaks Vintage
+                Kyiv, Ukraine
               </div>
               <div class='card-contact card-contact-center'>
                 <svg
@@ -206,13 +166,13 @@ const UserInfo = () => {
                   <path d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z' />
                   <path d='M22 6l-10 7L2 6' />
                 </svg>
-                william@rocheald.com
+                kostyniuk7@gmail.com
               </div>
-                <button className='contact-me'>WORK TOGETHER</button>
+              <button className='contact-me'>WORK TOGETHER</button>
             </div>
           </div>
         </div>
-        <hr className='user-hr'/>
+        <hr className='user-hr' />
         <div class='card-buttons'>
           <button
             data-section='#about'
