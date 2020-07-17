@@ -7,7 +7,7 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
     <div className='containerInput'>
       <div className='image'>
         <h1>
-          Welcome To <span>Mellowgram</span>
+          Welcome To <span className='welcome'>Mellowgram</span>
         </h1>
       </div>
       <div className='content'>
