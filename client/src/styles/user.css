@@ -140,7 +140,7 @@
   font-size: 14px;
   margin: 0;
   text-align: left;
-  margin-top:  45px;
+  margin-top: 45px;
   font-weight: 400;
   font-family: 'DM Sans', sans-serif;
   word-wrap: break-word;
@@ -148,6 +148,7 @@
 }
 .card-social {
   margin-top: 50px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   padding: 0 20px;
@@ -316,4 +317,8 @@
 
 .contact-me:hover {
   color: black;
+}
+
+.user-hr {
+  margin-top: 0px;
 }

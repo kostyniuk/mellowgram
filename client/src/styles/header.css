@@ -9,6 +9,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'iCiel Gotham', sans-serif, 'Franklin Gothic Medium',
+    'Arial Narrow', Arial, sans-serif;
 }
 nav {
   display: flex;
@@ -52,16 +54,12 @@ nav {
 
 .logo a {
   margin: auto;
-  font-style: oblique;
   font-size: 1.2em;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
-    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 a {
   color: white;
   text-decoration: none;
-  font-family: arial;
   font-weight: 600;
 }
 
@@ -143,5 +141,4 @@ p {
   transform: translateY(-50%);
   text-align: center;
   font-size: 30px;
-  font-family: Arial;
 }
