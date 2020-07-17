@@ -13,14 +13,11 @@ const UserInfo = () => {
   const [dataState, setDataState] = useState('#about');
 
   const handleButtonClick = (e) => {
-    console.log(e.target);
     const targetSection = e.target.getAttribute('data-section');
-    console.log(targetSection);
     if (targetSection !== '#about') {
       setCardClasses((prev) => (prev += ' is-active'));
     } else {
       setCardClasses((prev) => {
-        console.log({ prev });
         return prev.replace(/is-active/g, ' ');
       });
     }
@@ -60,10 +57,10 @@ const UserInfo = () => {
           <div class='card-content'>
             <div class='card-subtitle'>ABOUT</div>
             <p class='card-desc'>
-              {/* Kyivs
-              20adsssss sssssssssss sssss */}
-              asdd dddddd dddd dd dddddddd ddd asd dddd dfas sfd sf sfsd sdf
-              sfsf fs f
+              Kyivs
+              20adsssss sssssssssss sssss
+              {/* asdd dddddd dddd dd dddddddd ddd asd dddd dfas sfd sf sfsd sdf
+              sfsf fs f */}
             </p>
           </div>
           <div class='card-social'>
