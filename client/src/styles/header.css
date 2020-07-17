@@ -113,8 +113,17 @@ a:hover {
   a {
     font-size: 25px;
   }
+
+  .nav-search {
+    margin: auto 10px;
+  }
+
   .nav-item {
-    opacity: 0;
+    opacity: 100%;
+  }
+
+  .search-field {
+    width: 75%;
   }
 
   .nav-item:nth-child(1) {
