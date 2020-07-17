@@ -1,0 +1,151 @@
+:root {
+  --bg_color_light: #ebe6e7;
+  --bg_color_dark: #181a19;
+  --text_light: #ffffff;
+  --text_dark: #000;
+  --cream: hsl(348, 11%, 91%);
+  --blue: #3498db;
+  --green: rgba(99, 250, 39, 0.966);
+}
+
+select {
+  display: none;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+.dropdown {
+  border-radius: 6px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  float: left;
+  height: 42px;
+  line-height: 40px;
+  outline: none;
+  padding-left: 14px;
+  padding-right: 36px;
+  position: relative;
+  text-align: left !important;
+  transition: all 0.2s ease-in-out;
+  user-select: none;
+  white-space: nowrap;
+  width: auto;
+  min-width: 100px;
+  margin-top: 25px;
+}
+
+
+
+.dropdown:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  top: 50%;
+  right: 12px;
+  transform: origin(50% 20%);
+  transition: all 200ms ease-in-out;
+  margin-top: -2px;
+  pointer-events: none;
+}
+.dropdown.open:after {
+  border-top-color: #2e9fff;
+  transform: rotate(-180deg);
+  transform: origin(100% 120%);
+}
+.dropdown.open .list {
+  color: #fff;
+  background: var(--bg_color_dark);
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.dropdown.open .option {
+  cursor: pointer;
+}
+.dropdown.wide {
+  width: 100%;
+}
+.dropdown.wide .list {
+  left: 0 !important;
+  right: 0 !important;
+}
+.dropdown .current:hover {
+  color: var(--green);
+}
+.dropdown .list {
+  box-sizing: border-box;
+  transition: all 250ms cubic-bezier(0.25, 0, 0.25, 1.75), opacity 100ms linear;
+  transform: scale(0.75);
+  transform-origin: 0% 0;
+  box-shadow: 0 0 0 1px #d8dfea;
+  background-color: #ffffff;
+  border-radius: 6px;
+  margin-top: 4px;
+  padding: 3px 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  z-index: 999;
+}
+.dropdown .list:hover .option:not(:hover) {
+  background-color: transparent;
+}
+.dropdown .option {
+  cursor: default;
+  font-weight: 400;
+  line-height: 40px;
+  outline: none;
+  padding-left: 18px;
+  padding-right: 29px;
+  text-align: left;
+  transition: all 0.2s;
+}
+.dropdown .option.selected,
+.dropdown .option:hover,
+.dropdown .option:focus {
+  color: var(--green);
+  background: var(--text_dark);
+}
+.dropdown .option.selected {
+  font-weight: 600;
+}
+.dropdown .option.selected:focus {
+  background: #17203a;
+}
+.dropdown .option:after {
+  content: '';
+  position: absolute;
+  background: rgba(216, 223, 234, 0.7);
+  width: 85%;
+  height: 1px;
+  left: 7.5%;
+  z-index: 9;
+}
+
+.container .title {
+  display: flex;
+  color: #748793;
+  font-size: 2.5rem;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+.container .title img {
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 6rem;
+  max-height: 3.75rem;
+}

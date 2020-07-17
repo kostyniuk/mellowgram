@@ -4,7 +4,9 @@
   --text_light: #ffffff;
   --text_dark: #000;
   --cream: rgba(247, 166, 166, 0.8);
+  --green: rgba(99, 250, 39, 0.966);
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -16,7 +18,7 @@ nav {
   display: flex;
   height: 50px;
   background-color: var(--cream);
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+  background: var(--bg_color_dark);
   position: relative;
 }
 
@@ -64,7 +66,7 @@ a {
 }
 
 a:hover {
-  color: #000 !important;
+  color: var(--green);
   transition: color 0.4s ease-in-out;
 }
 
@@ -73,6 +75,11 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
+
+  .logo a {
+    margin: 8px;
+  }
+
   .hamburger {
     position: absolute;
     right: 5%;
@@ -115,7 +122,7 @@ a:hover {
   }
 
   .nav-search {
-    margin: auto 10px;
+    margin: 10px 20px;
   }
 
   .nav-item {
