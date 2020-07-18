@@ -19,8 +19,6 @@ import NotFound from './pages/NotFound';
 
 const App = () => {
   const { info, loading } = useAuth();
-  console.log({ info, loading });
-
   if (loading) return <div></div>;
 
   if (info.isAuthenticated) {
@@ -73,6 +71,7 @@ const App = () => {
               path='/:username'
               render={(props) => <User {...props} />}
             />
+            <Route render={(props) => <NotFound {...props} />} />
           </Switch>
         </div>
       </Router>
