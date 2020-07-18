@@ -3,9 +3,9 @@ import ExpSingle from './ExpSingle';
 
 const Experience = ({ experience }) => {
   return (
-    <div class='card-timeline'>
+    <div className='card-timeline'>
       {experience.map((single) => {
-        return <ExpSingle key='id' params={single} />;
+        return <ExpSingle key={single.id} params={single} />;
       })}
     </div>
   );

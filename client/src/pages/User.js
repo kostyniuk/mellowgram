@@ -2,11 +2,11 @@ import React from 'react';
 
 import '../styles/user.css';
 import Header from '../components/Header';
-import UserInfo from '../components/UserInfo';
+import UserInfo from '../components/User/UserInfo';
 
-const User = ({ match }) => {
-  const { username } = match.params;
-
+const User = ({ authorized }) => {
+  // const { username } = match.params;
+  console.log({authorized})
   return (
     <div>
       <div>

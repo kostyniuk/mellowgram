@@ -19,13 +19,18 @@ const Select = ({ id, label, defaultVal, options }) => {
     setSelect(opt.text);
   };
 
+  
   return (
     <div className='fieldset'>
       <div className='form-element'>
         <span>
           <select id={id}>
-            {options.map((option) => (
-              <option value={option.value} data-display-text={option.display}>
+            {options.map((option, i) => (
+              <option
+                value={option.value}
+                key={i}
+                data-display-text={option.display}
+              >
                 {option.text}
               </option>
             ))}
@@ -47,13 +52,14 @@ const Dropdown = ({ options, isOpen, toggleOpen, selected, setSelected }) => (
   <div
     className={`dropdown${isOpen ? ' open' : ''}`}
     onClick={toggleOpen}
-    tabindex='0'
+    tabIndex='0'
   >
-    <span class='current'>{selected}</span>
-    <div class='list'>
+    <span className='current'>{selected}</span>
+    <div className='list'>
       <ul>
-        {options.map((option) => (
+        {options.map((option, i) => (
           <li
+            key={i}
             className={`option${option.text === selected ? ' selected' : ''}`}
             data-value={option.value}
             data-display-text={option.display}

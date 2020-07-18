@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import '../styles/user.css';
-import Exprerience from './User/Experience';
+import '..//../styles/user.css';
+import Exprerience from './Experience';
 
 const UserInfo = () => {
 
@@ -66,28 +66,28 @@ const UserInfo = () => {
   };
 
   return (
-    <div class={cardClasses} data-state={dataState}>
-      <div class='card-header'>
-        <div class='card-cover'></div>
+    <div className={cardClasses} data-state={dataState}>
+      <div className='card-header'>
+        <div className='card-cover'></div>
         <img
-          class='card-avatar'
+          className='card-avatar'
           src='/api/public/uploads/me_1.jpg'
           alt='avatar'
         />
-        <h1 class='card-fullname'>Alex Kostyniuk</h1>
-        <h2 class='card-jobtitle'>JS Developer</h2>
+        <h1 className='card-fullname'>Alex Kostyniuk</h1>
+        <h2 className='card-jobtitle'>JS Developer</h2>
       </div>
-      <div class='card-main'>
-        <div class={sectionAbout} id='about'>
-          <div class='card-content'>
-            <div class='card-subtitle'>ABOUT</div>
-            <p class='card-desc'>
+      <div className='card-main'>
+        <div className={sectionAbout} id='about'>
+          <div className='card-content'>
+            <div className='card-subtitle'>ABOUT</div>
+            <p className='card-desc'>
               Kyiv, 20, football and the NBA lover 🔥
               {/* asdd dddddd dddd dd dddddddd ddd asd dddd dfas sfd sf sfsd sdf
               sfsf fs f */}
             </p>
           </div>
-          <div class='card-social'>
+          <div className='card-social'>
             <a href='#'>
               <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
                 <path d='M15.997 3.985h2.191V.169C17.81.117 16.51 0 14.996 0c-3.159 0-5.323 1.987-5.323 5.639V9H6.187v4.266h3.486V24h4.274V13.267h3.345l.531-4.266h-3.877V6.062c.001-1.233.333-2.077 2.051-2.077z' />
@@ -112,18 +112,18 @@ const UserInfo = () => {
             </a>
           </div>
         </div>
-        <div class={sectionExperience} id='experience'>
-          <div class='card-content'>
-            <div class='card-subtitle'>WORK EXPERIENCE</div>
+        <div className={sectionExperience} id='experience'>
+          <div className='card-content'>
+            <div className='card-subtitle'>WORK EXPERIENCE</div>
 
             <Exprerience experience={experience} />
           </div>
         </div>
-        <div class={sectionContact} id='contact'>
-          <div class='card-content'>
-            <div class='card-subtitle'>CONTACT</div>
-            <div class='card-contact-wrapper'>
-              <div class='card-contact'>
+        <div className={sectionContact} id='contact'>
+          <div className='card-content'>
+            <div className='card-subtitle'>CONTACT</div>
+            <div className='card-contact-wrapper'>
+              <div className='card-contact'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
@@ -138,7 +138,7 @@ const UserInfo = () => {
                 </svg>
                 Kyiv, Ukraine
               </div>
-              <div class='card-contact card-contact-center'>
+              <div className='card-contact card-contact-center'>
                 <svg
                   className='svg-middle'
                   xmlns='http://www.w3.org/2000/svg'
@@ -153,7 +153,7 @@ const UserInfo = () => {
                 </svg>
                 (269) 756-9809
               </div>
-              <div class='card-contact'>
+              <div className='card-contact'>
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   viewBox='0 0 24 24'
@@ -173,10 +173,10 @@ const UserInfo = () => {
           </div>
         </div>
         <hr className='user-hr' />
-        <div class='card-buttons'>
+        <div className='card-buttons'>
           <button
             data-section='#about'
-            class={btnAbout}
+            className={btnAbout}
             onClick={handleButtonClick}
           >
             ABOUT

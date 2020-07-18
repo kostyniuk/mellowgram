@@ -39,7 +39,7 @@ const App = () => {
             <Route
               exact
               path='/:username'
-              render={(props) => <User {...props} />}
+              render={(props) => <User {...props} authorized={info} />}
             />
             <Route render={(props) => <NotFound {...props} />} />
           </Switch>
