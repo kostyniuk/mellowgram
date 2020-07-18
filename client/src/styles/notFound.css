@@ -1,8 +1,28 @@
+:root {
+  --bg_color_light: #ebe6e7;
+  --bg_color_dark: #181a19;
+  --text_light: #ffffff;
+  --text_dark: #000;
+  --cream: hsl(348, 11%, 91%);
+  --insta: hsl(348, 35%, 74%);
+  --facebook: #6bacd8cc;
+  --green: rgba(99, 250, 39, 0.966);
+}
+
 .not-available {
   padding: 100px;
-  top: 50%;
+  width: 120%;
+  top: 18.5%;
   left: 50%;
   position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: black;
+  transform: translate(-45%, -50%);
+  background-color: var(--bg_color_dark);
+}
+
+@media screen and (max-width: 768px) {
+
+  .not-available {
+    top: 35.5%
+  }
+
 }
