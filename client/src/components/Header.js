@@ -7,13 +7,8 @@ import Select from '../components/SettingsDropdown';
 import AsyncSelect from '../components/AsyncSelect';
 
 const categoryOptions = [
-  { text: 'Business', value: 'business', selected: false },
-  { text: 'Celebrity', value: 'celebrity', selected: false },
-  { text: 'Culture', value: 'culture', selected: false },
-  { text: 'Entertainment', value: 'entertainment', selected: false },
-  { text: 'Games', value: 'games', selected: false },
-  { text: 'Lifestyle', value: 'lifestyle', selected: false },
-  { text: 'Tech', value: 'tech', selected: false },
+  { text: 'Account', value: 'account', selected: false },
+  { text: 'Log Out', value: 'logout', selected: false },
 ];
 
 const Hamburger = ({ handler }) => {

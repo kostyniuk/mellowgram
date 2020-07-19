@@ -105,7 +105,7 @@ select {
 .dropdown .option {
   cursor: default;
   font-weight: 400;
-  line-height: 40px;
+  line-height: 30px;
   outline: none;
   padding-left: 18px;
   padding-right: 29px;
