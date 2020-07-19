@@ -21,8 +21,9 @@ router.get('/:nickname', async (req, res, next) => {
 
     const info = await personInfoById(id, res);
 
-    res.json({ nickname, info });
+    res.json({ success: true, nickname, info });
   } catch (e) {
+    res.json({ success: false, nickname });
     console.error(e);
   }
 });
