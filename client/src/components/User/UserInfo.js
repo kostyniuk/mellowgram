@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import '..//../styles/user.css';
 import Exprerience from './Experience';
 
-const UserInfo = () => {
+const UserInfo = ({info}) => {
 
   const experience = [
     {
@@ -65,16 +65,18 @@ const UserInfo = () => {
     }
   };
 
+  if (!info) return <div></div>
+
   return (
     <div className={cardClasses} data-state={dataState}>
       <div className='card-header'>
         <div className='card-cover'></div>
         <img
           className='card-avatar'
-          src='/api/public/uploads/me_1.jpg'
+          src={info.picture}
           alt='avatar'
         />
-        <h1 className='card-fullname'>Alex Kostyniuk</h1>
+        <h1 className='card-fullname'>{info.fullname}</h1>
         <h2 className='card-jobtitle'>JS Developer</h2>
       </div>
       <div className='card-main'>
@@ -82,9 +84,7 @@ const UserInfo = () => {
           <div className='card-content'>
             <div className='card-subtitle'>ABOUT</div>
             <p className='card-desc'>
-              Kyiv, 20, football and the NBA lover 🔥
-              {/* asdd dddddd dddd dd dddddddd ddd asd dddd dfas sfd sf sfsd sdf
-              sfsf fs f */}
+              {info.bio || 'The user hasn\'t provided bio information'}
             </p>
           </div>
           <div className='card-social'>
