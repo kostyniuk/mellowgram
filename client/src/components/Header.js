@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import '../styles/header.css';
 import Select from '../components/SettingsDropdown';
@@ -27,6 +27,8 @@ const Hamburger = ({ handler }) => {
 };
 
 const Header = () => {
+  const history = useHistory();
+
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
 
@@ -45,11 +47,10 @@ const Header = () => {
     setSelectedValue(e.value);
   };
 
-  // if (selectedValue) {
-  //   return <Redirect to={`${selectedValue}`} />;
-  // }
-
-  console.log({ selectedValue });
+  if (selectedValue) {
+    history.push(`/${selectedValue}`);
+    return window.location.reload(true);
+  }
 
   return (
     <div>
@@ -79,14 +80,14 @@ const Header = () => {
           </li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
             {/* <a className='a-header' href='/signup'> */}
-              {/* Sign up */} */}
-              {/* <i class="fa fa-cog" aria-hidden="true"></i> */}
-              <Select
-                id='settings'
-                label='Settings'
-                defaultVal='Settings'
-                options={categoryOptions}
-              />
+            {/* Sign up */} */}
+            {/* <i class="fa fa-cog" aria-hidden="true"></i> */}
+            <Select
+              id='settings'
+              label='Settings'
+              defaultVal='Settings'
+              options={categoryOptions}
+            />
             {/* </a> */}
           </li>
         </ul>

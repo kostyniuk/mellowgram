@@ -19,7 +19,7 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
             type='text'
             className='form-control'
             name='username'
-            id='username'
+            id='txt'
             aria-describedby='helpId'
             value={form.username}
             onChange={changeHandler}
@@ -32,7 +32,7 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
             type='password'
             className='form-control'
             name='password'
-            id='password'
+            id='txt'
             value={form.password}
             onChange={changeHandler}
           />
