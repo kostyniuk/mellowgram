@@ -53,6 +53,7 @@
 }
 
 .card-header {
+  color: var(--bg_color_dark);
   position: relative;
   display: flex;
   height: 200px;
@@ -74,7 +75,11 @@
   position: absolute;
   left: 0;
   will-change: top;
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
+  background: linear-gradient(
+    45deg,
+    rgba(248, 195, 69, 1) 0%,
+    rgba(244, 124, 118, 1) 100%
+  );
   filter: blur(1px);
   transition: 0.5s;
 }
@@ -265,11 +270,11 @@
   font-weight: 500;
   font-size: 14px;
   margin-bottom: 5px;
-  color: var(--text_dark)
+  color: var(--text_dark);
 }
 
 .card-item-title span {
-  color: var(--blue)
+  color: var(--blue);
 }
 .card-item-desc {
   font-size: 13px;
