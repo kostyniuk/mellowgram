@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from './Table';
 
 class SettingsCard extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class SettingsCard extends React.Component {
     };
     this.switchTab = this.switchTab.bind(this);
   }
+
 
   switchTab(index) {
     this.setState({ openTab: index });
@@ -41,10 +43,11 @@ class SettingsCard extends React.Component {
         </div>
         <div className='settings-tab'>
           {openTab === 0 && (
-            <form>
+            <form className='settings-form'>
               <h1>Account overview</h1>
               <div className='settings-overview'>
-                <i>Username</i>
+                <p>Username</p>
+                <Table />
               </div>
             </form>
           )}
