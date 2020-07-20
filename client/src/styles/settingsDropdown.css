@@ -17,7 +17,7 @@ select {
   flex-direction: row;
   align-items: flex-start;
   margin-left: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
 }
 .dropdown {
   border-radius: 6px;

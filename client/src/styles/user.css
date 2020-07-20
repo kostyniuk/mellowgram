@@ -6,6 +6,7 @@
   --text_dark: #000;
   --cream: hsl(348, 11%, 91%);
   --blue: #3498db;
+  --grey: rgb(44, 44, 44);
 }
 .card {
   max-width: 340px;
