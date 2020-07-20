@@ -27,6 +27,22 @@
   width: 30%;
   background-color: var(--bg_color_dark);
 }
+
+.settings-form {
+  padding: 20px;
+  overflow-wrap: break-word;
+  border: none !important;
+  overflow-y: auto;
+}
+
+.settings-form p {
+  margin-top: 0;
+  translate: 0;
+  text-align: left;
+  overflow-wrap: break-word;
+  font-size: inherit;
+}
+
 .settings-container .left-column ul {
   margin: 0;
   list-style-type: none;
@@ -64,7 +80,6 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 .settings-container .settings-tab .input-group {
   width: 220px;
