@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import '../styles/user.css';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import NotFound from './NotFound';
 import UserInfo from '../components/User/UserInfo';
 import useFetch from '../hooks/useFetch';
+
 
 const User = ({ match, authorized }) => {
   const { username } = match.params;
@@ -12,23 +13,27 @@ const User = ({ match, authorized }) => {
 
   const { error, loading, request } = useFetch();
 
-  useEffect(async () => {
+  const parseInfo = async () => {
     const json = await request(`/api/user/${username}`);
     setUserPage(json.info);
-  }, [request]);
+  };
 
-  console.log({userPage})
+  useEffect(() => {
+    parseInfo();
+  }, [username]);
 
-  if (userPage === undefined) return <NotFound />
+  console.log({ userPage, authorized, username });
+
+  if (userPage === undefined) return <NotFound />;
 
   if (loading) return <div></div>;
 
   return (
     <div>
       <div>
-        <Header />
+        <Header authorized={authorized}/>
       </div>
-      <UserInfo info={userPage}/>
+      <UserInfo info={userPage} />
     </div>
   );
 };
