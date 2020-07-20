@@ -1,13 +1,13 @@
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 
 import '../styles/notFound.css';
 
-const NotFound = () => {
+const NotFound = ({ authorized }) => {
   return (
     <div className='nf'>
       <div>
-        <Header />
+        <Header authorized={authorized} />
       </div>
       <div className='not-available'>
         <h2> Sorry, this page isn't available.</h2>

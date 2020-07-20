@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SignupInput from '../components/SignupInput';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 import { useHistory } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 
@@ -45,7 +45,7 @@ const Signup = () => {
 
   return (
     <div>
-      <Header />
+      <Header authorized={{isAuthenticated: false}}/>
 
       <SignupInput
         err={error}

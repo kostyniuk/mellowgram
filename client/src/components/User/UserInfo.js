@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import '..//../styles/user.css';
+import '../../styles/user.css';
 import Exprerience from './Experience';
 
 const UserInfo = ({ info }) => {
@@ -132,7 +132,7 @@ const UserInfo = ({ info }) => {
                   <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' />
                   <circle cx='12' cy='10' r='3' />
                 </svg>
-                {info.based_in}
+                {info.based_in || 'Not provided'}
               </div>
               <div className='card-contact card-contact-center'>
                 <svg

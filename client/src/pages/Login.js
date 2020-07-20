@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
 
 import LoginInput from '../components/LoginInput';
-import Header from '../components/Header';
+import Header from '../components/Header/Header';
 
 const Login = () => {
   const history = useHistory();
@@ -13,8 +13,6 @@ const Login = () => {
   const [form, setForm] = useState({ username: '', password: '' });
 
   const { loading, error, request } = useFetch();
-
-  console.log({ loading, error });
 
   const updateStateHandler = (e) => {
     const { name, value } = e.target;
@@ -33,15 +31,14 @@ const Login = () => {
     });
 
     if (responce.success) {
-      return history.push(`/${responce.username}`);
+      history.push(`/`);
+      return window.location.reload(true);
     }
-
-    console.log({ responce });
   };
 
   return (
     <div>
-      <Header />
+      <Header authorized={{ isAuthenticated: false }} />
       <div>
         <LoginInput
           err={error}
