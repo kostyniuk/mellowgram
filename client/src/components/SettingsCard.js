@@ -1,6 +1,8 @@
 import React from 'react';
 import Table from './Table';
 
+import '../styles/table.css';
+
 class SettingsCard extends React.Component {
   constructor(props) {
     super(props);
@@ -9,7 +11,6 @@ class SettingsCard extends React.Component {
     };
     this.switchTab = this.switchTab.bind(this);
   }
-
 
   switchTab(index) {
     this.setState({ openTab: index });
@@ -27,15 +28,13 @@ class SettingsCard extends React.Component {
             </li>
             <hr />
             <li onClick={this.switchTab.bind(this, 1)}>
+              <i className='fa fa-lock'></i>Edit Profile
+            </li>
+            <hr />
+            <li onClick={this.switchTab.bind(this, 2)}>
               <i className='fa fa-lock'></i>Change Password
             </li>
             <hr />
-
-            <li onClick={this.switchTab.bind(this, 2)}>
-              <i className='fa fa-ban'></i>Blocking
-            </li>
-            <hr />
-
             <li onClick={this.switchTab.bind(this, 3)}>
               <i className='fa fa-minus-circle'></i>Delete profile
             </li>
@@ -46,40 +45,39 @@ class SettingsCard extends React.Component {
             <form className='settings-form'>
               <h1>Account overview</h1>
               <div className='settings-overview'>
-                <p>Username</p>
-                <Table />
+                <Table tab='overview' />
               </div>
             </form>
           )}
           {openTab === 1 && (
-            <form>
-              <h1>Change password</h1>
-              <div className='input-group'>
-                <input type='password' />
-                <label>old password</label>
+            <form className='settings-form'>
+              <h1>Edit profile</h1>
+              <div className='settings-overview'>
+                <Table tab='edit' />
+                <button id='txt' className='btn-edit-sbm'>
+                  Submit
+                </button>
               </div>
-              <div className='input-group'>
-                <input type='password' />
-                <label>new password</label>
-              </div>
-              <div className='input-group'>
-                <input type='password' />
-                <label>new password confirmation</label>
-              </div>
-              <div className='btnSettings'>Save Change</div>
             </form>
           )}
           {openTab === 2 && (
             <form>
-              <h1>Manage blocked profiles</h1>
-              <div className='profiles'>
-                <img
-                  className='select'
-                  src='https://images.unsplash.com/photo-1492633423870-43d1cd2775eb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80'
-                />
-                <img src='https://images.unsplash.com/photo-1495078065017-564723e7e3e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1300&q=80' />
+              <h1>Change password</h1>
+              <div className='input-group'>
+                <input type='password' id='txt' />
+                <label>old password</label>
               </div>
-              <div className='btnSettings'>Unblock</div>
+              <div className='input-group'>
+                <input type='password' id='txt' />
+                <label>new password</label>
+              </div>
+              <div className='input-group'>
+                <input type='password' id='txt' />
+                <label>new password confirmation</label>
+              </div>
+              <button id='txt' className='btn-edit-sbm'>
+                Submit
+              </button>
             </form>
           )}
           {openTab === 3 && (
@@ -90,10 +88,12 @@ class SettingsCard extends React.Component {
                 matchs will be lost...
               </h2>
               <div className='input-group'>
-                <input type='password' />
                 <label>password</label>
+                <input type='password' id='txt' />
+                <button type='button' className='btn-set'>
+                  <a>Submit</a>
+                </button>
               </div>
-              <div className='btnSettings'>Confirm</div>
             </form>
           )}
         </div>

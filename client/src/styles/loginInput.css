@@ -200,6 +200,10 @@ i span {
   text-decoration: underline;
 }
 
+button a:hover {
+  color: var(--text_light);
+}
+
 .signup-signup {
   margin: 10px;
 }

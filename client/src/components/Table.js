@@ -1,5 +1,10 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import {
+  makeStyles,
+  withStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -8,9 +13,41 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-const StyledTableCell = withStyles((theme) => ({
+import '../styles/table.css';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      'iCiel Gotham',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+});
+
+const StyledTableCellField = withStyles((theme) => ({
   root: {
-    // border: 'none',
+    border: 'none',
+    borderColor: 'black',
+  },
+  body: {
+    fontSize: 14,
+    backgroundColor: 'rgb(44, 44, 44)',
+    color: 'rgb(177, 176, 176)',
+  },
+}))(TableCell);
+
+const StyledTableCellValue = withStyles((theme) => ({
+  root: {
+    border: 'none',
     borderColor: 'black',
   },
   body: {
@@ -22,6 +59,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
+    font: 'iCiel Gotham',
     '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
     },
@@ -38,7 +76,7 @@ function createData(field, value) {
   return { field, value };
 }
 
-const SimpleTable = () => {
+const SimpleTable = ({ tab }) => {
   const classes = useStyles();
 
   const information = {
@@ -57,18 +95,28 @@ const SimpleTable = () => {
   const infoRows = adjustToTable(information);
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label='simple table'>
-        <TableBody>
-          {infoRows.map((row) => (
-            <StyledTableRow key={row.field}>
-              <StyledTableCell align='left'>{row.field}</StyledTableCell>
-              <StyledTableCell align='left'>{row.value}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <ThemeProvider theme={theme}>
+      <TableContainer component={Paper}>
+        <Table className={classes.table} aria-label='simple table'>
+          <TableBody>
+            {infoRows.map((row) => (
+              <StyledTableRow key={row.field}>
+                <StyledTableCellField align='left'>
+                  {row.field}
+                </StyledTableCellField>
+                <StyledTableCellValue align='left'>
+                  {tab === 'overview' ? (
+                    row.value
+                  ) : (
+                    <input id='txt' value={row.value} />
+                  )}
+                </StyledTableCellValue>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </ThemeProvider>
   );
 };
 
