@@ -1,28 +1,34 @@
 import React from 'react';
 
-import '../styles/settingsDropdown.css';
-import { Redirect } from 'react-router-dom';
+import '../../styles/settingsDropdown.css';
+import { useHistory, Redirect } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
 
 const Select = ({ id, label, defaultVal, options }) => {
+  const history = useHistory();
+  const { error, request } = useFetch();
+
   const [open, setOpen] = React.useState(false);
   const [select, setSelect] = React.useState('');
 
-  if (select) return <Redirect to={`/settings/${select}`} />;
-
-  console.log({ select });
-
-  const setSelected = (opt) => {
-    options.each((val) => {
-      val.selected = false;
-    });
-    opt.selected = true;
-    setSelect(opt.text);
+  const logoutHandler = async () => {
+    const json = await request('/api/logout');
+    console.log({ json });
+    history.push('/');
+    window.location.reload(true);
   };
 
-  
+  if (select === 'Account') {
+    return <Redirect exact to='/account' />;
+  }
+
+  if (select === 'Log Out') {
+    logoutHandler();
+  }
+
   return (
     <div className='fieldset'>
-      <div className='form-element'>
+      <div className='form-element a-header'>
         <span>
           <select id={id}>
             {options.map((option, i) => (

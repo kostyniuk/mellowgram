@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Redirect, NavLink, useHistory } from 'react-router-dom';
 
-import '../styles/header.css';
-import Select from '../components/SettingsDropdown';
+import '../../styles/header.css';
+import Select from './SettingsDropdown';
 
-import AsyncSelect from '../components/AsyncSelect';
+import AsyncSelect from './AsyncSelect';
 
 const categoryOptions = [
   { text: 'Account', value: 'account', selected: false },
@@ -21,7 +21,7 @@ const Hamburger = ({ handler }) => {
   );
 };
 
-const Header = () => {
+const Header = ({ authorized }) => {
   const history = useHistory();
 
   const [open, setOpen] = useState(false);
@@ -31,30 +31,23 @@ const Header = () => {
     setOpen((prev) => !prev);
   };
 
-  const searchHandler = (e) => {
-    if (e.key === 'Enter') {
-      console.log('Enter is pressed');
-    }
-    return;
-  };
-
   const handleChange = (e) => {
     setSelectedValue(e.value);
   };
 
   if (selectedValue) {
-    history.push(`/${selectedValue}`);
-    return window.location.reload(true);
+    history.push(`/${selectedValue}`); // no return !!!
+    // return <Redirect exact to={`/${selectedValue}`} />;
   }
+
+  // if (!authorized) return <div></div>
 
   return (
     <div>
       <nav className='header-nav'>
         <Hamburger handler={handleHamburger} />
         <div className='logo'>
-          <a className='a-header' href='/'>
-            Mellowgram
-          </a>
+          <NavLink to='/'>Mellowgram</NavLink>
         </div>
         <ul className='nav-search'>
           <li className='nav-item search-field'>
@@ -63,27 +56,27 @@ const Header = () => {
         </ul>
         <ul className={open ? 'nav-items show' : 'nav-items'}>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
-            <a className='a-header' href='#'>
-              About us
-            </a>
+            <NavLink to='/about'>About us</NavLink>
           </li>
           <li className={open ? 'disabled' : ''}>|</li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
-            <a className='a-header' href='/login'>
-              Log in
-            </a>
+            {authorized.isAuthenticated ? (
+              <a>Activity</a>
+            ) : (
+              <NavLink to='/login'>Login</NavLink>
+            )}
           </li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
-            {/* <a className='a-header' href='/signup'> */}
-            {/* Sign up */} */}
-            {/* <i class="fa fa-cog" aria-hidden="true"></i> */}
-            <Select
-              id='settings'
-              label='Settings'
-              defaultVal='Settings'
-              options={categoryOptions}
-            />
-            {/* </a> */}
+            {authorized.isAuthenticated ? (
+              <Select
+                id='settings'
+                label='Settings'
+                defaultVal='Settings'
+                options={categoryOptions}
+              />
+            ) : (
+              <NavLink to='/signup'>Sign up</NavLink>
+            )}
           </li>
         </ul>
       </nav>
