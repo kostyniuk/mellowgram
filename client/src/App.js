@@ -5,21 +5,24 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useHistory,
   Redirect,
 } from 'react-router-dom';
 
 import useAuth from './hooks/useAuth';
 
 import Login from './pages/Login';
-import Header from './components/Header';
+import Header from './components/Header/Header';
 import Signup from './pages/Signup';
 import User from './pages/User';
 import NotFound from './pages/NotFound';
+import Settings from './pages/Settings';
+import About from './pages/About';
 
 const App = () => {
   const { info, loading } = useAuth();
   if (loading) return <div></div>;
+
+  console.log({ info });
 
   if (info.isAuthenticated) {
     return (
@@ -36,10 +39,23 @@ const App = () => {
             <Redirect from='/signup' exact to={`/${info.username}`} />
             <Route
               exact
+              path='/account'
+              render={(props) => <Settings {...props} authorized={info} />}
+            />
+            <Route
+              exact
+              path='/about'
+              render={(props) => <About {...props} authorized={info} />}
+            />
+            <Route
+              exact
               path='/:username'
               render={(props) => <User {...props} authorized={info} />}
             />
-            <Route render={(props) => <NotFound {...props} />} />
+
+            <Route
+              render={(props) => <NotFound {...props} authorized={info} />}
+            />
           </Switch>
         </div>
       </Router>
@@ -68,10 +84,17 @@ const App = () => {
             />
             <Route
               exact
-              path='/:username'
-              render={(props) => <User {...props} />}
+              path='/about'
+              render={(props) => <About {...props} authorized={info} />}
             />
-            <Route render={(props) => <NotFound {...props} />} />
+            <Route
+              exact
+              path='/:username'
+              render={(props) => <User {...props} authorized={info} />}
+            />
+            <Route
+              render={(props) => <NotFound {...props} authorized={info} />}
+            />
           </Switch>
         </div>
       </Router>
