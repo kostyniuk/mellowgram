@@ -45,6 +45,7 @@ class SettingsCard extends React.Component {
             <form className='settings-form'>
               <h1>Account overview</h1>
               <div className='settings-overview'>
+                <img src='/api/public/uploads/dloading.jpg'></img>
                 <Table tab='overview' />
               </div>
             </form>

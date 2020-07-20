@@ -147,6 +147,7 @@
   background: none;
   background-color: #e83114;
 }
+
 @media screen and (max-width: 1000px) {
   #root {
     width: 100%;
