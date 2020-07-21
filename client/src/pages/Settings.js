@@ -3,10 +3,10 @@ import '../styles/account.css';
 import SettingsCard from '../components/SettingsCard';
 import Header from '../components/Header/Header';
 
-const Settings = ({ authorized }) => {
+const Settings = () => {
   return (
     <div>
-      <Header authorized={authorized} />
+      <Header />
       <SettingsCard />
     </div>
   );

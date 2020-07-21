@@ -9,7 +9,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
@@ -72,10 +71,6 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(field, value) {
-  return { field, value };
-}
-
 const SimpleTable = ({ tab }) => {
   const classes = useStyles();
 
@@ -90,7 +85,7 @@ const SimpleTable = ({ tab }) => {
   };
 
   const adjustToTable = (obj) =>
-    Object.keys(obj).map((field, i, ctx) => ({ field, value: obj[field] }));
+    Object.keys(obj).map((field, i) => ({ field, value: obj[field] }));
 
   const infoRows = adjustToTable(information);
 

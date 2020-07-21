@@ -38,7 +38,7 @@ const Login = () => {
 
   return (
     <div>
-      <Header authorized={{ isAuthenticated: false }} />
+      <Header />
       <div>
         <LoginInput
           err={error}
