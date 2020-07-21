@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Redirect, NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 import '../../styles/header.css';
 import Select from './SettingsDropdown';
@@ -21,8 +22,10 @@ const Hamburger = ({ handler }) => {
   );
 };
 
-const Header = ({ authorized }) => {
+const Header = () => {
   const history = useHistory();
+
+  const authorized = useSelector(state => state.loggedInUser)
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
@@ -61,7 +64,7 @@ const Header = ({ authorized }) => {
           <li className={open ? 'disabled' : ''}>|</li>
           <li className={open ? 'nav-item fade' : 'nav-item'}>
             {authorized.isAuthenticated ? (
-              <a>Activity</a>
+              <p>Activity</p>
             ) : (
               <NavLink to='/login'>Login</NavLink>
             )}

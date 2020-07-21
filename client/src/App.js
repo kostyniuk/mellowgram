@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React from 'react';
 import './App.css';
 
 import {
@@ -17,14 +17,17 @@ import User from './pages/User';
 import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
 import About from './pages/About';
+import { useSelector } from 'react-redux';
 
 const App = () => {
-  const { info, loading } = useAuth();
+  const userInfo = useSelector((state) => state.loggedInUser);
+
+  const { loading } = useAuth();
   if (loading) return <div></div>;
 
-  console.log({ info });
+  console.log({ userInfo });
 
-  if (info.isAuthenticated) {
+  if (userInfo.isAuthenticated) {
     return (
       <Router>
         <div className='container'>
@@ -34,27 +37,27 @@ const App = () => {
               path='/header'
               render={(props) => <Header {...props} />}
             />
-            <Redirect from='/' exact to={`/${info.username}`} />
-            <Redirect from='/login' exact to={`/${info.username}`} />
-            <Redirect from='/signup' exact to={`/${info.username}`} />
+            <Redirect from='/' exact to={`/${userInfo.username}`} />
+            <Redirect from='/login' exact to={`/${userInfo.username}`} />
+            <Redirect from='/signup' exact to={`/${userInfo.username}`} />
             <Route
               exact
               path='/account'
-              render={(props) => <Settings {...props} authorized={info} />}
+              render={(props) => <Settings {...props} authorized={userInfo} />}
             />
             <Route
               exact
               path='/about'
-              render={(props) => <About {...props} authorized={info} />}
+              render={(props) => <About {...props} authorized={userInfo} />}
             />
             <Route
               exact
               path='/:username'
-              render={(props) => <User {...props} authorized={info} />}
+              render={(props) => <User {...props} authorized={userInfo} />}
             />
 
             <Route
-              render={(props) => <NotFound {...props} authorized={info} />}
+              render={(props) => <NotFound {...props} authorized={userInfo} />}
             />
           </Switch>
         </div>
@@ -85,15 +88,15 @@ const App = () => {
             <Route
               exact
               path='/about'
-              render={(props) => <About {...props} authorized={info} />}
+              render={(props) => <About {...props} authorized={userInfo} />}
             />
             <Route
               exact
               path='/:username'
-              render={(props) => <User {...props} authorized={info} />}
+              render={(props) => <User {...props} authorized={userInfo} />}
             />
             <Route
-              render={(props) => <NotFound {...props} authorized={info} />}
+              render={(props) => <NotFound {...props} authorized={userInfo} />}
             />
           </Switch>
         </div>

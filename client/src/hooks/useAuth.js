@@ -1,14 +1,11 @@
-import { useEffect, useCallback, useReducer, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import useFetch from './useFetch';
 
-import infoReducer from '../reducers/infoReducer';
-import { useScrollTrigger } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { authUser, notAuthUser } from '../redux/actions';
 
 const useAuth = () => {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.user);
 
   const [loading, setLoading] = useState(true);
 
@@ -17,11 +14,31 @@ const useAuth = () => {
   const fetchUser = useCallback(async () => {
     try {
       const responce = await request('/api/whoami');
-      console.log({ responce });
 
       if (responce.success) {
+        const json = await request(`/api/user/${responce.data.username}`);
+        const { id, username } = responce.data;
+        const {
+          based_in,
+          email,
+          fullname,
+          number_of_posts,
+          occupation,
+          phone_number,
+          picture,
+        } = json.info;
         dispatch(
-          authUser({ id: responce.data.id, username: responce.data.username })
+          authUser({
+            id,
+            username,
+            based_in,
+            email,
+            fullname,
+            number_of_posts,
+            occupation,
+            phone_number,
+            picture,
+          })
         );
       } else {
         dispatch(notAuthUser());
@@ -30,7 +47,7 @@ const useAuth = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [request]);
+  }, [request, dispatch]);
 
   useEffect(() => {
     fetchUser();
