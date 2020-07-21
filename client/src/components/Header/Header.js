@@ -58,18 +58,18 @@ const Header = () => {
           </li>
         </ul>
         <ul className={open ? 'nav-items show' : 'nav-items'}>
-          <li className={open ? 'nav-item fade' : 'nav-item'}>
+          <li className={open ? 'nav-item fade open' : 'nav-item'}>
             <NavLink to='/about'>About us</NavLink>
           </li>
           <li className={open ? 'disabled' : ''}>|</li>
-          <li className={open ? 'nav-item fade' : 'nav-item'}>
+          <li className={open ? 'nav-item fade open' : 'nav-item'}>
             {authorized.isAuthenticated ? (
               <p>Activity</p>
             ) : (
               <NavLink to='/login'>Login</NavLink>
             )}
           </li>
-          <li className={open ? 'nav-item fade' : 'nav-item'}>
+          <li className={open ? 'nav-item fade open' : 'nav-item'}>
             {authorized.isAuthenticated ? (
               <Select
                 id='settings'
