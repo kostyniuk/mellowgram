@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import '../../styles/settingsDropdown.css';
 import { useHistory, Redirect } from 'react-router-dom';
@@ -8,18 +8,20 @@ const Select = ({ id, label, defaultVal, options }) => {
   const history = useHistory();
   const { error, request } = useFetch();
 
-  const [open, setOpen] = React.useState(false);
-  const [select, setSelect] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [select, setSelect] = useState('');
 
   const logoutHandler = async () => {
     const json = await request('/api/logout');
-    console.log({ json });
     history.push('/');
     window.location.reload(true);
   };
 
   if (select === 'Account') {
-    return <Redirect exact to='/account' />;
+    if (history.location.pathname !== '/account') {
+      setSelect('');
+      history.push('/account');
+    }
   }
 
   if (select === 'Log Out') {
