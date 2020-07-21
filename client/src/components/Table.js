@@ -5,12 +5,17 @@ import {
   createMuiTheme,
   ThemeProvider,
 } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+} from '@material-ui/core';
+
+import { adjustToTable } from '../helpers';
 
 import '../styles/table.css';
 
@@ -71,24 +76,11 @@ const useStyles = makeStyles({
   },
 });
 
-const SimpleTable = ({ tab }) => {
+const SimpleTable = ({ tab, data }) => {
   const classes = useStyles();
 
-  const information = {
-    username: 'steph',
-    fullName: 'Stephen Curry',
-    bio: 'Baller',
-    occupation: 'NBA player',
-    location: 'Bay Area',
-    email: 'steph@gmail.com',
-    phoneNumber: '123-34-132-324',
-  };
-
-  const adjustToTable = (obj) =>
-    Object.keys(obj).map((field, i) => ({ field, value: obj[field] }));
-
-  const infoRows = adjustToTable(information);
-
+  const infoRows = adjustToTable(data);
+  console.log({ infoRows });
   return (
     <ThemeProvider theme={theme}>
       <TableContainer component={Paper}>
