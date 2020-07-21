@@ -74,6 +74,11 @@ a:hover {
   display: none;
 }
 
+.nav-item p {
+  margin-top: 19px;
+  font-size: inherit;
+}
+
 @media screen and (max-width: 768px) {
 
   .logo a {
