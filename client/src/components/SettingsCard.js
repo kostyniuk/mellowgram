@@ -1,10 +1,33 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import Table from './Table';
 
 import '../styles/table.css';
 
+import { deepCopy, deleteProperties } from '../helpers';
+
 const SettingsCard = () => {
   const [openTab, setOpenTab] = useState(0);
+
+  const info = useSelector((state) => state.loggedInUser);
+
+  const copy1 = deepCopy(info);
+  const copy2 = deepCopy(info);
+
+  const adjustedOverwiew = deleteProperties(copy1, [
+    'id',
+    'ready',
+    'isAuthenticated',
+    'picture',
+  ]);
+  const adjustedEdit = deleteProperties(copy2, [
+    'id',
+    'ready',
+    'isAuthenticated',
+    'picture',
+    'number_of_posts',
+  ]);
 
   const switchTab = (index) => setOpenTab(index);
 
@@ -34,8 +57,12 @@ const SettingsCard = () => {
           <form className='settings-form'>
             <h1>Account overview</h1>
             <div className='settings-overview'>
-              <img src='/api/public/uploads/dloading.jpg'></img>
-              <Table tab='overview' />
+              <div className='settings-overview-img'>
+                <img src={info.picture}></img>
+              </div>
+              <div className='settings-overview-table'>
+                <Table tab='overview' data={adjustedOverwiew} />
+              </div>
             </div>
           </form>
         )}
@@ -43,7 +70,7 @@ const SettingsCard = () => {
           <form className='settings-form'>
             <h1>Edit profile</h1>
             <div className='settings-overview'>
-              <Table tab='edit' />
+              <Table tab='edit' data={adjustedEdit} />
               <button id='txt' className='btn-edit-sbm'>
                 Submit
               </button>
@@ -90,24 +117,5 @@ const SettingsCard = () => {
     </div>
   );
 };
-
-// class SettingsCard extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       openTab: 0,
-//     };
-//     this.switchTab = this.switchTab.bind(this);
-//   }
-
-//   switchTab(index) {
-//     this.setState({ openTab: index });
-//   }
-
-//   render() {
-//     const { openTab } = this.state;
-
-//   }
-// }
 
 export default SettingsCard;
