@@ -3,16 +3,14 @@ import useFetch from './useFetch';
 
 import infoReducer from '../reducers/infoReducer';
 import { useScrollTrigger } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { authUser, notAuthUser } from '../redux/actions';
 
 const useAuth = () => {
-  const [info, dispatch] = useReducer(infoReducer, {
-    isAuthenticated: false,
-    id: null,
-    username: '',
-    ready: false
-  });
+  const dispatch = useDispatch();
+  const userInfo = useSelector((state) => state.user);
 
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const { error, request } = useFetch();
 
@@ -22,18 +20,13 @@ const useAuth = () => {
       console.log({ responce });
 
       if (responce.success) {
-        dispatch({
-          type: 'fillOut',
-          props: { id: responce.data.id, username: responce.data.username },
-        });
+        dispatch(
+          authUser({ id: responce.data.id, username: responce.data.username })
+        );
       } else {
-        dispatch({
-          type: 'unsuccessful',
-          props: { id: info.id, username: info.username },
-
-        });
+        dispatch(notAuthUser());
       }
-      setLoading(false)
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
@@ -43,7 +36,7 @@ const useAuth = () => {
     fetchUser();
   }, [fetchUser]);
 
-  return { info, loading };
+  return { loading };
 };
 
 export default useAuth;
