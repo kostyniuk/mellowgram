@@ -22,7 +22,7 @@ const userReducer = (state = initialState, action) => {
         username: action.payload.username,
         based_in: action.payload.based_in,
         email: action.payload.email,
-        fullName: action.payload.fullname,
+        fullname: action.payload.fullname,
         number_of_posts: action.payload.number_of_posts,
         occupation: action.payload.occupation,
         phone_number: action.payload.phone_number,
