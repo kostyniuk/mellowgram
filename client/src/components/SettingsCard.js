@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
+import useFetch from '../hooks/useFetch';
+
 import Table from './Table';
 import UploadButton from './UploadButton';
 
@@ -10,8 +12,11 @@ import '../styles/btn.css';
 import { deepCopy, deleteProperties } from '../helpers';
 
 const SettingsCard = () => {
-  const [openTab, setOpenTab] = useState(0);
+  const { request, loading, error } = useFetch();
+
   const info = useSelector((state) => state.loggedInUser);
+
+  const [openTab, setOpenTab] = useState(0);
   const [edit, setEdit] = useState({
     username: info.username,
     based_in: info.based_in,
@@ -20,16 +25,32 @@ const SettingsCard = () => {
     occupation: info.occupation,
     phone_number: info.phone_number,
   });
+  const [updatedInfo, setUpdatedInfo] = useState(false)
 
   const editHandler = (e) => {
-    const field = e.target.name
-    const {value} = e.target
+    const field = e.target.name;
+    const { value } = e.target;
     setEdit((prev) => ({ ...prev, [field]: value }));
   };
 
-  const submitEdit = () => {
+  const submitEdit = async (e) => {
+    e.preventDefault();
+    console.log({ edit });
+    const responce = await request('/api/user/info', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(edit),
+    });
+
+    console.log({ responce, error });
+
+    if (responce?.success && !error) {
+      setUpdatedInfo(true)
+    }
     // NEED TO MAKE ENDPOINT FOR EDIT
-  }
+  };
 
   console.log({ edit });
 
@@ -88,10 +109,14 @@ const SettingsCard = () => {
         )}
         {openTab === 1 && (
           <form className='settings-form'>
-            <h1>Edit profile</h1>
             <div className='settings-overview'>
+              <h1>Edit profile</h1>
               <Table tab='edit' data={edit} handler={editHandler} />
-              <button className='btn green' onClick={submitEdit}>Submit</button>
+              <button className='btn green' onClick={submitEdit}>
+                Submit
+              </button>
+              {error && <h2 style={{color: 'red', marginTop: '10px'}}>Error: {error}</h2>}
+              {updatedInfo && <h2 style={{color: 'green', marginTop: '10px'}}>Information updated</h2>}
             </div>
           </form>
         )}
