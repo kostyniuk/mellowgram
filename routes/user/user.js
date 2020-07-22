@@ -45,6 +45,52 @@ router.post('/bio', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.put('/info', isLoggedIn, async (req, res, next) => {
+  try {
+    const { user_id } = req.user;
+    const {
+      username,
+      based_in,
+      email,
+      fullname,
+      occupation,
+      phone_number,
+    } = req.body;
+    console.log({
+      username,
+      based_in,
+      email,
+      fullname,
+      occupation,
+      phone_number,
+    });
+
+    const query1 = 'UPDATE User_info SET username=$2 WHERE user_id=$1';
+    const params1 = [user_id, username];
+
+    const resUsername = await db.query(query1, params1);
+
+    console.log({ resUsername });
+
+    const query2 =
+      'UPDATE Person SET email=$2, fullname=$3, based_in=$4, occupation=$5, phone_number=$6 WHERE person_id=$1';
+    const params2 = [
+      user_id,
+      email,
+      fullname,
+      based_in,
+      occupation,
+      phone_number,
+    ];
+    const { rows } = await db.query(query2, params2);
+    console.log({ rows });
+    return res.json({ success: true, msg: '/user/info route here' });
+  } catch (e) {
+    res.json({ success: false, msg: e.detail });
+    console.log(e);
+  }
+});
+
 router.use('/:nickname/post', postRoute);
 router.use('/:nickname', profilePictureRoute);
 
