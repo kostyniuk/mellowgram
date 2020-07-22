@@ -75,6 +75,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: auto;
 }
 .settings-container .settings-tab form {
   width: 100%;

@@ -9,7 +9,7 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: url(dark_bg.jpg);
+  background: url(bg_lighter.png);
   background-repeat: repeat;
   background-size: cover;
   color: var(--text_light);
