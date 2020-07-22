@@ -6,6 +6,7 @@ import Table from './Table';
 import '../styles/table.css';
 import '../styles/btn.css';
 import { deepCopy, deleteProperties } from '../helpers';
+import UploadButton from './UploadButton';
 
 const SettingsCard = () => {
   const [openTab, setOpenTab] = useState(0);
@@ -54,17 +55,16 @@ const SettingsCard = () => {
       </div>
       <div className='settings-tab'>
         {openTab === 0 && (
-          <form className='settings-form'>
+          <div className='settings-overview'>
             <h1>Account overview</h1>
-            <div className='settings-overview'>
-              <div className='settings-overview-img'>
-                <img src={info.picture}></img>
-              </div>
-              <div className='settings-overview-table'>
-                <Table tab='overview' data={adjustedOverwiew} />
-              </div>
+            <div className='settings-overview-img'>
+              <img src={info.picture}></img>
+              <UploadButton />
             </div>
-          </form>
+            <div className='settings-overview-table'>
+              <Table tab='overview' data={adjustedOverwiew} />
+            </div>
+          </div>
         )}
         {openTab === 1 && (
           <form className='settings-form'>
@@ -97,12 +97,12 @@ const SettingsCard = () => {
               matchs will be lost...
             </h2>
             <div className='input-group'>
-            <Table
-              tab='edit'
-              data={{
-                'Password': '',
-              }}
-            />
+              <Table
+                tab='edit'
+                data={{
+                  Password: '',
+                }}
+              />
               <button type='button' className='green'>
                 Submit
               </button>
