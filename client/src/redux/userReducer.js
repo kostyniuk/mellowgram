@@ -1,3 +1,5 @@
+import { AUTH_USER, UPDATE_PROFILE_PICTURE } from './types';
+
 const initialState = {
   isAuthenticated: false,
   id: null,
@@ -29,6 +31,13 @@ const userReducer = (state = initialState, action) => {
         picture: action.payload.picture,
         ready: true,
       };
+    case 'UPDATE_PROFILE_PICTURE': {
+      return {
+        ...state,
+        picture: action.payload.picture,
+        ready: true,
+      };
+    }
     default: {
       return { ...state, ready: true };
     }
