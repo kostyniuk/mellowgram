@@ -10,6 +10,10 @@
   --grey: rgb(44, 44, 44);
 }
 
+.HRsettings {
+  margin: 0;
+}
+
 .settings-container {
   font-size: 90%;
   background-color: white;
@@ -17,7 +21,7 @@
   display: flex;
   overflow: hidden;
   box-shadow: 0px 2px 12px -4px rgba(0, 0, 0, 0.1);
-  color: var(--text_light);
+  color: var(--text_dark);
   width: 80%;
   height: 500px;
   margin: auto;
@@ -25,7 +29,11 @@
 }
 .settings-container .left-column {
   width: 30%;
-  background-color: var(--bg_color_dark);
+  background: linear-gradient(
+    45deg,
+    rgba(248, 195, 69, 1) 0%,
+    rgba(244, 124, 118, 1) 100%
+  );
 }
 
 .settings-form {
@@ -44,24 +52,27 @@
 }
 
 .settings-container .left-column ul {
+  height: 100%;
   margin: 0;
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  padding: 0;
 }
 .settings-container .left-column ul li {
+  display: flex;
   flex: auto;
-  height: 20px;
-  padding-top: 10px;
+  align-items: center;
   padding-left: 20px;
   cursor: pointer;
   transition: all 0.2s ease-out;
   letter-spacing: 1.5px;
-  display: flex;
 }
+
+.settings-container .left-column ul :hover {
+}
+
 .settings-container .left-column ul li:hover {
+  background-color: var(--grey);
   color: var(--green);
 }
 .settings-container .left-column ul li i {

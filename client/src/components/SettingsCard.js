@@ -39,15 +39,15 @@ const SettingsCard = () => {
           <li onClick={switchTab.bind(null, 0)}>
             <i className='fa fa-user'></i>Overview
           </li>
-          <hr />
+          <hr class='HRsettings'/>
           <li onClick={switchTab.bind(null, 1)}>
             <i className='fa fa-lock'></i>Edit Profile
           </li>
-          <hr />
+          <hr class='HRsettings'/>
           <li onClick={switchTab.bind(null, 2)}>
             <i className='fa fa-lock'></i>Change Password
           </li>
-          <hr />
+          <hr class='HRsettings'/>
           <li onClick={switchTab.bind(null, 3)}>
             <i className='fa fa-minus-circle'></i>Delete profile
           </li>
