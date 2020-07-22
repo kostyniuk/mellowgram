@@ -3,16 +3,20 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const multer = require('multer');
+const { nanoid } = require('nanoid');
+
 const isAvailable = require('../../lib/isOwnPage');
 const db = require('../../config/db');
+
+let id = null;
 
 const storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: function (req, file, cb) {
-    console.log(file);
     cb(
       null,
-      'user_' + req.user.username + '.' + file.originalname.split('.')[1]
+      // 'user_' + req.user.username + '.' + file.originalname.split('.')[1]
+      id + '.' + file.originalname.split('.')[1]
     );
   },
 });
@@ -22,15 +26,21 @@ const upload = multer({
   limits: { fileSize: 1024 * 1024 * 5 }, //5 mb
 });
 
+const generateId = (req, res, next) => {
+  id = nanoid();
+  next();
+};
+
 router.post(
   '/addPicture',
   isAvailable,
+  generateId,
   upload.single('profilePhoto'),
   async (req, res, next) => {
     try {
       const { nickname } = req.params;
-      console.log(req.file);
-      const path = process.env.PROFILE_PICTURES_FOLDER + req.file.filename;
+      const ext = req.file.filename.split('.')[1];
+      const path = '/api/public/uploads/' + id + '.' + ext;
 
       const { rows } = await db.query(
         `UPDATE person p
