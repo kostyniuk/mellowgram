@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Table from './Table';
 
 import '../styles/table.css';
-
+import '../styles/btn.css';
 import { deepCopy, deleteProperties } from '../helpers';
 
 const SettingsCard = () => {
@@ -71,9 +71,7 @@ const SettingsCard = () => {
             <h1>Edit profile</h1>
             <div className='settings-overview'>
               <Table tab='edit' data={adjustedEdit} />
-              <button id='txt' className='btn-edit-sbm'>
-                Submit
-              </button>
+              <button className='btn green'>Submit</button>
             </div>
           </form>
         )}
@@ -91,10 +89,8 @@ const SettingsCard = () => {
             <div className='input-group'>
               <input type='password' id='txt' />
               <label>new password confirmation</label>
+              <button className='green'>Submit</button>
             </div>
-            <button id='txt' className='btn-edit-sbm'>
-              Submit
-            </button>
           </form>
         )}
         {openTab === 3 && (
@@ -107,9 +103,7 @@ const SettingsCard = () => {
             <div className='input-group'>
               <label>password</label>
               <input type='password' id='txt' />
-              <button type='button' className='btn-set'>
-                <a>Submit</a>
-              </button>
+              <button type='button' className='green'>Submit</button>
             </div>
           </form>
         )}

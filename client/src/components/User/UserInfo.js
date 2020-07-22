@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import '../../styles/user.css';
+import '../../styles/btn.css';
+
 import Exprerience from './Experience';
 
 const UserInfo = ({ info }) => {
@@ -164,7 +166,7 @@ const UserInfo = ({ info }) => {
                 </svg>
                 {info.email}
               </div>
-              <button className='contact-me'>WORK TOGETHER</button>
+              <button className='green'>WORK</button>
             </div>
           </div>
         </div>

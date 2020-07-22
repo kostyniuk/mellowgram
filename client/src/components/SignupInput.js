@@ -1,5 +1,7 @@
 import React from 'react';
 import '../styles/loginInput.css';
+import '../styles/btn.css';
+
 
 const SignupInput = ({ err, form, changeHandler, submitHandler }) => {
   return (
@@ -80,7 +82,7 @@ const SignupInput = ({ err, form, changeHandler, submitHandler }) => {
           />
         </div>
 
-        <button type='button' className='btn' onClick={submitHandler}>
+        <button type='button' className='btn green' onClick={submitHandler}>
           <a>Sign up</a>
         </button>
         {err && <h4 className='fp login-error'>{err}</h4>}
