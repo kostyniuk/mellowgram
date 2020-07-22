@@ -78,9 +78,8 @@ const useStyles = makeStyles({
 
 const SimpleTable = ({ tab, data }) => {
   const classes = useStyles();
-
+  console.log({data})
   const infoRows = adjustToTable(data);
-  console.log({ infoRows });
   return (
     <ThemeProvider theme={theme}>
       <TableContainer component={Paper}>

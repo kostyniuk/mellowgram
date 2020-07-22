@@ -76,21 +76,17 @@ const SettingsCard = () => {
           </form>
         )}
         {openTab === 2 && (
-          <form>
+          <form onSubmit={() => console.log('Submitted')}>
             <h1>Change password</h1>
-            <div className='input-group'>
-              <input type='password' id='txt' />
-              <label>old password</label>
-            </div>
-            <div className='input-group'>
-              <input type='password' id='txt' />
-              <label>new password</label>
-            </div>
-            <div className='input-group'>
-              <input type='password' id='txt' />
-              <label>new password confirmation</label>
-              <button className='green'>Submit</button>
-            </div>
+            <Table
+              tab='edit'
+              data={{
+                'Old Password': '',
+                'New Password': '',
+                'Confirm new password': '',
+              }}
+            />
+            <button className='btn green'>Submit</button>
           </form>
         )}
         {openTab === 3 && (
@@ -101,9 +97,15 @@ const SettingsCard = () => {
               matchs will be lost...
             </h2>
             <div className='input-group'>
-              <label>password</label>
-              <input type='password' id='txt' />
-              <button type='button' className='green'>Submit</button>
+            <Table
+              tab='edit'
+              data={{
+                'Password': '',
+              }}
+            />
+              <button type='button' className='green'>
+                Submit
+              </button>
             </div>
           </form>
         )}
