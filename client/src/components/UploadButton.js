@@ -4,7 +4,7 @@ import '../styles/uploadButton.css';
 
 import {useSelector, useDispatch} from 'react-redux'
 
-import {updateProfilePage}  from '../redux/actions'
+import {updateProfilePicture}  from '../redux/actions'
 
 const UploadButton = () => {
   const [newImage, setNewImage] = useState(null);
@@ -40,7 +40,7 @@ const UploadButton = () => {
     });
     const data = await response.json();
     console.log(data);
-    dispatch(updateProfilePage(data.src))
+    dispatch(updateProfilePicture(data.src))
     setNewImage(null);
   };
 
