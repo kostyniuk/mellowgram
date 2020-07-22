@@ -22,7 +22,7 @@
   padding-top: 0;
 }
 .card[data-state='#contact'] {
-  height: 430px;
+  height: 400px;
 }
 
 .card.is-active .card-header {

@@ -6,7 +6,9 @@
   --cream: hsl(348, 11%, 91%);
   --insta: hsl(348, 35%, 74%);
   --facebook: #6bacd8cc;
-  --green: rgba(99, 250, 39, 0.966);
+  --green: rgba(167, 240, 107, 0.966);
+  --green_dark : rgb(23, 148, 67);
+  --text_cream : rgb(232, 230, 227);
 }
 
 * {
@@ -105,14 +107,6 @@ label {
 
 .form-group-signup {
   margin-top: 5px;
-}
-
-button {
-  padding: 10px 40px;
-  margin-top: 10px;
-  border: none;
-  background: linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%);
-  border-radius: 5px;
 }
 
 hr {
