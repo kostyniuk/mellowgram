@@ -59,7 +59,19 @@ export const setCurrentPage = ({
   },
 });
 
-export const updateProfilePage = (picture) => ({
+export const updateProfilePicture = (picture) => ({
   type: UPDATE_PROFILE_PICTURE,
   payload: { picture },
+});
+
+export const updateProfileInfo = ({
+  username,
+  based_in,
+  email,
+  fullname,
+  occupation,
+  phone_number,
+}) => ({
+  type: UPDATE_PROFILE_PICTURE,
+  payload: { username, based_in, email, fullname, occupation, phone_number },
 });

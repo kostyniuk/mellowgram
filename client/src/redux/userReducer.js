@@ -1,4 +1,4 @@
-import { AUTH_USER, UPDATE_PROFILE_PICTURE } from './types';
+import { AUTH_USER, UPDATE_PROFILE_PICTURE, UPDATE_PROFILE_INFO } from './types';
 
 const initialState = {
   isAuthenticated: false,
@@ -16,7 +16,7 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'AUTH_USER':
+    case AUTH_USER:
       return {
         ...state,
         isAuthenticated: true,
@@ -31,12 +31,19 @@ const userReducer = (state = initialState, action) => {
         picture: action.payload.picture,
         ready: true,
       };
-    case 'UPDATE_PROFILE_PICTURE': {
+    case UPDATE_PROFILE_PICTURE: {
       return {
         ...state,
         picture: action.payload.picture,
         ready: true,
       };
+    }
+    case UPDATE_PROFILE_INFO: {
+      return {
+        ...state,
+        
+        ready: true
+      }
     }
     default: {
       return { ...state, ready: true };
