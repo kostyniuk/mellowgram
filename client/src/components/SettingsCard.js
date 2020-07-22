@@ -2,16 +2,36 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Table from './Table';
+import UploadButton from './UploadButton';
 
 import '../styles/table.css';
 import '../styles/btn.css';
+
 import { deepCopy, deleteProperties } from '../helpers';
-import UploadButton from './UploadButton';
 
 const SettingsCard = () => {
   const [openTab, setOpenTab] = useState(0);
-
   const info = useSelector((state) => state.loggedInUser);
+  const [edit, setEdit] = useState({
+    username: info.username,
+    based_in: info.based_in,
+    email: info.email,
+    fullname: info.fullname,
+    occupation: info.occupation,
+    phone_number: info.phone_number,
+  });
+
+  const editHandler = (e) => {
+    const field = e.target.name
+    const {value} = e.target
+    setEdit((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const submitEdit = () => {
+    // NEED TO MAKE ENDPOINT FOR EDIT
+  }
+
+  console.log({ edit });
 
   const copy1 = deepCopy(info);
   const copy2 = deepCopy(info);
@@ -39,15 +59,15 @@ const SettingsCard = () => {
           <li onClick={switchTab.bind(null, 0)}>
             <i className='fa fa-user'></i>Overview
           </li>
-          <hr class='HRsettings'/>
+          <hr class='HRsettings' />
           <li onClick={switchTab.bind(null, 1)}>
             <i className='fa fa-lock'></i>Edit Profile
           </li>
-          <hr class='HRsettings'/>
+          <hr class='HRsettings' />
           <li onClick={switchTab.bind(null, 2)}>
             <i className='fa fa-lock'></i>Change Password
           </li>
-          <hr class='HRsettings'/>
+          <hr class='HRsettings' />
           <li onClick={switchTab.bind(null, 3)}>
             <i className='fa fa-minus-circle'></i>Delete profile
           </li>
@@ -70,8 +90,8 @@ const SettingsCard = () => {
           <form className='settings-form'>
             <h1>Edit profile</h1>
             <div className='settings-overview'>
-              <Table tab='edit' data={adjustedEdit} />
-              <button className='btn green'>Submit</button>
+              <Table tab='edit' data={edit} handler={editHandler} />
+              <button className='btn green' onClick={submitEdit}>Submit</button>
             </div>
           </form>
         )}

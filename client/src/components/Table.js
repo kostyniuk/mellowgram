@@ -76,7 +76,7 @@ const useStyles = makeStyles({
   },
 });
 
-const SimpleTable = ({ tab, data }) => {
+const SimpleTable = ({ tab, data, handler }) => {
   const classes = useStyles();
   console.log({data})
   const infoRows = adjustToTable(data);
@@ -94,7 +94,7 @@ const SimpleTable = ({ tab, data }) => {
                   {tab === 'overview' ? (
                     row.value
                   ) : (
-                    <input id='txt' value={row.value} />
+                    <input id='txt' name={row.field} value={row.value} onChange={handler} />
                   )}
                 </StyledTableCellValue>
               </StyledTableRow>
