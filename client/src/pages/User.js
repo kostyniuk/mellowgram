@@ -15,41 +15,42 @@ const User = ({ match, authorized }) => {
   const { username } = match.params;
   const [userPage, setUserPage] = useState(null);
 
-  const { loading, request } = useFetch();
+  const { loading, request, error } = useFetch();
 
   const parseInfo = useCallback(async () => {
     const json = await request(`/api/user/${username}`);
-    setUserPage(json.info);
-    const {
-      based_in,
-      email,
-      fullname,
-      number_of_posts,
-      occupation,
-      phone_number,
-      picture,
-    } = json.info;
-    const id = json.info.person_id;
-    dispatch(
-      setCurrentPage({
-        id,
-        username,
+    if (!json.error) {
+      const {
         based_in,
         email,
         fullname,
         number_of_posts,
         occupation,
         phone_number,
-        picture}
-      )
-    );
+        picture,
+      } = json.info;
+      const id = json.info.person_id;
+      dispatch(
+        setCurrentPage({
+          id,
+          username,
+          based_in,
+          email,
+          fullname,
+          number_of_posts,
+          occupation,
+          phone_number,
+          picture,
+        })
+      );
+    } else {
+      setUserPage(undefined);
+    }
   }, [username, request, dispatch]);
 
   useEffect(() => {
     parseInfo();
   }, [username, parseInfo]);
-
-  console.log({ userPage, currentUser });
 
   if (userPage === undefined) return <NotFound />;
 
@@ -58,9 +59,9 @@ const User = ({ match, authorized }) => {
   return (
     <div>
       <div>
-        <Header/>
+        <Header />
       </div>
-      <UserInfo info={userPage} />
+      <UserInfo info={currentUser} />
     </div>
   );
 };

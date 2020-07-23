@@ -9,10 +9,11 @@ const useFetch = () => {
       setLoading(true);
 
       const responce = await fetch(url, params);
-      if (!responce.ok) {
-        setError(true);
-        throw new Error('Something wrong with your request');
-      }
+      console.log({responce})
+      // if (!responce.ok) {
+      //   setError(true);
+      //   throw new Error('Something wrong with your request');
+      // }
       const json = await responce.json();
 
       if (json.success) {

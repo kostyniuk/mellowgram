@@ -23,7 +23,7 @@ router.get('/:nickname', async (req, res, next) => {
 
     res.json({ success: true, nickname, info });
   } catch (e) {
-    res.json({ success: false, nickname });
+    res.json({ success: false, msg: 'No such user' });
     console.error(e);
   }
 });
