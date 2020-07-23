@@ -6,10 +6,11 @@ const useFetch = () => {
 
   const request = useCallback(async (url, params = { method: 'GET' }) => {
     try {
+      setError(false);
       setLoading(true);
 
       const responce = await fetch(url, params);
-      console.log({responce})
+      console.log({ responce });
       // if (!responce.ok) {
       //   setError(true);
       //   throw new Error('Something wrong with your request');
@@ -19,8 +20,6 @@ const useFetch = () => {
       if (json.success) {
         return json;
       }
-
-      
 
       setError(json.msg);
       return json;

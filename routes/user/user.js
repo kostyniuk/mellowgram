@@ -10,9 +10,6 @@ const profilePictureRoute = require('./profilePicture');
 const isLoggedIn = require('../../lib/isLoggedIn');
 const router = express.Router();
 
-// multer config
-
-//users handling
 router.get('/:nickname', async (req, res, next) => {
   try {
     const { nickname } = req.params;
@@ -37,7 +34,6 @@ router.post('/bio', isLoggedIn, async (req, res, next) => {
     const params = [bio, user_id];
 
     const result = await db.query(query, params);
-    console.log({ result });
 
     res.status(200).json({ message: `Bio updated: '${bio}'` });
   } catch (e) {
@@ -56,25 +52,13 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
       occupation,
       phone_number,
     } = req.body;
-    console.log({
-      username,
-      based_in,
-      email,
-      fullname,
-      occupation,
-      phone_number,
-    });
 
-    const query1 = 'UPDATE User_info SET username=$2 WHERE user_id=$1';
-    const params1 = [user_id, username];
+    const updUser = 'UPDATE User_info SET username=$2 WHERE user_id=$1';
+    const paramsUser = [user_id, username];
 
-    const resUsername = await db.query(query1, params1);
-
-    console.log({ resUsername });
-
-    const query2 =
+    const updPerson =
       'UPDATE Person SET email=$2, fullname=$3, based_in=$4, occupation=$5, phone_number=$6 WHERE person_id=$1';
-    const params2 = [
+    const paramsPerson = [
       user_id,
       email,
       fullname,
@@ -82,12 +66,33 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
       occupation,
       phone_number,
     ];
-    const { rows } = await db.query(query2, params2);
-    console.log({ rows });
-    return res.json({ success: true, msg: '/user/info route here' });
+
+    const promises = [
+      db.query(updUser, paramsUser),
+      db.query(updPerson, paramsPerson),
+    ];
+
+    const updated = await Promise.allSettled(promises);
+    updated.forEach((result) => {
+      if (result.status === 'rejected') {
+        let e = null;
+        console.log(result.reason.detail)
+        if (result.reason.detail.includes('username')) {
+          e = 'This username is already taken.';
+        } else if (result.reason.detail.includes('email')) {
+          e = 'This email is already used.';
+        }
+        throw new Error(e);
+      }
+    });
+
+    return res.json({
+      success: true,
+      msg: 'User information successfully updated',
+    });
   } catch (e) {
-    res.json({ success: false, msg: e.detail });
-    console.log(e);
+    // e.message is where your error string
+    return res.status(409).json({ success: false, msg: e.message });
   }
 });
 
