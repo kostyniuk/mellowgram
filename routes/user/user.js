@@ -10,6 +10,8 @@ const profilePictureRoute = require('./profilePicture');
 const isLoggedIn = require('../../lib/isLoggedIn');
 const router = express.Router();
 
+const { validPassword } = require('../../lib/passwordUtils');
+
 router.get('/:nickname', async (req, res, next) => {
   try {
     const { nickname } = req.params;
@@ -76,7 +78,7 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
     updated.forEach((result) => {
       if (result.status === 'rejected') {
         let e = null;
-        console.log(result.reason.detail)
+        console.log(result.reason.detail);
         if (result.reason.detail.includes('username')) {
           e = 'This username is already taken.';
         } else if (result.reason.detail.includes('email')) {
@@ -93,6 +95,42 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
   } catch (e) {
     // e.message is where your error string
     return res.status(409).json({ success: false, msg: e.message });
+  }
+});
+
+router.delete('/delete', isLoggedIn, async (req, res, next) => {
+  try {
+    const { password } = req.body;
+    const { user_id, username } = req.user;
+
+    console.log(req.body, user_id, password);
+
+    const query = `SELECT password from User_info WHERE user_id=$1`;
+    const params = [user_id];
+
+    const { rows } = await db.query(query, params);
+
+    const hashed = rows[0].password;
+
+    const approved = await validPassword(password, hashed);
+
+    if (!approved) {
+      throw new Error('Wrong password provided');
+    }
+
+    const deleteQuery = `DELETE FROM User_info WHERE user_id=$1`;
+    const deleteParams = [user_id];
+
+    const deleted = await db.query(deleteQuery, deleteParams);
+
+    console.log({ deleted });
+
+    if (deleted.rowCount === 1) {
+      res.clearCookie('connect.sid');
+      res.json({ success: true, msg: `User ${username} successfully deleted` });
+    }
+  } catch (e) {
+    res.status(401).json({ success: false, msg: e.message });
   }
 });
 

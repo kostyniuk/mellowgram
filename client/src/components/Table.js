@@ -79,7 +79,6 @@ const useStyles = makeStyles({
 
 const SimpleTable = ({ tab, data, handler }) => {
   const classes = useStyles();
-  console.log({ data });
   const infoRows = adjustToTable(data);
   return (
     <ThemeProvider theme={theme}>
@@ -96,6 +95,7 @@ const SimpleTable = ({ tab, data, handler }) => {
                     row.value
                   ) : (
                     <input
+                      type={row.field === 'Password' ? 'password' : 'text'}
                       id='txt'
                       name={row.field}
                       value={row.value}

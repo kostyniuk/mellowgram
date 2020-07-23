@@ -11,9 +11,9 @@ import '../styles/btn.css';
 
 import { deepCopy, deleteProperties } from '../helpers';
 import { updateProfileInfo } from '../redux/actions';
+import { compareSync } from 'bcryptjs';
 
 const SettingsCard = () => {
-
   const dispatch = useDispatch();
   const { request, loading, error } = useFetch();
 
@@ -30,16 +30,23 @@ const SettingsCard = () => {
   });
   const [updatedInfo, setUpdatedInfo] = useState(false);
 
-  const editHandler = (e) => {
+  const [passwordToDelete, setPasswordToDelete] = useState('');
+
+  const [wrongPassword, setWrongPassword] = useState(false);
+
+  const editHandlerOnChange = (e) => {
     const field = e.target.name;
     if (updatedInfo) setUpdatedInfo(false);
     const { value } = e.target;
     setEdit((prev) => ({ ...prev, [field]: value }));
   };
 
+  const deleteHadlerOnChange = (e) => {
+    setPasswordToDelete(e.target?.value);
+  };
+
   const submitEdit = async (e) => {
     e.preventDefault();
-    console.log({ edit });
     const responce = await request('/api/user/info', {
       method: 'PUT',
       headers: {
@@ -52,7 +59,23 @@ const SettingsCard = () => {
       setUpdatedInfo(true);
     }
 
-    dispatch(updateProfileInfo(edit))
+    dispatch(updateProfileInfo(edit));
+  };
+
+  const deleteHandlerOnClick = async () => {
+    const responce = await request('/api/user/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ password: passwordToDelete }),
+    });
+
+    if (responce?.success) {
+      window.location.href = '/';
+    }
+    setWrongPassword(true);
+    setPasswordToDelete('');
   };
 
   const copy1 = deepCopy(info);
@@ -112,7 +135,7 @@ const SettingsCard = () => {
           <form className='settings-form'>
             <div className='settings-overview'>
               <h1>Edit profile</h1>
-              <Table tab='edit' data={edit} handler={editHandler} />
+              <Table tab='edit' data={edit} handler={editHandlerOnChange} />
               <button className='btn green' onClick={submitEdit}>
                 Submit
               </button>
@@ -154,12 +177,22 @@ const SettingsCard = () => {
               <Table
                 tab='edit'
                 data={{
-                  Password: '',
+                  Password: passwordToDelete,
                 }}
+                handler={deleteHadlerOnChange}
               />
-              <button type='button' className='green'>
+              <button
+                type='button'
+                className='green'
+                onClick={deleteHandlerOnClick}
+              >
                 Submit
               </button>
+              {wrongPassword && (
+                <h2 style={{ color: 'red', marginTop: '10px' }}>
+                  Wrong password
+                </h2>
+              )}
             </div>
           </form>
         )}
