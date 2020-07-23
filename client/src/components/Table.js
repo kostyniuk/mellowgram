@@ -17,6 +17,7 @@ import {
 
 import { adjustToTable } from '../helpers';
 
+import '../styles/input.css';
 import '../styles/table.css';
 
 const theme = createMuiTheme({
@@ -78,7 +79,7 @@ const useStyles = makeStyles({
 
 const SimpleTable = ({ tab, data, handler }) => {
   const classes = useStyles();
-  console.log({data})
+  console.log({ data });
   const infoRows = adjustToTable(data);
   return (
     <ThemeProvider theme={theme}>
@@ -94,7 +95,12 @@ const SimpleTable = ({ tab, data, handler }) => {
                   {tab === 'overview' ? (
                     row.value
                   ) : (
-                    <input id='txt' name={row.field} value={row.value} onChange={handler} />
+                    <input
+                      id='txt'
+                      name={row.field}
+                      value={row.value}
+                      onChange={handler}
+                    />
                   )}
                 </StyledTableCellValue>
               </StyledTableRow>

@@ -45,11 +45,6 @@ require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use((req, res, next) => {
-  console.log({ user: req.user, session: req.session });
-  next();
-});
-
 app.use('/api/public', express.static('public'));
 
 app.use(require('./routes'));
