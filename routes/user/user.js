@@ -15,7 +15,7 @@ const { validPassword } = require('../../lib/passwordUtils');
 router.get('/:nickname', async (req, res, next) => {
   try {
     const { nickname } = req.params;
-
+    // need to work here
     const id = await findIdByUserName(nickname, res);
 
     const info = await personInfoById(id, res);
