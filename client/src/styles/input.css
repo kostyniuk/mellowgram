@@ -1,0 +1,29 @@
+:root {
+  --bg_color_light: #ebe6e7;
+  --bg_color_dark: #181a19;
+  --text_light: #ffffff;
+  --text_dark: #000;
+  --cream: hsl(348, 11%, 91%);
+  --insta: hsl(348, 35%, 74%);
+  --facebook: #6bacd8cc;
+  --green: rgba(99, 250, 39, 0.966);
+  --grey: rgb(44, 44, 44);
+  --INPUT_grey: #3d3d3d;
+
+}
+
+#txt {
+  margin: 8px;
+  padding: 5px;
+  border: none;
+  background-color: var(--INPUT_grey);
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: small;
+  color: var(--text_white);
+  font-family: inherit;
+}
+
+#txt:focus {
+  outline: none;
+}
