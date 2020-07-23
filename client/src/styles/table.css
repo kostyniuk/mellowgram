@@ -21,6 +21,7 @@
   font-weight: bold;
   font-size: small;
   color: var(--text_white);
+  font-family: inherit;
 }
 
 .btn-edit-sbm {

@@ -7,6 +7,7 @@
   --cream: hsl(348, 11%, 91%);
   --blue: #3498db;
   --grey: rgb(44, 44, 44);
+  --lightgrey: #6c6c6c;
 }
 .card {
   max-width: 340px;
@@ -139,7 +140,7 @@
 .card-desc {
   position: absolute;
   line-height: 1.6;
-  color: #636b6f;
+  color: var(--lightgrey);
   font-size: 14px;
   margin: 0;
   text-align: left;
@@ -197,7 +198,7 @@
   border: 0;
   padding: 15px 5px;
   cursor: pointer;
-  color: #5c5c6d;
+  color: var(--lightgrey);
   transition: 0.3s;
   font-family: 'Jost', sans-serif;
   font-weight: 500;
@@ -279,7 +280,7 @@
 }
 .card-item-desc {
   font-size: 13px;
-  color: #6f6f7b;
+  color: var(--lightgrey);
   line-height: 1.5;
   font-family: 'DM Sans', sans-serif;
 }
@@ -290,7 +291,7 @@
   display: flex;
   align-items: center;
   font-size: 13px;
-  color: #6f6f7b;
+  color: var(--lightgrey);
   font-family: 'DM Sans', sans-serif;
   line-height: 1.6;
   cursor: pointer;
@@ -319,7 +320,7 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  font-family: 'Jost', sans-serif;
+  /* font-family: 'Jost', sans-serif; */
 }
 
 .contact-me:hover {

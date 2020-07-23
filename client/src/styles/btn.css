@@ -6,23 +6,21 @@
   --cream: hsl(348, 11%, 91%);
   --insta: hsl(348, 35%, 74%);
   --facebook: #6bacd8cc;
-  --green: rgba(167, 240, 107, 0.966);
+  --green_lighter: rgb(77, 177, 0);
   --green_dark : rgb(23, 148, 67);
   --text_cream : rgb(232, 230, 227);
 }
 
 .green {
+  cursor: pointer;
   padding: 10px 40px;
   margin-top: 10px;
   width: 140px;
   height: 40px;
   border: none;
-  color: var(--text_dark);
+  color: var(--text_light);
   background: var(--green_dark);
   border-radius: 5px;
   transition: 0.5s;
-}
-
-.green:hover {
-  background: var(--green);
+  font-family: inherit;
 }

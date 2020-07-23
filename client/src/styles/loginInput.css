@@ -7,8 +7,8 @@
   --insta: hsl(348, 35%, 74%);
   --facebook: #6bacd8cc;
   --green: rgba(167, 240, 107, 0.966);
-  --green_dark : rgb(23, 148, 67);
-  --text_cream : rgb(232, 230, 227);
+  --green_dark: rgb(23, 148, 67);
+  --text_cream: rgb(232, 230, 227);
 }
 
 * {
@@ -78,6 +78,7 @@
   font-weight: bold;
   font-size: small;
   color: var(--text_white);
+  font-family: inherit;
 }
 
 label {
