@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import useFetch from '../hooks/useFetch';
 
@@ -10,8 +10,11 @@ import '../styles/table.css';
 import '../styles/btn.css';
 
 import { deepCopy, deleteProperties } from '../helpers';
+import { updateProfileInfo } from '../redux/actions';
 
 const SettingsCard = () => {
+
+  const dispatch = useDispatch();
   const { request, loading, error } = useFetch();
 
   const info = useSelector((state) => state.loggedInUser);
@@ -25,10 +28,11 @@ const SettingsCard = () => {
     occupation: info.occupation,
     phone_number: info.phone_number,
   });
-  const [updatedInfo, setUpdatedInfo] = useState(false)
+  const [updatedInfo, setUpdatedInfo] = useState(false);
 
   const editHandler = (e) => {
     const field = e.target.name;
+    if (updatedInfo) setUpdatedInfo(false);
     const { value } = e.target;
     setEdit((prev) => ({ ...prev, [field]: value }));
   };
@@ -44,15 +48,12 @@ const SettingsCard = () => {
       body: JSON.stringify(edit),
     });
 
-    console.log({ responce, error });
-
-    if (responce?.success && !error) {
-      setUpdatedInfo(true)
+    if (responce?.success) {
+      setUpdatedInfo(true);
     }
-    // NEED TO MAKE ENDPOINT FOR EDIT
-  };
 
-  console.log({ edit });
+    dispatch(updateProfileInfo(edit))
+  };
 
   const copy1 = deepCopy(info);
   const copy2 = deepCopy(info);
@@ -115,8 +116,16 @@ const SettingsCard = () => {
               <button className='btn green' onClick={submitEdit}>
                 Submit
               </button>
-              {error && <h2 style={{color: 'red', marginTop: '10px'}}>Error: {error}</h2>}
-              {updatedInfo && <h2 style={{color: 'green', marginTop: '10px'}}>Information updated</h2>}
+              {error && (
+                <h2 style={{ color: 'red', marginTop: '10px' }}>
+                  Error: {error}
+                </h2>
+              )}
+              {updatedInfo && (
+                <h2 style={{ color: 'green', marginTop: '10px' }}>
+                  Information updated
+                </h2>
+              )}
             </div>
           </form>
         )}

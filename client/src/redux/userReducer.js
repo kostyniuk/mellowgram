@@ -1,4 +1,8 @@
-import { AUTH_USER, UPDATE_PROFILE_PICTURE, UPDATE_PROFILE_INFO } from './types';
+import {
+  AUTH_USER,
+  UPDATE_PROFILE_PICTURE,
+  UPDATE_PROFILE_INFO,
+} from './types';
 
 const initialState = {
   isAuthenticated: false,
@@ -41,9 +45,14 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_PROFILE_INFO: {
       return {
         ...state,
-        
-        ready: true
-      }
+        username: action.payload.username,
+        based_in: action.payload.based_in,
+        email: action.payload.email,
+        fullname: action.payload.fullname,
+        occupation: action.payload.occupation,
+        phone_number: action.payload.phone_number,
+        ready: true,
+      };
     }
     default: {
       return { ...state, ready: true };

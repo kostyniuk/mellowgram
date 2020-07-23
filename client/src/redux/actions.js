@@ -3,6 +3,7 @@ import {
   NOT_AUTH_USER,
   SET_CURRENT_PAGE,
   UPDATE_PROFILE_PICTURE,
+  UPDATE_PROFILE_INFO,
 } from './types';
 
 export const authUser = ({
@@ -72,6 +73,6 @@ export const updateProfileInfo = ({
   occupation,
   phone_number,
 }) => ({
-  type: UPDATE_PROFILE_PICTURE,
+  type: UPDATE_PROFILE_INFO,
   payload: { username, based_in, email, fullname, occupation, phone_number },
 });
