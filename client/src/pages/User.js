@@ -19,7 +19,7 @@ const User = ({ match, authorized }) => {
 
   const parseInfo = useCallback(async () => {
     const json = await request(`/api/user/${username}`);
-    if (!json.error) {
+    if (json.success) {
       const {
         based_in,
         email,

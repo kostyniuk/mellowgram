@@ -12,18 +12,21 @@ const router = express.Router();
 
 const { validPassword } = require('../../lib/passwordUtils');
 
-router.get('/:nickname', async (req, res, next) => {
+router.get('/:username', async (req, res, next) => {
   try {
-    const { nickname } = req.params;
-    // need to work here
-    const id = await findIdByUserName(nickname, res);
+    const { username } = req.params;
+
+    const id = await findIdByUserName(username);
+
+    if (!id) {
+      throw new Error(`No such user: ${username}`);
+    }
 
     const info = await personInfoById(id, res);
 
-    res.json({ success: true, nickname, info });
+    res.json({ success: true, username, info });
   } catch (e) {
-    res.json({ success: false, msg: 'No such user' });
-    console.error(e);
+    res.status(404).json({ success: false, msg: e.message });
   }
 });
 
@@ -102,8 +105,6 @@ router.delete('/delete', isLoggedIn, async (req, res, next) => {
   try {
     const { password } = req.body;
     const { user_id, username } = req.user;
-
-    console.log(req.body, user_id, password);
 
     const query = `SELECT password from User_info WHERE user_id=$1`;
     const params = [user_id];

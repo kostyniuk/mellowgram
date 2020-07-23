@@ -72,7 +72,8 @@ const SettingsCard = () => {
     });
 
     if (responce?.success) {
-      window.location.href = '/';
+      window.location.href = '/login';
+      window.location.reload(true);
     }
     setWrongPassword(true);
     setPasswordToDelete('');
