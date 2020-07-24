@@ -1,33 +1,26 @@
 :root {
-  --bg_color_light: #ebe6e7;
   --bg_color_dark: #181a19;
-  --text_light: #ffffff;
   --text_dark: #000;
-  --cream: hsl(348, 11%, 91%);
-  --insta: hsl(348, 35%, 74%);
-  --facebook: #6bacd8cc;
-  --green: rgba(167, 240, 107, 0.966);
-  --green_dark: rgb(23, 148, 67);
   --text_cream: rgb(232, 230, 227);
-  --grey: rgb(44, 44, 44);
-  --lightgrey: #6c6c6c;
 }
 
 .POSTS__container {
+  display: flex;
+  flex-direction: column;
   width: 90%;
   height: auto;
-  /* min-height: 200px; */
-  background: rgb(17, 17, 17);
   margin: auto;
-  padding-bottom: 10px;
   box-sizing: border-box;
-  border-radius: 10px;
 }
 .POST__body {
+  border-radius: 10px;
+  padding-bottom: 10px;
   min-height: 100px;
+  background: var(--text_dark);
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .POST__title {
@@ -39,7 +32,6 @@
 .POST__profile_picture {
   width: 50px;
   height: 50px;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   object-position: center;
   object-fit: cover;
@@ -55,7 +47,6 @@
 
 .POST__context {
   padding-left: 70px;
-  width: 90%;
   flex-wrap: wrap;
 }
 
@@ -84,21 +75,20 @@
   align-items: center;
 }
 
-.POST__liked_by h4{
+.POST__liked_by h4 {
   margin-right: 10px;
 }
 
-.POST__liked_by img{
+.POST__liked_by img {
   width: 25px;
   height: 25px;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
   border-radius: 50%;
   object-fit: cover;
 }
 
 .POST__context p {
   font-size: 0.9em;
-  /* font-style: oblique; */
+  padding-right: 10px;
   color: var(--text_cream);
 }
 
@@ -106,7 +96,6 @@
   .POST__like_section {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     align-items: baseline;
     width: 50%;
   }
@@ -119,3 +108,19 @@
     margin-top: 10px;
   }
 }
+
+
+.form-input {
+  display: block;
+  background: transparent;
+  border-radius: 10px;
+  padding: 0.5em 0.7em;
+  color: white;
+  width: -webkit-fill-available;
+  font-size: 1rem;
+  width: 95%;
+  height: auto;
+  font: inherit;
+  resize: none;
+}
+

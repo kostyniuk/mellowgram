@@ -1,6 +1,7 @@
 :root {
   --bg_color_light: #ebe6e7;
   --bg_color_dark: #181a19;
+  --black: #000;
   --text_light: #ffffff;
   --text_dark: #000;
   --cream: rgba(247, 166, 166, 0.8);
@@ -16,7 +17,7 @@ nav {
   display: flex;
   height: 50px;
   background-color: var(--cream);
-  background: var(--bg_color_dark);
+  background: var(--black);
   position: relative;
 }
 

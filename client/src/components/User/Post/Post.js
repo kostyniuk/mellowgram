@@ -11,7 +11,6 @@ function Post({
 }) {
   return (
     <div>
-      <div className='POSTS__container'>
         <div className='POST__body'>
           <div className='POST__title'>
             <img
@@ -57,7 +56,6 @@ function Post({
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
