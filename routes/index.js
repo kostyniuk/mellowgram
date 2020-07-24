@@ -11,6 +11,7 @@ const logoutRoute = require('./logout');
 const likeRoute = require('./like');
 const whoamiRoute = require('./whoami');
 const followRoute = require('./follow');
+const postRoute = require('./post');
 
 router.use('/api/whoami', whoamiRoute);
 router.use('/api/signup', signupRoute);
@@ -20,15 +21,16 @@ router.use('/api/findUser', findUserRoute);
 router.use('/api/logout', logoutRoute);
 router.use('/api/like', likeRoute);
 router.use('/api/follow', followRoute);
+router.use('/api/post', postRoute);
 
 router.use('/api/test', (req, res, next) => {
-  console.log(req.user)
+  console.log(req.user);
 
   res.json('12');
 });
 
 router.use('/api/db', async (req, res, next) => {
-  console.log(req.user)
+  console.log(req.user);
   const { rows } = await db.query('select * from user_info;');
   res.json(rows);
 });

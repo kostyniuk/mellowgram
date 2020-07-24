@@ -2,11 +2,11 @@
 
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const isAvailable = require('../../lib/isOwnPage');
-const db = require('../../config/db');
+const isAvailable = require('../lib/isOwnPage');
+const db = require('../config/db');
 
-const transformCreationTime = require('../../lib/transformCreationTime');
-const formatTime = require('../../lib/formatTime');
+const transformCreationTime = require('../lib/transformCreationTime');
+const formatTime = require('../lib/formatTime');
 
 // posts handling
 router.get('/', async (req, res, next) => {
@@ -58,10 +58,12 @@ router.post('/', isAvailable, async (req, res, next) => {
   }
 });
 
-router.put('/:id', isAvailable, async (req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     const { caption } = req.body;
     const { id } = req.params;
+
+    // TODO: Check if whether creator is trying to alter the post or not
 
     const queryInsert = `UPDATE post SET caption = $1 WHERE post_id = $2;`;
     const paramsInsert = [caption, id];
