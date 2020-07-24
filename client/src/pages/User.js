@@ -1,13 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import '../styles/user.css';
-import Header from '../components/Header/Header';
-import NotFound from './NotFound';
-import UserInfo from '../components/User/UserInfo';
-import useFetch from '../hooks/useFetch';
 import { useSelector, useDispatch } from 'react-redux';
 import { setCurrentPage } from '../redux/actions';
 
+import useFetch from '../hooks/useFetch';
+
+import Header from '../components/Header/Header';
+import NotFound from './NotFound';
+import UserInfo from '../components/User/UserInfo';
+import Posts from '../components/User/Post/Posts'
+
+import '../styles/user.css';
 const User = ({ match, authorized }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentPage);
@@ -62,6 +65,7 @@ const User = ({ match, authorized }) => {
         <Header />
       </div>
       <UserInfo info={currentUser} />
+      <Posts />
     </div>
   );
 };
