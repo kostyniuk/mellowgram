@@ -9,6 +9,8 @@
   --green: rgba(167, 240, 107, 0.966);
   --green_dark: rgb(23, 148, 67);
   --text_cream: rgb(232, 230, 227);
+  --grey: rgb(44, 44, 44);
+  --lightgrey: #6c6c6c;
 }
 
 * {

@@ -78,7 +78,6 @@ a:hover {
 }
 
 @media screen and (max-width: 768px) {
-
   .logo a {
     margin: 8px;
   }
@@ -139,16 +138,15 @@ a:hover {
   .nav-item:nth-child(1).open {
     transition: all 0.5s ease 0.2s;
     margin-top: 30%;
-
   }
-  .nav-item:nth-child(2).open{
+  .nav-item:nth-child(2).open {
     transition: all 0.5s ease 0.4s;
   }
-  .nav-item:nth-child(3).open{
+  .nav-item:nth-child(3).open {
     transition: all 0.5s ease 0.6s;
   }
 
-  .nav-item:nth-child(4).open{
+  .nav-item:nth-child(4).open {
     transition: all 0.5s ease 0.8s;
     margin-bottom: 30%;
     margin-left: 3%;
@@ -159,7 +157,7 @@ a:hover {
   }
 }
 
-p {
+.HEADER__p {
   margin-top: 42.5vh;
   transform: translateY(-50%);
   text-align: center;
