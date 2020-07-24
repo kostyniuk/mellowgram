@@ -7,7 +7,7 @@
 .POSTS__container {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 40%;
   height: auto;
   margin: auto;
   box-sizing: border-box;
@@ -62,7 +62,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 80%;
 }
 
 .POST__like_button {
@@ -92,7 +92,7 @@
   color: var(--text_cream);
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1200px) {
   .POST__like_section {
     display: flex;
     flex-direction: column;
@@ -107,7 +107,13 @@
   .POST__liked_by {
     margin-top: 10px;
   }
+
+  .POST_number_of_likes {
+    width: 200%;
+  }
+
 }
+
 
 
 .form-input {

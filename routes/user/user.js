@@ -5,7 +5,6 @@ const express = require('express');
 const { findIdByUserName, personInfoById } = require('../../lib/sqlUtils');
 const db = require('../../config/db');
 
-const postRoute = require('./post');
 const profilePictureRoute = require('./profilePicture');
 const isLoggedIn = require('../../lib/isLoggedIn');
 const router = express.Router();
@@ -137,7 +136,6 @@ router.delete('/delete', isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.use('/:nickname/post', postRoute);
 router.use('/:nickname', profilePictureRoute);
 
 module.exports = router;
