@@ -1,4 +1,4 @@
-import { SET_POSTS } from './types';
+import { SET_POSTS, ADD_POST } from './types';
 
 const initialState = {
   user: null,
@@ -18,7 +18,13 @@ const postReducer = (state = initialState, action) => {
         final[post.post_id] = post;
       });
 
-      return { ...final, user };  
+      return { ...final, user };
+
+    case ADD_POST: {
+      const { post } = action.payload;
+
+      return { ...state, post, user: state.user };
+    }
 
     default: {
       return state;
