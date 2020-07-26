@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 
+import { useSelector, dispatch } from 'react-redux';
+
 import '../../styles/user.css';
 import '../../styles/btn.css';
 
 import Exprerience from './Experience';
 
-const UserInfo = ({ info }) => {
+const UserInfo = () => {
+  const info = useSelector(
+    (state) => state.currentPage,
+    (prev, curr) => prev.id === curr.id
+  );
+
   const experience = [
     {
       id: 1,

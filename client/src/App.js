@@ -20,7 +20,12 @@ import About from './pages/About';
 import { useSelector } from 'react-redux';
 
 const App = () => {
-  const userInfo = useSelector((state) => state.loggedInUser);
+  const userInfo = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => {
+      return prev.id === curr.id;
+    }
+  );
 
   const { loading } = useAuth();
   if (loading) return <div></div>;

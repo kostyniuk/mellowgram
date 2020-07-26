@@ -11,9 +11,8 @@ import UserInfo from '../components/User/UserInfo';
 import Posts from '../components/User/Post/Posts';
 
 import '../styles/user.css';
-const User = ({ match, authorized }) => {
+const User = ({ match }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentPage);
 
   const { username } = match.params;
   const [userPage, setUserPage] = useState(null);
@@ -64,7 +63,7 @@ const User = ({ match, authorized }) => {
       <div>
         <Header />
       </div>
-      <UserInfo info={currentUser} />
+      <UserInfo />
       <Posts />
     </div>
   );
