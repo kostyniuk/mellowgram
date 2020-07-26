@@ -14,7 +14,6 @@ const initialState = {
 const currentPageReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SET_CURRENT_PAGE':
-      console.log({action})
       return {
         ...state,
         id: action.payload.id,

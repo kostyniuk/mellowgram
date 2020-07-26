@@ -111,10 +111,7 @@
   .POST_number_of_likes {
     width: 200%;
   }
-
 }
-
-
 
 .form-input {
   display: block;
@@ -128,5 +125,5 @@
   height: auto;
   font: inherit;
   resize: none;
+  font-size: smaller;
 }
-

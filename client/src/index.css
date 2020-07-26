@@ -3,6 +3,8 @@
   --bg_color_dark: #181a19;
   --text_light: #ffffff;
   --text_dark: #000;
+  --grey: #252525;
+  --greybg: #141414;
 }
 
 body {
@@ -10,7 +12,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background: url(bg_lighter.png); */
-  background-color: #4c4c4c;
+  background-color: var(--greybg);
   color: var(--text_light);
   font-family: 'iCiel Gotham', sans-serif, 'Franklin Gothic Medium',
     'Arial Narrow', Arial, sans-serif;

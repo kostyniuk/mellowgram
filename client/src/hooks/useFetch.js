@@ -10,7 +10,6 @@ const useFetch = () => {
       setLoading(true);
 
       const responce = await fetch(url, params);
-      console.log({ responce });
       // if (!responce.ok) {
       //   setError(true);
       //   throw new Error('Something wrong with your request');
