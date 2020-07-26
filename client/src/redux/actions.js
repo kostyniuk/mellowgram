@@ -5,6 +5,7 @@ import {
   UPDATE_PROFILE_PICTURE,
   UPDATE_PROFILE_INFO,
   SET_POSTS,
+  RESET_POSTS,
 } from './types';
 
 export const authUser = ({
@@ -78,7 +79,7 @@ export const updateProfileInfo = ({
   payload: { username, based_in, email, fullname, occupation, phone_number },
 });
 
-export const setPosts = ({ posts }) => ({
+export const setPosts = ({ posts, user }) => ({
   type: SET_POSTS,
-  payload: { posts },
+  payload: { posts, user },
 });

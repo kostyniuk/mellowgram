@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 import '../../styles/header.css';
 import Select from './SettingsDropdown';
@@ -24,8 +24,7 @@ const Hamburger = ({ handler }) => {
 
 const Header = () => {
   const history = useHistory();
-
-  const authorized = useSelector(state => state.loggedInUser)
+  const authorized = useSelector((state) => state.loggedInUser);
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');

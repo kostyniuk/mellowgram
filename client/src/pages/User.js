@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { setCurrentPage } from '../redux/actions';
+import { setCurrentPage, resetPosts } from '../redux/actions';
 
 import useFetch from '../hooks/useFetch';
 
