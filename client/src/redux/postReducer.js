@@ -1,4 +1,4 @@
-import { SET_POSTS, RESET_POSTS } from './types';
+import { SET_POSTS } from './types';
 
 const initialState = {
   user: null,
@@ -19,9 +19,6 @@ const postReducer = (state = initialState, action) => {
       });
 
       return { ...final, user };  
-
-    case RESET_POSTS:
-      return {};
 
     default: {
       return state;
