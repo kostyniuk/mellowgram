@@ -17,12 +17,13 @@ function PostInput({ username, fullname, picture }) {
       },
       body: JSON.stringify({ caption }),
     });
+    setCaption('');
   };
 
   return (
     <div>
       <div>
-        <div className='POST__body'>
+        <div className='POST__body POSTINPUT '>
           <div className='POST__title'>
             <img src={picture} alt='avatar' className='POST__profile_picture' />
             <div className='POST__header'>
