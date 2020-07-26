@@ -33,16 +33,6 @@ const Posts = () => {
       }
     )
   );
-  // const posts = useSelector(
-  //   (state) => state.posts,
-  //   (prev, curr) => {
-  //     return equal(prev, curr);
-  //   }
-  // );
-
-  // const user = posts.user;
-
-  // console.log({ user });
 
   const loadPosts = useCallback(async () => {
     if (currentPage.id) {
@@ -61,8 +51,6 @@ const Posts = () => {
 
   // last element is username of the user whom these posts belong to
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
-
-  console.log(posts)
 
   return (
     <div className='POSTS__container'>

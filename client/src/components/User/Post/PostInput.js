@@ -1,23 +1,34 @@
 import React, { useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import useFetch from '../../../hooks/useFetch';
 
 import '../../../styles/btn.css';
+import { addPost } from '../../../redux/actions';
 
 function PostInput({ username, fullname, picture }) {
+  const dispatch = useDispatch();
+
   const [caption, setCaption] = useState('');
 
   const { request } = useFetch();
 
   const submitHandler = async () => {
-    await request('/api/post/', {
+    const result = await request('/api/post/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ caption }),
     });
+
     setCaption('');
+
+    if (result.success) {
+      console.log({ result });
+      dispatch(addPost({ post: result.rows }));
+    }
   };
 
   return (
