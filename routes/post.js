@@ -40,18 +40,21 @@ router.post('/', async (req, res, next) => {
 
     const { user_id } = req.user;
 
-    const queryInsert = `INSERT INTO post (creator_id, caption) VALUES ($1, $2);`;
+    const queryInsert = `INSERT INTO post (creator_id, caption) VALUES ($1, $2) RETURNING *;`;
     const paramsInsert = [user_id, caption];
 
     const { rows } = await db.query(queryInsert, paramsInsert);
 
+    
     const queryUpdateNumOfPosts = `UPDATE person SET number_of_posts = number_of_posts + 1 WHERE person_id = $1;`;
     const paramsUpdate = [user_id];
-
+    
     const result = await db.query(queryUpdateNumOfPosts, paramsUpdate);
-
+    
+    const data = formatTime(transformCreationTime(rows[0].created_at));
     res.json({
       success: true,
+      rows: {...rows[0], created_at: data},
       message: 'The post was successfully created',
       username: req.user.username,
     });
