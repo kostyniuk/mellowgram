@@ -1,8 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import '../../../styles/btn.css'
+import useFetch from '../../../hooks/useFetch';
+
+import '../../../styles/btn.css';
 
 function PostInput({ username, fullname, picture }) {
+  const [caption, setCaption] = useState('');
+
+  const { request } = useFetch();
+
+  const submitHandler = async () => {
+    await request('/api/post/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ caption }),
+    });
+  };
+
   return (
     <div>
       <div>
@@ -16,13 +32,17 @@ function PostInput({ username, fullname, picture }) {
           </div>
           <div className='POST__context'>
             <textarea
+              value={caption}
               name='message'
               autoFocus
               id='message'
               rows='4'
               className='form-input'
+              onChange={(e) => setCaption(e.target.value)}
             ></textarea>
-            <button className='green'>Submit</button>
+            <button className='green' onClick={submitHandler}>
+              Submit
+            </button>
           </div>
         </div>
       </div>
