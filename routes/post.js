@@ -9,16 +9,16 @@ const transformCreationTime = require('../lib/transformCreationTime');
 const formatTime = require('../lib/formatTime');
 
 // posts handling
-router.get('/', async (req, res, next) => {
+router.get('/:username', async (req, res, next) => {
   try {
-    const { nickname } = req.params;
+    const { username } = req.params;
 
     const query = `SELECT post.post_id, post.caption, post.created_at, post.number_of_likes 
     FROM Post
     JOIN user_info ON user_info.user_id = post.creator_id
     WHERE user_info.username = $1
     ORDER BY post.post_id DESC;`;
-    const parametrs = [nickname];
+    const parametrs = [username];
 
     const { rows } = await db.query(query, parametrs);
     let dates = rows.map((post) => transformCreationTime(post.created_at));
@@ -27,13 +27,14 @@ router.get('/', async (req, res, next) => {
       ...obj,
       created_at: formated[i],
     }));
-    res.json(responce);
+    res.json({ success: true, posts: responce });
   } catch (e) {
     console.error(e);
+    res.json({ success: false, posts: null });
   }
 });
 
-router.post('/', isAvailable, async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     const { caption } = req.body;
 
@@ -50,11 +51,16 @@ router.post('/', isAvailable, async (req, res, next) => {
     const result = await db.query(queryUpdateNumOfPosts, paramsUpdate);
 
     res.json({
+      success: true,
       message: 'The post was successfully created',
       username: req.user.username,
     });
   } catch (e) {
     console.error(e);
+    res.status(400).json({
+      success: false,
+      message: 'The post was not created',
+    });
   }
 });
 
