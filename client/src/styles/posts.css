@@ -7,10 +7,11 @@
 .POSTS__container {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 60%;
   height: auto;
   margin: auto;
   box-sizing: border-box;
+  margin-bottom: 50px;
 }
 .POST__body {
   border-radius: 10px;
@@ -20,7 +21,7 @@
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
 .POST__title {
@@ -56,6 +57,7 @@
   margin-top: 15px;
   justify-content: space-between;
   padding-right: 15px;
+  align-items: center;
 }
 
 .POST__like_section {
@@ -93,6 +95,12 @@
 }
 
 @media screen and (max-width: 1200px) {
+
+
+  .POSTS__container {
+    width: 100%;
+  }
+
   .POST__like_section {
     display: flex;
     flex-direction: column;
@@ -126,4 +134,12 @@
   font: inherit;
   resize: none;
   font-size: smaller;
+}
+
+.POSTINPUT {
+  margin-bottom: 10px;
+}
+
+.hr {
+  margin-top: 0px;
 }
