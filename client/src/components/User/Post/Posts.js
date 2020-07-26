@@ -1,41 +1,74 @@
-import React from 'react';
-import '../../../styles/posts.css';
+import React, { useEffect, useCallback } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import equal from 'deep-equal';
+
+import useFetch from '../../../hooks/useFetch';
+
+import { setPosts } from '../../../redux/actions';
+
 import Post from './Post';
 import PostInput from './PostInput';
 
-import { useSelector } from 'react-redux';
+import '../../../styles/posts.css';
 
 const Posts = () => {
-  const currentUser = useSelector((state) => state.currentPage);
-  const loggedInUser = useSelector((state) => state.loggedInUser);
+  const dispatch = useDispatch();
+  const { request } = useFetch();
 
-  console.log({ currentUser, loggedInUser });
+  const currentPage = useSelector(
+    (state) => state.currentPage,
+    (prev, curr) => prev.id === curr.id
+  );
+  const loggedInUser = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => prev.id === curr.id
+  );
+  const posts = Object.values(
+    useSelector(
+      (state) => state.posts,
+      (prev, curr) => {
+        return equal(prev, curr);
+      }
+    )
+  );
+
+  const loadPosts = useCallback(async () => {
+    if (currentPage.id && Object.keys(posts).length === 0) {
+      const res = await request(`/api/post/${currentPage.username}`);
+      if (res.success) {
+        dispatch(setPosts({ posts: res.posts }));
+      }
+    }
+  }, [dispatch, currentPage]);
+
+  useEffect(() => {
+    loadPosts();
+  }, [loadPosts, dispatch]);
 
   return (
     <div className='POSTS__container'>
-      {currentUser.id === loggedInUser.id && (
+      {currentPage.id === loggedInUser.id && (
         <PostInput
           picture='http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg'
           fullname='Steph Curry'
           username='steph'
         />
       )}
-      <Post
-        picture='http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg'
-        fullname='Steph Curry'
-        username='steph'
-        text='The son of former NBA player Dell Curry and older brother of current NBA player Seth, Curry played college basketball for the Davidson Wildcats. There, he was twice named Southern Conference Player of the Year and set the all-time scoring record for both Davidson and the Southern Conference. During his sophomore year, Curry also set the single-season NCAA record for three-pointers made, and was then selected by the Warriors with the seventh overall pick in the 2009 NBA Draft.'
-        numberOfLikes='999'
-        postedAt='23h'
-      />
-      <Post
-        picture='http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg'
-        fullname='Steph Curry'
-        username='steph'
-        text='2009 NBA Draft.'
-        numberOfLikes='999'
-        postedAt='23h'
-      />
+      {posts.reverse().map((post) => {
+        return (
+          <Post
+            id={post.post_id}
+            picture={currentPage.picture}
+            fullname={currentPage.fullname}
+            username={currentPage.username}
+            text={post.caption}
+            numberOfLikes={post.numberOfLikes}
+            postedAt={post.created_at}
+          />
+        );
+      })}
     </div>
   );
 };
