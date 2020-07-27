@@ -1,12 +1,14 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
+
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import equal from 'deep-equal';
 
 import useFetch from '../../../hooks/useFetch';
 
-import { setPosts } from '../../../redux/actions';
+import { setPosts, loadMorePosts } from '../../../redux/actions';
 
 import Post from './Post';
 import PostInput from './PostInput';
@@ -14,6 +16,8 @@ import PostInput from './PostInput';
 import '../../../styles/posts.css';
 
 const Posts = () => {
+  const hasMore = useState(true);
+
   const dispatch = useDispatch();
   const { request } = useFetch();
 
@@ -34,6 +38,9 @@ const Posts = () => {
     )
   );
 
+
+      // useState = loaded : 20, 40, 60 -> limit, offset
+
   const loadPosts = useCallback(async () => {
     if (currentPage.id) {
       const res = await request(`/api/post/${currentPage.username}`);
@@ -48,6 +55,30 @@ const Posts = () => {
     return () => 'UNMOUNTED';
   }, [loadPosts, dispatch, currentPage]);
 
+  const fetchMoreData = () => {
+    // a fake async api call like which sends
+    // 20 more records in 1.5 secs
+    setTimeout(() => {
+      dispatch(
+        loadMorePosts({
+          posts: [
+            {
+              post_id: '18',
+              caption: "Wow. That's nice",
+              created_at: '15 hours ago',
+              number_of_likes: 0,
+            },
+            {
+              post_id: '17',
+              caption: 'as',
+              created_at: '15 hours ago',
+              number_of_likes: 0,
+            },
+          ],
+        })
+      );
+    }, 1500);
+  };
 
   // last element is username of the user whom these posts belong to
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
@@ -61,22 +92,35 @@ const Posts = () => {
           username={currentPage.username}
         />
       )}
-      {posts
-        .reverse()
-        .slice(1)
-        .map((post) => {
-          return (
-            <Post
-              id={post.post_id}
-              picture={currentPage.picture}
-              fullname={currentPage.fullname}
-              username={currentPage.username}
-              text={post.caption}
-              numberOfLikes={post.number_of_likes}
-              postedAt={post.created_at}
-            />
-          );
-        })}
+
+      <InfiniteScroll
+        dataLength={posts.length}
+        next={fetchMoreData}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: 'center' }}>
+            <b>Yay! You have seen it all</b>
+          </p>
+        }
+      >
+        {posts
+          .reverse()
+          .slice(1)
+          .map((post) => {
+            return (
+              <Post
+                id={post.post_id}
+                picture={currentPage.picture}
+                fullname={currentPage.fullname}
+                username={currentPage.username}
+                text={post.caption}
+                numberOfLikes={post.number_of_likes}
+                postedAt={post.created_at}
+              />
+            );
+          })}
+      </InfiniteScroll>
     </div>
   );
 };
