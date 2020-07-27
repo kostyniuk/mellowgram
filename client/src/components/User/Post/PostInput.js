@@ -26,7 +26,6 @@ function PostInput({ username, fullname, picture }) {
     setCaption('');
 
     if (result.success) {
-      console.log({ result });
       dispatch(addPost({ post: result.rows }));
     }
   };
@@ -36,10 +35,16 @@ function PostInput({ username, fullname, picture }) {
       <div>
         <div className='POST__body POSTINPUT '>
           <div className='POST__title'>
-            <img src={picture} alt='avatar' className='POST__profile_picture' />
-            <div className='POST__header'>
-              <h3 className='POST__fullname'>{fullname}</h3>
-              <h4 className='POST__username'>@{username}</h4>
+            <div className='POST__title__left'>
+              <img
+                src={picture}
+                alt='avatar'
+                className='POST__profile_picture'
+              />
+              <div className='POST__header'>
+                <h3 className='POST__fullname'>{fullname}</h3>
+                <h4 className='POST__username'>@{username}</h4>
+              </div>
             </div>
           </div>
           <div className='POST__context'>
