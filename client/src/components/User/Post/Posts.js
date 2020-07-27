@@ -15,6 +15,8 @@ import PostInput from './PostInput';
 
 import '../../../styles/posts.css';
 
+import { sleep } from '../../../helpers/index';
+
 const Posts = () => {
   const [hasMore, setHasMore] = useState(true);
 
@@ -63,6 +65,8 @@ const Posts = () => {
     const res = await request(
       `/api/post/${currentPage.username}?limit=5&offset=${offset.current}`
     );
+
+    await sleep(500);
 
     if (!res.posts.length) {
       setHasMore(false);

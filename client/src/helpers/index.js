@@ -6,4 +6,8 @@ module.exports = {
   deepCopy: (obj) => JSON.parse(JSON.stringify(obj)),
   adjustToTable: (obj) =>
     Object.keys(obj).map((field, i) => ({ field, value: obj[field] })),
+  sleep: (msec) =>
+    new Promise((resolve) => {
+      setTimeout(resolve, msec);
+    }),
 };
