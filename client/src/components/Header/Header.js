@@ -37,14 +37,9 @@ const Header = () => {
     setSelectedValue(e.value);
   };
 
-  console.log({ selectedValue });
-
   if (selectedValue) {
     history.push(`/${selectedValue}`); // no return !!!
-    // return <Redirect exact to={`/${selectedValue}`} />;
   }
-
-  // if (!authorized) return <div></div>
 
   return (
     <div>

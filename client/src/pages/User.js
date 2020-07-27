@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCurrentPage } from '../redux/actions';
 
 import useFetch from '../hooks/useFetch';
@@ -17,7 +17,7 @@ const User = ({ match }) => {
   const { username } = match.params;
   const [userPage, setUserPage] = useState(null);
 
-  const { loading, request, error } = useFetch();
+  const { loading, request } = useFetch();
 
   const parseInfo = useCallback(async () => {
     const json = await request(`/api/user/${username}`);

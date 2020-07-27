@@ -11,11 +11,10 @@ import '../styles/btn.css';
 
 import { deepCopy, deleteProperties } from '../helpers';
 import { updateProfileInfo } from '../redux/actions';
-import { compareSync } from 'bcryptjs';
 
 const SettingsCard = () => {
   const dispatch = useDispatch();
-  const { request, loading, error } = useFetch();
+  const { request, error } = useFetch();
 
   const info = useSelector((state) => state.loggedInUser);
 
@@ -80,20 +79,12 @@ const SettingsCard = () => {
   };
 
   const copy1 = deepCopy(info);
-  const copy2 = deepCopy(info);
 
   const adjustedOverwiew = deleteProperties(copy1, [
     'id',
     'ready',
     'isAuthenticated',
     'picture',
-  ]);
-  const adjustedEdit = deleteProperties(copy2, [
-    'id',
-    'ready',
-    'isAuthenticated',
-    'picture',
-    'number_of_posts',
   ]);
 
   const switchTab = (index) => setOpenTab(index);
@@ -124,7 +115,7 @@ const SettingsCard = () => {
           <div className='settings-overview'>
             <h1>Account overview</h1>
             <div className='settings-overview-img'>
-              <img src={info.picture}></img>
+              <img src={info.picture} alt='avatar'></img>
               <UploadButton />
             </div>
             <div className='settings-overview-table'>

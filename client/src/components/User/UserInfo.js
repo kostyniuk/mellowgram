@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useSelector, dispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import '../../styles/user.css';
 import '../../styles/btn.css';
