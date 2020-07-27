@@ -14,26 +14,26 @@ const postReducer = (state = initialState, action) => {
         return { user };
       }
 
-      posts.map((post) => {
+      posts.forEach((post) => {
         final[post.post_id] = post;
       });
-
-      console.log({ posts, final });
-
-      console.log({ state, final, user });
 
       return { ...final, user };
 
     case ADD_POST: {
       const { post } = action.payload;
 
-      return { ...state, post, user: state.user };
+      const final = {};
+
+      final[post.post_id] = post;
+
+      return { ...state, ...final, user: state.user };
     }
 
     case LOAD_MORE_POSTS: {
       const { posts } = action.payload;
       let final = {};
-      posts.map((post) => {
+      posts.forEach((post) => {
         final[post.post_id] = post;
       });
 
