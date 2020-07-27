@@ -1,4 +1,4 @@
-import { SET_POSTS, ADD_POST } from './types';
+import { SET_POSTS, ADD_POST, LOAD_MORE_POSTS } from './types';
 
 const initialState = {
   user: null,
@@ -18,6 +18,10 @@ const postReducer = (state = initialState, action) => {
         final[post.post_id] = post;
       });
 
+      console.log({ posts, final });
+
+      console.log({ state, final, user });
+
       return { ...final, user };
 
     case ADD_POST: {
@@ -26,6 +30,13 @@ const postReducer = (state = initialState, action) => {
       return { ...state, post, user: state.user };
     }
 
+    case LOAD_MORE_POSTS: {
+      const { posts } = action.payload;
+
+      console.log({ posts });
+
+      return { ...state, ...posts, user: state.user };
+    }
     default: {
       return state;
     }
