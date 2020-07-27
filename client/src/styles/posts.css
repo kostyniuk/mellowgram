@@ -2,6 +2,8 @@
   --bg_color_dark: #181a19;
   --text_dark: #000;
   --text_cream: rgb(232, 230, 227);
+  --greybg: #141414;
+
 }
 
 .POSTS__container {
@@ -12,22 +14,32 @@
   margin: auto;
   box-sizing: border-box;
   margin-bottom: 50px;
+  padding: 30px;
 }
 .POST__body {
-  border-radius: 10px;
+  border-radius: 20px;
   padding-bottom: 10px;
   min-height: 100px;
   background: var(--text_dark);
   width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
-  /* margin-bottom: 10px; */
+  border: 100px solid;
+  border-image-slice: 1;
+  border-width: 2px;
+  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+  margin-bottom: 10px;
 }
 
 .POST__title {
   display: flex;
   flex-direction: row;
   padding: 10px;
+  justify-content: space-between;
+}
+
+.POST__title__left {
+  display: flex;
 }
 
 .POST__profile_picture {
@@ -141,5 +153,6 @@
 }
 
 .hr {
-  margin-top: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

@@ -77,11 +77,12 @@
   position: absolute;
   left: 0;
   will-change: top;
-  background: linear-gradient(
+  /* background: linear-gradient(
     45deg,
     rgba(248, 195, 69, 1) 0%,
     rgba(244, 124, 118, 1) 100%
-  );
+  ); */
+  background: linear-gradient(45deg, #743ad5, #d53a9d);
   filter: blur(1px);
   transition: 0.5s;
 }
