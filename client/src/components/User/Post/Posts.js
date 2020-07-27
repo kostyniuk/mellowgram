@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from 'react';
+import React, { useEffect, useCallback, useState, useRef } from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,7 +16,7 @@ import PostInput from './PostInput';
 import '../../../styles/posts.css';
 
 const Posts = () => {
-  const hasMore = useState(true);
+  const [hasMore, setHasMore] = useState(true);
 
   const dispatch = useDispatch();
   const { request } = useFetch();
@@ -36,15 +36,19 @@ const Posts = () => {
         return equal(prev, curr);
       }
     )
-  );
+  ).sort();
 
+  const [isParsed, setIsParsed] = useState(false);
 
-      // useState = loaded : 20, 40, 60 -> limit, offset
+  const offset = useRef(0);
 
   const loadPosts = useCallback(async () => {
-    if (currentPage.id) {
-      const res = await request(`/api/post/${currentPage.username}`);
+    if (currentPage.id && !isParsed) {
+      const res = await request(
+        `/api/post/${currentPage.username}?limit=5&offset=0`
+      );
       if (res.success) {
+        setIsParsed(true);
         dispatch(setPosts({ posts: res.posts, user: currentPage.username }));
       }
     }
@@ -55,29 +59,24 @@ const Posts = () => {
     return () => 'UNMOUNTED';
   }, [loadPosts, dispatch, currentPage]);
 
-  const fetchMoreData = () => {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
-    setTimeout(() => {
-      dispatch(
-        loadMorePosts({
-          posts: [
-            {
-              post_id: '18',
-              caption: "Wow. That's nice",
-              created_at: '15 hours ago',
-              number_of_likes: 0,
-            },
-            {
-              post_id: '17',
-              caption: 'as',
-              created_at: '15 hours ago',
-              number_of_likes: 0,
-            },
-          ],
-        })
-      );
-    }, 1500);
+  const fetchMoreData = async () => {
+    console.log('fetching');
+    offset.current += 5;
+    console.log({ off: offset.current });
+    const res = await request(
+      `/api/post/${currentPage.username}?limit=5&offset=${offset.current}`
+    );
+
+    if (!res.posts.length) {
+      setHasMore(false);
+      return;
+    }
+
+    dispatch(
+      loadMorePosts({
+        posts: res.posts,
+      })
+    );
   };
 
   // last element is username of the user whom these posts belong to
@@ -99,7 +98,7 @@ const Posts = () => {
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
         endMessage={
-          <p style={{ textAlign: 'center' }}>
+          <p style={{ textAlign: 'center', marginTop: '10px' }}>
             <b>Yay! You have seen it all</b>
           </p>
         }

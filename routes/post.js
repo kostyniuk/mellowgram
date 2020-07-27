@@ -13,12 +13,20 @@ router.get('/:username', async (req, res, next) => {
   try {
     const { username } = req.params;
 
+    let { limit, offset } = req.query;
+
+    limit = limit || 100;
+    offset = offset || 0;
+
+    console.log(req.query);
+    console.log({ limit, offset });
+
     const query = `SELECT post.post_id, post.caption, post.created_at, post.number_of_likes 
     FROM Post
     JOIN user_info ON user_info.user_id = post.creator_id
     WHERE user_info.username = $1
-    ORDER BY post.post_id DESC;`;
-    const parametrs = [username];
+    ORDER BY post.post_id DESC OFFSET $2 LIMIT $3;`;
+    const parametrs = [username, offset, limit];
 
     const { rows } = await db.query(query, parametrs);
     let dates = rows.map((post) => transformCreationTime(post.created_at));
@@ -45,16 +53,15 @@ router.post('/', async (req, res, next) => {
 
     const { rows } = await db.query(queryInsert, paramsInsert);
 
-    
     const queryUpdateNumOfPosts = `UPDATE person SET number_of_posts = number_of_posts + 1 WHERE person_id = $1;`;
     const paramsUpdate = [user_id];
-    
+
     const result = await db.query(queryUpdateNumOfPosts, paramsUpdate);
-    
+
     const data = formatTime(transformCreationTime(rows[0].created_at));
     res.json({
       success: true,
-      rows: {...rows[0], created_at: data},
+      rows: { ...rows[0], created_at: data },
       message: 'The post was successfully created',
       username: req.user.username,
     });

@@ -32,10 +32,12 @@ const postReducer = (state = initialState, action) => {
 
     case LOAD_MORE_POSTS: {
       const { posts } = action.payload;
+      let final = {};
+      posts.map((post) => {
+        final[post.post_id] = post;
+      });
 
-      console.log({ posts });
-
-      return { ...state, ...posts, user: state.user };
+      return { ...state, ...final, user: state.user };
     }
     default: {
       return state;
