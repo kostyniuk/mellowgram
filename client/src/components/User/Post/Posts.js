@@ -52,17 +52,14 @@ const Posts = () => {
         dispatch(setPosts({ posts: res.posts, user: currentPage.username }));
       }
     }
-  }, [dispatch, currentPage]);
+  }, [dispatch, currentPage, isParsed, request]);
 
   useEffect(() => {
     loadPosts();
-    return () => 'UNMOUNTED';
   }, [loadPosts, dispatch, currentPage]);
 
   const fetchMoreData = async () => {
-    console.log('fetching');
     offset.current += 5;
-    console.log({ off: offset.current });
     const res = await request(
       `/api/post/${currentPage.username}?limit=5&offset=${offset.current}`
     );
@@ -97,11 +94,6 @@ const Posts = () => {
         next={fetchMoreData}
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
-        endMessage={
-          <p style={{ textAlign: 'center', marginTop: '10px' }}>
-            <b>Yay! You have seen it all</b>
-          </p>
-        }
       >
         {posts
           .reverse()
@@ -109,6 +101,7 @@ const Posts = () => {
           .map((post) => {
             return (
               <Post
+                key={post.post_id}
                 id={post.post_id}
                 picture={currentPage.picture}
                 fullname={currentPage.fullname}
@@ -116,6 +109,7 @@ const Posts = () => {
                 text={post.caption}
                 numberOfLikes={post.number_of_likes}
                 postedAt={post.created_at}
+                showSettings={currentPage.id === loggedInUser.id}
               />
             );
           })}

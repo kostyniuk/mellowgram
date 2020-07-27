@@ -8,23 +8,31 @@ function Post({
   numberOfLikes,
   liked_by,
   postedAt,
+  showSettings,
 }) {
   return (
     <div>
       <div className='POST__body'>
         <div className='POST__title'>
-          <img src={picture} alt='avatar' className='POST__profile_picture' />
-          <div className='POST__header'>
-            <h3 className='POST__fullname'>{fullname}</h3>
-            <h4 className='POST__username'>@{username}</h4>
+          <div className='POST__title__left'>
+            <img src={picture} alt='avatar' className='POST__profile_picture' />
+            <div className='POST__header'>
+              <h3 className='POST__fullname'>{fullname}</h3>
+              <h4 className='POST__username'>@{username}</h4>
+            </div>
           </div>
+          {showSettings && (
+            <div className='POST__title__right'>
+              <i className='fa fa-cog' aria-hidden='true'></i>
+            </div>
+          )}
         </div>
         <div className='POST__context'>
           <p>{text}</p>
           <div className='POST__actions'>
             <div className='POST__like_section'>
               <div className='POST__like_button'>
-                <i class='fa fa-heart' aria-hidden='true'></i>
+                <i className='fa fa-heart' aria-hidden='true'></i>
                 <h4>&#8203; Like</h4>
               </div>
               <h4 className='POST_number_of_likes'>{numberOfLikes} Likes </h4>
@@ -49,7 +57,7 @@ function Post({
           </div>
         </div>
       </div>
-      <hr className='hr'/>
+      {/* <hr className='hr' /> */}
     </div>
   );
 }
