@@ -9,13 +9,20 @@ import rootReducer from './redux/rootReducer';
 import './index.css';
 import App from './App';
 
-const store = createStore(
-  rootReducer,
-  compose(
+let store;
+
+if(process.env.NODE_ENV === 'production') {
+  store = createStore(rootReducer, compose(
     applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+
+  ));
+} else {
+  store = createStore(rootReducer, compose(
+    applyMiddleware(thunk),
+
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ));
+}
 
 const app = (
   <Provider store={store}>
