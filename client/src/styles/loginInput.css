@@ -189,7 +189,7 @@ button a:hover {
   margin: 10px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1000px) {
   .image {
     display: none;
   }
@@ -222,4 +222,11 @@ button a:hover {
 
 .login-error:hover {
   color: crimson;
+}
+
+@media screen and (max-width: 1200px) {
+
+  .containerInput {
+    top: 53%
+  }
 }

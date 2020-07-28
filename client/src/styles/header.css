@@ -125,7 +125,9 @@ a:hover {
   }
 
   .nav-search {
-    margin: 10px 20px;
+    display: flex;
+    justify-content: end;
+    padding-bottom: 5px;
   }
 
   .nav-item {
