@@ -11,6 +11,10 @@ import App from './App';
 
 let store;
 
+
+
+//REDUX TOOLS should be disabled for Production
+
 if(process.env.NODE_ENV === 'production') {
   store = createStore(rootReducer, compose(
     applyMiddleware(thunk),
