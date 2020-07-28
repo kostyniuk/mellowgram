@@ -44,7 +44,7 @@ const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
         </a>
         <br />
         <button type='button' className='btn green' onClick={submitHandler}>
-          <a>Login</a>
+          Login
         </button>
         {err && <h4 className='fp login-error'>{err}</h4>}
         <hr />

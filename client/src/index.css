@@ -14,7 +14,7 @@ body {
   /* background: url(bg_lighter.png); */
   background-color: var(--greybg);
   color: var(--text_light);
-  font-family: -apple-system, 'iCiel Gotham', sans-serif, 'Franklin Gothic Medium',
+  font-family: 'iCiel Gotham', sans-serif, 'Franklin Gothic Medium',
     'Arial Narrow', Arial, sans-serif;
 }
 
