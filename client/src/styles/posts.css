@@ -111,6 +111,12 @@
 
   .POSTS__container {
     width: 100%;
+    padding: 2px;
+    
+  }
+
+  .POST__body {
+    margin-bottom: 0px;
   }
 
   .POST__like_section {
