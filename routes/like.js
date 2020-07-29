@@ -29,13 +29,11 @@ router.get('/:postId', async (req, res, next) => {
 
       const data = await fetchEssentInfo(userIds);
 
-      res
-        .status(200)
-        .json({
-          id: postId,
-          data,
-          alreadyLiked: alreadyLikedByCurrentUser(data, user_id),
-        });
+      res.status(200).json({
+        id: postId,
+        data,
+        alreadyLiked: alreadyLikedByCurrentUser(data, user_id),
+      });
     } else {
       res.status(200).json({ id: postId, data: [], alreadyLiked: false });
     }
@@ -60,10 +58,10 @@ router.post('/:postId', isLoggedIn, async (req, res, next) => {
     const result = await db.query(query2, params2);
     console.log({ data: result });
 
-    res.status(200).json({ user_id, postId, rows });
+    res.status(200).json({ success: true, user_id, postId });
   } catch (e) {
     console.error(e);
-    res.status(409).json(e);
+    res.status(409).json({ success: false, msg: e });
   }
 });
 
