@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import useFetch from '../../../hooks/useFetch';
+
 const Post = ({
+  id,
   picture,
   fullname,
   username,
@@ -10,12 +13,26 @@ const Post = ({
   postedAt,
   showSettings,
 }) => {
+  const { request } = useFetch();
+
+
+  //need to update state of posts - number of likes and likes - add new like
+  // we have user_id need to select from state.loggedinUser and add username and picture to new action
+
+  console.log({ likes });
+
   const [liked, setLiked] = useState(likes?.alreadyLiked || false);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
 
-  if (!likes) return <div></div>;
+  const handleLike = async () => {
+    setLiked((prev) => !prev);
+    const res = await request(`/api/like/${id}`, {
+      method: 'POST',
+    });
+    console.log({ res });
+  };
 
-  console.log({ likes });
+  if (!likes) return <div></div>;
 
   return (
     <div>
@@ -42,17 +59,38 @@ const Post = ({
                 <i
                   className={likeButtonClasses}
                   aria-hidden='true'
-                  onClick={() => setLiked((prev) => !prev)}
+                  onClick={handleLike}
                 ></i>
-                <h4>&#8203; Like</h4>
+                {liked ? <h4>&#8203; Liked</h4> : <h4>&#8203; Like &#8203;</h4>}
               </div>
               <h4 className='POST_number_of_likes'>{numberOfLikes} Likes </h4>
 
               <div className='POST__liked_by'>
                 <h4>Liked by: </h4>
-                  <img src={ likes.data.length ? likes.data[0].picture : '/api/public/uploads/blank.jpg'} alt='avatar' />
-                  <img src={ likes.data.length > 1 ? likes.data[1].picture : '/api/public/uploads/blank.jpg'} alt='avatar' />
-                  <img src={ likes.data.length > 2 ? likes.data[2].picture : '/api/public/uploads/blank.jpg'} alt='avatar' />
+                <img
+                  src={
+                    likes.data.length
+                      ? likes.data[0].picture
+                      : '/api/public/uploads/blank.jpg'
+                  }
+                  alt='avatar'
+                />
+                <img
+                  src={
+                    likes.data.length > 1
+                      ? likes.data[1].picture
+                      : '/api/public/uploads/blank.jpg'
+                  }
+                  alt='avatar'
+                />
+                <img
+                  src={
+                    likes.data.length > 2
+                      ? likes.data[2].picture
+                      : '/api/public/uploads/blank.jpg'
+                  }
+                  alt='avatar'
+                />
               </div>
             </div>
             <h4 className='POST__creation_time'>{postedAt}</h4>
