@@ -10,12 +10,13 @@ const Post = ({
   postedAt,
   showSettings,
 }) => {
-
   const [liked, setLiked] = useState(likes?.alreadyLiked || false);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
-  
-  if (!likes) return <div></div>
-  
+
+  if (!likes) return <div></div>;
+
+  console.log({ likes });
+
   return (
     <div>
       <div className='POST__body'>
@@ -49,18 +50,9 @@ const Post = ({
 
               <div className='POST__liked_by'>
                 <h4>Liked by: </h4>
-                <img
-                  src='http://localhost:3000/api/public/uploads/user_dloading.jpg'
-                  alt='avatar'
-                />
-                <img
-                  src='http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg'
-                  alt='avatar'
-                />
-                <img
-                  src='http://localhost:3000/api/public/uploads/user_kostyniuk.jpg'
-                  alt='avatar'
-                />
+                  <img src={ likes.data.length ? likes.data[0].picture : '/api/public/uploads/blank.jpg'} alt='avatar' />
+                  <img src={ likes.data.length > 1 ? likes.data[1].picture : '/api/public/uploads/blank.jpg'} alt='avatar' />
+                  <img src={ likes.data.length > 2 ? likes.data[2].picture : '/api/public/uploads/blank.jpg'} alt='avatar' />
               </div>
             </div>
             <h4 className='POST__creation_time'>{postedAt}</h4>
