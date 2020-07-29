@@ -1,24 +1,21 @@
 import React, { useState } from 'react';
 
-function Post({
+const Post = ({
   picture,
   fullname,
   username,
   text,
   numberOfLikes,
-  liked_by,
+  likes,
   postedAt,
   showSettings,
-}) {
-  const [liked, setLiked] = useState(false);
+}) => {
+
+  const [liked, setLiked] = useState(likes?.alreadyLiked || false);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
-
-  console.log({liked})
-
-  const likeHandler = () => {
-    setLiked((prev) => !prev);
-  };
-
+  
+  if (!likes) return <div></div>
+  
   return (
     <div>
       <div className='POST__body'>
@@ -44,7 +41,7 @@ function Post({
                 <i
                   className={likeButtonClasses}
                   aria-hidden='true'
-                  onClick={likeHandler}
+                  onClick={() => setLiked((prev) => !prev)}
                 ></i>
                 <h4>&#8203; Like</h4>
               </div>
@@ -73,6 +70,6 @@ function Post({
       {/* <hr className='hr' /> */}
     </div>
   );
-}
+};
 
 export default Post;
