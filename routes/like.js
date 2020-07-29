@@ -5,6 +5,8 @@ const router = express.Router();
 
 const db = require('../config/db');
 
+const isLoggedIn = require('../lib/isLoggedIn.js');
+
 const fetchEssentInfo = require('../lib/fetchUserEssentialInfo');
 
 const alreadyLikedByCurrentUser = (info, userId) => {
@@ -29,16 +31,20 @@ router.get('/:postId', async (req, res, next) => {
 
       res
         .status(200)
-        .json({ data, alreadyLiked: alreadyLikedByCurrentUser(data, user_id) });
+        .json({
+          id: postId,
+          data,
+          alreadyLiked: alreadyLikedByCurrentUser(data, user_id),
+        });
     } else {
-      res.status(200).json(rows);
+      res.status(200).json({ id: postId, data: [], alreadyLiked: false });
     }
   } catch (e) {
     console.error(e);
   }
 });
 
-router.post('/:postId', async (req, res, next) => {
+router.post('/:postId', isLoggedIn, async (req, res, next) => {
   try {
     const { postId } = req.params;
     const { user_id } = req.user;
@@ -61,7 +67,7 @@ router.post('/:postId', async (req, res, next) => {
   }
 });
 
-router.delete('/:postId', async (req, res, next) => {
+router.delete('/:postId', isLoggedIn, async (req, res, next) => {
   try {
     const { postId } = req.params;
     const { user_id } = req.user;
