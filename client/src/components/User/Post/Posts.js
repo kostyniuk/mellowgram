@@ -8,7 +8,12 @@ import equal from 'deep-equal';
 
 import useFetch from '../../../hooks/useFetch';
 
-import { setPosts, loadMorePosts } from '../../../redux/actions';
+import {
+  setPosts,
+  loadMorePosts,
+  setLikes,
+  loadMoreLikes,
+} from '../../../redux/actions';
 
 import Post from './Post';
 import PostInput from './PostInput';
@@ -40,6 +45,13 @@ const Posts = () => {
     )
   ).sort();
 
+  const likes = useSelector(
+    (state) => state.likes,
+    (prev, curr) => {
+      return equal(prev, curr);
+    }
+  );
+
   const [isParsed, setIsParsed] = useState(false);
 
   const offset = useRef(0);
@@ -52,6 +64,8 @@ const Posts = () => {
       if (res.success) {
         setIsParsed(true);
         dispatch(setPosts({ posts: res.posts, user: currentPage.username }));
+        const likes = await loadLikes(res.posts);
+        dispatch(setLikes({ likes }));
       }
     }
   }, [dispatch, currentPage, isParsed, request]);
@@ -66,7 +80,9 @@ const Posts = () => {
       `/api/post/${currentPage.username}?limit=5&offset=${offset.current}`
     );
 
-    await sleep(500);
+    const likes = await loadLikes(res.posts);
+
+    await sleep(300);
 
     if (!res.posts.length) {
       setHasMore(false);
@@ -78,10 +94,20 @@ const Posts = () => {
         posts: res.posts,
       })
     );
+    dispatch(loadMoreLikes({ likes }));
+  };
+
+  const loadLikes = async (arrOfPosts) => {
+    const ids = arrOfPosts.map((post) => post.post_id);
+    const requests = ids.map((id) => request(`/api/like/${id}`));
+    const res = await Promise.all(requests);
+    return res;
   };
 
   // last element is username of the user whom these posts belong to
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
+
+  if (!Object.keys(likes).length) return <div></div>;
 
   return (
     <div className='POSTS__container'>
@@ -114,6 +140,7 @@ const Posts = () => {
                 numberOfLikes={post.number_of_likes}
                 postedAt={post.created_at}
                 showSettings={currentPage.id === loggedInUser.id}
+                likes={likes[post.post_id]}
               />
             );
           })}
