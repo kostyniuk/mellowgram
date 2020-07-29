@@ -7,6 +7,8 @@ import {
   SET_POSTS,
   ADD_POST,
   LOAD_MORE_POSTS,
+  SET_LIKES,
+  LOAD_MORE_LIKES,
 } from './types';
 
 export const authUser = ({
@@ -90,7 +92,17 @@ export const addPost = ({ post }) => ({
   payload: { post },
 });
 
-export const loadMorePosts = ({posts}) => ({
+export const loadMorePosts = ({ posts }) => ({
   type: LOAD_MORE_POSTS,
-  payload: {posts}
+  payload: { posts },
 });
+
+export const setLikes = ({ likes }) => ({
+  type: SET_LIKES,
+  payload: { likes },
+});
+
+export const loadMoreLikes = ({likes}) => ({
+  type: LOAD_MORE_LIKES,
+  payload: {likes}
+})

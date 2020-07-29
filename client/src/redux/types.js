@@ -6,3 +6,5 @@ export const UPDATE_PROFILE_INFO = 'UPDATE_PROFILE_INFO';
 export const SET_POSTS = 'SET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const LOAD_MORE_POSTS = 'LOAD_MORE_POSTS';
+export const SET_LIKES = 'SET_LIKES';
+export const LOAD_MORE_LIKES = 'LOAD_MORE_LIKES'
