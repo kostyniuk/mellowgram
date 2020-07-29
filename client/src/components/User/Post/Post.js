@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function Post({
   picture,
@@ -10,6 +10,15 @@ function Post({
   postedAt,
   showSettings,
 }) {
+  const [liked, setLiked] = useState(false);
+  let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
+
+  console.log({liked})
+
+  const likeHandler = () => {
+    setLiked((prev) => !prev);
+  };
+
   return (
     <div>
       <div className='POST__body'>
@@ -32,7 +41,11 @@ function Post({
           <div className='POST__actions'>
             <div className='POST__like_section'>
               <div className='POST__like_button'>
-                <i className='fa fa-heart' aria-hidden='true'></i>
+                <i
+                  className={likeButtonClasses}
+                  aria-hidden='true'
+                  onClick={likeHandler}
+                ></i>
                 <h4>&#8203; Like</h4>
               </div>
               <h4 className='POST_number_of_likes'>{numberOfLikes} Likes </h4>
