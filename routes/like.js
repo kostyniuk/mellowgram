@@ -10,6 +10,7 @@ const isLoggedIn = require('../lib/isLoggedIn.js');
 const fetchEssentInfo = require('../lib/fetchUserEssentialInfo');
 
 const alreadyLikedByCurrentUser = (info, userId) => {
+  if (!userId) return false;
   const ids = [];
   info.map((obj) => ids.push(obj.person_id));
   return ids.includes(Number(userId));
@@ -18,7 +19,12 @@ const alreadyLikedByCurrentUser = (info, userId) => {
 router.get('/:postId', async (req, res, next) => {
   try {
     const { postId } = req.params;
-    const { user_id } = req.user;
+    let user_id = undefined;
+
+    if (req.user !== undefined) {
+      user_id = req.user.user_id;
+    }
+
     const query = `SELECT from_id FROM Likes WHERE post_id = $1`;
     const params = [postId];
 
