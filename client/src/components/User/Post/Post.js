@@ -28,7 +28,6 @@ const Post = ({
       method,
     });
 
-    console.log({ res });
     if (res?.success) {
       setLiked((prev) => !prev);
     }
