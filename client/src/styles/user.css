@@ -9,8 +9,21 @@
   --grey: rgb(44, 44, 44);
   --lightgrey: #6c6c6c;
 }
+
+.USER_INFO__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+
+
+.USER_INFO__followingBar {
+  width: 100%;
+}
+
 .card {
-  max-width: 340px;
+  min-width: 300px;
   margin: 5% auto;
   position: relative;
   background-color: var(--cream);
