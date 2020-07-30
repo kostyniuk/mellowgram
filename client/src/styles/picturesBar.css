@@ -15,13 +15,12 @@
   margin-bottom: 10px;
 }
 
-.img-grid{
-  
+.img-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 20px;
 }
-.img-wrap{
+.img-wrap {
   overflow: hidden;
   height: 0;
   padding: 50% 0;
@@ -29,7 +28,7 @@
   position: relative;
   opacity: 0.8;
 }
-.img-wrap img{
+.img-wrap img {
   min-width: 100%;
   min-height: 100%;
   max-width: 100%;
@@ -38,18 +37,52 @@
   left: 0;
 }
 
-.backdrop{
+.backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
-.backdrop img{
+.backdrop img {
   display: block;
   max-width: 60%;
   max-height: 80%;
-  margin: 60px auto;
-  box-shadow: 3px 5px 7px rgba(0,0,0,0.5);
+  margin: auto;
+  margin-top: 60px;
+  box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
+}
+
+.modal_actions {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.remove_picture {
+  display: flex;
+  flex-direction: row;
+  padding-left: 50px;
+}
+
+.update_picture {
+  display: flex;
+  flex-direction: row;
+  font-size: initial;
+}
+
+.update_picture:hover {
+  cursor: pointer;
+}
+
+.remove_picture:hover {
+  cursor: pointer;
+}
+
+label input {
+  height: 0;
+  width: 0;
+  opacity: 0;
 }
