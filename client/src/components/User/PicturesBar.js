@@ -7,9 +7,9 @@ import '../../styles/picturesBar.css';
 function PicturesBar({ setSelectedImg }) {
   const pictures = [
     { id: 1, url: '/api/public/uploads/user_kostyniuk.jpg' },
-    { id: 1, url: '/api/public/uploads/user_dloading.jpg' },
-    { id: 1, url: '/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg' },
-    { id: 1, url: '/api/public/uploads/user_tsunamipapi.jpg' },
+    { id: 2, url: '/api/public/uploads/user_dloading.jpg' },
+    { id: 3, url: '/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg' },
+    { id: 4, url: '/api/public/uploads/user_tsunamipapi.jpg' },
   ];
 
   return (
