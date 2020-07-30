@@ -24,6 +24,22 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       />
+      <div className='modal_actions'>
+        <label>
+          <div className='update_picture'>
+            <input type='file'></input>
+            <i
+              class='fa fa-refresh delete_picture_button'
+              aria-hidden='true'
+            ></i>
+            <p>&#8203; Load new picture</p>
+          </div>
+        </label>
+        <div className='remove_picture'>
+          <i class='fa fa-trash delete_picture_button' aria-hidden='true'></i>
+          <p>&#8203; Remove picture</p>
+        </div>
+      </div>
     </motion.div>
   );
 };
