@@ -9,12 +9,12 @@
 .POSTS__container {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
   height: auto;
   margin: auto;
   box-sizing: border-box;
   margin-bottom: 50px;
-  padding: 30px;
+  padding: 20px;
 }
 .POST__body {
   border-radius: 20px;
