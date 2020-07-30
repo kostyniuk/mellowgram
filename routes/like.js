@@ -64,7 +64,7 @@ router.post('/:postId', isLoggedIn, async (req, res, next) => {
     const result = await db.query(query2, params2);
     console.log({ data: result });
 
-    res.status(200).json({ success: true, user_id, postId });
+    res.status(200).json({ success: true, user_id, postId, message: 'liked' });
   } catch (e) {
     console.error(e);
     res.status(409).json({ success: false, msg: e });
@@ -86,7 +86,7 @@ router.delete('/:postId', isLoggedIn, async (req, res, next) => {
 
       const result = await db.query(query2, params2);
       console.log({ data: result });
-      res.status(200).json({ message: 'Unliked' });
+      res.status(200).json({ success: true, message: 'Unliked' });
     } else {
       res.status(400).json({ error: 'Unable to unlike' });
     }
