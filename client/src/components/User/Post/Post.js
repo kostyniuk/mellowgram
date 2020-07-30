@@ -15,21 +15,23 @@ const Post = ({
 }) => {
   const { request } = useFetch();
 
-
   //need to update state of posts - number of likes and likes - add new like
   // we have user_id need to select from state.loggedinUser and add username and picture to new action
-
-  console.log({ likes });
 
   const [liked, setLiked] = useState(likes?.alreadyLiked || false);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
 
   const handleLike = async () => {
-    setLiked((prev) => !prev);
+    const method = liked ? 'DELETE' : 'POST';
+
     const res = await request(`/api/like/${id}`, {
-      method: 'POST',
+      method,
     });
+
     console.log({ res });
+    if (res?.success) {
+      setLiked((prev) => !prev);
+    }
   };
 
   if (!likes) return <div></div>;
