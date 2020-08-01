@@ -56,6 +56,13 @@ const Posts = () => {
 
   const offset = useRef(0);
 
+  const loadLikes = async (arrOfPosts) => {
+    const ids = arrOfPosts.map((post) => post.post_id);
+    const requests = ids.map((id) => request(`/api/like/${id}`));
+    const res = await Promise.all(requests);
+    return res;
+  };
+
   const loadPosts = useCallback(async () => {
     if (currentPage.id && !isParsed) {
       const res = await request(
@@ -68,7 +75,7 @@ const Posts = () => {
         dispatch(setLikes({ likes }));
       }
     }
-  }, [dispatch, currentPage, isParsed, request]);
+  }, [dispatch, currentPage, isParsed, request, loadLikes]);
 
   useEffect(() => {
     loadPosts();
@@ -97,14 +104,8 @@ const Posts = () => {
     dispatch(loadMoreLikes({ likes }));
   };
 
-  const loadLikes = async (arrOfPosts) => {
-    const ids = arrOfPosts.map((post) => post.post_id);
-    const requests = ids.map((id) => request(`/api/like/${id}`));
-    const res = await Promise.all(requests);
-    return res;
-  };
-
   // last element is username of the user whom these posts belong to
+  // it means that posts state updated and dispatched posts belongs to current user
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
 
   if (!Object.keys(likes).length) return <div></div>;
@@ -141,6 +142,7 @@ const Posts = () => {
                 postedAt={post.created_at}
                 showSettings={currentPage.id === loggedInUser.id}
                 likes={likes[post.post_id]}
+                loggedInfo={{user_id: loggedInUser.id, username: loggedInUser.username, picture: loggedInUser.picture}}
               />
             );
           })}
