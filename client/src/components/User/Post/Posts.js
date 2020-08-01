@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
+import LikesModal from '../LikesModal';
+
 import equal from 'deep-equal';
 
 import useFetch from '../../../hooks/useFetch';
@@ -24,6 +26,8 @@ import { sleep } from '../../../helpers/index';
 
 const Posts = () => {
   const [hasMore, setHasMore] = useState(true);
+
+  const [selectedLikes, setSelectedLikes] = useState(null);
 
   const dispatch = useDispatch();
   const { request } = useFetch();
@@ -104,8 +108,6 @@ const Posts = () => {
     dispatch(loadMoreLikes({ likes }));
   };
 
-  // last element is username of the user whom these posts belong to
-  // it means that posts state updated and dispatched posts belongs to current user
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
 
   if (!Object.keys(likes).length) return <div></div>;
@@ -147,10 +149,14 @@ const Posts = () => {
                   username: loggedInUser.username,
                   picture: loggedInUser.picture,
                 }}
+                setSelectedLikes={setSelectedLikes}
               />
             );
           })}
       </InfiniteScroll>
+      {selectedLikes && (
+        <LikesModal setSelectedImg={setSelectedLikes} likes={selectedLikes} />
+      )}
     </div>
   );
 };
