@@ -36,7 +36,6 @@ const likeReducer = (state = initialState, action) => {
       const likedUsers = state[id].data;
 
       const final = likedUsers.filter((obj) => {
-        console.log({ obj, user_id });
         return obj.person_id !== action.payload.user_id;
       });
 
