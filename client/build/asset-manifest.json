@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.6f75b8c7.chunk.css",
+    "main.css": "/static/css/main.5bf0521f.chunk.css",
     "main.js": "/static/js/main.c92411d6.chunk.js",
     "main.js.map": "/static/js/main.c92411d6.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.09b85ec0.js",
@@ -8,16 +8,16 @@
     "static/js/2.a19013e4.chunk.js": "/static/js/2.a19013e4.chunk.js",
     "static/js/2.a19013e4.chunk.js.map": "/static/js/2.a19013e4.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.ecdb5588d007d78592b50c0d3d9fb814.js": "/precache-manifest.ecdb5588d007d78592b50c0d3d9fb814.js",
+    "precache-manifest.5ba40cc5d5a28a6ddd03ae0a792f69a3.js": "/precache-manifest.5ba40cc5d5a28a6ddd03ae0a792f69a3.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.6f75b8c7.chunk.css.map": "/static/css/main.6f75b8c7.chunk.css.map",
+    "static/css/main.5bf0521f.chunk.css.map": "/static/css/main.5bf0521f.chunk.css.map",
     "static/js/2.a19013e4.chunk.js.LICENSE.txt": "/static/js/2.a19013e4.chunk.js.LICENSE.txt",
     "static/media/user.css": "/static/media/mount-fuji-highest-mountain-in-japan-osx-lion-wallpaper.006f2283.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.09b85ec0.js",
     "static/js/2.a19013e4.chunk.js",
-    "static/css/main.6f75b8c7.chunk.css",
+    "static/css/main.5bf0521f.chunk.css",
     "static/js/main.c92411d6.chunk.js"
   ]
 }

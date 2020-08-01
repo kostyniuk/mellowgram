@@ -13,3 +13,14 @@
   margin-left: 20px;
   background-color: #000;
 }
+
+
+@media screen and (max-width: 900px) {
+
+  .USER_INFO__followingBar {
+    margin: 0 auto;
+    border-radius: 0;
+    width: 90%;
+    height: 100px;
+  }
+}

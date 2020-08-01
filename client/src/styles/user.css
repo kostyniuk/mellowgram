@@ -346,3 +346,15 @@
 .user-hr {
   margin-top: 0px;
 }
+
+@media screen and (max-width: 900px) {
+  .USER_INFO__container {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+  }
+
+  .USER_INFO__followingBar {
+    width: 100%;
+  }
+}
