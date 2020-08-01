@@ -1,4 +1,9 @@
-import { SET_LIKES, LOAD_MORE_LIKES, ON_LIKE } from './types';
+import {
+  SET_LIKES,
+  LOAD_MORE_LIKES,
+  ON_LIKE,
+  CREATE_LIKES_ON_ADD_POST,
+} from './types';
 
 const initialState = {};
 
@@ -49,6 +54,18 @@ const likeReducer = (state = initialState, action) => {
       } else {
         return { ...state, [id]: { id, data: final, alreadyLiked: false } };
       }
+    }
+
+    case CREATE_LIKES_ON_ADD_POST: {
+      const { id } = action.payload;
+
+      const newLike = {
+        id,
+        data: [],
+        alreadyLiked: false,
+      };
+
+      return { ...state, [id]: newLike };
     }
 
     default: {
