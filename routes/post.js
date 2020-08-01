@@ -87,10 +87,15 @@ router.put('/:id', async (req, res, next) => {
     await db.query(queryInsert, paramsInsert);
 
     res.json({
+      success: true,
       message: 'The post was successfully updated',
       post: caption,
     });
   } catch (e) {
+    res.status(404).json({
+      success: false,
+      message: 'The post was successfully updated',
+    });
     console.error(e);
   }
 });
