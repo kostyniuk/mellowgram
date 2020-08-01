@@ -25,9 +25,6 @@ const Post = ({
 
   const { request } = useFetch();
 
-  //need to update state of posts - number of likes and likes - add new like
-  // we have user_id need to select from state.loggedinUser and add username and picture to new action
-
   const [liked, setLiked] = useState(likes?.alreadyLiked);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
 

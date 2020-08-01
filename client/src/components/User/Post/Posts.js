@@ -142,7 +142,11 @@ const Posts = () => {
                 postedAt={post.created_at}
                 showSettings={currentPage.id === loggedInUser.id}
                 likes={likes[post.post_id]}
-                loggedInfo={{user_id: loggedInUser.id, username: loggedInUser.username, picture: loggedInUser.picture}}
+                loggedInfo={{
+                  user_id: loggedInUser.id,
+                  username: loggedInUser.username,
+                  picture: loggedInUser.picture,
+                }}
               />
             );
           })}

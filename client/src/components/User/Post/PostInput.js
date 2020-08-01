@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import useFetch from '../../../hooks/useFetch';
 
 import '../../../styles/btn.css';
-import { addPost } from '../../../redux/actions';
+import { addPost, createLikesOnAddPost } from '../../../redux/actions';
 
 function PostInput({ username, fullname, picture }) {
   const dispatch = useDispatch();
@@ -25,8 +25,12 @@ function PostInput({ username, fullname, picture }) {
 
     setCaption('');
 
+    console.log({ res: result.rows });
+
     if (result.success) {
       dispatch(addPost({ post: result.rows }));
+      dispatch(createLikesOnAddPost(result.rows.post_id));
+      // addLikes : [] to show it
     }
   };
 
