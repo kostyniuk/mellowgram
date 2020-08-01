@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import useFetch from '../../../hooks/useFetch';
 
@@ -18,8 +18,14 @@ const Post = ({
   //need to update state of posts - number of likes and likes - add new like
   // we have user_id need to select from state.loggedinUser and add username and picture to new action
 
+  console.log({ id, likes });
+
   const [liked, setLiked] = useState(likes?.alreadyLiked || false);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
+
+  useEffect(() => {
+    setLiked(likes?.alreadyLiked)
+  }, [likes])
 
   const handleLike = async () => {
     const method = liked ? 'DELETE' : 'POST';
