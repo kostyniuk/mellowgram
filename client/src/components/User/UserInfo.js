@@ -12,7 +12,7 @@ import PictureModal from './PictureModal';
 
 const UserInfo = () => {
   const [selectedImg, setSelectedImg] = useState(null);
-
+  
   const info = useSelector(
     (state) => state.currentPage,
     (prev, curr) => prev.id === curr.id
@@ -212,7 +212,10 @@ const UserInfo = () => {
       </div>
       <PicturesBar setSelectedImg={setSelectedImg} />
       {selectedImg && (
-        <PictureModal selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+        <PictureModal
+          selectedImg={selectedImg}
+          setSelectedImg={setSelectedImg}
+        />
       )}
     </div>
   );

@@ -1,0 +1,72 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.LIKESMODAL_CONTENT {
+  margin: 200px 400px;
+  min-height: 300px;
+  border-radius: 20px;
+  padding-bottom: 10px;
+  min-height: 100px;
+  background: var(--text_dark);
+  min-width: 360px;
+  /* width: 100%; */
+  flex-wrap: wrap;
+  flex-direction: row;
+  border: 100px solid;
+  border-image-slice: 1;
+  border-width: 2px;
+  /* border-image-source: linear-gradient(to left, #743ad5, #d53a9d); */
+  margin-bottom: 10px;
+  /* transform: translateY(50%); */
+}
+
+.LIKESMODAL_ROW {
+  min-height: 75px;
+  /* background-color: khaki; */
+}
+
+
+.LIKESMODAL__title {
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  justify-content: space-between;
+}
+
+.LIKESMODAL__title__left {
+  display: flex;
+}
+
+.LIKESMODAL__profile_picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+  margin-top: 0px;
+}
+
+.LIKESMODAL__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50px;
+  padding: 10px;
+}
+
+.LIKESMODAL__context {
+  padding-left: 70px;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 1200px) {
+  .LIKESMODAL_CONTENT {
+    margin: 20px;
+  }
+}
