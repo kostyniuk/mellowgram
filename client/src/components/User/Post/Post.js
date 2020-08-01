@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useFetch from '../../../hooks/useFetch';
-import { onLike } from '../../../redux/actions';
+import {
+  onLike,
+  decrementNumberOfLikes,
+  incrementNumberOfLikes,
+} from '../../../redux/actions';
 
 const Post = ({
   id,
@@ -39,6 +43,11 @@ const Post = ({
     });
 
     if (res?.success) {
+      if (liked) {
+        dispatch(decrementNumberOfLikes(id));
+      } else {
+        dispatch(incrementNumberOfLikes(id));
+      }
       dispatch(onLike({ ...loggedInfo, id }));
       setLiked((prev) => !prev);
     }
