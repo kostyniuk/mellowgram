@@ -2,12 +2,14 @@
   width: 30%;
   border: 100px solid;
   border-image-slice: 1;
-  border-width: 20px;
-  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+  border-width: 2px;
+  border-radius: 20px;
+  /* border-image-source: linear-gradient(to left, #743ad5, #d53a9d); */
   margin-bottom: 10px;
   overflow-y: auto;
   height: 575px;
   margin: 0 10px;
   padding: 20px;
   margin-left: 20px;
+  background-color: #000;
 }
