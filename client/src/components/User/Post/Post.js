@@ -20,6 +20,7 @@ const Post = ({
   postedAt,
   showSettings,
   loggedInfo,
+  setSelectedLikes,
 }) => {
   const dispatch = useDispatch();
 
@@ -85,30 +86,35 @@ const Post = ({
 
               <div className='POST__liked_by'>
                 <h4>Liked by: </h4>
-                <img
-                  src={
-                    likes.data.length
-                      ? likes.data[0].picture
-                      : '/api/public/uploads/blank.jpg'
-                  }
-                  alt='avatar'
-                />
-                <img
-                  src={
-                    likes.data.length > 1
-                      ? likes.data[1].picture
-                      : '/api/public/uploads/blank.jpg'
-                  }
-                  alt='avatar'
-                />
-                <img
-                  src={
-                    likes.data.length > 2
-                      ? likes.data[2].picture
-                      : '/api/public/uploads/blank.jpg'
-                  }
-                  alt='avatar'
-                />
+                <div
+                  className='POST__liked_by_images'
+                  onClick={() => setSelectedLikes(likes)}
+                >
+                  <img
+                    src={
+                      likes.data.length
+                        ? likes.data[0].picture
+                        : '/api/public/uploads/blank.jpg'
+                    }
+                    alt='avatar'
+                  />
+                  <img
+                    src={
+                      likes.data.length > 1
+                        ? likes.data[1].picture
+                        : '/api/public/uploads/blank.jpg'
+                    }
+                    alt='avatar'
+                  />
+                  <img
+                    src={
+                      likes.data.length > 2
+                        ? likes.data[2].picture
+                        : '/api/public/uploads/blank.jpg'
+                    }
+                    alt='avatar'
+                  />
+                </div>
               </div>
             </div>
             <h4 className='POST__creation_time'>{postedAt}</h4>
