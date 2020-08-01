@@ -10,6 +10,9 @@ import {
   SET_LIKES,
   LOAD_MORE_LIKES,
   ON_LIKE,
+  UPDATE_NUMBER_OF_LIKES,
+  INCREMENT_NUMBER_OF_LIKES,
+  DECREMENT_NUMBER_OF_LIKES,
 } from './types';
 
 export const authUser = ({
@@ -111,4 +114,14 @@ export const loadMoreLikes = ({ likes }) => ({
 export const onLike = (info) => ({
   type: ON_LIKE,
   payload: info,
+});
+
+export const incrementNumberOfLikes = (id) => ({
+  type: INCREMENT_NUMBER_OF_LIKES,
+  payload: { id },
+});
+
+export const decrementNumberOfLikes = (id) => ({
+  type: DECREMENT_NUMBER_OF_LIKES,
+  payload: { id },
 });

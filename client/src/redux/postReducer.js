@@ -1,4 +1,11 @@
-import { SET_POSTS, ADD_POST, LOAD_MORE_POSTS } from './types';
+import {
+  SET_POSTS,
+  ADD_POST,
+  LOAD_MORE_POSTS,
+  UPDATE_NUMBER_OF_LIKES,
+  INCREMENT_NUMBER_OF_LIKES,
+  DECREMENT_NUMBER_OF_LIKES,
+} from './types';
 
 const initialState = {
   user: null,
@@ -38,6 +45,22 @@ const postReducer = (state = initialState, action) => {
       });
 
       return { ...state, ...final, user: state.user };
+    }
+
+    case INCREMENT_NUMBER_OF_LIKES: {
+      console.log({ state, payload: action.payload });
+
+      const { id } = action.payload;
+
+      return state;
+    }
+
+    case DECREMENT_NUMBER_OF_LIKES: {
+      console.log({ state, payload: action.payload });
+
+      const { id } = action.payload;
+
+      return state;
     }
     default: {
       return state;
