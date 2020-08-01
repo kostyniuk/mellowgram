@@ -14,6 +14,7 @@ import {
   INCREMENT_NUMBER_OF_LIKES,
   DECREMENT_NUMBER_OF_LIKES,
   CREATE_LIKES_ON_ADD_POST,
+  DELETE_POST,
 } from './types';
 
 export const authUser = ({
@@ -129,5 +130,10 @@ export const decrementNumberOfLikes = (id) => ({
 
 export const createLikesOnAddPost = (id) => ({
   type: CREATE_LIKES_ON_ADD_POST,
+  payload: { id },
+});
+
+export const deletePost = (id) => ({
+  type: DELETE_POST,
   payload: { id },
 });

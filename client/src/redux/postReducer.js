@@ -5,6 +5,7 @@ import {
   UPDATE_NUMBER_OF_LIKES,
   INCREMENT_NUMBER_OF_LIKES,
   DECREMENT_NUMBER_OF_LIKES,
+  DELETE_POST,
 } from './types';
 
 const initialState = {
@@ -72,6 +73,21 @@ const postReducer = (state = initialState, action) => {
         [id]: { ...post, number_of_likes: number_of_likes - 1 },
       };
     }
+
+    case DELETE_POST: {
+      const { id } = action.payload;
+
+      console.log({ id, state });
+
+      const final = { ...state };
+
+      delete final[id];
+
+      console.log({ final });
+
+      return final;
+    }
+
     default: {
       return state;
     }
