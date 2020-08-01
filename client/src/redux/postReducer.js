@@ -48,19 +48,29 @@ const postReducer = (state = initialState, action) => {
     }
 
     case INCREMENT_NUMBER_OF_LIKES: {
-      console.log({ state, payload: action.payload });
-
       const { id } = action.payload;
 
-      return state;
+      const { number_of_likes } = state[id];
+
+      const post = state[id];
+
+      return {
+        ...state,
+        [id]: { ...post, number_of_likes: number_of_likes + 1 },
+      };
     }
 
     case DECREMENT_NUMBER_OF_LIKES: {
-      console.log({ state, payload: action.payload });
-
       const { id } = action.payload;
 
-      return state;
+      const { number_of_likes } = state[id];
+
+      const post = state[id];
+
+      return {
+        ...state,
+        [id]: { ...post, number_of_likes: number_of_likes - 1 },
+      };
     }
     default: {
       return state;
