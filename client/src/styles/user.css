@@ -33,7 +33,6 @@
 }
 
 .card[data-state='#about'] {
-  /* padding-top: 0; */
   height: 400px;
 }
 .card[data-state='#contact'] {
