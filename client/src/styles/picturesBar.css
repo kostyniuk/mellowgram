@@ -10,6 +10,7 @@
   margin: 0 10px;
   padding: 20px;
   margin-right: 20px;
+  background: rgb(0, 0, 0);
 }
 
 .USER_INFO__picturesBar__title {
@@ -27,7 +28,6 @@
   padding: 50% 0;
   /* padding controls height, will always be perfectly square regardless of width */
   position: relative;
-  opacity: 0.8;
 }
 .img-wrap img {
   min-width: 100%;
