@@ -31,17 +31,18 @@ const likeReducer = (state = initialState, action) => {
     }
 
     case ON_LIKE: {
-      console.log({ state, payload: action.payload });
-      const { id } = action.payload;
+      const { user_id, id } = action.payload;
 
       const likedUsers = state[id].data;
-      const final = likedUsers.filter(
-        (obj) => obj.person_id !== action.payload.user_id
-      );
+
+      const final = likedUsers.filter((obj) => {
+        console.log({ obj, user_id });
+        return obj.person_id !== action.payload.user_id;
+      });
 
       if (likedUsers.length === final.length) {
         final.push({
-          person_id: +id,
+          person_id: +user_id,
           picture: action.payload.picture,
           username: action.payload.username,
         });
@@ -49,7 +50,6 @@ const likeReducer = (state = initialState, action) => {
       } else {
         return { ...state, [id]: { id, data: final, alreadyLiked: false } };
       }
-
     }
 
     default: {
