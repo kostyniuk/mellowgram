@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
+import { useSelector, useDispatch } from 'react-redux';
+
 import useFetch from '../../../hooks/useFetch';
+import { onLike } from '../../../redux/actions';
 
 const Post = ({
   id,
@@ -12,20 +15,21 @@ const Post = ({
   likes,
   postedAt,
   showSettings,
+  loggedInfo,
 }) => {
+  const dispatch = useDispatch();
+
   const { request } = useFetch();
 
   //need to update state of posts - number of likes and likes - add new like
   // we have user_id need to select from state.loggedinUser and add username and picture to new action
 
-  console.log({ id, likes });
-
-  const [liked, setLiked] = useState(likes?.alreadyLiked || false);
+  const [liked, setLiked] = useState(likes?.alreadyLiked);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
 
   useEffect(() => {
-    setLiked(likes?.alreadyLiked)
-  }, [likes])
+    setLiked(likes?.alreadyLiked);
+  }, [likes]);
 
   const handleLike = async () => {
     const method = liked ? 'DELETE' : 'POST';
@@ -35,6 +39,7 @@ const Post = ({
     });
 
     if (res?.success) {
+      dispatch(onLike({ ...loggedInfo, id }));
       setLiked((prev) => !prev);
     }
   };
