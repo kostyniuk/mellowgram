@@ -24,11 +24,14 @@ import PostInput from './PostInput';
 import '../../../styles/posts.css';
 
 import { sleep } from '../../../helpers/index';
+import EditModal from '../EditModal';
 
 const Posts = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const [selectedLikes, setSelectedLikes] = useState(null);
+
+  const [editModal, setEditModal] = useState(null);
 
   const dispatch = useDispatch();
   const { request } = useFetch();
@@ -58,7 +61,6 @@ const Posts = () => {
   );
 
   const deletePostHandler = async (id) => {
-    console.log('deleting', id);
     const responce = await request(`/api/post/${id}`, { method: 'DELETE' });
 
     if (responce.success) {
@@ -66,8 +68,9 @@ const Posts = () => {
     }
   };
 
-  const editPostHandler = (id) => {
-    console.log('editing', id);
+  const editPostHandler = (info) => {
+    console.log('editing', info.id);
+    setEditModal(info);
   };
 
   const [isParsed, setIsParsed] = useState(false);
@@ -173,6 +176,8 @@ const Posts = () => {
       {selectedLikes && (
         <LikesModal setSelectedImg={setSelectedLikes} likes={selectedLikes} />
       )}
+
+      {editModal && <EditModal handleEdit={setEditModal} info={editModal} />}
     </div>
   );
 };
