@@ -13,6 +13,7 @@ import {
   UPDATE_NUMBER_OF_LIKES,
   INCREMENT_NUMBER_OF_LIKES,
   DECREMENT_NUMBER_OF_LIKES,
+  CREATE_LIKES_ON_ADD_POST,
 } from './types';
 
 export const authUser = ({
@@ -123,5 +124,10 @@ export const incrementNumberOfLikes = (id) => ({
 
 export const decrementNumberOfLikes = (id) => ({
   type: DECREMENT_NUMBER_OF_LIKES,
+  payload: { id },
+});
+
+export const createLikesOnAddPost = (id) => ({
+  type: CREATE_LIKES_ON_ADD_POST,
   payload: { id },
 });
