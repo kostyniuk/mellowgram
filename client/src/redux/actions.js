@@ -9,6 +9,7 @@ import {
   LOAD_MORE_POSTS,
   SET_LIKES,
   LOAD_MORE_LIKES,
+  ON_LIKE,
 } from './types';
 
 export const authUser = ({
@@ -102,7 +103,12 @@ export const setLikes = ({ likes }) => ({
   payload: { likes },
 });
 
-export const loadMoreLikes = ({likes}) => ({
+export const loadMoreLikes = ({ likes }) => ({
   type: LOAD_MORE_LIKES,
-  payload: {likes}
-})
+  payload: { likes },
+});
+
+export const onLike = (info) => ({
+  type: ON_LIKE,
+  payload: info,
+});
