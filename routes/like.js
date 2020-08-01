@@ -35,11 +35,15 @@ router.get('/:postId', async (req, res, next) => {
 
       const data = await fetchEssentInfo(userIds);
 
-      res.status(200).json({
+      const responce = {
         id: postId,
         data,
         alreadyLiked: alreadyLikedByCurrentUser(data, user_id),
-      });
+      };
+
+      console.log({ responce });
+
+      res.status(200).json(responce);
     } else {
       res.status(200).json({ id: postId, data: [], alreadyLiked: false });
     }

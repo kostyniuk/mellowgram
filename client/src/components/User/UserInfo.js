@@ -184,7 +184,7 @@ const UserInfo = () => {
               </div>
             </div>
           </div>
-          <hr className='user-hr' />
+          <hr />
           <div className='card-buttons'>
             <button
               data-section='#about'
