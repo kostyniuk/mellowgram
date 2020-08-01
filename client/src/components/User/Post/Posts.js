@@ -15,6 +15,7 @@ import {
   loadMorePosts,
   setLikes,
   loadMoreLikes,
+  deletePost,
 } from '../../../redux/actions';
 
 import Post from './Post';
@@ -55,6 +56,19 @@ const Posts = () => {
       return equal(prev, curr);
     }
   );
+
+  const deletePostHandler = async (id) => {
+    console.log('deleting', id);
+    const responce = await request(`/api/post/${id}`, { method: 'DELETE' });
+
+    if (responce.success) {
+      dispatch(deletePost(id));
+    }
+  };
+
+  const editPostHandler = (id) => {
+    console.log('editing', id);
+  };
 
   const [isParsed, setIsParsed] = useState(false);
 
@@ -150,6 +164,8 @@ const Posts = () => {
                   picture: loggedInUser.picture,
                 }}
                 setSelectedLikes={setSelectedLikes}
+                deletePostHandler={deletePostHandler}
+                editPostHandler={editPostHandler}
               />
             );
           })}

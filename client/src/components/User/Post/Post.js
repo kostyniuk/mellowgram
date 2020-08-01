@@ -21,6 +21,8 @@ const Post = ({
   showSettings,
   loggedInfo,
   setSelectedLikes,
+  deletePostHandler,
+  editPostHandler,
 }) => {
   const dispatch = useDispatch();
 
@@ -66,7 +68,17 @@ const Post = ({
           </div>
           {showSettings && (
             <div className='POST__title__right'>
-              <i className='fa fa-cog' aria-hidden='true'></i>
+              <i
+                className='fa fa-remove'
+                aria-hidden='true'
+                style={{ color: 'red' }}
+                onClick={deletePostHandler.bind(null, id)}
+              ></i>
+              <i
+                className='fa fa-edit'
+                aria-hidden='true'
+                onClick={editPostHandler.bind(null, id)}
+              ></i>
             </div>
           )}
         </div>
