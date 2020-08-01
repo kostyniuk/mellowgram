@@ -3,7 +3,6 @@
   --text_dark: #000;
   --text_cream: rgb(232, 230, 227);
   --greybg: #141414;
-
 }
 
 .POSTS__container {
@@ -40,6 +39,17 @@
 
 .POST__title__left {
   display: flex;
+}
+
+.POST__title__right {
+  display: flex;
+  height: 40px;
+  flex-direction: column;
+  justify-content: inherit;
+}
+
+.POST__title__right:hover {
+  cursor: pointer;
 }
 
 .POST__profile_picture {
@@ -111,12 +121,9 @@
 }
 
 @media screen and (max-width: 1200px) {
-
-
   .POSTS__container {
     width: 100%;
     /* padding: 2px; */
-    
   }
 
   .POST__body {
