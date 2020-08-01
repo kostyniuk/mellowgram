@@ -95,7 +95,7 @@ router.put('/:id', async (req, res, next) => {
   }
 });
 
-router.delete('/:id', isAvailable, async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const { user_id } = req.user;
@@ -111,10 +111,16 @@ router.delete('/:id', isAvailable, async (req, res, next) => {
     const result = await db.query(queryUpdateNumOfPosts, paramsUpdate);
 
     res.json({
-      message: 'The post was successfully deleted',
+      success: true,
+      msg: 'The post was successfully deleted',
       username: req.user.username,
     });
   } catch (e) {
+    res.json({
+      success: false,
+      msg: 'The post was successfully deleted',
+      username: req.user.username,
+    });
     console.error(e);
   }
 });
