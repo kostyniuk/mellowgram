@@ -5,7 +5,11 @@ import { useDispatch } from 'react-redux';
 import useFetch from '../../../hooks/useFetch';
 
 import '../../../styles/btn.css';
-import { addPost, createLikesOnAddPost } from '../../../redux/actions';
+import {
+  addPost,
+  createLikesOnAddPost,
+  editPost,
+} from '../../../redux/actions';
 
 function PostInput({
   id,
@@ -22,8 +26,6 @@ function PostInput({
 
   const { request } = useFetch();
 
-  console.log({ modal, caption });
-
   const submitHandler = async () => {
     if (!modal) {
       const result = await request('/api/post/', {
@@ -36,18 +38,13 @@ function PostInput({
 
       setCaption('');
 
-      console.log({ res: result.rows });
-
       if (result.success) {
         dispatch(addPost({ post: result.rows }));
         dispatch(createLikesOnAddPost(result.rows.post_id));
-        // addLikes : [] to show it
       }
     }
 
     if (modal) {
-      console.log({ caption, id });
-
       const result = await request(`/api/post/${id}`, {
         method: 'PUT',
         headers: {
@@ -57,7 +54,7 @@ function PostInput({
       });
 
       if (result.success) {
-        console.log('UPDATED');
+        dispatch(editPost(id, caption));
       }
       handleEdit(null);
     }
