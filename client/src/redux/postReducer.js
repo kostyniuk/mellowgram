@@ -6,6 +6,7 @@ import {
   INCREMENT_NUMBER_OF_LIKES,
   DECREMENT_NUMBER_OF_LIKES,
   DELETE_POST,
+  EDIT_POST,
 } from './types';
 
 const initialState = {
@@ -84,6 +85,16 @@ const postReducer = (state = initialState, action) => {
       delete final[id];
 
       console.log({ final });
+
+      return final;
+    }
+
+    case EDIT_POST: {
+      const { id, newCaption } = action.payload;
+
+      const final = { ...state };
+
+      final[id].caption = newCaption;
 
       return final;
     }
