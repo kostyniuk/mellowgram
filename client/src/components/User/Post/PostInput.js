@@ -7,30 +7,59 @@ import useFetch from '../../../hooks/useFetch';
 import '../../../styles/btn.css';
 import { addPost, createLikesOnAddPost } from '../../../redux/actions';
 
-function PostInput({ username, fullname, picture }) {
+function PostInput({
+  id,
+  modal,
+  username,
+  fullname,
+  picture,
+  placeholder,
+  handleEdit,
+}) {
   const dispatch = useDispatch();
 
-  const [caption, setCaption] = useState('');
+  const [caption, setCaption] = useState(placeholder || '');
 
   const { request } = useFetch();
 
+  console.log({ modal, caption });
+
   const submitHandler = async () => {
-    const result = await request('/api/post/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ caption }),
-    });
+    if (!modal) {
+      const result = await request('/api/post/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ caption }),
+      });
 
-    setCaption('');
+      setCaption('');
 
-    console.log({ res: result.rows });
+      console.log({ res: result.rows });
 
-    if (result.success) {
-      dispatch(addPost({ post: result.rows }));
-      dispatch(createLikesOnAddPost(result.rows.post_id));
-      // addLikes : [] to show it
+      if (result.success) {
+        dispatch(addPost({ post: result.rows }));
+        dispatch(createLikesOnAddPost(result.rows.post_id));
+        // addLikes : [] to show it
+      }
+    }
+
+    if (modal) {
+      console.log({ caption, id });
+
+      const result = await request(`/api/post/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ caption }),
+      });
+
+      if (result.success) {
+        console.log('UPDATED');
+      }
+      handleEdit(null);
     }
   };
 
@@ -44,6 +73,7 @@ function PostInput({ username, fullname, picture }) {
                 src={picture}
                 alt='avatar'
                 className='POST__profile_picture'
+                style={{ marginTop: '0' }}
               />
               <div className='POST__header'>
                 <h3 className='POST__fullname'>{fullname}</h3>

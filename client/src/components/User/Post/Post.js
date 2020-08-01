@@ -77,7 +77,13 @@ const Post = ({
               <i
                 className='fa fa-edit'
                 aria-hidden='true'
-                onClick={editPostHandler.bind(null, id)}
+                onClick={editPostHandler.bind(null, {
+                  id,
+                  picture,
+                  username,
+                  fullname,
+                  text,
+                })}
               ></i>
             </div>
           )}
