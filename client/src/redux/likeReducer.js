@@ -1,4 +1,4 @@
-import { SET_LIKES, LOAD_MORE_LIKES } from './types';
+import { SET_LIKES, LOAD_MORE_LIKES, ON_LIKE } from './types';
 
 const initialState = {};
 
@@ -28,6 +28,28 @@ const likeReducer = (state = initialState, action) => {
       });
 
       return { ...state, ...final };
+    }
+
+    case ON_LIKE: {
+      console.log({ state, payload: action.payload });
+      const { id } = action.payload;
+
+      const likedUsers = state[id].data;
+      const final = likedUsers.filter(
+        (obj) => obj.person_id !== action.payload.user_id
+      );
+
+      if (likedUsers.length === final.length) {
+        final.push({
+          person_id: +id,
+          picture: action.payload.picture,
+          username: action.payload.username,
+        });
+        return { ...state, [id]: { id, data: final, alreadyLiked: true } };
+      } else {
+        return { ...state, [id]: { id, data: final, alreadyLiked: false } };
+      }
+
     }
 
     default: {
