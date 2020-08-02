@@ -1,10 +1,12 @@
 .USER_INFO__followingBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   width: 30%;
   border: 100px solid;
   border-image-slice: 1;
   border-width: 2px;
   border-radius: 20px;
-  /* border-image-source: linear-gradient(to left, #743ad5, #d53a9d); */
   margin-bottom: 10px;
   overflow-y: auto;
   height: 575px;
@@ -14,9 +16,68 @@
   background-color: #000;
 }
 
+.FOLLOWING_BAR_FOLLOWING {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  border-left: 2px solid wheat;
+
+  /* overflow: scroll; */
+}
+
+.FOLLOWING_BAR_FOLLOWED_BY {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  border-right: 2px solid wheat;
+}
+
+.FOLLOWING_BAR_FOLLOWED_BY h3 {
+  text-align: center;
+}
+
+.FOLLOWING_BAR_FOLLOWING h3 {
+  text-align: center;
+}
+
+.FOLLOWING_BAR_USER {
+  display: flex;
+  padding-bottom: 10px;
+}
+
+.FOLLOWED_BAR_BODY {
+  margin-top: 10px;
+}
+
+.FOLLOWING_BAR_BODY {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.FOLLOWING_BAR_USER__header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50px;
+  padding: 10px;
+}
+
+.FOLLOWING_BAR_USER__username {
+  font-size: 0.9rem;
+}
+.FOLLOWING_BAR_USER_profile_picture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+  margin-top: 0px;
+}
 
 @media screen and (max-width: 900px) {
-
   .USER_INFO__followingBar {
     margin: 0 auto;
     border-radius: 0;
