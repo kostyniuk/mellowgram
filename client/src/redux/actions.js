@@ -16,6 +16,8 @@ import {
   CREATE_LIKES_ON_ADD_POST,
   DELETE_POST,
   EDIT_POST,
+  SET_FOLLOWING,
+  SET_FOLLOWED_BY,
 } from './types';
 
 export const authUser = ({
@@ -143,3 +145,13 @@ export const editPost = (id, newCaption) => ({
   type: EDIT_POST,
   payload: { id, newCaption },
 });
+
+export const setFollowing = ({users, user}) => ({
+  type: SET_FOLLOWING,
+  payload: {users, user}
+})
+
+export const setFollowedBy = ({users, user}) => ({
+  type: SET_FOLLOWED_BY,
+  payload: {users, user}
+})
