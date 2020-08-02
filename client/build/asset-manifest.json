@@ -1,23 +1,22 @@
 {
   "files": {
-    "main.css": "/static/css/main.792eeca3.chunk.css",
-    "main.js": "/static/js/main.1d38634f.chunk.js",
-    "main.js.map": "/static/js/main.1d38634f.chunk.js.map",
+    "main.css": "/static/css/main.223c41d0.chunk.css",
+    "main.js": "/static/js/main.b74e9f0f.chunk.js",
+    "main.js.map": "/static/js/main.b74e9f0f.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.09b85ec0.js",
     "runtime-main.js.map": "/static/js/runtime-main.09b85ec0.js.map",
-    "static/js/2.b357e51b.chunk.js": "/static/js/2.b357e51b.chunk.js",
-    "static/js/2.b357e51b.chunk.js.map": "/static/js/2.b357e51b.chunk.js.map",
+    "static/js/2.1ea21a30.chunk.js": "/static/js/2.1ea21a30.chunk.js",
+    "static/js/2.1ea21a30.chunk.js.map": "/static/js/2.1ea21a30.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.d61f1be550942d5bd5d1f753fc2a01b6.js": "/precache-manifest.d61f1be550942d5bd5d1f753fc2a01b6.js",
+    "precache-manifest.5db5184a33e86a8e1a640e9df777500e.js": "/precache-manifest.5db5184a33e86a8e1a640e9df777500e.js",
     "service-worker.js": "/service-worker.js",
-    "static/css/main.792eeca3.chunk.css.map": "/static/css/main.792eeca3.chunk.css.map",
-    "static/js/2.b357e51b.chunk.js.LICENSE.txt": "/static/js/2.b357e51b.chunk.js.LICENSE.txt",
-    "static/media/user.css": "/static/media/mount-fuji-highest-mountain-in-japan-osx-lion-wallpaper.006f2283.jpg"
+    "static/css/main.223c41d0.chunk.css.map": "/static/css/main.223c41d0.chunk.css.map",
+    "static/js/2.1ea21a30.chunk.js.LICENSE.txt": "/static/js/2.1ea21a30.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.09b85ec0.js",
-    "static/js/2.b357e51b.chunk.js",
-    "static/css/main.792eeca3.chunk.css",
-    "static/js/main.1d38634f.chunk.js"
+    "static/js/2.1ea21a30.chunk.js",
+    "static/css/main.223c41d0.chunk.css",
+    "static/js/main.b74e9f0f.chunk.js"
   ]
 }

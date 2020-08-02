@@ -108,14 +108,11 @@ const Posts = () => {
     [currentPage.id]
   );
 
-  // console.log({ currentPage });
-
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
 
     if (!same.current) {
-      console.log({ inside: 'INSIDE', same: same.current, id: currentPage.id });
       loadPosts(signal);
     }
 

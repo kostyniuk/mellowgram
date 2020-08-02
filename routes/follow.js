@@ -11,8 +11,6 @@ router.get('/following/:username', async (req, res, next) => {
   try {
     let { username } = req.params;
 
-    console.log({ username });
-
     const query = `SELECT followed_id FROM Follow WHERE following_id = (SELECT user_id FROM user_info WHERE username=$1);`;
     const params = [username];
     const { rows } = await db.query(query, params);
@@ -39,7 +37,6 @@ router.get('/followers/:username', async (req, res, next) => {
   try {
     let { username } = req.params;
 
-    console.log({ username });
     const query = `SELECT following_id FROM Follow WHERE followed_id = (SELECT user_id FROM user_info WHERE username=$1);`;
 
     const params = [username];

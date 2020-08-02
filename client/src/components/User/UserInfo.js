@@ -24,7 +24,6 @@ const UserInfo = () => {
     (state) => state.currentPage,
     (prev, curr) => {
       same.current = equal(prev, curr);
-      console.log(equal(prev, curr));
       return equal(prev, curr);
     }
   );
@@ -76,7 +75,6 @@ const UserInfo = () => {
     const signal = abortController.signal;
 
     if (info.id && !same.current) {
-      console.log({ inside: 'INSIDE', same: same.current, id: info.id });
       fetchFollowers(info, signal);
       fetchFollowing(info, signal);
     }
