@@ -9,8 +9,6 @@ const followingReducer = (state = initialState, action) => {
     case SET_FOLLOWING: {
       const { users, user } = action.payload;
 
-      console.log({ user });
-
       return { ...state, users, user };
     }
     default: {
