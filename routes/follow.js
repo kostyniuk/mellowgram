@@ -9,8 +9,8 @@ const fetchEssentInfo = require('../lib/fetchUserEssentialInfo');
 
 router.get('/following/:username', async (req, res, next) => {
   try {
-    // const { user_id } = req.user;
-    const { username } = req.params;
+    let { username } = req.params;
+
     console.log({ username });
 
     const query = `SELECT followed_id FROM Follow WHERE following_id = (SELECT user_id FROM user_info WHERE username=$1);`;
@@ -22,11 +22,12 @@ router.get('/following/:username', async (req, res, next) => {
 
       const data = await fetchEssentInfo(userIds);
 
-      return res.status(200).json({ data });
+      return res.status(200).json({ success: true, data });
     }
 
-    return res.status(200).json({ data: rows });
+    return res.status(200).json({ success: true, data: rows });
   } catch (e) {
+    res.status(404).json({ success: false });
     console.error(e);
   }
 });
@@ -36,8 +37,9 @@ router.get('/following/:username', async (req, res, next) => {
 
 router.get('/followers/:username', async (req, res, next) => {
   try {
-    const { username } = req.params;
+    let { username } = req.params;
 
+    console.log({ username });
     const query = `SELECT following_id FROM Follow WHERE followed_id = (SELECT user_id FROM user_info WHERE username=$1);`;
 
     const params = [username];
@@ -48,11 +50,12 @@ router.get('/followers/:username', async (req, res, next) => {
 
       const data = await fetchEssentInfo(userIds);
 
-      return res.status(200).json({ data });
+      return res.status(200).json({ success: true, data });
     }
 
-    return res.status(200).json({ data: rows });
+    return res.status(200).json({ success: true, data: rows });
   } catch (e) {
+    res.status(404).json({ success: false });
     console.error(e);
   }
 });
