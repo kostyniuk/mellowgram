@@ -125,9 +125,11 @@ const Posts = () => {
     dispatch(loadMoreLikes({ likes }));
   };
 
-  if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
-
-  if (!Object.keys(likes).length) return <div></div>;
+  if (
+    posts[posts.length - 1] !== currentPage.username ||
+    !Object.keys(likes).length
+  )
+    return <div></div>;
 
   return (
     <div className='POSTS__container'>
