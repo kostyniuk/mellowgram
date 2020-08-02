@@ -6,6 +6,8 @@ import {useSelector, useDispatch} from 'react-redux'
 
 import {updateProfilePicture}  from '../redux/actions'
 
+//TODO: need to handle loading photos as well
+
 const UploadButton = () => {
   const [newImage, setNewImage] = useState(null);
   const [reset, setReset] = useState(false);
