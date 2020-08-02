@@ -20,7 +20,7 @@
   border: none;
   color: var(--text_light);
   background: var(--green_dark);
-  border-radius: 5px;
+  border-radius: 100px;
   transition: 0.5s;
   font-family: inherit;
 }

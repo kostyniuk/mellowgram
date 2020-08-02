@@ -13,7 +13,8 @@
 .USER_INFO__container {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding-top: 20px;
 }
 
 .USER_INFO__followingBar {
@@ -352,7 +353,7 @@
   .USER_INFO__container {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-around; */
+    padding: 20px;
   }
 
   .USER_INFO__followingBar {
@@ -361,6 +362,7 @@
 
   .USER_INFO_CENTER {
     order: -1;
+    /* margin-top: 20px; */
   }
 
   .card {
