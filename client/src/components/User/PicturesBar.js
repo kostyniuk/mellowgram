@@ -14,7 +14,15 @@ function PicturesBar({ setSelectedImg }) {
 
   return (
     <div className='USER_INFO__picturesBar'>
-      <h3 className='USER_INFO__picturesBar__title'>My pictures</h3>
+      <div className='USER_INFO_picturesBar_header'>
+        <h3 className='USER_INFO__picturesBar__title'>My pictures &#8203; </h3>
+        <div className='USER_INFO__picturesBar__add'>
+          <div class='UPLOAD_btn_upload ADD_PICTURE'>
+            <input type='file' id='UPLOAD_PROFILE_PICTURE' name='' />
+            <i class='fa fa-plus' aria-hidden='true'></i>
+          </div>
+        </div>
+      </div>
       <div className='img-grid'>
         {pictures &&
           pictures.map((doc) => (
