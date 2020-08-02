@@ -14,8 +14,20 @@
   background: rgb(0, 0, 0);
 }
 
+.USER_INFO_picturesBar_header {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
 .USER_INFO__picturesBar__title {
   margin-bottom: 10px;
+}
+
+.USER_INFO__picturesBar__add {
+  display: flex;
+  flex-direction: row;
 }
 
 .img-grid {
@@ -96,5 +108,14 @@ label input {
     margin-top: 40px;
     width: 90%;
     height: 200px;
+  }
+
+  .modal_actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .remove_picture {
+    padding-left: 0;
   }
 }

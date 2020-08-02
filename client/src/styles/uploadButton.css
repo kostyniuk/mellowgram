@@ -98,3 +98,7 @@
 .red:hover {
   background-color: rgb(230, 213, 211);
 }
+
+.ADD_PICTURE {
+  padding: 0;
+}

@@ -32,9 +32,7 @@
   flex-direction: column;
 }
 
-.card[data-state='#about'] {
-  height: 400px;
-}
+
 .card[data-state='#contact'] {
   height: 400px;
 }
@@ -356,5 +354,9 @@
 
   .USER_INFO__followingBar {
     width: 100%;
+  }
+
+  .card {
+    order: -1;
   }
 }
