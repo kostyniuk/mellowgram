@@ -65,12 +65,20 @@ router.post('/:userId', async (req, res, next) => {
     if (user_id !== userId) {
       const query = `INSERT INTO Follow (following_id, followed_id) VALUES ($1, $2);`;
       const params = [user_id, userId];
-      const { rows } = await db.query(query, params);
-      return res.status(200).json({ rows });
+      const result = await db.query(query, params);
+      console.log({ result });
+
+      if (result.rowCount) {
+        return res
+          .status(200)
+          .json({ success: true, follower: req.user.username });
+      }
     }
-    return res.status(403).json({ error: `It's forbidden to follow yourself` });
+    return res
+      .status(403)
+      .json({ success: false, msg: `It's forbidden to follow yourself` });
   } catch (e) {
-    res.status(404).json({ error: e.detail });
+    res.status(404).json({ success: false, msg: e.detail });
   }
 });
 
@@ -82,14 +90,21 @@ router.delete('/:userId', async (req, res, next) => {
     if (user_id !== userId) {
       const query = `DELETE FROM Follow WHERE (following_id = $1 AND followed_id = $2);`;
       const params = [user_id, userId];
-      const { rows } = await db.query(query, params);
-      return res.status(200).json({ rows });
+
+      const result = await db.query(query, params);
+      console.log({ result });
+      if (result.rowCount) {
+        return res
+          .status(200)
+          .json({ success: true, follower: req.user.username });
+      }
     }
-    return res
-      .status(403)
-      .json({ error: `It's forbidden to either follow or unfollow yourself` });
+    return res.status(403).json({
+      success: false,
+      msg: `No user with id: ${userId}`,
+    });
   } catch (e) {
-    res.status(404).json({ error: e.detail });
+    res.status(404).json({ success: false, msg: e.detail });
   }
 });
 
