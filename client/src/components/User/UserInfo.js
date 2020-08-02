@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import equal from 'deep-equal';
 
 import '../../styles/user.css';
 import '../../styles/btn.css';
@@ -9,14 +10,81 @@ import Exprerience from './Experience';
 import FollowingBar from './FollowingBar';
 import PicturesBar from './PicturesBar';
 import PictureModal from './PictureModal';
+import useFetch from '../../hooks/useFetch';
+import { setFollowedBy, setFollowing } from '../../redux/actions';
+import { SET_FOLLOWED_BY } from '../../redux/types';
 
 const UserInfo = () => {
-  const [selectedImg, setSelectedImg] = useState(null);
+  const { request } = useFetch();
+  const dispatch = useDispatch();
+
+  let same = useRef(true);
 
   const info = useSelector(
     (state) => state.currentPage,
-    (prev, curr) => prev.id === curr.id
+    (prev, curr) => {
+      same.current = equal(prev, curr);
+      console.log(equal(prev, curr));
+      return equal(prev, curr);
+    }
   );
+
+  const following = useSelector(
+    (state) => state.following,
+    (prev, curr) => equal(prev, curr)
+  );
+
+  const followedBy = useSelector(
+    (state) => state.followedBy,
+    (prev, curr) => equal(prev, curr)
+  );
+
+  const [selectedImg, setSelectedImg] = useState(null);
+
+  const fetchFollowers = useCallback(
+    async (info, signal) => {
+      const responce = await request(
+        `/api/follow/followers/${info.username}`,
+        {},
+        signal
+      );
+      if (responce.success) {
+        dispatch(setFollowedBy({ users: responce.data, user: info.username }));
+      }
+    },
+    [dispatch, setFollowedBy, request]
+  );
+
+  const fetchFollowing = useCallback(
+    async (info, signal) => {
+      const responce = await request(
+        `/api/follow/following/${info.username}`,
+        {},
+        signal
+      );
+      if (responce.success) {
+        dispatch(setFollowing({ users: responce.data, user: info.username }));
+      }
+    },
+    [request, dispatch, setFollowing]
+  );
+
+  const followHandler = () => {};
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    if (info.id && !same.current) {
+      console.log({ inside: 'INSIDE', same: same.current, id: info.id });
+      fetchFollowers(info, signal);
+      fetchFollowing(info, signal);
+    }
+
+    return () => {
+      abortController.abort();
+    };
+  }, [info.id]);
 
   const experience = [
     {
@@ -81,11 +149,21 @@ const UserInfo = () => {
 
   if (!info) return <div></div>;
 
+  if (
+    !followedBy.user ||
+    followedBy.user !== info.username ||
+    !following.user ||
+    following.user !== info.username
+  )
+    return <div></div>;
+
   return (
     <div className='USER_INFO__container'>
-      <FollowingBar />
+      <FollowingBar followedBy={followedBy} following={following} />
       <div className='USER_INFO_CENTER'>
-        <button className='green'>Follow</button>
+        <button className='green' onClick={followHandler}>
+          Follow
+        </button>
         <div className={cardClasses} data-state={dataState}>
           <div className='card-header'>
             <div className='card-cover'></div>

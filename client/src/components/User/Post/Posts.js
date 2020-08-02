@@ -27,6 +27,8 @@ import { sleep } from '../../../helpers/index';
 import EditModal from '../EditModal';
 
 const Posts = () => {
+  let same = useRef(true);
+
   const [hasMore, setHasMore] = useState(true);
 
   const [selectedLikes, setSelectedLikes] = useState(null);
@@ -38,11 +40,14 @@ const Posts = () => {
 
   const currentPage = useSelector(
     (state) => state.currentPage,
-    (prev, curr) => prev.id === curr.id
+    (prev, curr) => {
+      same.current = equal(prev, curr);
+      return equal(prev, curr);
+    }
   );
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
-    (prev, curr) => prev.id === curr.id
+    (prev, curr) => equal(prev, curr)
   );
   const posts = Object.values(
     useSelector(
@@ -77,30 +82,47 @@ const Posts = () => {
 
   const offset = useRef(0);
 
-  const loadLikes = async (arrOfPosts) => {
+  const loadLikes = useCallback(async (arrOfPosts) => {
     const ids = arrOfPosts.map((post) => post.post_id);
     const requests = ids.map((id) => request(`/api/like/${id}`));
     const res = await Promise.all(requests);
     return res;
-  };
+  }, []);
 
-  const loadPosts = useCallback(async () => {
-    if (currentPage.id && !isParsed) {
-      const res = await request(
-        `/api/post/${currentPage.username}?limit=5&offset=0`
-      );
-      if (res.success) {
-        setIsParsed(true);
-        dispatch(setPosts({ posts: res.posts, user: currentPage.username }));
-        const likes = await loadLikes(res.posts);
-        dispatch(setLikes({ likes }));
+  const loadPosts = useCallback(
+    async (signal) => {
+      if (currentPage.id && !isParsed) {
+        const res = await request(
+          `/api/post/${currentPage.username}?limit=5&offset=0`,
+          {},
+          signal
+        );
+        if (res.success) {
+          setIsParsed(true);
+          dispatch(setPosts({ posts: res.posts, user: currentPage.username }));
+          const likes = await loadLikes(res.posts);
+          dispatch(setLikes({ likes }));
+        }
       }
-    }
-  }, [dispatch, currentPage, isParsed, request, loadLikes]);
+    },
+    [currentPage.id]
+  );
+
+  // console.log({ currentPage });
 
   useEffect(() => {
-    loadPosts();
-  }, [loadPosts, dispatch, currentPage]);
+    const abortController = new AbortController();
+    const signal = abortController.signal;
+
+    if (!same.current) {
+      console.log({ inside: 'INSIDE', same: same.current, id: currentPage.id });
+      loadPosts(signal);
+    }
+
+    return () => {
+      abortController.abort();
+    };
+  }, [loadPosts]);
 
   const fetchMoreData = async () => {
     offset.current += 5;
@@ -125,11 +147,8 @@ const Posts = () => {
     dispatch(loadMoreLikes({ likes }));
   };
 
-  if (
-    posts[posts.length - 1] !== currentPage.username ||
-    !Object.keys(likes).length
-  )
-    return <div></div>;
+  if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
+  if (!Object.keys(likes).length) return <div></div>;
 
   return (
     <div className='POSTS__container'>
