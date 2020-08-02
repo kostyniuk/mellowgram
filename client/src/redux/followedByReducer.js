@@ -9,8 +9,6 @@ const followedByReducer = (state = initialState, action) => {
     case SET_FOLLOWED_BY: {
       const { users, user } = action.payload;
 
-      console.log({ user });
-
       return { ...state, users, user };
     }
 

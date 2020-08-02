@@ -4,12 +4,12 @@ const useFetch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const request = useCallback(async (url, params = { method: 'GET' }) => {
+  const request = useCallback(async (url, params = { method: 'GET' }, signal) => {
     try {
       setError(false);
       setLoading(true);
 
-      const responce = await fetch(url, params);
+      const responce = await fetch(url, params, signal);
       // if (!responce.ok) {
       //   setError(true);
       //   throw new Error('Something wrong with your request');
