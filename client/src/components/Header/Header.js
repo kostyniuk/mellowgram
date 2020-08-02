@@ -48,11 +48,16 @@ const Header = () => {
         <div className='logo'>
           <NavLink to='/'>Mellowgram</NavLink>
         </div>
-        <ul className='nav-search'>
-          <li className='nav-item search-field'>
-            <AsyncSelect handler={handleChange} selectedValue={selectedValue} />
-          </li>
-        </ul>
+        <div className='HEADER__search'>
+          <ul className='nav-search'>
+            <li className='nav-item search-field'>
+              <AsyncSelect
+                handler={handleChange}
+                selectedValue={selectedValue}
+              />
+            </li>
+          </ul>
+        </div>
         <ul className={open ? 'nav-items show' : 'nav-items'}>
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
             <NavLink to='/about'>About us</NavLink>
