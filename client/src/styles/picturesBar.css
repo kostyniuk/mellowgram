@@ -1,3 +1,8 @@
+
+:root {
+  --light_grey: #363636;
+}
+
 .USER_INFO__picturesBar {
   width: 30%;
   border: 100px solid;
@@ -11,7 +16,7 @@
   margin: 0 10px;
   padding: 20px;
   margin-right: 20px;
-  background: rgb(0, 0, 0);
+  background: #000;
 }
 
 .USER_INFO_picturesBar_header {

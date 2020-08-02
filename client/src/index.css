@@ -4,7 +4,9 @@
   --text_light: #ffffff;
   --text_dark: #000;
   --grey: #252525;
+  --grey_black: #4a3f35;
   --greybg: #141414;
+  --light_grey: #363636;
 }
 
 body {

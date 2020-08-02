@@ -7,6 +7,7 @@
   --cream: rgba(247, 166, 166, 0.8);
   --green: rgba(99, 250, 39, 0.966);
   --green_dark : rgb(23, 148, 67);
+  --baby_blue: #b7efcd;
 
 }
 
@@ -25,7 +26,6 @@ nav {
 
 
 .HEADER__search {
-  background-color: beige;
   width: 40%;
 }
 .nav-items {
