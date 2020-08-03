@@ -1,19 +1,28 @@
 import React from 'react';
 
-import FollowRow from './FollowRow';
-
+import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
+
+import FollowRow from './FollowRow';
 
 import '../../styles/modal.css';
 
-const PictureModal = ({ setSelectedImg, likes }) => {
+const LikesModal = ({ setSelectedImg, likes }) => {
+  const following = useSelector((state) => state.loggedInFollows);
+
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
       setSelectedImg(null);
     }
   };
 
-  console.log({ likes });
+  const isAlreadyFollowed = (id) => {
+    const { users } = following;
+    const ids = users.map((userObj) => userObj.person_id);
+    return ids.includes(id);
+  };
+
+  console.log({ following });
 
   return (
     <motion.div
@@ -31,8 +40,10 @@ const PictureModal = ({ setSelectedImg, likes }) => {
           likes.data.map((user) => (
             <FollowRow
               key={user.person_id}
+              id={user.person_id}
               picture={user.picture}
               username={user.username}
+              alreadyFollowed={isAlreadyFollowed(user.person_id)}
             />
           ))}
       </motion.div>
@@ -40,4 +51,4 @@ const PictureModal = ({ setSelectedImg, likes }) => {
   );
 };
 
-export default PictureModal;
+export default LikesModal;
