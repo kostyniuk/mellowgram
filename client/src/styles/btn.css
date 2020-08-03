@@ -9,6 +9,8 @@
   --green_lighter: rgb(77, 177, 0);
   --green_dark : rgb(23, 148, 67);
   --text_cream : rgb(232, 230, 227);
+  --lightgrey: #6c6c6c;
+
 }
 
 .green {
@@ -24,4 +26,8 @@
   transition: 0.5s;
   font-family: inherit;
   outline: none;
+}
+
+.LIKESMODAL_BTN_followed {
+  background-color: var(--lightgrey);
 }

@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { useDispatch } from 'react-redux';
 
 import '../../styles/modal.css';
+import { deleteFollow, addFollow } from '../../redux/actions';
 
-const FollowRow = ({ username, picture }) => {
+const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
+  const [following, setFollowing] = useState(alreadyFollowed);
+
+  const dispatch = useDispatch();
+
+  let btnClassName = 'green';
+
+  const followHandler = () => {
+    console.log({ following, id });
+    if (following) {
+      dispatch(deleteFollow({ id }));
+    } else {
+      dispatch(addFollow({ id, picture, username }));
+    }
+    setFollowing((prev) => !prev);
+  };
+
+  if (following) btnClassName += ' LIKESMODAL_BTN_followed';
+
   return (
     <div className='LIKESMODAL_ROW'>
       <div className='LIKESMODAL__title'>
@@ -19,7 +40,9 @@ const FollowRow = ({ username, picture }) => {
         </div>
         {true && (
           <div className='LIKESMODAL__title__right'>
-            <button className='green'>Follow</button>
+            <button className={btnClassName} onClick={followHandler}>
+              {following ? 'Following' : 'Follow'}
+            </button>
           </div>
         )}
       </div>
