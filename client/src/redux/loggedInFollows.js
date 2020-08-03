@@ -9,12 +9,11 @@ const loggedInFollows = (state = initialState, action) => {
     case SET_LOGGED_IN_FOLLOWING: {
       const { users, user } = action.payload;
 
-      // return state;
       return { ...state, users, user };
     }
 
     case ADD_FOLLOW: {
-      const { id, picture, username } = action.payload;
+      const { id, picture, username } = action.payload.consumer;
 
       let { users } = state;
       users.push({ person_id: id, picture, username });
@@ -23,9 +22,9 @@ const loggedInFollows = (state = initialState, action) => {
     }
 
     case DELETE_FOLLOW: {
-      const { id } = action.payload;
-      let { users } = state;
+      const { id } = action.payload.consumer;
 
+      let { users } = state;
       users = users.filter((user) => user.person_id !== id);
 
       return { ...state, users };
