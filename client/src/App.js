@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import './App.css';
 
 import {
@@ -7,6 +7,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+
+import useFetch from './hooks/useFetch';
 
 import useAuth from './hooks/useAuth';
 
@@ -17,15 +19,45 @@ import User from './pages/User';
 import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
 import About from './pages/About';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setLoggedInFollowing } from './redux/actions';
 
 const App = () => {
+  const dispatch = useDispatch();
+  const { request } = useFetch();
+
   const userInfo = useSelector(
     (state) => state.loggedInUser,
     (prev, curr) => {
       return prev.id === curr.id;
     }
   );
+
+  const fetchFollowing = useCallback(
+    async (info, signal) => {
+      if (userInfo.id) {
+        const responce = await request(
+          `/api/follow/following/${userInfo.username}`,
+          {},
+          signal
+        );
+        if (responce.success) {
+          dispatch(
+            setLoggedInFollowing({
+              users: responce.data,
+              user: userInfo.username,
+            })
+          );
+          // dispatch(setFollowing({ users: responce.data, user: info.username }));
+        }
+      }
+    },
+    [request, userInfo]
+  );
+
+  useEffect(() => {
+    fetchFollowing();
+  }, [fetchFollowing]);
 
   const { loading } = useAuth();
   if (loading) return <div></div>;
