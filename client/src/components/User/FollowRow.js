@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import equal from 'deep-equal';
 import useFetch from './../../hooks/useFetch';
 import { deleteFollow, addFollow } from '../../redux/actions';
 import '../../styles/modal.css';
@@ -10,28 +10,50 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
   const { request } = useFetch();
   const [following, setFollowing] = useState(alreadyFollowed);
 
-  const dispatch = useDispatch();
+  const loggedInUser = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => equal(prev, curr)
+  );
 
+  const dispatch = useDispatch();
 
   const followHandler = async () => {
     console.log({ following, id });
     if (following) {
       const responce = await request(`/api/follow/${id}`, { method: 'DELETE' });
       if (responce.success) {
-        dispatch(deleteFollow({ id }));
+        dispatch(
+          deleteFollow({
+            producer: {
+              id: loggedInUser.id,
+              username: loggedInUser.username,
+              picture: loggedInUser.picture,
+            },
+            consumer: { id, picture, username },
+          })
+        );
         setFollowing((prev) => !prev);
       }
     } else {
       const responce = await request(`/api/follow/${id}`, { method: 'POST' });
       if (responce.success) {
-        dispatch(addFollow({ id, picture, username }));
+        dispatch(
+          addFollow({
+            producer: {
+              id: loggedInUser.id,
+              username: loggedInUser.username,
+              picture: loggedInUser.picture,
+            },
+            consumer: { id, picture, username },
+          })
+        );
         setFollowing((prev) => !prev);
       }
     }
   };
 
-  const btnClassName = 'green';
-  
+  let btnClassName = 'green';
+
   if (following) btnClassName += ' LIKESMODAL_BTN_followed';
 
   return (

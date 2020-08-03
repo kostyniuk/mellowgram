@@ -35,6 +35,11 @@ const UserInfo = () => {
     }
   );
 
+  const loggedInUser = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => equal(prev, curr)
+  );
+
   const following = useSelector(
     (state) => state.following,
     (prev, curr) => equal(prev, curr)
@@ -97,7 +102,14 @@ const UserInfo = () => {
       });
       console.log({ responce });
       if (responce.success) {
-        dispatch(deleteFollow({ id: info.id }));
+        dispatch(deleteFollow({
+          producer: {
+            id: loggedInUser.id,
+            username: loggedInUser.username,
+            picture: loggedInUser.picture,
+          },
+          consumer: { id:info.id, picture:info.picture, username:info.username },
+        }));
         setFollowing((prev) => !prev);
       }
     } else {
@@ -107,7 +119,14 @@ const UserInfo = () => {
       console.log({ responce });
       if (responce.success) {
         dispatch(
-          addFollow({ id: info.id, picture: info.id, username: info.id })
+          addFollow({
+            producer: {
+              id: loggedInUser.id,
+              username: loggedInUser.username,
+              picture: loggedInUser.picture,
+            },
+            consumer: { id:info.id, picture:info.picture, username:info.username },
+          })
         );
         setFollowingThisUser((prev) => !prev);
       }
