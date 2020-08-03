@@ -2,24 +2,35 @@ import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import '../../styles/modal.css';
+import useFetch from './../../hooks/useFetch';
 import { deleteFollow, addFollow } from '../../redux/actions';
+import '../../styles/modal.css';
 
 const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
+  const { request } = useFetch();
   const [following, setFollowing] = useState(alreadyFollowed);
 
   const dispatch = useDispatch();
 
   let btnClassName = 'green';
 
-  const followHandler = () => {
+  const followHandler = async () => {
     console.log({ following, id });
     if (following) {
-      dispatch(deleteFollow({ id }));
+      const responce = await request(`/api/follow/${id}`, { method: 'DELETE' });
+      console.log({ responce });
+      if (responce.success) {
+        dispatch(deleteFollow({ id }));
+        setFollowing((prev) => !prev);
+      }
     } else {
-      dispatch(addFollow({ id, picture, username }));
+      const responce = await request(`/api/follow/${id}`, { method: 'POST' });
+      console.log({ responce });
+      if (responce.success) {
+        dispatch(addFollow({ id, picture, username }));
+        setFollowing((prev) => !prev);
+      }
     }
-    setFollowing((prev) => !prev);
   };
 
   if (following) btnClassName += ' LIKESMODAL_BTN_followed';
