@@ -18,6 +18,9 @@ import {
   EDIT_POST,
   SET_FOLLOWING,
   SET_FOLLOWED_BY,
+  SET_LOGGED_IN_FOLLOWING,
+  ADD_FOLLOW,
+  DELETE_FOLLOW,
 } from './types';
 
 export const authUser = ({
@@ -146,12 +149,27 @@ export const editPost = (id, newCaption) => ({
   payload: { id, newCaption },
 });
 
-export const setFollowing = ({users, user}) => ({
+export const setFollowing = ({ users, user }) => ({
   type: SET_FOLLOWING,
-  payload: {users, user}
-})
+  payload: { users, user },
+});
 
-export const setFollowedBy = ({users, user}) => ({
+export const setFollowedBy = ({ users, user }) => ({
   type: SET_FOLLOWED_BY,
-  payload: {users, user}
-})
+  payload: { users, user },
+});
+
+export const setLoggedInFollowing = ({ users, user }) => ({
+  type: SET_LOGGED_IN_FOLLOWING,
+  payload: { users, user },
+});
+
+export const addFollow = ({ id, picture, username  }) => ({
+  type: ADD_FOLLOW,
+  payload: { id, picture, username  },
+});
+
+export const deleteFollow = ({ id }) => ({
+  type: DELETE_FOLLOW,
+  payload: { id },
+});
