@@ -23,4 +23,5 @@
   border-radius: 100px;
   transition: 0.5s;
   font-family: inherit;
+  outline: none;
 }

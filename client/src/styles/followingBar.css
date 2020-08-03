@@ -21,7 +21,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  border-left: 2px solid wheat;
+  align-items: center;
 
   /* overflow: scroll; */
 }
@@ -31,8 +31,7 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-
-  border-right: 2px solid wheat;
+  align-items: center;
 }
 
 .FOLLOWING_BAR_FOLLOWED_BY h3 {
@@ -45,7 +44,11 @@
 
 .FOLLOWING_BAR_USER {
   display: flex;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+.FOLLOWING_BAR_USER:hover {
+  cursor: pointer ;
 }
 
 .FOLLOWED_BAR_BODY {
