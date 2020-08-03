@@ -164,12 +164,12 @@ export const setLoggedInFollowing = ({ users, user }) => ({
   payload: { users, user },
 });
 
-export const addFollow = ({ id, picture, username  }) => ({
+export const addFollow = ({ producer, consumer  }) => ({
   type: ADD_FOLLOW,
-  payload: { id, picture, username  },
+  payload: { producer, consumer  },
 });
 
-export const deleteFollow = ({ id }) => ({
+export const deleteFollow = ({ producer, consumer }) => ({
   type: DELETE_FOLLOW,
-  payload: { id },
+  payload: { producer, consumer },
 });
