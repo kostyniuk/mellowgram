@@ -38,10 +38,6 @@
   flex-direction: column;
 }
 
-.card[data-state='#contact'] {
-  height: 400px;
-}
-
 .card.is-active .card-header {
   height: 80px;
 }
