@@ -11,12 +11,19 @@ import FollowingBar from './FollowingBar';
 import PicturesBar from './PicturesBar';
 import PictureModal from './PictureModal';
 import useFetch from '../../hooks/useFetch';
-import { setFollowedBy, setFollowing } from '../../redux/actions';
+import {
+  setFollowedBy,
+  setFollowing,
+  deleteFollow,
+  addFollow,
+} from '../../redux/actions';
 import { SET_FOLLOWED_BY } from '../../redux/types';
 
 const UserInfo = () => {
   const { request } = useFetch();
   const dispatch = useDispatch();
+
+  const [followingThisUser, setFollowingThisUser] = useState(false);
 
   let same = useRef(true);
 
@@ -37,6 +44,20 @@ const UserInfo = () => {
     (state) => state.followedBy,
     (prev, curr) => equal(prev, curr)
   );
+
+  const followingLoggedIn = useSelector((state) => state.loggedInFollows);
+
+  const isAlreadyFollowed = (id) => {
+    const { users } = followingLoggedIn;
+    const ids = users.map((userObj) => userObj.person_id);
+    return setFollowingThisUser(ids.includes(id));
+  };
+
+  useEffect(() => {
+    if (followingLoggedIn.user) {
+      isAlreadyFollowed(info.id);
+    }
+  }, [followingLoggedIn]);
 
   const [selectedImg, setSelectedImg] = useState(null);
 
@@ -68,7 +89,30 @@ const UserInfo = () => {
     [request, dispatch, setFollowing]
   );
 
-  const followHandler = () => {};
+  const followHandler = async () => {
+    console.log({ followingThisUser, id: info.id });
+    if (followingThisUser) {
+      const responce = await request(`/api/follow/${info.id}`, {
+        method: 'DELETE',
+      });
+      console.log({ responce });
+      if (responce.success) {
+        dispatch(deleteFollow({ id: info.id }));
+        setFollowing((prev) => !prev);
+      }
+    } else {
+      const responce = await request(`/api/follow/${info.id}`, {
+        method: 'POST',
+      });
+      console.log({ responce });
+      if (responce.success) {
+        dispatch(
+          addFollow({ id: info.id, picture: info.id, username: info.id })
+        );
+        setFollowingThisUser((prev) => !prev);
+      }
+    }
+  };
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -145,6 +189,10 @@ const UserInfo = () => {
     }
   };
 
+  let btnClassName = 'green';
+
+  if (followingThisUser) btnClassName += ' LIKESMODAL_BTN_followed';
+
   if (!info) return <div></div>;
 
   if (
@@ -159,8 +207,8 @@ const UserInfo = () => {
     <div className='USER_INFO__container'>
       <FollowingBar followedBy={followedBy} following={following} />
       <div className='USER_INFO_CENTER'>
-        <button className='green' onClick={followHandler}>
-          Follow
+        <button className={btnClassName} onClick={followHandler}>
+          {followingThisUser ? 'Following' : 'Follow'}
         </button>
         <div className={cardClasses} data-state={dataState}>
           <div className='card-header'>

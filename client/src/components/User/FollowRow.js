@@ -12,20 +12,17 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
 
   const dispatch = useDispatch();
 
-  let btnClassName = 'green';
 
   const followHandler = async () => {
     console.log({ following, id });
     if (following) {
       const responce = await request(`/api/follow/${id}`, { method: 'DELETE' });
-      console.log({ responce });
       if (responce.success) {
         dispatch(deleteFollow({ id }));
         setFollowing((prev) => !prev);
       }
     } else {
       const responce = await request(`/api/follow/${id}`, { method: 'POST' });
-      console.log({ responce });
       if (responce.success) {
         dispatch(addFollow({ id, picture, username }));
         setFollowing((prev) => !prev);
@@ -33,6 +30,8 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
     }
   };
 
+  const btnClassName = 'green';
+  
   if (following) btnClassName += ' LIKESMODAL_BTN_followed';
 
   return (
