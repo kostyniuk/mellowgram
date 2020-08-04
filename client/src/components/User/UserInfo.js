@@ -25,7 +25,6 @@ const UserInfo = () => {
   const dispatch = useDispatch();
 
   const [followingThisUser, setFollowingThisUser] = useState(false);
-  const [tryingToFollowMyself, setTryingToFollowMyself] = useState(false);
 
   let same = useRef(true);
 
@@ -97,7 +96,6 @@ const UserInfo = () => {
   );
 
   const followHandler = async () => {
-    console.log({ followingThisUser, id: info.id });
     if (followingThisUser) {
       const responce = await request(`/api/follow/${info.id}`, {
         method: 'DELETE',
@@ -116,7 +114,7 @@ const UserInfo = () => {
               picture: info.picture,
               username: info.username,
             },
-            myPage: +loggedInUser.id === +info.id,
+            myPage: loggedInUser.id === info.id,
           })
         );
         setFollowing((prev) => !prev);
@@ -139,18 +137,14 @@ const UserInfo = () => {
               picture: info.picture,
               username: info.username,
             },
-            myPage: +loggedInUser.id === +info.id,
+            myPage: loggedInUser.id === info.id,
           })
         );
         setFollowingThisUser((prev) => !prev);
-      } else if (!responce.success && responce.msg) {
-        setTryingToFollowMyself(true);
-        setTimeout(() => {
-          setTryingToFollowMyself(false);
-        }, 2000);
       }
     }
   };
+
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -245,13 +239,10 @@ const UserInfo = () => {
     <div className='USER_INFO__container'>
       <FollowingBar followedBy={followedBy} following={following} />
       <div className='USER_INFO_CENTER'>
-        <button className={btnClassName} onClick={followHandler}>
-          {followingThisUser ? 'Following' : 'Follow'}
-        </button>
-        {tryingToFollowMyself && (
-          <p style={{ marginTop: '10px', color: 'red' }}>
-            You can't follow yourself
-          </p>
+        {loggedInUser.id !== info.id && (
+          <button className={btnClassName} onClick={followHandler}>
+            {followingThisUser ? 'Following' : 'Follow'}
+          </button>
         )}
         <div className={cardClasses} data-state={dataState}>
           <div className='card-header'>
