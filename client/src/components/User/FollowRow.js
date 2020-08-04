@@ -9,16 +9,20 @@ import '../../styles/modal.css';
 const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
   const { request } = useFetch();
   const [following, setFollowing] = useState(alreadyFollowed);
-  const [tryingToFollowMyself, setTryingToFollowMyself] = useState(false);
 
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
     (prev, curr) => equal(prev, curr)
   );
 
-  const dispatch = useDispatch();
+  const info = useSelector(
+    (state) => state.currentPage,
+    (prev, curr) => {
+      return equal(prev, curr);
+    }
+  );
 
-  console.log({ log: loggedInUser.id, id });
+  const dispatch = useDispatch();
 
   const followHandler = async () => {
     console.log({ following, id });
@@ -33,7 +37,7 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
               picture: loggedInUser.picture,
             },
             consumer: { id, picture, username },
-            myPage: +loggedInUser.id === +id,
+            myPage: loggedInUser.id === info.id,
           })
         );
         setFollowing((prev) => !prev);
@@ -49,15 +53,10 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
               picture: loggedInUser.picture,
             },
             consumer: { id, picture, username },
-            myPage: +loggedInUser.id === +id,
+            myPage: loggedInUser.id === info.id,
           })
         );
         setFollowing((prev) => !prev);
-      } else if (!responce.success && responce.msg) {
-        setTryingToFollowMyself(true);
-        setTimeout(() => {
-          setTryingToFollowMyself(false);
-        }, 2000);
       }
     }
   };
@@ -80,7 +79,7 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
             <h3 className='LIKESMODAL__fullname'>{username}</h3>
           </div>
         </div>
-        {true && (
+        {id !== loggedInUser.id && (
           <div className='LIKESMODAL__title__right'>
             <button className={btnClassName} onClick={followHandler}>
               {following ? 'Following' : 'Follow'}
@@ -88,11 +87,6 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
           </div>
         )}
       </div>
-      {tryingToFollowMyself && (
-        <p style={{ margin: '10px', color: 'red' }}>
-          You can't follow yourself
-        </p>
-      )}
     </div>
   );
 };
