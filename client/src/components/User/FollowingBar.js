@@ -27,7 +27,6 @@ const UserRow = ({ picture, username }) => {
 };
 
 function FollowingBar({ following, followedBy }) {
-  // console.log({ following, followedBy });
 
   return (
     <div className='USER_INFO__followingBar'>
