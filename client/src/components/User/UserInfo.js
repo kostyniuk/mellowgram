@@ -18,12 +18,14 @@ import {
   addFollow,
 } from '../../redux/actions';
 import { SET_FOLLOWED_BY } from '../../redux/types';
+import { compareSync } from 'bcryptjs';
 
 const UserInfo = () => {
   const { request } = useFetch();
   const dispatch = useDispatch();
 
   const [followingThisUser, setFollowingThisUser] = useState(false);
+  const [tryingToFollowMyself, setTryingToFollowMyself] = useState(false);
 
   let same = useRef(true);
 
@@ -102,14 +104,21 @@ const UserInfo = () => {
       });
       console.log({ responce });
       if (responce.success) {
-        dispatch(deleteFollow({
-          producer: {
-            id: loggedInUser.id,
-            username: loggedInUser.username,
-            picture: loggedInUser.picture,
-          },
-          consumer: { id:info.id, picture:info.picture, username:info.username },
-        }));
+        dispatch(
+          deleteFollow({
+            producer: {
+              id: loggedInUser.id,
+              username: loggedInUser.username,
+              picture: loggedInUser.picture,
+            },
+            consumer: {
+              id: info.id,
+              picture: info.picture,
+              username: info.username,
+            },
+            myPage: +loggedInUser.id === +info.id,
+          })
+        );
         setFollowing((prev) => !prev);
       }
     } else {
@@ -125,10 +134,20 @@ const UserInfo = () => {
               username: loggedInUser.username,
               picture: loggedInUser.picture,
             },
-            consumer: { id:info.id, picture:info.picture, username:info.username },
+            consumer: {
+              id: info.id,
+              picture: info.picture,
+              username: info.username,
+            },
+            myPage: +loggedInUser.id === +info.id,
           })
         );
         setFollowingThisUser((prev) => !prev);
+      } else if (!responce.success && responce.msg) {
+        setTryingToFollowMyself(true);
+        setTimeout(() => {
+          setTryingToFollowMyself(false);
+        }, 2000);
       }
     }
   };
@@ -229,6 +248,11 @@ const UserInfo = () => {
         <button className={btnClassName} onClick={followHandler}>
           {followingThisUser ? 'Following' : 'Follow'}
         </button>
+        {tryingToFollowMyself && (
+          <p style={{ marginTop: '10px', color: 'red' }}>
+            You can't follow yourself
+          </p>
+        )}
         <div className={cardClasses} data-state={dataState}>
           <div className='card-header'>
             <div className='card-cover'></div>

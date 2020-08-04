@@ -9,6 +9,7 @@ import '../../styles/modal.css';
 const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
   const { request } = useFetch();
   const [following, setFollowing] = useState(alreadyFollowed);
+  const [tryingToFollowMyself, setTryingToFollowMyself] = useState(false);
 
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
@@ -16,6 +17,8 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
   );
 
   const dispatch = useDispatch();
+
+  console.log({ log: loggedInUser.id, id });
 
   const followHandler = async () => {
     console.log({ following, id });
@@ -30,6 +33,7 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
               picture: loggedInUser.picture,
             },
             consumer: { id, picture, username },
+            myPage: +loggedInUser.id === +id,
           })
         );
         setFollowing((prev) => !prev);
@@ -45,9 +49,15 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
               picture: loggedInUser.picture,
             },
             consumer: { id, picture, username },
+            myPage: +loggedInUser.id === +id,
           })
         );
         setFollowing((prev) => !prev);
+      } else if (!responce.success && responce.msg) {
+        setTryingToFollowMyself(true);
+        setTimeout(() => {
+          setTryingToFollowMyself(false);
+        }, 2000);
       }
     }
   };
@@ -78,6 +88,11 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
           </div>
         )}
       </div>
+      {tryingToFollowMyself && (
+        <p style={{ margin: '10px', color: 'red' }}>
+          You can't follow yourself
+        </p>
+      )}
     </div>
   );
 };
