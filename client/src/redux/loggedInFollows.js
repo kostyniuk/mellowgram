@@ -14,6 +14,9 @@ const loggedInFollows = (state = initialState, action) => {
 
     case ADD_FOLLOW: {
       const { id, picture, username } = action.payload.consumer;
+      const { myPage } = action.payload;
+
+      if (myPage) return state;
 
       let { users } = state;
       users.push({ person_id: id, picture, username });
@@ -23,6 +26,7 @@ const loggedInFollows = (state = initialState, action) => {
 
     case DELETE_FOLLOW: {
       const { id } = action.payload.consumer;
+      const { myPage } = action.payload;
 
       let { users } = state;
       users = users.filter((user) => user.person_id !== id);
