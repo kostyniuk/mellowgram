@@ -21,6 +21,7 @@ import Settings from './pages/Settings';
 import About from './pages/About';
 import { useSelector, useDispatch } from 'react-redux';
 import { setLoggedInFollowing } from './redux/actions';
+import Direct from './pages/Direct';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -87,8 +88,8 @@ const App = () => {
             />
             <Route
               exact
-              path='/about'
-              render={(props) => <About {...props} />}
+              path='/direct'
+              render={(props) => <Direct {...props} />}
             />
             <Route
               exact
@@ -126,16 +127,14 @@ const App = () => {
             <Route
               exact
               path='/about'
-              render={(props) => <About {...props} authorized={userInfo} />}
+              render={(props) => <About {...props} />}
             />
             <Route
               exact
               path='/:username'
-              render={(props) => <User {...props} authorized={userInfo} />}
+              render={(props) => <User {...props} />}
             />
-            <Route
-              render={(props) => <NotFound {...props} authorized={userInfo} />}
-            />
+            <Route render={(props) => <NotFound {...props} />} />
           </Switch>
         </div>
       </Router>
