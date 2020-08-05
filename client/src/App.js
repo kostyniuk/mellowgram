@@ -78,22 +78,25 @@ const App = () => {
             <Route
               exact
               path='/account'
-              render={(props) => <Settings {...props} authorized={userInfo} />}
+              render={(props) => <Settings {...props} />}
             />
             <Route
               exact
               path='/about'
-              render={(props) => <About {...props} authorized={userInfo} />}
+              render={(props) => <About {...props} />}
+            />
+            <Route
+              exact
+              path='/about'
+              render={(props) => <About {...props} />}
             />
             <Route
               exact
               path='/:username'
-              render={(props) => <User {...props} authorized={userInfo} />}
+              render={(props) => <User {...props} />}
             />
 
-            <Route
-              render={(props) => <NotFound {...props} authorized={userInfo} />}
-            />
+            <Route render={(props) => <NotFound {...props} />} />
           </Switch>
         </div>
       </Router>

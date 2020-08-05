@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../components/Header/Header';
 
-const About = ({ authorized }) => {
+const About = () => {
   return (
     <div>
-      <Header authorized={authorized} />
+      <Header />
       About page
     </div>
   );
