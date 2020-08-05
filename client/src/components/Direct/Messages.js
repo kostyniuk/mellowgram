@@ -31,7 +31,17 @@ const Messages = () => {
           <img src={data.picture}></img>
         </div>
       </div>
-      <div className='MESSAGES__body'>Body</div>
+      <div className='MESSAGES__body'>
+        <div className='MESSAGES__chat-msg owner'>
+          <div className='MESSAGES__chat-msg-content'>
+            <div class='MESSAGES__chat-msg-text'>
+              Neque gravida in fermentum et sollicitudin ac orci phasellus
+              egestas. Pretium lectus quam id leo.
+            </div>
+          </div>
+        </div>
+        
+      </div>
       <div className='MESSAGES__send'>
         <textarea
           name='message'
@@ -39,7 +49,7 @@ const Messages = () => {
           rows='1'
           className='form-input MESSAGES_INPUT'
         ></textarea>
-        <i class="fa fa-paper-plane"></i>
+        <i class='fa fa-paper-plane'></i>
       </div>
     </div>
   );
