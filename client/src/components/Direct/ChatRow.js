@@ -20,7 +20,7 @@ const ChatRow = ({ name, picture, latestMessage, unreadMessagesCount }) => {
           <img src={picture}></img>
         </div>
         <div className='CHAT_ROW__center'>
-          <h3>{name}</h3>
+          <h4>{name}</h4>
           <h5>{prepareText(latestMessage.text)}</h5>
         </div>
         <div className='CHAT_ROW__right'>
