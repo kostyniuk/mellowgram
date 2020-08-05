@@ -2,12 +2,35 @@ import React from 'react';
 
 import '../../styles/messages.css';
 import PostInput from '../User/Post/PostInput';
+import Message from './Message';
 
 const Messages = () => {
   const data = {
     username: 'dloading',
     picture: 'http://localhost:3000/api/public/uploads/user_dloading.jpg',
     messages: [
+      { id: 1, from: 'dloading', text: 'Hi there', date: '3:22 am' },
+      {
+        id: 2,
+        from: 'kostyniuk',
+        text: 'Hi dasadsdsadasxzczxc',
+        date: '13:22 am',
+      },
+      { id: 3, from: 'dloading', text: 'Hi ', date: '23:22' },
+      { id: 4, from: 'dloading', text: 'daadsqweqwewq', date: '12.03' },
+      { id: 5, from: 'kostyniuk', text: 'Hi', date: '2019' },
+      { id: 6, from: 'kostyniuk', text: 'Hi there', date: 'Wed' },
+      { id: 1, from: 'dloading', text: 'Hi there', date: '3:22 am' },
+      {
+        id: 2,
+        from: 'kostyniuk',
+        text: 'Hi dasadsdsadasxzczxc',
+        date: '13:22 am',
+      },
+      { id: 3, from: 'dloading', text: 'Hi ', date: '23:22' },
+      { id: 4, from: 'dloading', text: 'daadssadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddqweqwewq', date: '12.03' },
+      { id: 5, from: 'kostyniuk', text: 'Hiasdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', date: '2019' },
+      { id: 6, from: 'kostyniuk', text: 'Hi there', date: 'Wed' },
       { id: 1, from: 'dloading', text: 'Hi there', date: '3:22 am' },
       {
         id: 2,
@@ -32,15 +55,9 @@ const Messages = () => {
         </div>
       </div>
       <div className='MESSAGES__body'>
-        <div className='MESSAGES__chat-msg owner'>
-          <div className='MESSAGES__chat-msg-content'>
-            <div class='MESSAGES__chat-msg-text'>
-              Neque gravida in fermentum et sollicitudin ac orci phasellus
-              egestas. Pretium lectus quam id leo.
-            </div>
-          </div>
-        </div>
-        
+        {data.messages.map((msg) => (
+          <Message context={msg.text} isOwner={msg.from === 'kostyniuk'} />
+        ))}
       </div>
       <div className='MESSAGES__send'>
         <textarea
@@ -49,7 +66,7 @@ const Messages = () => {
           rows='1'
           className='form-input MESSAGES_INPUT'
         ></textarea>
-        <i class='fa fa-paper-plane'></i>
+        <i class='fa fa-paper-plane MESSAGES_SEND'></i>
       </div>
     </div>
   );
