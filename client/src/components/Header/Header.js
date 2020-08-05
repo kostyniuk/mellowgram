@@ -65,7 +65,9 @@ const Header = () => {
           <li className={open ? 'disabled' : ''}>|</li>
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
             {authorized.isAuthenticated ? (
-              <p className='HEADER__p'>Activity</p>
+              <NavLink to='/direct'>
+                <i class='fa fa-paper-plane' aria-hidden='true'></i>
+              </NavLink>
             ) : (
               <NavLink to='/login'>Login</NavLink>
             )}
