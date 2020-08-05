@@ -18,7 +18,8 @@
   flex-direction: row;
   padding: 5px;
   height: 60px;
-  background: rgb(93, 126, 197);
+  background: var(--theme-color);
+  color: white;
   justify-content: space-between;
   align-items: center;
 }
