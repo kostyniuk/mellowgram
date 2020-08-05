@@ -40,8 +40,6 @@
 .DIRECT__right_side {
   background: var(--grey);
   flex: 0.7;
-  padding: 20px;
-  border-left: 3px solid #ffffff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

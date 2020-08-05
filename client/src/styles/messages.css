@@ -1,0 +1,55 @@
+.MESSAGES__container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.MESSAGES__title {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  height: 60px;
+  background: rgb(93, 126, 197);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.MESSAGES_back_button {
+  font-size: 3rem;
+}
+
+.MESSAGES_title_picture {
+  padding-top: 5px;
+}
+
+.MESSAGES_title_picture img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+}
+
+.MESSAGES__body {
+  height: 100%;
+  background: rgb(24, 24, 24);
+}
+
+.MESSAGES__send {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+  height: 50px;
+  background: rgb(59, 59, 59);
+}
+
+.MESSAGES_INPUT {
+  width: 95%;
+}
+
+.MESSAGES_btn {
+  margin-top: 0;
+}
