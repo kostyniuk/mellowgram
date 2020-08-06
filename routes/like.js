@@ -41,8 +41,6 @@ router.get('/:postId', async (req, res, next) => {
         alreadyLiked: alreadyLikedByCurrentUser(data, user_id),
       };
 
-      console.log({ responce });
-
       res.status(200).json(responce);
     } else {
       res.status(200).json({ id: postId, data: [], alreadyLiked: false });

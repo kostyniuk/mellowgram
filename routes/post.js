@@ -18,9 +18,6 @@ router.get('/:username', async (req, res, next) => {
     limit = limit || 100;
     offset = offset || 0;
 
-    console.log(req.query);
-    console.log({ limit, offset });
-
     const query = `SELECT post.post_id, post.caption, post.created_at, post.number_of_likes 
     FROM Post
     JOIN user_info ON user_info.user_id = post.creator_id
