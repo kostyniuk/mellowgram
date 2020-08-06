@@ -55,6 +55,10 @@
   flex-direction: row;
 }
 
+.CHAT_ROW__container_active {
+  background-color: var(--grey);
+}
+
 .hr_chat {
   margin: 0;
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+
+
 const Message = ({ context, isOwner, date }) => {
   let className = 'MESSAGES__chat-msg ';
 
