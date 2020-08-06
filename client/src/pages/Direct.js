@@ -112,9 +112,9 @@ const messages = [
     ],
   },
 ];
-const PORT = process.env.PORT || 5000;
 
-const ws = new WebSocket(`ws://localhost:${PORT}`);
+
+const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const [openDialog, setOpenDialog] = useState(null);
 
