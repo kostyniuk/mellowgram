@@ -13,6 +13,19 @@ router.post('/:userId', async (req, res, next) => {
     const { user_id } = req.user;
 
     if (user_id !== userId) {
+      const before = `SELECT * FROM Room WHERE (user1_id = $1 AND user2_id = $2) OR (user1_id = $2 AND user2_id = $1);`;
+      const beforeParams = [user_id, userId];
+
+      const { rows } = await db.query(before, beforeParams);
+
+      if (rows.length)
+        return res
+          .status(409)
+          .json({
+            success: false,
+            msg: 'The room between these two users already exist',
+          });
+
       const query = `INSERT INTO Room (user1_id, user2_id) VALUES ($1, $2);`;
       const params = [user_id, userId];
       const result = await db.query(query, params);
