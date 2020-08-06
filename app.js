@@ -23,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(morgan('tiny'));
 
+console.log({ env: process.env });
+
 const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {

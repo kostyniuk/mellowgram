@@ -5,6 +5,7 @@ import Header from '../components/Header/Header';
 import '../styles/direct.css';
 import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
+import { compareSync } from 'bcryptjs';
 
 const chats = [
   {
@@ -111,10 +112,14 @@ const messages = [
     ],
   },
 ];
+const PORT = process.env.PORT || 5000;
 
-const ws = new WebSocket('ws://localhost:5000');
+const ws = new WebSocket(`ws://localhost:${PORT}`);
 const Direct = () => {
   const [openDialog, setOpenDialog] = useState(null);
+
+  console.log('adsssssssssssssssssss');
+  console.log({ env: process.env });
 
   useEffect(() => {
     ws.onopen = () => {
