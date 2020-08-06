@@ -12,10 +12,23 @@ const prepareText = (str) => {
   }
 };
 
-const ChatRow = ({ name, picture, latestMessage, unreadMessagesCount }) => {
+const ChatRow = ({
+  name,
+  picture,
+  latestMessage,
+  unreadMessagesCount,
+  openDialog,
+  setOpenDialog,
+}) => {
+
+  const className =
+    name === openDialog
+      ? 'CHAT_ROW__container CHAT_ROW__container_active'
+      : 'CHAT_ROW__container';
+
   return (
     <div>
-      <div className='CHAT_ROW__container'>
+      <div className={className} onClick={() => setOpenDialog(name)}>
         <div className='CHAT_ROW__left'>
           <img src={picture}></img>
         </div>
