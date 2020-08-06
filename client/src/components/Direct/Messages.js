@@ -76,7 +76,11 @@ const Messages = () => {
       </div>
       <div className='MESSAGES__body'>
         {data.messages.map((msg) => (
-          <Message context={msg.text} isOwner={msg.from === 'kostyniuk'} />
+          <Message
+            context={msg.text}
+            isOwner={msg.from === 'kostyniuk'}
+            date={msg.date}
+          />
         ))}
         <div ref={messagesEndRef} />
       </div>
