@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Header from '../components/Header/Header';
 
@@ -112,8 +112,23 @@ const messages = [
   },
 ];
 
+const ws = new WebSocket('ws://localhost:5000');
 const Direct = () => {
   const [openDialog, setOpenDialog] = useState(null);
+
+  useEffect(() => {
+    ws.onopen = () => {
+      console.log('Connection established');
+    };
+    ws.onmessage = (evt) => {
+      const message = evt.data;
+      console.log('Got new message', message);
+    };
+
+    ws.onclose = () => {
+      console.log('Connection closed');
+    };
+  }, []);
 
   return (
     <div className='DIRECT__page'>
