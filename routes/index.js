@@ -12,6 +12,7 @@ const likeRoute = require('./like');
 const whoamiRoute = require('./whoami');
 const followRoute = require('./follow');
 const postRoute = require('./post');
+const chatRoute = require('./chat')
 
 router.use('/api/whoami', whoamiRoute);
 router.use('/api/signup', signupRoute);
@@ -22,6 +23,7 @@ router.use('/api/logout', logoutRoute);
 router.use('/api/like', likeRoute);
 router.use('/api/follow', followRoute);
 router.use('/api/post', postRoute);
+router.use('/api/chat', chatRoute)
 
 router.use('/api/test', (req, res, next) => {
   console.log(req.user);
