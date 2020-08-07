@@ -1,14 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import '../../styles/messages.css';
 import Message from './Message';
 
-const Messages = ({ data, setOpenDialog }) => {
+const Messages = ({ data, setOpenDialog, socket }) => {
   const messagesEndRef = useRef(null);
+
+  const [textInput, setTextInput] = useState('');
+
+  const handleChange = (e) => {
+    setTextInput(e.target.value);
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
+
+  // const prepareMessage = (from, to, chatRoom)
 
   useEffect(scrollToBottom, [data]);
 
@@ -34,6 +42,7 @@ const Messages = ({ data, setOpenDialog }) => {
       <div className='MESSAGES__body'>
         {data.messages.map((msg) => (
           <Message
+            key={msg.id}
             context={msg.text}
             isOwner={msg.from === 'kostyniuk'}
             date={msg.date}
@@ -43,12 +52,16 @@ const Messages = ({ data, setOpenDialog }) => {
       </div>
       <div className='MESSAGES__send'>
         <textarea
+          onChange={handleChange}
           name='message'
           autoFocus
           rows='1'
           className='form-input MESSAGES_INPUT'
         ></textarea>
-        <i class='fa fa-paper-plane MESSAGES_SEND'></i>
+        <i
+          class='fa fa-paper-plane MESSAGES_SEND'
+          onClick={() => socket.send(textInput)}
+        ></i>
       </div>
     </div>
   );
