@@ -5,7 +5,7 @@ import Badge from './Badge';
 import '../../styles/direct.css';
 
 const prepareText = (str) => {
-  if (!str) return '';
+  if (!str) return 'No messages yet';
 
   if (str.length > 34) {
     return str.toString().substring(0, 36).concat('...');
@@ -22,6 +22,7 @@ const ChatRow = ({
   unreadMessagesCount,
   openDialog,
   setOpenDialog,
+  setTextInput,
 }) => {
   const className =
     name === openDialog
@@ -30,7 +31,13 @@ const ChatRow = ({
 
   return (
     <div>
-      <div className={className} onClick={() => setOpenDialog(chat_id)}>
+      <div
+        className={className}
+        onClick={() => {
+          setTextInput('');
+          setOpenDialog(chat_id);
+        }}
+      >
         <div className='CHAT_ROW__left'>
           <img src={picture}></img>
         </div>
