@@ -5,6 +5,8 @@ import Badge from './Badge';
 import '../../styles/direct.css';
 
 const prepareText = (str) => {
+  if (!str) return '';
+
   if (str.length > 34) {
     return str.toString().substring(0, 36).concat('...');
   } else {
@@ -21,7 +23,6 @@ const ChatRow = ({
   openDialog,
   setOpenDialog,
 }) => {
-
   const className =
     name === openDialog
       ? 'CHAT_ROW__container CHAT_ROW__container_active'
@@ -35,10 +36,10 @@ const ChatRow = ({
         </div>
         <div className='CHAT_ROW__center'>
           <h4>{name}</h4>
-          <h5>{prepareText(latestMessage.context)}</h5>
+          <h5>{prepareText(latestMessage?.context)}</h5>
         </div>
         <div className='CHAT_ROW__right'>
-          <p>{latestMessage.sendAt}</p>
+          <p>{latestMessage?.sendAt}</p>
           <Badge size='smaller' status='danger' content={unreadMessagesCount} />
         </div>
       </div>
