@@ -21,8 +21,6 @@ router.get('/:username', async (req, res, next) => {
       throw new Error(`No such user: ${username}`);
     }
 
-    console.log({ id });
-
     const info = await personInfoById(id, res);
 
     res.json({ success: true, username, info });

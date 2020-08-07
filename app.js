@@ -71,32 +71,6 @@ const server = http.createServer(app);
 
 const wss = new ws.Server({ server });
 
-// user: {
-//   id: id!,
-//   rooms: [{chatId, name, picture, latestMassage}]
-//
-//}
-//   rooms: [roomId]
-//   messages: [
-//    {room_id: roomId, messages: [{messageId, sender_id, context, sendAt}]},
-//    {room_id: roomId, messages: [{messageId, sender_id, context, sendAt}]},
-//  ],
-//  connection: ws
-// }
-
-/*
-id: 1,
-    name: 'steph',
-    picture:
-      'http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg',
-    latestMessage: {
-      id: 100,
-      text: 'Hi kostyniuk',
-      sendAt: 'Fri',
-    },
-    unreadMessagesCount: 10,
-*/
-
 let clients = [];
 
 wss.on('connection', function connection(ws, req) {
@@ -145,7 +119,6 @@ wss.on('connection', function connection(ws, req) {
     }
 
     ws.on('close', (ws) => {
-      console.log({ uuid, clients });
       clients = removeFromClients(uuid, clients);
       console.log({ clients });
     });
