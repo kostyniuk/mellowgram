@@ -20,3 +20,4 @@ export const SET_LOGGED_IN_FOLLOWING = 'SET_LOGGED_IN_FOLLOWING';
 export const ADD_FOLLOW = 'ADD_FOLLOW';
 export const DELETE_FOLLOW = 'DELETE_FOLLOW';
 export const GET_CHATS = 'GET_CHATS';
+export const GET_MESSAGES = 'GET_MESSAGES';

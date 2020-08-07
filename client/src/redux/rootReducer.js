@@ -7,6 +7,8 @@ import likeReducer from './likeReducer';
 import followingReducer from './followingReducer';
 import followedByReducer from './followedByReducer';
 import loggedInFollows from './loggedInFollows';
+import chatsReducer from './chatReducer';
+import messagesReducer from './messagesReducer';
 
 const rootReducer = combineReducers({
   loggedInUser: loggedInUserReducer,
@@ -16,6 +18,8 @@ const rootReducer = combineReducers({
   likes: likeReducer,
   following: followingReducer,
   followedBy: followedByReducer,
+  chats: chatsReducer,
+  messages: messagesReducer,
 });
 
 export default rootReducer;
