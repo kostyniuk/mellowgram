@@ -5,7 +5,7 @@ import '../../styles/badge.css';
 const Badge = ({ size, status, content }) => {
   return (
     <div>
-      <span class={`badge badge--${status} badge--${size}`}>{content}</span>
+      <span className={`badge badge--${status} badge--${size}`}>{content}</span>
     </div>
   );
 };
