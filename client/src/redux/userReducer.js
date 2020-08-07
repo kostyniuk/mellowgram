@@ -57,8 +57,6 @@ const userReducer = (state = initialState, action) => {
     }
 
     case SET_UUID: {
-      console.log(action);
-
       return { ...state, uuid: action.payload.uuid };
     }
 

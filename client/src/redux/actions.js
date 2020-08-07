@@ -24,6 +24,7 @@ import {
   GET_CHATS,
   GET_MESSAGES,
   SET_UUID,
+  ADD_MESSAGE,
 } from './types';
 
 export const authUser = ({
@@ -190,4 +191,9 @@ export const getMessages = ({ messages, chats }) => ({
 export const setUuid = ({ uuid }) => ({
   type: SET_UUID,
   payload: { uuid },
+});
+
+export const addMessage = ({ info }) => ({
+  type: ADD_MESSAGE,
+  payload: { info },
 });
