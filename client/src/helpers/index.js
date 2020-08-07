@@ -10,4 +10,12 @@ module.exports = {
     new Promise((resolve) => {
       setTimeout(resolve, msec);
     }),
+  arrToObj: (arr, prop = 'post_id') => {
+    let final = {};
+    arr.forEach((post) => {
+      final[post[prop]] = post;
+    });
+
+    return final;
+  },
 };
