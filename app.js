@@ -94,6 +94,7 @@ wss.on('connection', function connection(ws, req) {
         messages,
         connection: ws,
       });
+      console.log({ clients });
     });
   }
 
@@ -116,13 +117,37 @@ wss.on('connection', function connection(ws, req) {
         }
         break;
       case 'SEND_MESSAGE': {
-        const { roomId, senderId, context } = JSON.parse(data);
+        const { roomId, senderId, context, uuid } = JSON.parse(data);
 
         (async () => {
-          const res = await sendMessageToDb({ roomId, senderId, context });
+          console.log({ uuid, roomId });
+          const res = await sendMessageToDb({
+            roomId,
+            senderId,
+            context,
+          });
           if (res.success) {
+            clients.forEach((client) => {
+              if (
+                client.rooms.map((room) => +room.room_id).includes(+roomId) &&
+                client.uuid !== uuid &&
+                client.connection.readyState === ws.OPEN &&
+                ws !== client.connection
+              ) {
+                console.log({ client, uuid });
+                client.connection.send(
+                  JSON.stringify({
+                    action: 'SEND_MESSAGE',
+                    messageInfo: {
+                      roomId,
+                      senderId,
+                      context,
+                    },
+                  })
+                );
+              }
+            });
             //TODO: need to add uuid and send to everyone in this room except the received uuid
-            console.log({ clients });
           }
         })();
       }
