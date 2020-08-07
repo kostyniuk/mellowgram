@@ -94,7 +94,6 @@ wss.on('connection', function connection(ws, req) {
         messages,
         connection: ws,
       });
-      console.log({ clients });
     });
   }
 
@@ -106,7 +105,6 @@ wss.on('connection', function connection(ws, req) {
       case 'GET_CHATS':
         const { id } = JSON.parse(data);
         const isClient = clients.filter((client) => id === client.id);
-        console.log({ isClient });
         if (isClient.length) {
           ws.send(
             JSON.stringify({
@@ -120,34 +118,33 @@ wss.on('connection', function connection(ws, req) {
         const { roomId, senderId, context, uuid } = JSON.parse(data);
 
         (async () => {
-          console.log({ uuid, roomId });
           const res = await sendMessageToDb({
             roomId,
             senderId,
             context,
           });
           if (res.success) {
+            const { message_id, send_at } = res.rows[0];
             clients.forEach((client) => {
               if (
                 client.rooms.map((room) => +room.room_id).includes(+roomId) &&
-                client.uuid !== uuid &&
                 client.connection.readyState === ws.OPEN &&
                 ws !== client.connection
               ) {
-                console.log({ client, uuid });
                 client.connection.send(
                   JSON.stringify({
                     action: 'SEND_MESSAGE',
                     messageInfo: {
+                      messageId: message_id,
                       roomId,
                       senderId,
                       context,
+                      date: send_at,
                     },
                   })
                 );
               }
             });
-            //TODO: need to add uuid and send to everyone in this room except the received uuid
           }
         })();
       }
@@ -157,7 +154,6 @@ wss.on('connection', function connection(ws, req) {
 
     ws.on('close', (ws) => {
       clients = removeFromClients(uuid, clients);
-      console.log({ clients });
     });
 
     // wss.clients.forEach(function each(client) {

@@ -8,8 +8,8 @@ import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
 import { getChats, getMessages, setUuid, addMessage } from '../redux/actions';
 
-const ws = new WebSocket(`ws://localhost:5000`);
-// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+// const ws = new WebSocket(`ws://localhost:5000`);
+const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const dispatch = useDispatch();
 
