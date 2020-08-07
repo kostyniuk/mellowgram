@@ -6,7 +6,7 @@ import Header from '../components/Header/Header';
 import '../styles/direct.css';
 import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
-import { getChats, getMessages, setUuid } from '../redux/actions';
+import { getChats, getMessages, setUuid, addMessage } from '../redux/actions';
 
 const ws = new WebSocket(`ws://localhost:5000`);
 // const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
@@ -48,7 +48,6 @@ const Direct = () => {
       const { action } = message;
       switch (action) {
         case 'GET_CHATS':
-          console.log({ message });
           dispatch(
             getChats({
               chats: message.payload.rooms,
@@ -65,7 +64,7 @@ const Direct = () => {
 
         case 'SEND_MESSAGE':
           const { messageInfo } = message;
-          
+          dispatch(addMessage({ info: messageInfo }));
 
           break;
 
@@ -93,6 +92,7 @@ const Direct = () => {
         uuid: loggedInUser.uuid,
       })
     );
+    dispatch(addMessage({ info: {messageId: 'Do not know yet', roomId, senderId, context: textInput, date: 'now'} }));
     setTextInput('');
   };
 

@@ -1,24 +1,6 @@
-import { GET_MESSAGES } from './types';
+import { GET_MESSAGES, ADD_MESSAGE } from './types';
 import { arrToObj } from '../helpers/index';
 const initialState = {};
-
-/*
-{
-    room_id: 4,
-    username: 'steph',
-    picture:
-      'http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg',
-    messages: [
-      { id: 1, from: 8, text: 'STEPH MESSAGE 1', date: '3:22 am' },
-      {
-        id: 2,
-        from: 12,
-        text: 'STEPH MESSAGE 1',
-        date: '13:22 am',
-      },
-    ],
-  },
-*/
 
 const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -37,7 +19,6 @@ const messagesReducer = (state = initialState, action) => {
         const currentChat = adjustedMessages.filter(
           (message) => +message.room_id === +chat.room_id
         );
-        console.log({ currentChat });
 
         return {
           room_id: +chat.room_id,
@@ -47,10 +28,24 @@ const messagesReducer = (state = initialState, action) => {
         };
       });
 
-      console.log({ final });
       const obj = arrToObj(final, 'room_id');
-      console.log({ obj });
       return { ...state, ...obj };
+    }
+
+    case ADD_MESSAGE: {
+      const { info } = action.payload;
+
+      const temp = { ...state };
+
+      temp[info.roomId].messages.push({
+        message_id: info.messageId,
+        room_id: info.roomId,
+        from: info.senderId,
+        text: info.context,
+        date: info.date,
+      });
+
+      return { ...state, ...temp };
     }
 
     default: {
