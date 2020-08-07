@@ -21,6 +21,7 @@ import {
   SET_LOGGED_IN_FOLLOWING,
   ADD_FOLLOW,
   DELETE_FOLLOW,
+  GET_CHATS,
 } from './types';
 
 export const authUser = ({
@@ -173,3 +174,8 @@ export const deleteFollow = ({ producer, consumer, myPage }) => ({
   type: DELETE_FOLLOW,
   payload: { producer, consumer, myPage },
 });
+
+export const getChats = ({chats}) => ({
+  type: GET_CHATS,
+  payload: {chats}
+})

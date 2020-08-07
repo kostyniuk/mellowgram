@@ -16,7 +16,7 @@ export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
 export const SET_FOLLOWING = 'SET_FOLLOWING';
 export const SET_FOLLOWED_BY = 'SET_FOLLOWED_BY';
-export const SET_LOGGED_IN_FOLLOWING = 'SET_LOGGED_IN_FOLLOWING'
-export const ADD_FOLLOW = 'ADD_FOLLOW'
-export const DELETE_FOLLOW = 'DELETE_FOLLOW'
-
+export const SET_LOGGED_IN_FOLLOWING = 'SET_LOGGED_IN_FOLLOWING';
+export const ADD_FOLLOW = 'ADD_FOLLOW';
+export const DELETE_FOLLOW = 'DELETE_FOLLOW';
+export const GET_CHATS = 'GET_CHATS';
