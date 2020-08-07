@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import equal from 'deep-equal';
+import { v4 as uuidv4 } from 'uuid';
 import Header from '../components/Header/Header';
 
 import '../styles/direct.css';
@@ -7,7 +9,7 @@ import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
 import { compareSync } from 'bcryptjs';
 
-const chats = [
+const chats1 = [
   {
     id: 1,
     name: 'steph',
@@ -43,7 +45,7 @@ const chats = [
     unreadMessagesCount: 1,
   },
   {
-    id: 3,
+    id: 4,
     name: 'tsunamipapi',
     picture:
       'http://localhost:3000/api/public/uploads/uxWTUo5M62aoDxkEO3hB7.jpeg',
@@ -56,21 +58,23 @@ const chats = [
   },
 ];
 
-const messages = [
+const messages1 = [
   {
+    user_id: 12,
     username: 'dloading',
     picture: 'http://localhost:3000/api/public/uploads/user_dloading.jpg',
     messages: [
       { id: 1, from: 'dloading', text: 'STEPH MESSAGE 1', date: '3:22 am' },
       {
         id: 2,
-        from: 'kostyniuk',
+        from: 'dloading',
         text: 'DLOADING MESSAGE 2',
         date: '13:22 am',
       },
     ],
   },
   {
+    user_id: 8,
     username: 'steph',
     picture:
       'http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg',
@@ -85,6 +89,7 @@ const messages = [
     ],
   },
   {
+    user_id: 14,
     username: 'tsunamipapi',
     picture:
       'http://localhost:3000/api/public/uploads/uxWTUo5M62aoDxkEO3hB7.jpeg',
@@ -99,6 +104,7 @@ const messages = [
     ],
   },
   {
+    user_id: 7,
     username: 'kostyniuk',
     picture: 'http://localhost:3000/api/public/uploads/user_kostyniuk.jpg',
     messages: [
@@ -113,27 +119,45 @@ const messages = [
   },
 ];
 
+const uuid = null;
 
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const [openDialog, setOpenDialog] = useState(null);
+  const [chats, setChats] = useState(null);
 
-  console.log('adsssssssssssssssssss');
-  console.log({ env: process.env });
+  const loggedInUser = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => equal(prev, curr)
+  );
 
   useEffect(() => {
     ws.onopen = () => {
       console.log('Connection established');
     };
     ws.onmessage = (evt) => {
-      const message = evt.data;
-      console.log('Got new message', message);
+      const message = JSON.parse(evt.data);
+      const { action } = message;
+      switch (action) {
+        case 'GET_CHATS':
+          console.log({ message });
+          setChats(message.payload.rooms);
+          break;
+
+        default:
+          break;
+      }
     };
+
+    ws.send(JSON.stringify({ action: 'GET_CHATS', id: loggedInUser.id }));
 
     ws.onclose = () => {
       console.log('Connection closed');
     };
   }, []);
+
+  if (!chats) return <div></div>;
 
   return (
     <div className='DIRECT__page'>
@@ -150,9 +174,10 @@ const Direct = () => {
           <Messages
             data={
               openDialog
-                ? messages.filter((msgs) => msgs.username === openDialog)[0]
+                ? messages1.filter((msgs) => msgs.username === openDialog)[0]
                 : null
             }
+            socket={ws}
             setOpenDialog={setOpenDialog}
           />
         </div>
