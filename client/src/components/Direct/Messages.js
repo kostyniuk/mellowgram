@@ -1,9 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { useSelector } from 'react-redux';
 import '../../styles/messages.css';
 import Message from './Message';
 
 const Messages = ({ data, setOpenDialog, socket }) => {
+  const loggedInUser = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => prev === curr
+  );
+
   const messagesEndRef = useRef(null);
 
   const [textInput, setTextInput] = useState('');
@@ -44,7 +50,7 @@ const Messages = ({ data, setOpenDialog, socket }) => {
           <Message
             key={msg.id}
             context={msg.text}
-            isOwner={msg.from === 'kostyniuk'}
+            isOwner={+msg.from === +loggedInUser.id}
             date={msg.date}
           />
         ))}
