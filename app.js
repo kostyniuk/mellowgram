@@ -16,6 +16,7 @@ const {
   loadUserRooms,
   getTheLatestMessages,
   loadUserMessages,
+  removeFromClients,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -70,8 +71,6 @@ const server = http.createServer(app);
 
 const wss = new ws.Server({ server });
 
-
-
 // user: {
 //   id: id!,
 //   rooms: [{chatId, name, picture, latestMassage}]
@@ -98,9 +97,10 @@ id: 1,
     unreadMessagesCount: 10,
 */
 
-const clients = [];
+let clients = [];
 
 wss.on('connection', function connection(ws, req) {
+  const uuid = uuidv4();
   const { cookie } = req.headers;
   if (cookie) {
     const parsed = cookie.split('connect.sid=s%3A', 2)[1].split('.', 1)[0];
@@ -113,7 +113,7 @@ wss.on('connection', function connection(ws, req) {
       return { id, rooms: finalRooms, messages };
     })(parsed).then(({ id, rooms, messages }) => {
       clients.push({
-        uuid: uuidv4(),
+        uuid,
         id: +id,
         rooms,
         messages,
@@ -143,6 +143,12 @@ wss.on('connection', function connection(ws, req) {
       default:
         break;
     }
+
+    ws.on('close', (ws) => {
+      console.log({ uuid, clients });
+      clients = removeFromClients(uuid, clients);
+      console.log({ clients });
+    });
 
     // wss.clients.forEach(function each(client) {
     //   // if (client !== ws && client.readyState === ws.OPEN) {
