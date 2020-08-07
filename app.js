@@ -17,6 +17,7 @@ const {
   getTheLatestMessages,
   loadUserMessages,
   removeFromClients,
+  sendMessageToDb,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -98,10 +99,11 @@ wss.on('connection', function connection(ws, req) {
 
   ws.on('message', function incoming(data) {
     const { action, id } = JSON.parse(data);
-    console.log({ action, id });
+    console.log({ action });
 
     switch (action) {
       case 'GET_CHATS':
+        const { id } = JSON.parse(data);
         const isClient = clients.filter((client) => id === client.id);
         console.log({ isClient });
         if (isClient.length) {
@@ -113,7 +115,17 @@ wss.on('connection', function connection(ws, req) {
           );
         }
         break;
+      case 'SEND_MESSAGE': {
+        const { roomId, senderId, context } = JSON.parse(data);
 
+        (async () => {
+          const res = await sendMessageToDb({ roomId, senderId, context });
+          if (res.success) {
+            //TODO: need to add uuid and send to everyone in this room except the received uuid
+            console.log({ clients });
+          }
+        })();
+      }
       default:
         break;
     }

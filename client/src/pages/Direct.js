@@ -8,13 +8,19 @@ import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
 import { getChats, getMessages } from '../redux/actions';
 
-
-// const ws = new WebSocket(`ws://localhost:5000`);
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const dispatch = useDispatch();
 
   const [openDialog, setOpenDialog] = useState(null);
+
+  const [textInput, setTextInput] = useState('');
+
+  const handleChange = (e) => {
+    setTextInput(e.target.value);
+  };
+
   const chats = Object.values(
     useSelector(
       (state) => state.chats,
@@ -70,6 +76,18 @@ const Direct = () => {
     };
   }, []);
 
+  const handleMessageSend = (roomId, senderId) => {
+    ws.send(
+      JSON.stringify({
+        action: 'SEND_MESSAGE',
+        roomId,
+        senderId,
+        context: textInput,
+      })
+    );
+    setTextInput('');
+  };
+
   if (!chats.length || !messages.length) return <div></div>;
 
   return (
@@ -81,6 +99,7 @@ const Direct = () => {
             chats={chats}
             openDialog={openDialog}
             setOpenDialog={setOpenDialog}
+            setTextInput={setTextInput}
           />
         </div>
         <div className='DIRECT__right_side'>
@@ -90,7 +109,9 @@ const Direct = () => {
                 ? messages.filter((msgs) => +msgs.room_id === +openDialog)[0]
                 : null
             }
-            socket={ws}
+            textInput={textInput}
+            handleMessageSend={handleMessageSend}
+            handleChange={handleChange}
             setOpenDialog={setOpenDialog}
           />
         </div>
