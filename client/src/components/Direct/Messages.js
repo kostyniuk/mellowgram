@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import '../../styles/messages.css';
 import Message from './Message';
 
-const Messages = ({ data, setOpenDialog, socket }) => {
+const Messages = ({ data, textInput, setOpenDialog, handleMessageSend, handleChange }) => {
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
     (prev, curr) => prev === curr
@@ -12,17 +12,9 @@ const Messages = ({ data, setOpenDialog, socket }) => {
 
   const messagesEndRef = useRef(null);
 
-  const [textInput, setTextInput] = useState('');
-
-  const handleChange = (e) => {
-    setTextInput(e.target.value);
-  };
-
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
-
-  // const prepareMessage = (from, to, chatRoom)
 
   useEffect(scrollToBottom, [data]);
 
@@ -58,6 +50,7 @@ const Messages = ({ data, setOpenDialog, socket }) => {
       </div>
       <div className='MESSAGES__send'>
         <textarea
+          value={textInput}
           onChange={handleChange}
           name='message'
           autoFocus
@@ -66,7 +59,11 @@ const Messages = ({ data, setOpenDialog, socket }) => {
         ></textarea>
         <i
           class='fa fa-paper-plane MESSAGES_SEND'
-          onClick={() => socket.send(textInput)}
+          onClick={handleMessageSend.bind(
+            null,
+            data.room_id,
+            loggedInUser.id,
+          )}
         ></i>
       </div>
     </div>
