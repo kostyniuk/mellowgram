@@ -10,6 +10,7 @@ const Chats = ({ chats, openDialog, setOpenDialog }) => {
       {chats.map((chat) => (
         <ChatRow
           key={chat.id}
+          chat_id={chat.room_id}
           name={chat.username}
           picture={chat.picture}
           latestMessage={chat.latestMessage}

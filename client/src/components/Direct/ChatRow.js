@@ -13,6 +13,7 @@ const prepareText = (str) => {
 };
 
 const ChatRow = ({
+  chat_id,
   name,
   picture,
   latestMessage,
@@ -28,7 +29,7 @@ const ChatRow = ({
 
   return (
     <div>
-      <div className={className} onClick={() => setOpenDialog(name)}>
+      <div className={className} onClick={() => setOpenDialog(chat_id)}>
         <div className='CHAT_ROW__left'>
           <img src={picture}></img>
         </div>
