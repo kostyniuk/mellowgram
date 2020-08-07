@@ -2,6 +2,7 @@ import {
   AUTH_USER,
   UPDATE_PROFILE_PICTURE,
   UPDATE_PROFILE_INFO,
+  SET_UUID,
 } from './types';
 
 const initialState = {
@@ -54,6 +55,13 @@ const userReducer = (state = initialState, action) => {
         ready: true,
       };
     }
+
+    case SET_UUID: {
+      console.log(action);
+
+      return { ...state, uuid: action.payload.uuid };
+    }
+
     default: {
       return { ...state, ready: true };
     }

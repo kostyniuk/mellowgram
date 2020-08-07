@@ -23,6 +23,7 @@ import {
   DELETE_FOLLOW,
   GET_CHATS,
   GET_MESSAGES,
+  SET_UUID,
 } from './types';
 
 export const authUser = ({
@@ -184,4 +185,9 @@ export const getChats = ({ chats }) => ({
 export const getMessages = ({ messages, chats }) => ({
   type: GET_MESSAGES,
   payload: { messages, chats },
+});
+
+export const setUuid = ({ uuid }) => ({
+  type: SET_UUID,
+  payload: { uuid },
 });

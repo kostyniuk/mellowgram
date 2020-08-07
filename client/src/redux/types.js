@@ -21,3 +21,4 @@ export const ADD_FOLLOW = 'ADD_FOLLOW';
 export const DELETE_FOLLOW = 'DELETE_FOLLOW';
 export const GET_CHATS = 'GET_CHATS';
 export const GET_MESSAGES = 'GET_MESSAGES';
+export const SET_UUID = 'SET_UUID';
