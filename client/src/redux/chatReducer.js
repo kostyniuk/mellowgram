@@ -1,15 +1,15 @@
-import { SET_FOLLOWED_BY, ADD_FOLLOW, DELETE_FOLLOW } from './types';
-
-const initialState = {
-  user: null,
-};
+import {GET_CHATS } from './types';
+import { arrToObj } from '../helpers/index';
+const initialState = {};
 
 const chatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_FOLLOWED_BY: {
-      const { users, user } = action.payload;
+    case GET_CHATS: {
+      const { chats } = action.payload;
 
-      return { ...state, users, user };
+      const transformed = arrToObj(chats, 'room_id');
+
+      return { ...state, ...transformed };
     }
 
     default: {
