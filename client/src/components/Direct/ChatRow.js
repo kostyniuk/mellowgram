@@ -34,7 +34,7 @@ const ChatRow = ({
         </div>
         <div className='CHAT_ROW__center'>
           <h4>{name}</h4>
-          <h5>{prepareText(latestMessage.text)}</h5>
+          <h5>{prepareText(latestMessage.context)}</h5>
         </div>
         <div className='CHAT_ROW__right'>
           <p>{latestMessage.sendAt}</p>

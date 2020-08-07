@@ -10,10 +10,10 @@ const Chats = ({ chats, openDialog, setOpenDialog }) => {
       {chats.map((chat) => (
         <ChatRow
           key={chat.id}
-          name={chat.name}
+          name={chat.username}
           picture={chat.picture}
           latestMessage={chat.latestMessage}
-          unreadMessagesCount={chat.unreadMessagesCount}
+          unreadMessagesCount={5}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
         />
