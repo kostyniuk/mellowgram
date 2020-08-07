@@ -10,10 +10,17 @@ const pg = require('pg');
 const passport = require('passport');
 const path = require('path');
 require('dotenv').config();
-const db = require('./config/db');
-const app = express();
 
-const { formParams } = require('./lib/sqlUtils');
+const {
+  getUser,
+  loadUserRooms,
+  getTheLatestMessages,
+  loadUserMessages,
+} = require('./lib/wsUtils');
+
+const { v4: uuidv4 } = require('uuid');
+
+const app = express();
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,8 +29,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // app.use(morgan('tiny'));
-
-console.log({ env: process.env });
 
 const pgPool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -65,60 +70,13 @@ const server = http.createServer(app);
 
 const wss = new ws.Server({ server });
 
-const getUser = async (cookie) => {
-  try {
-    const querySession = `SELECT sess from Session WHERE sid = $1;`;
-    const paramsSession = [cookie];
-    const { rows } = await db.query(querySession, paramsSession);
-    if (rows.length) {
-      return rows[0].sess.passport.user;
-    }
-    return null;
-  } catch (e) {
-    console.log(e);
-  }
-};
 
-const loadUserRooms = async (id) => {
-  try {
-    console.log({ id });
-    const querySession = `SELECT * from Room WHERE (user1_id = $1) OR (user2_id = $1);`;
-    const paramsSession = [id];
-    const { rows } = await db.query(querySession, paramsSession);
-    if (rows.length) {
-      return rows;
-    }
-    return null;
-  } catch (e) {
-    console.log(e);
-  }
-};
-/*
-let addParameters = formParams(userIds.length);
-  const query2 = `SELECT p.person_id, p.picture, u.username
-        FROM person p INNER JOIN user_info u on (p.person_id = u.user_id)
-        WHERE p.person_id in (${addParameters})`;
-
-  const params2 = userIds;
-*/
-const loadUserMessages = async (rooms) => {
-  try {
-    const ids = rooms.map((room) => room.room_id);
-    const addParameters = formParams(ids.length);
-    const querySession = `SELECT * from Messages WHERE room_id in (${addParameters})`;
-    const paramsSession = ids;
-    const { rows } = await db.query(querySession, paramsSession);
-    if (rows.length) {
-      return rows;
-    }
-    return null;
-  } catch (e) {
-    console.log(e);
-  }
-};
 
 // user: {
 //   id: id!,
+//   rooms: [{chatId, name, picture, latestMassage}]
+//
+//}
 //   rooms: [roomId]
 //   messages: [
 //    {room_id: roomId, messages: [{messageId, sender_id, context, sendAt}]},
@@ -127,39 +85,71 @@ const loadUserMessages = async (rooms) => {
 //  connection: ws
 // }
 
+/*
+id: 1,
+    name: 'steph',
+    picture:
+      'http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg',
+    latestMessage: {
+      id: 100,
+      text: 'Hi kostyniuk',
+      sendAt: 'Fri',
+    },
+    unreadMessagesCount: 10,
+*/
+
 const clients = [];
 
 wss.on('connection', function connection(ws, req) {
   const { cookie } = req.headers;
   if (cookie) {
-    console.log({ cookie });
     const parsed = cookie.split('connect.sid=s%3A', 2)[1].split('.', 1)[0];
-
-    console.log({ parsed });
 
     (async function (cookie) {
       const id = await getUser(cookie);
       const rooms = await loadUserRooms(id);
       const messages = await loadUserMessages(rooms);
-      return { id, rooms, messages };
+      const finalRooms = getTheLatestMessages({ rooms, messages });
+      return { id, rooms: finalRooms, messages };
     })(parsed).then(({ id, rooms, messages }) => {
       clients.push({
-        id,
-        rooms: rooms.map((room) => room.room_id),
+        uuid: uuidv4(),
+        id: +id,
+        rooms,
         messages,
         connection: ws,
       });
-      console.log({ clients });
     });
   }
 
   ws.on('message', function incoming(data) {
-    wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === ws.OPEN) {
-        client.send(data);
-        console.log('send');
-      }
-    });
+    const { action, id } = JSON.parse(data);
+    console.log({ action, id });
+
+    switch (action) {
+      case 'GET_CHATS':
+        const isClient = clients.filter((client) => id === client.id);
+        console.log({ isClient });
+        if (isClient.length) {
+          ws.send(
+            JSON.stringify({
+              action: 'GET_CHATS',
+              payload: { ...isClient[0], connection: true },
+            })
+          );
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    // wss.clients.forEach(function each(client) {
+    //   // if (client !== ws && client.readyState === ws.OPEN) {
+    //   client.send(data);
+    //   console.log('send');
+    //   // }
+    // });
   });
 });
 
