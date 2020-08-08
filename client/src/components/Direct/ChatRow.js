@@ -1,11 +1,8 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
-
 import Badge from './Badge';
 
 import '../../styles/direct.css';
-import { resetUnreadCounter } from '../../redux/actions';
 
 const prepareText = (str) => {
   if (!str) return 'No messages yet';
@@ -24,11 +21,8 @@ const ChatRow = ({
   latestMessage,
   unreadMessagesCount,
   openDialog,
-  setOpenDialog,
-  setTextInput,
+  handleChatClick,
 }) => {
-  const dispatch = useDispatch();
-
   const className =
     name === openDialog
       ? 'CHAT_ROW__container CHAT_ROW__container_active'
@@ -36,20 +30,15 @@ const ChatRow = ({
 
   return (
     <div>
-      <div
-        className={className}
-        onClick={() => {
-          dispatch(resetUnreadCounter({ chatId: chat_id }));
-          setTextInput('');
-          setOpenDialog(chat_id);
-        }}
-      >
+      <div className={className} onClick={handleChatClick.bind(null, chat_id)}>
         <div className='CHAT_ROW__left'>
           <img src={picture}></img>
         </div>
         <div className='CHAT_ROW__center'>
           <h4>{name}</h4>
-          <h5>{prepareText(latestMessage?.context)}</h5>
+          <h5>
+            {name}: {prepareText(latestMessage?.context)}
+          </h5>
         </div>
         <div className='CHAT_ROW__right'>
           <p>{latestMessage?.sendAt}</p>
