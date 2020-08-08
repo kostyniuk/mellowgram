@@ -4,7 +4,13 @@ import { useSelector } from 'react-redux';
 import '../../styles/messages.css';
 import Message from './Message';
 
-const Messages = ({ data, textInput, setOpenDialog, handleMessageSend, handleChange }) => {
+const Messages = ({
+  data,
+  textInput,
+  setOpenDialog,
+  handleMessageSend,
+  handleChange,
+}) => {
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
     (prev, curr) => prev === curr
@@ -16,7 +22,7 @@ const Messages = ({ data, textInput, setOpenDialog, handleMessageSend, handleCha
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
 
-  useEffect(scrollToBottom, [data]);
+  useEffect(scrollToBottom, [data?.messages?.length]);
 
   if (!data)
     return (
@@ -59,11 +65,7 @@ const Messages = ({ data, textInput, setOpenDialog, handleMessageSend, handleCha
         ></textarea>
         <i
           class='fa fa-paper-plane MESSAGES_SEND'
-          onClick={handleMessageSend.bind(
-            null,
-            data.room_id,
-            loggedInUser.id,
-          )}
+          onClick={handleMessageSend.bind(null, data.room_id, loggedInUser.id)}
         ></i>
       </div>
     </div>

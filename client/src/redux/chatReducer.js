@@ -46,9 +46,13 @@ const chatReducer = (state = initialState, action) => {
         is_read: true,
       };
 
+      console.log({ temp, info });
+
       if (+me.id !== +info.senderId) {
-        temp[info.room_id].unread += 1;
+        temp[info.roomId].unread += 1;
       }
+
+      console.log({ temp });
 
       return { ...state, ...temp };
     }

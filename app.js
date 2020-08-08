@@ -148,10 +148,10 @@ wss.on('connection', function connection(ws, req) {
             });
           }
         })();
+        break;
       }
       case 'SET_READ': {
         const { chatId, userId } = JSON.parse(data);
-        console.log({ chatId, userId });
         (async () => {
           const res = await setRead({ roomId: chatId, senderId: userId });
           console.log({ res });
