@@ -19,6 +19,7 @@ const {
   removeFromClients,
   sendMessageToDb,
   setRead,
+  writeToMemory,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -83,11 +84,33 @@ wss.on('connection', function connection(ws, req) {
 
     (async function (cookie) {
       const id = await getUser(cookie);
+
+      const isAlreadyHere = clients.filter((client) => +client.id === +id);
+
+      if (isAlreadyHere.length) {
+        console.log(ws === isAlreadyHere[0].connection);
+        clients.push({
+          uuid,
+          id,
+          rooms: isAlreadyHere[0].rooms,
+          messages: isAlreadyHere[0].messages,
+          connection: ws,
+        });
+        return {
+          id: id,
+          rooms: isAlreadyHere[0].rooms,
+          messages: isAlreadyHere[0].rooms,
+          isAlreadyHere: true,
+        };
+      }
+
       const rooms = await loadUserRooms(id);
       const messages = await loadUserMessages(rooms);
       const finalRooms = getTheLatestMessages({ rooms, messages });
-      return { id, rooms: finalRooms, messages };
-    })(parsed).then(({ id, rooms, messages }) => {
+      return { id, rooms: finalRooms, messages, isAlreadyHere: false };
+    })(parsed).then(({ id, rooms, messages, isAlreadyHere }) => {
+      if (isAlreadyHere) return;
+
       clients.push({
         uuid,
         id: +id,
@@ -113,11 +136,10 @@ wss.on('connection', function connection(ws, req) {
           ws.send(
             JSON.stringify({
               action: 'GET_CHATS',
-              payload: { ...isClient[0], connection: true },
+              payload: { ...isClient[isClient.length - 1], connection: true },
             })
           );
         }
-        console.log({ clients });
         break;
       case 'SEND_MESSAGE': {
         const { roomId, senderId, context, uuid } = JSON.parse(data);
@@ -129,9 +151,21 @@ wss.on('connection', function connection(ws, req) {
             context,
           });
           if (res.success) {
-            console.log({ res });
-            console.log({ rows: res.rows });
-            const { message_id, send_at } = res.rows[0];
+            const { message_id, send_at, is_read } = res.rows[0];
+            const written = writeToMemory({
+              message: {
+                message_id,
+                room_id: roomId,
+                sender_id: senderId,
+                context,
+                send_at: send_at,
+                is_read,
+              },
+              clients,
+            });
+
+            clients = written;
+
             clients.forEach((client) => {
               if (
                 client.rooms.map((room) => +room.room_id).includes(+roomId) &&
