@@ -53,7 +53,7 @@ const App = () => {
         }
       }
     },
-    [request, userInfo]
+    [request, userInfo.id]
   );
 
   useEffect(() => {
