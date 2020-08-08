@@ -7,13 +7,15 @@ const messagesReducer = (state = initialState, action) => {
     case GET_MESSAGES: {
       const { messages, chats } = action.payload;
 
-      const adjustedMessages = messages.map((message) => ({
-        message_id: message.message_id,
-        room_id: message.room_id,
-        from: message.sender_id,
-        text: message.context,
-        date: message.send_at.split('T')[1].split('.')[0],
-      }));
+      const adjustedMessages = messages
+        .sort((a, b) => a.message_id - b.message_id)
+        .map((message) => ({
+          message_id: message.message_id,
+          room_id: message.room_id,
+          from: message.sender_id,
+          text: message.context,
+          date: message.send_at.split('T')[1].split('.')[0],
+        }));
 
       const final = chats.map((chat) => {
         const currentChat = adjustedMessages.filter(
@@ -29,6 +31,7 @@ const messagesReducer = (state = initialState, action) => {
       });
 
       const obj = arrToObj(final, 'room_id');
+      console.log({ obj });
       return { ...state, ...obj };
     }
 
@@ -44,6 +47,8 @@ const messagesReducer = (state = initialState, action) => {
         text: info.context,
         date: info.date,
       });
+
+      console.log({ temp });
 
       return { ...state, ...temp };
     }
