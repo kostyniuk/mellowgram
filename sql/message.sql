@@ -18,6 +18,12 @@ ALTER TABLE Messages ADD CONSTRAINT fk_room_id
   FOREIGN KEY (room_id) REFERENCES room (room_id)
   ON DELETE CASCADE;
 
+ALTER TABLE Messages ADD COLUMN is_read boolean;
+
+ALTER TABLE Messages ALTER is_read
+SET
+DEFAULT FALSE;
+
 
 ALTER TABLE Messages ALTER send_at
 SET
