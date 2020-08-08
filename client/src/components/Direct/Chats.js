@@ -14,7 +14,7 @@ const Chats = ({ chats, setTextInput, openDialog, setOpenDialog }) => {
           name={chat.username}
           picture={chat.picture}
           latestMessage={chat.latestMessage}
-          unreadMessagesCount={5}
+          unreadMessagesCount={chat.unread}
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
           setTextInput={setTextInput}

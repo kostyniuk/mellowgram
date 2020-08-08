@@ -8,8 +8,8 @@ import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
 import { getChats, getMessages, setUuid, addMessage } from '../redux/actions';
 
-// const ws = new WebSocket(`ws://localhost:5000`);
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const dispatch = useDispatch();
 
@@ -45,12 +45,15 @@ const Direct = () => {
     };
     ws.onmessage = (evt) => {
       const message = JSON.parse(evt.data);
+      console.log({ message });
       const { action } = message;
       switch (action) {
         case 'GET_CHATS':
           dispatch(
             getChats({
               chats: message.payload.rooms,
+              messages: message.payload.messages,
+              me: loggedInUser,
             })
           );
           dispatch(
@@ -92,7 +95,17 @@ const Direct = () => {
         uuid: loggedInUser.uuid,
       })
     );
-    dispatch(addMessage({ info: {messageId: 'Do not know yet', roomId, senderId, context: textInput, date: 'now'} }));
+    dispatch(
+      addMessage({
+        info: {
+          messageId: 'Do not know yet',
+          roomId,
+          senderId,
+          context: textInput,
+          date: 'now',
+        },
+      })
+    );
     setTextInput('');
   };
 
