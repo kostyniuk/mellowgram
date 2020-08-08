@@ -6,7 +6,13 @@ import Header from '../components/Header/Header';
 import '../styles/direct.css';
 import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
-import { getChats, getMessages, setUuid, addMessage } from '../redux/actions';
+import {
+  getChats,
+  getMessages,
+  setUuid,
+  addMessage,
+  resetUnreadCounter,
+} from '../redux/actions';
 
 const ws = new WebSocket(`ws://localhost:5000`);
 // const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
@@ -109,6 +115,24 @@ const Direct = () => {
     setTextInput('');
   };
 
+  const handleChatClick = (chat_id) => {
+    dispatch(resetUnreadCounter({ chatId: chat_id }));
+    setTextInput('');
+    setOpenDialog(chat_id);
+
+    const room = chats.filter((chat) => chat.room_id === chat_id)[0];
+
+    if (room.unread) {
+      ws.send(
+        JSON.stringify({
+          action: 'SET_READ',
+          chatId: chat_id,
+          userId: loggedInUser.id,
+        })
+      );
+    }
+  };
+
   if (!chats.length || !messages.length) return <div></div>;
 
   return (
@@ -119,8 +143,7 @@ const Direct = () => {
           <Chats
             chats={chats}
             openDialog={openDialog}
-            setOpenDialog={setOpenDialog}
-            setTextInput={setTextInput}
+            handleChatClick={handleChatClick}
           />
         </div>
         <div className='DIRECT__right_side'>
