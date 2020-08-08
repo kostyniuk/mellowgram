@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { useDispatch } from 'react-redux';
+
 import Badge from './Badge';
 
 import '../../styles/direct.css';
+import { resetUnreadCounter } from '../../redux/actions';
 
 const prepareText = (str) => {
   if (!str) return 'No messages yet';
@@ -24,6 +27,8 @@ const ChatRow = ({
   setOpenDialog,
   setTextInput,
 }) => {
+  const dispatch = useDispatch();
+
   const className =
     name === openDialog
       ? 'CHAT_ROW__container CHAT_ROW__container_active'
@@ -34,6 +39,7 @@ const ChatRow = ({
       <div
         className={className}
         onClick={() => {
+          dispatch(resetUnreadCounter({ chatId: chat_id }));
           setTextInput('');
           setOpenDialog(chat_id);
         }}
@@ -47,7 +53,15 @@ const ChatRow = ({
         </div>
         <div className='CHAT_ROW__right'>
           <p>{latestMessage?.sendAt}</p>
-          <Badge size='smaller' status='danger' content={unreadMessagesCount} />
+          {unreadMessagesCount ? (
+            <Badge
+              size='smaller'
+              status='danger'
+              content={unreadMessagesCount}
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
       <hr className='hr_chat'></hr>
