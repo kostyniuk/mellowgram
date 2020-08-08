@@ -1,4 +1,4 @@
-import { GET_CHATS, ADD_MESSAGE } from './types';
+import { GET_CHATS, ADD_MESSAGE, RESET_UNREAD_COUNTER } from './types';
 import { arrToObj } from '../helpers/index';
 const initialState = {};
 
@@ -47,6 +47,16 @@ const chatReducer = (state = initialState, action) => {
       };
 
       return { ...state, ...temp };
+    }
+
+    case RESET_UNREAD_COUNTER: {
+      const { chatId } = action.payload;
+
+      const reseted = JSON.parse(JSON.stringify(state));
+
+      reseted[chatId].unread = 0;
+
+      return { ...state, ...reseted };
     }
 
     default: {

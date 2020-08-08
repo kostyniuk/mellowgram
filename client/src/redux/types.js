@@ -23,3 +23,4 @@ export const GET_CHATS = 'GET_CHATS';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const SET_UUID = 'SET_UUID';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const RESET_UNREAD_COUNTER = 'RESET_UNREAD_COUNTER'
