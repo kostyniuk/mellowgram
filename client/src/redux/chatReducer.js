@@ -34,7 +34,7 @@ const chatReducer = (state = initialState, action) => {
     }
 
     case ADD_MESSAGE: {
-      const { info } = action.payload;
+      const { info, me } = action.payload;
 
       const temp = JSON.parse(JSON.stringify(state));
       temp[info.roomId].latestMessage = {
@@ -45,6 +45,10 @@ const chatReducer = (state = initialState, action) => {
         send_at: info.date,
         is_read: true,
       };
+
+      if (+me.id !== +info.senderId) {
+        temp[info.room_id].unread += 1;
+      }
 
       return { ...state, ...temp };
     }

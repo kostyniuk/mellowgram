@@ -14,8 +14,8 @@ import {
   resetUnreadCounter,
 } from '../redux/actions';
 
-// const ws = new WebSocket(`ws://localhost:5000`);
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ const Direct = () => {
 
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
-    (prev, curr) => equal(prev, curr)
+    (prev, curr) => prev.id === curr.id
   );
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const Direct = () => {
 
         case 'SEND_MESSAGE':
           const { messageInfo } = message;
-          dispatch(addMessage({ info: messageInfo }));
+          dispatch(addMessage({ info: messageInfo, me: loggedInUser }));
 
           break;
 
@@ -92,37 +92,39 @@ const Direct = () => {
   }, []);
 
   const handleMessageSend = (roomId, senderId) => {
-    ws.send(
-      JSON.stringify({
-        action: 'SEND_MESSAGE',
-        roomId,
-        senderId,
-        context: textInput,
-        uuid: loggedInUser.uuid,
-      })
-    );
-    dispatch(
-      addMessage({
-        info: {
-          messageId: 'Do not know yet',
+    if (textInput) {
+      ws.send(
+        JSON.stringify({
+          action: 'SEND_MESSAGE',
           roomId,
           senderId,
           context: textInput,
-          date: 'now',
-        },
-      })
-    );
+          uuid: loggedInUser.uuid,
+        })
+      );
+      dispatch(
+        addMessage({
+          info: {
+            messageId: 'Do not know yet',
+            roomId,
+            senderId,
+            context: textInput,
+            date: 'now',
+          },
+          me: loggedInUser
+        })
+      );
+    }
     setTextInput('');
   };
 
   const handleChatClick = (chat_id) => {
-    dispatch(resetUnreadCounter({ chatId: chat_id }));
+    const room = chats.filter((chat) => chat.room_id === chat_id)[0];
     setTextInput('');
     setOpenDialog(chat_id);
 
-    const room = chats.filter((chat) => chat.room_id === chat_id)[0];
-
     if (room.unread) {
+      dispatch(resetUnreadCounter({ chatId: chat_id }));
       ws.send(
         JSON.stringify({
           action: 'SET_READ',

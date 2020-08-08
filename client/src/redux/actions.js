@@ -194,9 +194,9 @@ export const setUuid = ({ uuid }) => ({
   payload: { uuid },
 });
 
-export const addMessage = ({ info }) => ({
+export const addMessage = ({ info, me }) => ({
   type: ADD_MESSAGE,
-  payload: { info },
+  payload: { info, me },
 });
 
 export const resetUnreadCounter = ({ chatId }) => ({
