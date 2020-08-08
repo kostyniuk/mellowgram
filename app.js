@@ -98,6 +98,8 @@ wss.on('connection', function connection(ws, req) {
     });
   }
 
+  // need to update in memomry clients messages on new message, so new connections can use the information instead of making requests
+
   ws.on('message', function incoming(data) {
     const { action, id } = JSON.parse(data);
     console.log({ action });
@@ -106,6 +108,7 @@ wss.on('connection', function connection(ws, req) {
       case 'GET_CHATS':
         const { id } = JSON.parse(data);
         const isClient = clients.filter((client) => client.connection === ws);
+        console.log({ isClient });
         if (isClient.length) {
           ws.send(
             JSON.stringify({
@@ -114,6 +117,7 @@ wss.on('connection', function connection(ws, req) {
             })
           );
         }
+        console.log({ clients });
         break;
       case 'SEND_MESSAGE': {
         const { roomId, senderId, context, uuid } = JSON.parse(data);
@@ -125,6 +129,8 @@ wss.on('connection', function connection(ws, req) {
             context,
           });
           if (res.success) {
+            console.log({ res });
+            console.log({ rows: res.rows });
             const { message_id, send_at } = res.rows[0];
             clients.forEach((client) => {
               if (

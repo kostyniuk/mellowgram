@@ -14,8 +14,8 @@ import {
   resetUnreadCounter,
 } from '../redux/actions';
 
-// const ws = new WebSocket(`ws://localhost:5000`);
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
 const Direct = () => {
   const dispatch = useDispatch();
 
