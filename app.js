@@ -18,6 +18,7 @@ const {
   loadUserMessages,
   removeFromClients,
   sendMessageToDb,
+  setRead,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -146,6 +147,14 @@ wss.on('connection', function connection(ws, req) {
               }
             });
           }
+        })();
+      }
+      case 'SET_READ': {
+        const { chatId, userId } = JSON.parse(data);
+        console.log({ chatId, userId });
+        (async () => {
+          const res = await setRead({ roomId: chatId, senderId: userId });
+          console.log({ res });
         })();
       }
       default:
