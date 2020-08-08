@@ -178,9 +178,9 @@ export const deleteFollow = ({ producer, consumer, myPage }) => ({
   payload: { producer, consumer, myPage },
 });
 
-export const getChats = ({ chats }) => ({
+export const getChats = ({ chats, messages, me }) => ({
   type: GET_CHATS,
-  payload: { chats },
+  payload: { chats, messages, me },
 });
 
 export const getMessages = ({ messages, chats }) => ({
