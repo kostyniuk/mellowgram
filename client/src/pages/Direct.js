@@ -111,7 +111,7 @@ const Direct = () => {
             context: textInput,
             date: 'now',
           },
-          me: loggedInUser
+          me: loggedInUser,
         })
       );
     }
@@ -125,6 +125,9 @@ const Direct = () => {
 
     if (room.unread) {
       dispatch(resetUnreadCounter({ chatId: chat_id }));
+
+      console.log({ chat_id, userId: loggedInUser.id });
+
       ws.send(
         JSON.stringify({
           action: 'SET_READ',
