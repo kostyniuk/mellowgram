@@ -105,7 +105,7 @@ wss.on('connection', function connection(ws, req) {
     switch (action) {
       case 'GET_CHATS':
         const { id } = JSON.parse(data);
-        const isClient = clients.filter((client) => id === client.id);
+        const isClient = clients.filter((client) => client.connection === ws);
         if (isClient.length) {
           ws.send(
             JSON.stringify({
