@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import equal from 'deep-equal';
@@ -67,26 +68,28 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
 
   return (
     <div className='LIKESMODAL_ROW'>
-      <div className='LIKESMODAL__title'>
-        <div className='LIKESMODAL__title__left'>
-          <img
-            src={picture}
-            alt='avatar'
-            className='LIKESMODAL__profile_picture'
-            style={{ marginTop: '0px' }}
-          />
-          <div className='LIKESMODAL__header'>
-            <h3 className='LIKESMODAL__fullname'>{username}</h3>
+      <NavLink to={`/${username}`}>
+        <div className='LIKESMODAL__title'>
+          <div className='LIKESMODAL__title__left'>
+            <img
+              src={picture}
+              alt='avatar'
+              className='LIKESMODAL__profile_picture'
+              style={{ marginTop: '0px' }}
+            />
+            <div className='LIKESMODAL__header'>
+              <h3 className='LIKESMODAL__fullname'>{username}</h3>
+            </div>
           </div>
+          {id !== loggedInUser.id && (
+            <div className='LIKESMODAL__title__right'>
+              <button className={btnClassName} onClick={followHandler}>
+                {following ? 'Following' : 'Follow'}
+              </button>
+            </div>
+          )}
         </div>
-        {id !== loggedInUser.id && (
-          <div className='LIKESMODAL__title__right'>
-            <button className={btnClassName} onClick={followHandler}>
-              {following ? 'Following' : 'Follow'}
-            </button>
-          </div>
-        )}
-      </div>
+      </NavLink>
     </div>
   );
 };
