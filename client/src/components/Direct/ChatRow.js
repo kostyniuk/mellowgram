@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useSelector } from 'react-redux';
+
 import Badge from './Badge';
 
 import '../../styles/direct.css';
@@ -23,6 +25,11 @@ const ChatRow = ({
   openDialog,
   handleChatClick,
 }) => {
+  const loggedInUser = useSelector(
+    (state) => state.loggedInUser,
+    (prev, curr) => prev.id === curr.id
+  );
+
   const className =
     name === openDialog
       ? 'CHAT_ROW__container CHAT_ROW__container_active'
@@ -36,8 +43,10 @@ const ChatRow = ({
         </div>
         <div className='CHAT_ROW__center'>
           <h4>{name}</h4>
-          //TODO: Somehow get the name
-          <h5>{prepareText(latestMessage?.context)}</h5>
+          <h5>
+            {loggedInUser.id === latestMessage.sender_id && 'You: '}
+            {prepareText(latestMessage?.context)}
+          </h5>
         </div>
         <div className='CHAT_ROW__right'>
           <p>{latestMessage?.sendAt}</p>
