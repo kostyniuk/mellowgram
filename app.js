@@ -20,6 +20,7 @@ const {
   sendMessageToDb,
   setRead,
   writeToMemory,
+  setReadMemory,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -190,11 +191,12 @@ wss.on('connection', function connection(ws, req) {
         })();
         break;
       }
+      // change in memory as well
       case 'SET_READ': {
         const { chatId, userId } = JSON.parse(data);
         (async () => {
-          const res = await setRead({ roomId: chatId, senderId: userId });
-          console.log({ res });
+          await setRead({ roomId: chatId, senderId: userId });
+          clients = setReadMemory({ room_id: chatId, sender_id: userId, clients });
         })();
       }
       default:
