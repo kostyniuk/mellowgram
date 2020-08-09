@@ -57,6 +57,10 @@
   padding: 10px;
 }
 
+.LIKESMODAL_ROW:hover {
+  cursor: pointer;
+}
+
 .LIKESMODAL__context {
   padding-left: 70px;
   flex-wrap: wrap;

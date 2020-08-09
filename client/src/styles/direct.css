@@ -59,6 +59,10 @@
   background-color: var(--grey);
 }
 
+.CHAT_ROW__container:hover {
+  cursor: pointer;
+}
+
 .hr_chat {
   margin: 0;
 }
