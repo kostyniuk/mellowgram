@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import equal from 'deep-equal';
 
-import '../../styles/header.css';
 import Select from './SettingsDropdown';
+import Badge from '../Direct/Badge';
 
 import AsyncSelect from './AsyncSelect';
+import '../../styles/header.css';
 
 const categoryOptions = [
   { text: 'Account', value: 'account', selected: false },
@@ -25,6 +27,22 @@ const Hamburger = ({ handler }) => {
 const Header = () => {
   const history = useHistory();
   const authorized = useSelector((state) => state.loggedInUser);
+
+  const getTotalUnread = (chats) =>
+    chats.reduce((prev, cur) => {
+      console.log({ prev, cur });
+
+      return cur.unread + prev;
+    }, 0);
+
+  const chats = Object.values(
+    useSelector(
+      (state) => state.chats,
+      (prev, curr) => equal(prev, curr)
+    )
+  );
+
+  console.log();
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
@@ -66,7 +84,14 @@ const Header = () => {
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
             {authorized.isAuthenticated ? (
               <NavLink to='/direct'>
-                <i className='fa fa-paper-plane' aria-hidden='true'></i>
+                <div className='Header__direct'>
+                  <i className='fa fa-paper-plane' aria-hidden='true'></i>
+                  <Badge
+                    size='smaller'
+                    status='danger'
+                    content={getTotalUnread(chats)}
+                  />
+                </div>
               </NavLink>
             ) : (
               <NavLink to='/login'>Login</NavLink>

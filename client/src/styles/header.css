@@ -6,9 +6,8 @@
   --text_dark: #000;
   --cream: rgba(247, 166, 166, 0.8);
   --green: rgba(99, 250, 39, 0.966);
-  --green_dark : rgb(23, 148, 67);
+  --green_dark: rgb(23, 148, 67);
   --baby_blue: #b7efcd;
-
 }
 
 * {
@@ -23,7 +22,6 @@ nav {
   /* background: var(--black); */
   position: relative;
 }
-
 
 .HEADER__search {
   width: 40%;
@@ -82,6 +80,15 @@ a:hover {
   font-size: inherit;
 }
 
+.Header__direct {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Header__direct:hover {
+  color: white;
+}
 @media screen and (max-width: 768px) {
   .logo a {
     margin: 8px;
