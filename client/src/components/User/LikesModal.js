@@ -22,8 +22,6 @@ const LikesModal = ({ setSelectedImg, likes }) => {
     return ids.includes(id);
   };
 
-  console.log({ following });
-
   return (
     <motion.div
       className='backdrop'

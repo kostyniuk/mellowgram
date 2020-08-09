@@ -23,17 +23,14 @@ const Hamburger = ({ handler }) => {
     </div>
   );
 };
+const getTotalUnread = (chats) =>
+  chats.reduce((prev, cur) => {
+    return cur.unread + prev;
+  }, 0);
 
 const Header = () => {
   const history = useHistory();
   const authorized = useSelector((state) => state.loggedInUser);
-
-  const getTotalUnread = (chats) =>
-    chats.reduce((prev, cur) => {
-      console.log({ prev, cur });
-
-      return cur.unread + prev;
-    }, 0);
 
   const chats = Object.values(
     useSelector(
@@ -42,7 +39,7 @@ const Header = () => {
     )
   );
 
-  console.log();
+  const unreadCount = getTotalUnread(chats);
 
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
@@ -86,11 +83,15 @@ const Header = () => {
               <NavLink to='/direct'>
                 <div className='Header__direct'>
                   <i className='fa fa-paper-plane' aria-hidden='true'></i>
-                  <Badge
-                    size='smaller'
-                    status='danger'
-                    content={getTotalUnread(chats)}
-                  />
+                  {unreadCount ? (
+                    <Badge
+                      size='smaller'
+                      status='danger'
+                      content={getTotalUnread(chats)}
+                    />
+                  ) : (
+                    ''
+                  )}
                 </div>
               </NavLink>
             ) : (

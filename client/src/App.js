@@ -56,6 +56,8 @@ const App = () => {
     [request, userInfo.id]
   );
 
+
+
   useEffect(() => {
     fetchFollowing();
   }, [fetchFollowing]);
