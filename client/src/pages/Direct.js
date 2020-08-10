@@ -16,10 +16,17 @@ import {
 
 // const ws = new WebSocket(`ws://localhost:5000`);
 // const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
-const Direct = ({textInput, openDialog, handleChatClick, handleChange, handleMessageSend, setOpenDialog}) => {
+const Direct = ({
+  textInput,
+  dialog,
+  openDialog,
+  handleChatClick,
+  handleChange,
+  handleMessageSend,
+  setOpenDialog,
+}) => {
   const dispatch = useDispatch();
 
-  
   const chats = Object.values(
     useSelector(
       (state) => state.chats,
@@ -33,21 +40,32 @@ const Direct = ({textInput, openDialog, handleChatClick, handleChange, handleMes
     )
   );
 
-
   if (!chats.length || !messages.length) return <div></div>;
+
+  const notOpenSide = 'DIRECT_SIDE_NOT_ACTIVE';
+
+  console.log({ dialog });
 
   return (
     <div className='DIRECT__page'>
       <Header />
       <div className='DIRECT__component'>
-        <div className='DIRECT__left_side'>
+        <div
+          className={
+            dialog ? `DIRECT__left_side ${notOpenSide}` : 'DIRECT__left_side'
+          }
+        >
           <Chats
             chats={chats}
             openDialog={openDialog}
             handleChatClick={handleChatClick}
           />
         </div>
-        <div className='DIRECT__right_side'>
+        <div
+          className={
+            dialog ? 'DIRECT__right_side' : `DIRECT__right_side ${notOpenSide}`
+          }
+        >
           <Messages
             data={
               openDialog

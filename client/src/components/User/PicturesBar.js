@@ -6,7 +6,7 @@ import '../../styles/picturesBar.css';
 
 function PicturesBar({ setSelectedImg }) {
   const pictures = [
-    { id: 1, url: '/api/public/uploads/user_kostyniuk.jpg' },
+    { id: 1, url: 'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg' },
     { id: 2, url: '/api/public/uploads/user_dloading.jpg' },
     { id: 3, url: '/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg' },
     { id: 4, url: '/api/public/uploads/user_tsunamipapi.jpg' },
