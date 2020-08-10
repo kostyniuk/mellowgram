@@ -18,6 +18,7 @@ const prepareText = (str) => {
 
 const ChatRow = ({
   chat_id,
+  person_id,
   name,
   picture,
   latestMessage,
@@ -30,10 +31,14 @@ const ChatRow = ({
     (prev, curr) => prev.id === curr.id
   );
 
+  const onlineUsers = useSelector((state) => state.onlineUsers);
+
   const className =
     name === openDialog
       ? 'CHAT_ROW__container CHAT_ROW__container_active'
       : 'CHAT_ROW__container';
+
+  console.log({ onlineUsers, person_id });
 
   return (
     <div>
@@ -42,7 +47,14 @@ const ChatRow = ({
           <img src={picture}></img>
         </div>
         <div className='CHAT_ROW__center'>
-          <h4>{name}</h4>
+          <div className='CHAT_ROW_TITLE'>
+            <h4>{name}</h4>
+            {onlineUsers.ids.includes(person_id.toString()) ? (
+              <i className='fa fa-circle CHAT_ROW_ONLINE'></i>
+            ) : (
+              ''
+            )}
+          </div>
           <h5>
             {loggedInUser.id === latestMessage.sender_id && 'You: '}
             {prepareText(latestMessage?.context)}
