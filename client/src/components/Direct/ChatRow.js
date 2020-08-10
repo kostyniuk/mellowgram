@@ -16,6 +16,24 @@ const prepareText = (str) => {
   }
 };
 
+const adjustTime = (date) => {
+  const withoutTimeZone = date
+    .split('T')[1]
+    .split('.')[0]
+    .split(':')
+    .slice(0, 2);
+  // .join(':');
+
+  const myTime = withoutTimeZone.map((num, i) => {
+    if (i === 0) {
+      return (Number(num) + 6).toString();
+    }
+    return num;
+  });
+
+  return myTime.join(':');
+};
+
 const ChatRow = ({
   chat_id,
   person_id,
@@ -61,7 +79,11 @@ const ChatRow = ({
           </h5>
         </div>
         <div className='CHAT_ROW__right'>
-          <p>{latestMessage?.sendAt}</p>
+          <p>
+            {latestMessage?.send_at === 'now'
+              ? 'now'
+              : adjustTime(latestMessage.send_at)}
+          </p>
           {unreadMessagesCount ? (
             <Badge
               size='smaller'

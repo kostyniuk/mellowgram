@@ -2,6 +2,24 @@ import { GET_MESSAGES, ADD_MESSAGE } from './types';
 import { arrToObj } from '../helpers/index';
 const initialState = {};
 
+const adjustTime = (date) => {
+  const withoutTimeZone = date
+    .split('T')[1]
+    .split('.')[0]
+    .split(':')
+    .slice(0, 2);
+  // .join(':');
+
+  const myTime = withoutTimeZone.map((num, i) => {
+    if (i === 0) {
+      return (Number(num) + 6).toString();
+    }
+    return num;
+  });
+
+  return myTime.join(':');
+};
+
 const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MESSAGES: {
@@ -14,7 +32,7 @@ const messagesReducer = (state = initialState, action) => {
           room_id: message.room_id,
           from: message.sender_id,
           text: message.context,
-          date: message.send_at.split('T')[1].split('.')[0],
+          date: adjustTime(message.send_at),
         }));
 
       const final = chats.map((chat) => {
