@@ -89,7 +89,7 @@ wss.on('connection', function connection(ws, req) {
       const isAlreadyHere = clients.filter((client) => +client.id === +id);
 
       if (isAlreadyHere.length) {
-        console.log(ws === isAlreadyHere[0].connection);
+        console.log({ already: isAlreadyHere });
         clients.push({
           uuid,
           id,
@@ -97,6 +97,7 @@ wss.on('connection', function connection(ws, req) {
           messages: isAlreadyHere[0].messages,
           connection: ws,
         });
+        console.log({ clients });
         return {
           id: id,
           rooms: isAlreadyHere[0].rooms,
@@ -110,7 +111,10 @@ wss.on('connection', function connection(ws, req) {
       const finalRooms = getTheLatestMessages({ rooms, messages });
       return { id, rooms: finalRooms, messages, isAlreadyHere: false };
     })(parsed).then(({ id, rooms, messages, isAlreadyHere }) => {
-      if (isAlreadyHere) return;
+      console.log({ isAlreadyHere });
+
+      if (isAlreadyHere)
+        return ws.send(JSON.stringify({ action: 'INFORMATION_IS_READY' }));
 
       clients.push({
         uuid,
@@ -119,6 +123,8 @@ wss.on('connection', function connection(ws, req) {
         messages,
         connection: ws,
       });
+      console.log({ clients, n: 125 });
+      ws.send(JSON.stringify({ action: 'INFORMATION_IS_READY' }));
     });
   }
 
@@ -131,8 +137,12 @@ wss.on('connection', function connection(ws, req) {
     switch (action) {
       case 'GET_CHATS':
         const { id } = JSON.parse(data);
+
+        console.log({ clients, type: action });
+
         const isClient = clients.filter((client) => client.connection === ws);
         console.log({ isClient });
+        console.log('here');
         if (isClient.length) {
           ws.send(
             JSON.stringify({
@@ -196,7 +206,11 @@ wss.on('connection', function connection(ws, req) {
         const { chatId, userId } = JSON.parse(data);
         (async () => {
           await setRead({ roomId: chatId, senderId: userId });
-          clients = setReadMemory({ room_id: chatId, sender_id: userId, clients });
+          clients = setReadMemory({
+            room_id: chatId,
+            sender_id: userId,
+            clients,
+          });
         })();
       }
       default:
