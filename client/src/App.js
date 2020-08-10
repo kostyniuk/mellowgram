@@ -221,6 +221,7 @@ const App = () => {
               render={(props) => (
                 <Direct
                   {...props}
+                  dialog={openDialog}
                   textInput={textInput}
                   openDialog={openDialog}
                   handleChatClick={handleChatClick}
