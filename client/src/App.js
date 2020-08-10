@@ -31,7 +31,8 @@ import {
 } from './redux/actions';
 import Direct from './pages/Direct';
 
-const ws = new WebSocket(`ws://localhost:5000`);
+const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+// const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
