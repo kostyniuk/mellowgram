@@ -31,8 +31,8 @@ import {
 } from './redux/actions';
 import Direct from './pages/Direct';
 
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
-// const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -139,10 +139,13 @@ const App = () => {
       switch (action) {
         case 'INFORMATION_IS_READY':
           ws.send(JSON.stringify({ action: 'GET_CHATS', id: userInfo.id }));
+          ws.send(
+            JSON.stringify({ action: 'GET_ONLINE', user_id: userInfo.id })
+          );
           break;
 
         case 'GET_CHATS':
-          console.log({ message });
+          console.log({ GET_CHATS: message });
 
           dispatch(
             getChats({
@@ -158,6 +161,10 @@ const App = () => {
             })
           );
           dispatch(setUuid({ uuid: message.payload.uuid }));
+          break;
+
+        case 'GET_ONLINE':
+          console.log({ GET_ONLINE: message });
           break;
 
         case 'SEND_MESSAGE':

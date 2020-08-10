@@ -149,6 +149,20 @@ wss.on('connection', function connection(ws, req) {
           );
         }
         break;
+
+      case 'GET_ONLINE':
+        const user_id = clients.filter((client) => client.connection === ws)[0]
+          .id;
+
+        ws.send(
+          JSON.stringify({
+            action: 'GET_ONLINE',
+            payload: onlineIds.map((obj) => obj.id),
+          })
+        );
+
+        break;
+
       case 'SEND_MESSAGE': {
         const { roomId, senderId, context, uuid } = JSON.parse(data);
 
