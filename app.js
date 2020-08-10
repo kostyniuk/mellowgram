@@ -76,6 +76,7 @@ const server = http.createServer(app);
 const wss = new ws.Server({ server });
 
 let clients = [];
+let onlineIds = [];
 
 wss.on('connection', function connection(ws, req) {
   const uuid = uuidv4();
@@ -89,7 +90,6 @@ wss.on('connection', function connection(ws, req) {
       const isAlreadyHere = clients.filter((client) => +client.id === +id);
 
       if (isAlreadyHere.length) {
-        console.log({ already: isAlreadyHere });
         clients.push({
           uuid,
           id,
@@ -97,7 +97,7 @@ wss.on('connection', function connection(ws, req) {
           messages: isAlreadyHere[0].messages,
           connection: ws,
         });
-        console.log({ clients });
+        onlineIds.push({ id, uuid });
         return {
           id: id,
           rooms: isAlreadyHere[0].rooms,
@@ -111,8 +111,6 @@ wss.on('connection', function connection(ws, req) {
       const finalRooms = getTheLatestMessages({ rooms, messages });
       return { id, rooms: finalRooms, messages, isAlreadyHere: false };
     })(parsed).then(({ id, rooms, messages, isAlreadyHere }) => {
-      console.log({ isAlreadyHere });
-
       if (isAlreadyHere)
         return ws.send(JSON.stringify({ action: 'INFORMATION_IS_READY' }));
 
@@ -123,31 +121,30 @@ wss.on('connection', function connection(ws, req) {
         messages,
         connection: ws,
       });
-      console.log({ clients, n: 125 });
+      onlineIds.push({ id, uuid });
       ws.send(JSON.stringify({ action: 'INFORMATION_IS_READY' }));
     });
   }
 
-  // need to update in memomry clients messages on new message, so new connections can use the information instead of making requests
-
   ws.on('message', function incoming(data) {
     const { action, id } = JSON.parse(data);
-    console.log({ action });
+    console.log({ action, onlineIds });
 
     switch (action) {
       case 'GET_CHATS':
         const { id } = JSON.parse(data);
 
-        console.log({ clients, type: action });
-
         const isClient = clients.filter((client) => client.connection === ws);
         console.log({ isClient });
-        console.log('here');
         if (isClient.length) {
           ws.send(
             JSON.stringify({
               action: 'GET_CHATS',
-              payload: { ...isClient[isClient.length - 1], connection: true },
+              payload: {
+                ...isClient[isClient.length - 1],
+                onlineIds,
+                connection: true,
+              },
             })
           );
         }
@@ -219,14 +216,10 @@ wss.on('connection', function connection(ws, req) {
 
     ws.on('close', (ws) => {
       clients = removeFromClients(uuid, clients);
+      console.log({ onlineIds });
+      onlineIds = onlineIds.filter((client) => client.uuid !== uuid);
+      console.log({ onlineIds });
     });
-
-    // wss.clients.forEach(function each(client) {
-    //   // if (client !== ws && client.readyState === ws.OPEN) {
-    //   client.send(data);
-    //   console.log('send');
-    //   // }
-    // });
   });
 });
 
