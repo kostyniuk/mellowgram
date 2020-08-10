@@ -17,9 +17,10 @@ const chatReducer = (state = initialState, action) => {
         }
 
         messages
-          .filter((message) => message.sender_id !== me.id)
+          .filter((message) => +message.sender_id !== +me)
           .filter((message) => !message.is_read)
           .map((message) => {
+
             if (Object.keys(final).includes(message.room_id.toString())) {
               final[message.room_id].unread++;
             }
@@ -46,13 +47,9 @@ const chatReducer = (state = initialState, action) => {
         is_read: true,
       };
 
-      console.log({ temp, info });
-
       if (+me.id !== +info.senderId) {
         temp[info.roomId].unread += 1;
       }
-
-      console.log({ temp });
 
       return { ...state, ...temp };
     }

@@ -141,11 +141,13 @@ const App = () => {
           break;
 
         case 'GET_CHATS':
+          console.log({ message });
+
           dispatch(
             getChats({
               chats: message.payload.rooms,
               messages: message.payload.messages,
-              me: userInfo,
+              me: message.payload.id,
             })
           );
           dispatch(

@@ -31,7 +31,6 @@ const messagesReducer = (state = initialState, action) => {
       });
 
       const obj = arrToObj(final, 'room_id');
-      console.log({ obj });
       return { ...state, ...obj };
     }
 
