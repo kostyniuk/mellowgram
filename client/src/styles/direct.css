@@ -67,6 +67,18 @@
   margin: 0;
 }
 
+.CHAT_ROW_TITLE {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.CHAT_ROW_ONLINE {
+  size: 2px;
+  margin-left: 3px;
+  color: var(--green);
+}
+
 .CHAT_ROW__left {
   flex: 0.1;
 }
