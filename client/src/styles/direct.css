@@ -117,3 +117,28 @@
   justify-content: space-around;
   margin-left: auto;
 }
+
+@media screen and (max-width: 1000px) {
+  .DIRECT_SIDE_NOT_ACTIVE {
+    display: none;
+  }
+
+  .DIRECT__right_side {
+    flex: 1;
+    /* max-height: 800px; */
+  }
+
+  .DIRECT__left_side {
+    flex: 1;
+  }
+
+  .DIRECT__component {
+    font-size: 90%;
+    background-color: white;
+    border-radius: 0.25rem;
+    /* height: 100%; */
+    width: 80%;
+    overflow-y: auto;
+  }
+
+}
