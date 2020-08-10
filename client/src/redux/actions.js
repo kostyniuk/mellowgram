@@ -26,6 +26,7 @@ import {
   SET_UUID,
   ADD_MESSAGE,
   RESET_UNREAD_COUNTER,
+  SET_ONLINE,
 } from './types';
 
 export const authUser = ({
@@ -202,4 +203,9 @@ export const addMessage = ({ info, me }) => ({
 export const resetUnreadCounter = ({ chatId }) => ({
   type: RESET_UNREAD_COUNTER,
   payload: { chatId },
+});
+
+export const setOnline = ({ onlineIds }) => ({
+  type: SET_ONLINE,
+  payload: { onlineIds },
 });
