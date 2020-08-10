@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import './App.css';
 
 import {
@@ -11,6 +11,7 @@ import {
 import useFetch from './hooks/useFetch';
 
 import useAuth from './hooks/useAuth';
+import equal from 'deep-equal';
 
 import Login from './pages/Login';
 import Header from './components/Header/Header';
@@ -20,18 +21,88 @@ import NotFound from './pages/NotFound';
 import Settings from './pages/Settings';
 import About from './pages/About';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLoggedInFollowing } from './redux/actions';
+import {
+  setLoggedInFollowing,
+  getChats,
+  getMessages,
+  setUuid,
+  addMessage,
+  resetUnreadCounter,
+} from './redux/actions';
 import Direct from './pages/Direct';
+
+const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
   const { request } = useFetch();
+
+  const [textInput, setTextInput] = useState('');
+  const [openDialog, setOpenDialog] = useState(null);
+
+  const handleChange = (e) => {
+    setTextInput(e.target.value);
+  };
+
+  const handleMessageSend = (roomId, senderId) => {
+    if (textInput) {
+      ws.send(
+        JSON.stringify({
+          action: 'SEND_MESSAGE',
+          roomId,
+          senderId,
+          context: textInput,
+          uuid: userInfo.uuid,
+        })
+      );
+      dispatch(
+        addMessage({
+          info: {
+            messageId: 'Do not know yet',
+            roomId,
+            senderId,
+            context: textInput,
+            date: 'now',
+          },
+          me: userInfo,
+        })
+      );
+    }
+    setTextInput('');
+  };
+
+  const handleChatClick = (chat_id) => {
+    const room = chats.filter((chat) => chat.room_id === chat_id)[0];
+    setTextInput('');
+    setOpenDialog(chat_id);
+
+    if (room.unread) {
+      dispatch(resetUnreadCounter({ chatId: chat_id }));
+
+      console.log({ chat_id, userId: userInfo.id });
+
+      ws.send(
+        JSON.stringify({
+          action: 'SET_READ',
+          chatId: chat_id,
+          userId: userInfo.id,
+        })
+      );
+    }
+  };
 
   const userInfo = useSelector(
     (state) => state.loggedInUser,
     (prev, curr) => {
       return prev.id === curr.id;
     }
+  );
+
+  const chats = Object.values(
+    useSelector(
+      (state) => state.chats,
+      (prev, curr) => equal(prev, curr)
+    )
   );
 
   const fetchFollowing = useCallback(
@@ -56,7 +127,51 @@ const App = () => {
     [request, userInfo.id]
   );
 
+  useEffect(() => {
+    ws.onopen = () => {
+      console.log('Connection established');
+    };
+    ws.onmessage = (evt) => {
+      const message = JSON.parse(evt.data);
+      console.log({ message });
+      const { action } = message;
+      switch (action) {
+        case 'INFORMATION_IS_READY':
+          ws.send(JSON.stringify({ action: 'GET_CHATS', id: userInfo.id }));
+          break;
 
+        case 'GET_CHATS':
+          dispatch(
+            getChats({
+              chats: message.payload.rooms,
+              messages: message.payload.messages,
+              me: userInfo,
+            })
+          );
+          dispatch(
+            getMessages({
+              messages: message.payload.messages,
+              chats: message.payload.rooms,
+            })
+          );
+          dispatch(setUuid({ uuid: message.payload.uuid }));
+          break;
+
+        case 'SEND_MESSAGE':
+          const { messageInfo } = message;
+          dispatch(addMessage({ info: messageInfo, me: userInfo }));
+
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    ws.onclose = () => {
+      console.log('Connection closed');
+    };
+  }, []);
 
   useEffect(() => {
     fetchFollowing();
@@ -91,7 +206,17 @@ const App = () => {
             <Route
               exact
               path='/direct'
-              render={(props) => <Direct {...props} />}
+              render={(props) => (
+                <Direct
+                  {...props}
+                  textInput={textInput}
+                  openDialog={openDialog}
+                  handleChatClick={handleChatClick}
+                  handleChange={handleChange}
+                  handleMessageSend={handleMessageSend}
+                  setOpenDialog={setOpenDialog}
+                />
+              )}
             />
             <Route
               exact
