@@ -12,6 +12,7 @@ const Chats = ({ chats, openDialog, handleChatClick }) => {
           key={chat.id}
           chat_id={chat.room_id}
           name={chat.username}
+          person_id={chat.person_id}
           picture={chat.picture}
           latestMessage={chat.latestMessage}
           unreadMessagesCount={chat.unread}
