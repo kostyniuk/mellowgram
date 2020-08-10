@@ -1,4 +1,9 @@
-import { GET_CHATS, ADD_MESSAGE, RESET_UNREAD_COUNTER } from './types';
+import {
+  GET_CHATS,
+  ADD_MESSAGE,
+  RESET_UNREAD_COUNTER,
+  SET_ONLINE,
+} from './types';
 import { arrToObj } from '../helpers/index';
 const initialState = {};
 
@@ -20,7 +25,6 @@ const chatReducer = (state = initialState, action) => {
           .filter((message) => +message.sender_id !== +me)
           .filter((message) => !message.is_read)
           .map((message) => {
-
             if (Object.keys(final).includes(message.room_id.toString())) {
               final[message.room_id].unread++;
             }

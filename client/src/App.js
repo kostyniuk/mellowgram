@@ -28,6 +28,7 @@ import {
   setUuid,
   addMessage,
   resetUnreadCounter,
+  setOnline,
 } from './redux/actions';
 import Direct from './pages/Direct';
 
@@ -165,6 +166,7 @@ const App = () => {
 
         case 'GET_ONLINE':
           console.log({ GET_ONLINE: message });
+          dispatch(setOnline({ onlineIds: message.payload }));
           break;
 
         case 'SEND_MESSAGE':
