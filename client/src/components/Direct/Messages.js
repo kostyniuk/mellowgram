@@ -10,6 +10,7 @@ const Messages = ({
   setOpenDialog,
   handleMessageSend,
   handleChange,
+  empty,
 }) => {
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
@@ -23,6 +24,8 @@ const Messages = ({
   };
 
   useEffect(scrollToBottom, [data?.messages?.length]);
+
+  console.log({ empty, data });
 
   if (!data)
     return (

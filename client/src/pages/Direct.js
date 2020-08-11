@@ -59,6 +59,7 @@ const Direct = ({
             chats={chats}
             openDialog={openDialog}
             handleChatClick={handleChatClick}
+            empty={chats[0] === true ? true : false}
           />
         </div>
         <div
@@ -76,6 +77,7 @@ const Direct = ({
             handleMessageSend={handleMessageSend}
             handleChange={handleChange}
             setOpenDialog={setOpenDialog}
+            empty={messages[0] === true ? true : false}
           />
         </div>
       </div>

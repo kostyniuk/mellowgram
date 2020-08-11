@@ -4,7 +4,7 @@ import ChatRow from './ChatRow';
 
 import '../../styles/direct.css';
 
-const Chats = ({ chats, openDialog, handleChatClick }) => {
+const Chats = ({ chats, openDialog, handleChatClick, empty }) => {
   return (
     <div>
       {chats.map((chat) => (
@@ -18,6 +18,7 @@ const Chats = ({ chats, openDialog, handleChatClick }) => {
           unreadMessagesCount={chat.unread}
           openDialog={openDialog}
           handleChatClick={handleChatClick}
+          empty={empty}
         />
       ))}
     </div>
