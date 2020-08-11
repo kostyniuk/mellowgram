@@ -43,6 +43,7 @@ const ChatRow = ({
   unreadMessagesCount,
   openDialog,
   handleChatClick,
+  empty,
 }) => {
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
@@ -57,6 +58,13 @@ const ChatRow = ({
       : 'CHAT_ROW__container';
 
   console.log({ onlineUsers, person_id });
+
+  if (empty)
+    return (
+      <div>
+        <p>You have no chats</p>
+      </div>
+    );
 
   return (
     <div>
