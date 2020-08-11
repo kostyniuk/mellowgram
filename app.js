@@ -233,7 +233,7 @@ wss.on('connection', function connection(ws, req) {
           const result = await startChat({ myId: me.id, otherId: other.id });
           console.log({ result });
 
-          const chat = {
+          const chatForInitiator = {
             room_id: result.chatId,
             person_id: other.id,
             picture: other.picture,
@@ -242,9 +242,30 @@ wss.on('connection', function connection(ws, req) {
             unread: 0,
           };
 
-          //TODO: need to send information not only to who made the request but for receiver as well need to find it in clients and send him something
+          const chatForAnother = {
+            room_id: result.chatId,
+            person_id: me.id,
+            picture: me.picture,
+            username: me.username,
+            latestMessage: {},
+            unread: 0,
+          };
 
-          ws.send(JSON.stringify({ action: 'START_CHAT', chat }));
+          const initiators = clients.filter((client) => +client.id === me.id);
+          const sendTo = clients.filter((client) => +client.id === other.id);
+
+          initiators.forEach((client) =>
+            client.connection.send(
+              JSON.stringify({ action: 'START_CHAT', chat: chatForInitiator })
+            )
+          );
+
+          sendTo.forEach((client) =>
+            client.connection.send(
+              JSON.stringify({ action: 'START_CHAT', chat: chatForAnother })
+            )
+          );
+
         })();
       }
 
