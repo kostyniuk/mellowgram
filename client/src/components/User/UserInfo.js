@@ -145,7 +145,6 @@ const UserInfo = () => {
     }
   };
 
-
   useEffect(() => {
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -240,9 +239,12 @@ const UserInfo = () => {
       <FollowingBar followedBy={followedBy} following={following} />
       <div className='USER_INFO_CENTER'>
         {loggedInUser.id !== info.id && (
-          <button className={btnClassName} onClick={followHandler}>
-            {followingThisUser ? 'Following' : 'Follow'}
-          </button>
+          <div className='USER_INFO_CENTER_TOP'>
+            <button className={btnClassName} onClick={followHandler}>
+              {followingThisUser ? 'Following' : 'Follow'}
+            </button>
+            <button className='green USER_INFO_MESSAGE'>Message</button>
+          </div>
         )}
         <div className={cardClasses} data-state={dataState}>
           <div className='card-header'>

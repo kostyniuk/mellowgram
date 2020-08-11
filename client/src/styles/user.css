@@ -23,10 +23,22 @@
   width: 100%;
 }
 
+
 .USER_INFO_CENTER {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.USER_INFO_CENTER_TOP {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.USER_INFO_MESSAGE {
+  background-color: var(--lightgrey);
 }
 
 .card {
