@@ -1,4 +1,4 @@
-import { GET_MESSAGES, ADD_MESSAGE } from './types';
+import { GET_MESSAGES, ADD_MESSAGE, ADD_CHAT } from './types';
 import { arrToObj } from '../helpers/index';
 const initialState = {};
 
@@ -8,7 +8,6 @@ const adjustTime = (date) => {
     .split('.')[0]
     .split(':')
     .slice(0, 2);
-  // .join(':');
 
   const myTime = withoutTimeZone.map((num, i) => {
     if (i === 0) {
@@ -65,9 +64,19 @@ const messagesReducer = (state = initialState, action) => {
         date: info.date,
       });
 
-      console.log({ temp });
-
       return { ...state, ...temp };
+    }
+
+    case ADD_CHAT: {
+      const { chat } = action.payload;
+
+      const { latestMessage, unread, person_id, ...messages } = chat;
+
+      messages.messages = [];
+
+      const transformed = arrToObj([messages], 'room_id');
+
+      return { ...state, ...transformed };
     }
 
     default: {
