@@ -11,7 +11,7 @@ import UserInfo from '../components/User/UserInfo';
 import Posts from '../components/User/Post/Posts';
 
 import '../styles/user.css';
-const User = ({ match }) => {
+const User = ({ match, startMessagingHandler }) => {
   const dispatch = useDispatch();
 
   const { username } = match.params;
@@ -63,7 +63,7 @@ const User = ({ match }) => {
       <div>
         <Header />
       </div>
-      <UserInfo />
+      <UserInfo startMessagingHandler={startMessagingHandler}/>
       <Posts />
     </div>
   );

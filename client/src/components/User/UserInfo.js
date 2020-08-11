@@ -20,7 +20,7 @@ import {
 import { SET_FOLLOWED_BY } from '../../redux/types';
 import { compareSync } from 'bcryptjs';
 
-const UserInfo = () => {
+const UserInfo = ({ startMessagingHandler }) => {
   const { request } = useFetch();
   const dispatch = useDispatch();
 
@@ -243,7 +243,14 @@ const UserInfo = () => {
             <button className={btnClassName} onClick={followHandler}>
               {followingThisUser ? 'Following' : 'Follow'}
             </button>
-            <button className='green USER_INFO_MESSAGE'>Message</button>
+            <button
+              className='green USER_INFO_MESSAGE'
+              onClick={() =>
+                startMessagingHandler({ me: loggedInUser, other: info })
+              }
+            >
+              Message
+            </button>
           </div>
         )}
         <div className={cardClasses} data-state={dataState}>
