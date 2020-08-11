@@ -242,7 +242,7 @@ wss.on('connection', function connection(ws, req) {
             unread: 0,
           };
 
-          // need to send information not only to who made the request but for receiver as well need to find it in clients and send him something
+          //TODO: need to send information not only to who made the request but for receiver as well need to find it in clients and send him something
 
           ws.send(JSON.stringify({ action: 'START_CHAT', chat }));
         })();

@@ -12,6 +12,7 @@ module.exports = {
     }),
   arrToObj: (arr, prop = 'post_id') => {
     let final = {};
+    if (!arr) return {};
     arr.forEach((post) => {
       final[post[prop]] = post;
     });

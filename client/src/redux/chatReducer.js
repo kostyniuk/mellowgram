@@ -41,25 +41,6 @@ const chatReducer = (state = initialState, action) => {
       return { ...state, ...patched };
     }
 
-    //ADD_CHAT
-    /*
-    15{
-  "room_id": "15",
-  "person_id": 7,
-  "picture": "/api/public/uploads/user_kostyniuk.jpg",
-  "username": "kostyniuk",
-  "latestMessage": {
-    "message_id": "193",
-    "room_id": 15,
-    "sender_id": 8,
-    "context": "time check 3",
-    "send_at": "2020-08-10T13:43:35.690Z",
-    "is_read": false
-  },
-  "unread": 0
-}
-    */
-
     case ADD_MESSAGE: {
       const { info, me } = action.payload;
 
