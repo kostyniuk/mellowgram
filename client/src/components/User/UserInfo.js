@@ -6,6 +6,8 @@ import equal from 'deep-equal';
 import '../../styles/user.css';
 import '../../styles/btn.css';
 
+import { useHistory } from 'react-router-dom';
+
 import Exprerience from './Experience';
 import FollowingBar from './FollowingBar';
 import PicturesBar from './PicturesBar';
@@ -17,10 +19,10 @@ import {
   deleteFollow,
   addFollow,
 } from '../../redux/actions';
-import { SET_FOLLOWED_BY } from '../../redux/types';
-import { compareSync } from 'bcryptjs';
 
 const UserInfo = ({ startMessagingHandler }) => {
+  const history = useHistory();
+
   const { request } = useFetch();
   const dispatch = useDispatch();
 
@@ -245,9 +247,10 @@ const UserInfo = ({ startMessagingHandler }) => {
             </button>
             <button
               className='green USER_INFO_MESSAGE'
-              onClick={() =>
-                startMessagingHandler({ me: loggedInUser, other: info })
-              }
+              onClick={() => {
+                startMessagingHandler({ me: loggedInUser, other: info });
+                history.push('/direct');
+              }}
             >
               Message
             </button>
