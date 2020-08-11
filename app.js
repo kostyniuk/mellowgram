@@ -22,6 +22,7 @@ const {
   writeToMemory,
   setReadMemory,
   startChat,
+  addChatToMemory,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -190,11 +191,15 @@ wss.on('connection', function connection(ws, req) {
             clients = written;
 
             clients.forEach((client) => {
+              // console.log({ clients });
+
               if (
                 client.rooms.map((room) => +room.room_id).includes(+roomId) &&
                 client.connection.readyState === ws.OPEN &&
                 ws !== client.connection
               ) {
+                // console.log({ client });
+
                 client.connection.send(
                   JSON.stringify({
                     action: 'SEND_MESSAGE',
@@ -224,6 +229,7 @@ wss.on('connection', function connection(ws, req) {
             clients,
           });
         })();
+        break;
       }
 
       case 'START_CHAT': {
@@ -231,7 +237,19 @@ wss.on('connection', function connection(ws, req) {
         console.log({ me, other });
         (async () => {
           const result = await startChat({ myId: me.id, otherId: other.id });
-          console.log({ result });
+
+          clients.map((client) =>
+            console.log({ rooms: client.rooms, id: client.id })
+          );
+
+          clients = addChatToMemory({
+            chatInfo: { me, other, chat_id: result.chatId },
+            clients,
+          });
+
+          clients.map((client) =>
+            console.log({ rooms: client.rooms, id: client.id })
+          );
 
           const chatForInitiator = {
             room_id: result.chatId,
@@ -265,7 +283,6 @@ wss.on('connection', function connection(ws, req) {
               JSON.stringify({ action: 'START_CHAT', chat: chatForAnother })
             )
           );
-
         })();
       }
 
