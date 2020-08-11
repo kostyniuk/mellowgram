@@ -17,6 +17,8 @@ const prepareText = (str) => {
 };
 
 const adjustTime = (date) => {
+  if (!date) return null;
+
   const withoutTimeZone = date
     .split('T')[1]
     .split('.')[0]
@@ -82,7 +84,7 @@ const ChatRow = ({
             )}
           </div>
           <h5>
-            {loggedInUser.id === latestMessage.sender_id && 'You: '}
+            {loggedInUser.id === latestMessage?.sender_id && 'You: '}
             {prepareText(latestMessage?.context)}
           </h5>
         </div>
@@ -90,7 +92,7 @@ const ChatRow = ({
           <p>
             {latestMessage?.send_at === 'now'
               ? 'now'
-              : adjustTime(latestMessage.send_at)}
+              : adjustTime(latestMessage?.send_at)}
           </p>
           {unreadMessagesCount ? (
             <Badge
