@@ -59,8 +59,6 @@ const ChatRow = ({
       ? 'CHAT_ROW__container CHAT_ROW__container_active'
       : 'CHAT_ROW__container';
 
-  console.log({ onlineUsers, person_id });
-
   if (empty)
     return (
       <div>

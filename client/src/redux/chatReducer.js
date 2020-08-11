@@ -65,7 +65,6 @@ const chatReducer = (state = initialState, action) => {
       const { chat } = action.payload;
 
       const transformed = arrToObj([chat], 'room_id');
-      console.log({ chat, transformed, state });
 
       return { ...state, ...transformed };
     }
