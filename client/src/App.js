@@ -29,11 +29,14 @@ import {
   addMessage,
   resetUnreadCounter,
   setOnline,
+  addChat,
 } from './redux/actions';
 import Direct from './pages/Direct';
 
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
-// const ws = new WebSocket(`ws://localhost:5000`);
+//TODO WHEN I RECEIVE A MESSAGE AND I'M INSIDE THIS CHAT, IT SHOULDN'T BE TREATED AS UNREAD
+
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -91,6 +94,12 @@ const App = () => {
         })
       );
     }
+  };
+
+  const startMessagingHandler = ({ me, other }) => {
+    console.log({ me, other });
+
+    ws.send(JSON.stringify({ action: 'START_CHAT', me, other }));
   };
 
   const userInfo = useSelector(
@@ -172,8 +181,15 @@ const App = () => {
         case 'SEND_MESSAGE':
           const { messageInfo } = message;
           dispatch(addMessage({ info: messageInfo, me: userInfo }));
+          break;
+
+        case 'START_CHAT': {
+          const { chat } = message;
+          // console.log({ chat });
+          dispatch(addChat({ chat }));
 
           break;
+        }
 
         default:
           break;
@@ -234,7 +250,12 @@ const App = () => {
             <Route
               exact
               path='/:username'
-              render={(props) => <User {...props} />}
+              render={(props) => (
+                <User
+                  {...props}
+                  startMessagingHandler={startMessagingHandler}
+                />
+              )}
             />
 
             <Route render={(props) => <NotFound {...props} />} />

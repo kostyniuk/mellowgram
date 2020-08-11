@@ -21,6 +21,7 @@ const {
   setRead,
   writeToMemory,
   setReadMemory,
+  startChat,
 } = require('./lib/wsUtils');
 
 const { v4: uuidv4 } = require('uuid');
@@ -107,7 +108,7 @@ wss.on('connection', function connection(ws, req) {
       }
 
       const rooms = await loadUserRooms(id);
-      const messages = await loadUserMessages(rooms);
+      const messages = (await loadUserMessages(rooms)) || [];
       const finalRooms = getTheLatestMessages({ rooms, messages });
       return { id, rooms: finalRooms, messages, isAlreadyHere: false };
     })(parsed).then(({ id, rooms, messages, isAlreadyHere }) => {
@@ -224,6 +225,27 @@ wss.on('connection', function connection(ws, req) {
           });
         })();
       }
+
+      case 'START_CHAT': {
+        const { me, other } = JSON.parse(data);
+        console.log({ me, other });
+        (async () => {
+          const result = await startChat({ myId: me.id, otherId: other.id });
+          console.log({ result });
+
+          const chat = {
+            room_id: result.chatId,
+            person_id: other.id,
+            picture: other.picture,
+            username: other.username,
+            latestMessage: {},
+            unread: 0,
+          };
+
+          ws.send(JSON.stringify({ action: 'START_CHAT', chat }));
+        })();
+      }
+
       default:
         break;
     }
