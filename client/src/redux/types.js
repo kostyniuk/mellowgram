@@ -25,3 +25,4 @@ export const SET_UUID = 'SET_UUID';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const RESET_UNREAD_COUNTER = 'RESET_UNREAD_COUNTER';
 export const SET_ONLINE = 'SET_ONLINE';
+export const ADD_CHAT = 'ADD_CHAT';
