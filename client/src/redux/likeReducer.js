@@ -15,7 +15,7 @@ const likeReducer = (state = initialState, action) => {
       let final = {};
 
       if (likes.length === 0) {
-        return {};
+        return { loaded: true };
       }
 
       likes.forEach((post) => {
