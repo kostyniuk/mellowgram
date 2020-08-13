@@ -1,21 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import equal from 'deep-equal';
-import Header from '../components/Header/Header';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
-import '../styles/direct.css';
+import Header from '../components/Header/Header';
 import Chats from '../components/Direct/Chats';
 import Messages from '../components/Direct/Messages';
-import {
-  getChats,
-  getMessages,
-  setUuid,
-  addMessage,
-  resetUnreadCounter,
-} from '../redux/actions';
 
-// const ws = new WebSocket(`ws://localhost:5000`);
-// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+import '../styles/direct.css';
+
 const Direct = ({
   textInput,
   dialog,
@@ -25,20 +16,12 @@ const Direct = ({
   handleMessageSend,
   setOpenDialog,
 }) => {
-  const dispatch = useDispatch();
+  const chats = Object.values(useSelector((state) => state.chats));
+  const messages = Object.values(useSelector((state) => state.messages));
 
-  const chats = Object.values(
-    useSelector(
-      (state) => state.chats,
-      (prev, curr) => equal(prev, curr)
-    )
-  );
-  const messages = Object.values(
-    useSelector(
-      (state) => state.messages,
-      (prev, curr) => equal(prev, curr)
-    )
-  );
+  useEffect(() => {
+    setOpenDialog(null);
+  }, []);
 
   if (!chats.length || !messages.length) return <div></div>;
 

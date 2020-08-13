@@ -4,37 +4,9 @@ import { useSelector } from 'react-redux';
 
 import Badge from './Badge';
 
+import { prepareText, adjustTime } from '../../helpers/index';
+
 import '../../styles/direct.css';
-
-const prepareText = (str) => {
-  if (!str) return 'No messages yet';
-
-  if (str.length > 34) {
-    return str.toString().substring(0, 36).concat('...');
-  } else {
-    return str;
-  }
-};
-
-const adjustTime = (date) => {
-  if (!date) return null;
-
-  const withoutTimeZone = date
-    .split('T')[1]
-    .split('.')[0]
-    .split(':')
-    .slice(0, 2);
-  // .join(':');
-
-  const myTime = withoutTimeZone.map((num, i) => {
-    if (i === 0) {
-      return (Number(num) + 6).toString();
-    }
-    return num;
-  });
-
-  return myTime.join(':');
-};
 
 const ChatRow = ({
   chat_id,
@@ -47,11 +19,8 @@ const ChatRow = ({
   handleChatClick,
   empty,
 }) => {
-  const loggedInUser = useSelector(
-    (state) => state.loggedInUser,
-    (prev, curr) => prev.id === curr.id
-  );
-
+  
+  const loggedInUser = useSelector((state) => state.loggedInUser);
   const onlineUsers = useSelector((state) => state.onlineUsers);
 
   const className =

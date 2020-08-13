@@ -24,12 +24,6 @@ const Messages = ({
 
   console.log({ empty, data });
 
-  // useEffect(() => {
-  //   if (data) {
-  //     dispatch(resetUnreadCounter({chatId: data.room_id}));
-  //   }
-  // }, [data?.room_id]);
-
   if (!data)
     return (
       <div className='MESSAGES__container'>
