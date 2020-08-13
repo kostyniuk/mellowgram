@@ -6,7 +6,11 @@ import equal from 'deep-equal';
 import '../../styles/user.css';
 import '../../styles/btn.css';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
+
+import ToastNewMsg from './ToastNewMsg';
 
 import Exprerience from './Experience';
 import FollowingBar from './FollowingBar';
@@ -22,6 +26,32 @@ import {
 
 const UserInfo = ({ startMessagingHandler }) => {
   const history = useHistory();
+
+  const [newMsg, setNewMsg] = useState({});
+
+  const showNotify = useRef(false);
+
+  const chats = Object.values(
+    useSelector(
+      (state) => state.chats,
+      (prev, curr) => {
+        const prevChats = Object.values(prev);
+        const currChats = Object.values(curr);
+        prevChats.map((chat, i) => {
+          if (!equal(chat, currChats[i])) {
+            setNewMsg({
+              username: chat.username,
+              picture: chat.picture,
+              context: chat.latestMessage.context,
+            });
+            showNotify.current = false;
+          }
+        });
+        console.log({ equal: equal(prev.id, curr.id) });
+        return equal(prev.id, curr.id);
+      }
+    )
+  );
 
   const { request } = useFetch();
   const dispatch = useDispatch();
@@ -222,6 +252,27 @@ const UserInfo = ({ startMessagingHandler }) => {
     }
   };
 
+  const notifyNewMessage = (msgInfo) => {
+    showNotify.current = true;
+    toast.dark(
+      <ToastNewMsg
+        username={msgInfo.username}
+        context={msgInfo.context}
+        picture={msgInfo.picture}
+      />,
+      {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        onClick: () => history.push('/direct'),
+      }
+    );
+  };
+
   let btnClassName = 'green';
 
   if (followingThisUser) btnClassName += ' LIKESMODAL_BTN_followed';
@@ -239,6 +290,15 @@ const UserInfo = ({ startMessagingHandler }) => {
   return (
     <div className='USER_INFO__container'>
       <FollowingBar followedBy={followedBy} following={following} />
+      <button onClick={notifyNewMessage}>Notify !</button>
+      {Object.keys(newMsg).length && !showNotify.current && notifyNewMessage(newMsg)}
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+      />
       <div className='USER_INFO_CENTER'>
         {loggedInUser.id !== info.id && (
           <div className='USER_INFO_CENTER_TOP'>
