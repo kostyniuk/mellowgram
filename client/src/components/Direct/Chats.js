@@ -2,21 +2,16 @@ import React from 'react';
 
 import ChatRow from './ChatRow';
 
-import { sortChatsByLatestMessage } from '../../helpers';
+import { sortChats, sortChatsByLatestMessage } from '../../helpers';
 
 import '../../styles/direct.css';
 
 const Chats = ({ chats, openDialog, handleChatClick, empty }) => {
-  const emptyChats = chats.filter((element) => !element.latestMessage);
-  const notEmpty = chats.filter((element) => element.latestMessage);
-
-  notEmpty.sort(sortChatsByLatestMessage);
-
-  const allChats = [...notEmpty, ...emptyChats];
+  const sortedChats = sortChats(chats, sortChatsByLatestMessage);
 
   return (
     <div>
-      {allChats.map((chat) => (
+      {sortedChats.map((chat) => (
         <ChatRow
           key={chat.id}
           chat_id={chat.room_id}
