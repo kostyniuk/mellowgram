@@ -22,9 +22,10 @@ import {
   setFollowing,
   deleteFollow,
   addFollow,
+  resetUnreadCounter,
 } from '../../redux/actions';
 
-const UserInfo = ({ startMessagingHandler }) => {
+const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const history = useHistory();
 
   const [newMsg, setNewMsg] = useState({});
@@ -43,11 +44,11 @@ const UserInfo = ({ startMessagingHandler }) => {
               username: chat.username,
               picture: chat.picture,
               context: chat.latestMessage.context,
+              chatId: chat.room_id,
             });
             showNotify.current = false;
           }
         });
-        console.log({ equal: equal(prev.id, curr.id) });
         return equal(prev.id, curr.id);
       }
     )
@@ -253,6 +254,7 @@ const UserInfo = ({ startMessagingHandler }) => {
   };
 
   const notifyNewMessage = (msgInfo) => {
+    console.log({ msgInfo });
     showNotify.current = true;
     toast.dark(
       <ToastNewMsg
@@ -271,6 +273,8 @@ const UserInfo = ({ startMessagingHandler }) => {
         onClick: () => history.push('/direct'),
       }
     );
+    setOpenDialog(msgInfo.chatId);
+    // dispatch(resetUnreadCounter({ chatId: msgInfo.chatId }));
   };
 
   let btnClassName = 'green';
@@ -291,7 +295,9 @@ const UserInfo = ({ startMessagingHandler }) => {
     <div className='USER_INFO__container'>
       <FollowingBar followedBy={followedBy} following={following} />
       <button onClick={notifyNewMessage}>Notify !</button>
-      {Object.keys(newMsg).length && !showNotify.current && notifyNewMessage(newMsg)}
+      {Object.keys(newMsg).length &&
+        !showNotify.current &&
+        notifyNewMessage(newMsg)}
       <ToastContainer
         position='top-center'
         autoClose={5000}
