@@ -1,0 +1,28 @@
+.toast_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.toast_title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.toast__img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-position: center;
+  object-fit: cover;
+  margin-top: 0px;
+  margin-right: 5px;
+}
+
+.toast_message {
+  padding-top: 10px;
+  padding-bottom: 5px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
