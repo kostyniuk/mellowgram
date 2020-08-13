@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 
 import Badge from './Badge';
 
-import { prepareText, adjustTime } from '../../helpers/index';
-
 import '../../styles/direct.css';
+
+import { prepareText, adjustTime } from '../../helpers/msg';
 
 const ChatRow = ({
   chat_id,
@@ -19,7 +19,6 @@ const ChatRow = ({
   handleChatClick,
   empty,
 }) => {
-  
   const loggedInUser = useSelector((state) => state.loggedInUser);
   const onlineUsers = useSelector((state) => state.onlineUsers);
 

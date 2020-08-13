@@ -1,22 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-
-import { useSelector, useDispatch } from 'react-redux';
-import equal from 'deep-equal';
-
-import '../../styles/user.css';
-import '../../styles/btn.css';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
-import ToastNewMsg from './ToastNewMsg';
-
-import Exprerience from './Experience';
-import FollowingBar from './FollowingBar';
-import PicturesBar from './PicturesBar';
-import PictureModal from './PictureModal';
-import useFetch from '../../hooks/useFetch';
 import {
   setFollowedBy,
   setFollowing,
@@ -24,12 +9,41 @@ import {
   addFollow,
 } from '../../redux/actions';
 
+import useFetch from '../../hooks/useFetch';
+
+import equal from 'deep-equal';
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import ToastNewMsg from './ToastNewMsg';
+import Exprerience from './Experience';
+import FollowingBar from './FollowingBar';
+import PicturesBar from './PicturesBar';
+import PictureModal from './PictureModal';
+
+import 'react-toastify/dist/ReactToastify.css';
+import '../../styles/user.css';
+import '../../styles/btn.css';
+
 const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const history = useHistory();
 
+  const { request } = useFetch();
+  const dispatch = useDispatch();
+
+  const loggedInUser = useSelector((state) => state.loggedInUser);
+  const followingLoggedIn = useSelector((state) => state.loggedInFollows);
+  const following = useSelector((state) => state.following);
+  const followedBy = useSelector((state) => state.followedBy);
+
   const [newMsg, setNewMsg] = useState({});
+  const [selectedImg, setSelectedImg] = useState(null);
+  const [followingThisUser, setFollowingThisUser] = useState(false);
 
   const showNotify = useRef(false);
+  let same = useRef(true);
+
+  let btnClassName = 'green';
 
   const chats = Object.values(
     useSelector(
@@ -53,13 +67,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     )
   );
 
-  const { request } = useFetch();
-  const dispatch = useDispatch();
-
-  const [followingThisUser, setFollowingThisUser] = useState(false);
-
-  let same = useRef(true);
-
   const info = useSelector(
     (state) => state.currentPage,
     (prev, curr) => {
@@ -67,23 +74,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
       return equal(prev, curr);
     }
   );
-
-  const loggedInUser = useSelector(
-    (state) => state.loggedInUser,
-    (prev, curr) => equal(prev, curr)
-  );
-
-  const following = useSelector(
-    (state) => state.following,
-    (prev, curr) => equal(prev, curr)
-  );
-
-  const followedBy = useSelector(
-    (state) => state.followedBy,
-    (prev, curr) => equal(prev, curr)
-  );
-
-  const followingLoggedIn = useSelector((state) => state.loggedInFollows);
 
   const isAlreadyFollowed = (id) => {
     const { users } = followingLoggedIn;
@@ -97,7 +87,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     }
   }, [followingLoggedIn]);
 
-  const [selectedImg, setSelectedImg] = useState(null);
 
   const fetchFollowers = useCallback(
     async (info, signal) => {
@@ -132,7 +121,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
       const responce = await request(`/api/follow/${info.id}`, {
         method: 'DELETE',
       });
-      console.log({ responce });
       if (responce.success) {
         dispatch(
           deleteFollow({
@@ -155,7 +143,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
       const responce = await request(`/api/follow/${info.id}`, {
         method: 'POST',
       });
-      console.log({ responce });
       if (responce.success) {
         dispatch(
           addFollow({
@@ -274,7 +261,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     setOpenDialog(msgInfo.chatId);
   };
 
-  let btnClassName = 'green';
 
   if (followingThisUser) btnClassName += ' LIKESMODAL_BTN_followed';
 

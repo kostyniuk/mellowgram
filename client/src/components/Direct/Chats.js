@@ -2,7 +2,7 @@ import React from 'react';
 
 import ChatRow from './ChatRow';
 
-import { sortChats, sortChatsByLatestMessage } from '../../helpers';
+import { sortChats, sortChatsByLatestMessage } from '../../helpers/sorting';
 
 import '../../styles/direct.css';
 
