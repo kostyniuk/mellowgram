@@ -5,8 +5,10 @@ import equal from 'deep-equal';
 
 import Select from './SettingsDropdown';
 import Badge from '../Direct/Badge';
-
 import AsyncSelect from './AsyncSelect';
+
+import { getTotalUnread } from '../../helpers/index';
+
 import '../../styles/header.css';
 
 const categoryOptions = [
@@ -23,26 +25,17 @@ const Hamburger = ({ handler }) => {
     </div>
   );
 };
-const getTotalUnread = (chats) =>
-  chats.reduce((prev, cur) => {
-    return cur.unread + prev;
-  }, 0);
 
 const Header = () => {
   const history = useHistory();
-  const authorized = useSelector((state) => state.loggedInUser);
-
-  const chats = Object.values(
-    useSelector(
-      (state) => state.chats,
-      (prev, curr) => equal(prev, curr)
-    )
-  );
-
-  const unreadCount = getTotalUnread(chats);
-
+  
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
+
+  const authorized = useSelector((state) => state.loggedInUser);
+  const chats = Object.values(useSelector((state) => state.chats));
+
+  const unreadCount = getTotalUnread(chats);
 
   const handleHamburger = () => {
     setOpen((prev) => !prev);
