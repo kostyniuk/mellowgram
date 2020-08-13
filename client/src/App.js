@@ -48,6 +48,9 @@ const App = () => {
   const [textInput, setTextInput] = useState('');
   const [openDialog, setOpenDialog] = useState(null);
 
+  const userInfo = useSelector((state) => state.loggedInUser);
+  const chats = Object.values(useSelector((state) => state.chats));
+
   const handleChange = (e) => {
     setTextInput(e.target.value);
   };
@@ -100,10 +103,6 @@ const App = () => {
   const startMessagingHandler = ({ me, other }) => {
     ws.send(JSON.stringify({ action: 'START_CHAT', me, other }));
   };
-
-  const userInfo = useSelector((state) => state.loggedInUser);
-
-  const chats = Object.values(useSelector((state) => state.chats));
 
   const fetchFollowing = useCallback(
     async (info, signal) => {
