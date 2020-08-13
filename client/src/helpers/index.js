@@ -19,4 +19,8 @@ module.exports = {
 
     return final;
   },
+  getTotalUnread: (chats) =>
+    chats.reduce((prev, cur) => {
+      return cur.unread + prev;
+    }, 0),
 };
