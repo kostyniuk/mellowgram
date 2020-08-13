@@ -42,7 +42,6 @@ const App = () => {
   const dispatch = useDispatch();
   const { request } = useFetch();
 
-
   const [textInput, setTextInput] = useState('');
   const [openDialog, setOpenDialog] = useState(null);
 
@@ -178,7 +177,7 @@ const App = () => {
           break;
 
         case 'SEND_MESSAGE':
-          let { messageInfo } = message;
+          const { messageInfo } = message;
           dispatch(addMessage({ info: messageInfo, me: userInfo }));
           break;
 

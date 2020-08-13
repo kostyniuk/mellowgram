@@ -22,7 +22,6 @@ import {
   setFollowing,
   deleteFollow,
   addFollow,
-  resetUnreadCounter,
 } from '../../redux/actions';
 
 const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
@@ -254,7 +253,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   };
 
   const notifyNewMessage = (msgInfo) => {
-    console.log({ msgInfo });
     showNotify.current = true;
     toast.dark(
       <ToastNewMsg
@@ -274,7 +272,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
       }
     );
     setOpenDialog(msgInfo.chatId);
-    // dispatch(resetUnreadCounter({ chatId: msgInfo.chatId }));
   };
 
   let btnClassName = 'green';
