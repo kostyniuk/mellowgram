@@ -63,6 +63,7 @@ const User = ({ match, startMessagingHandler }) => {
       <div>
         <Header />
       </div>
+                  
       <UserInfo startMessagingHandler={startMessagingHandler}/>
       <Posts />
     </div>
