@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { updateProfileInfo } from '../redux/actions';
 import useFetch from '../hooks/useFetch';
 
 import Table from './Table';
 import UploadButton from './UploadButton';
 
+import { deepCopy, deleteProperties } from '../helpers';
+
 import '../styles/table.css';
 import '../styles/btn.css';
-
-import { deepCopy, deleteProperties } from '../helpers';
-import { updateProfileInfo } from '../redux/actions';
 
 const SettingsCard = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,9 @@ const SettingsCard = () => {
   const [passwordToDelete, setPasswordToDelete] = useState('');
 
   const [wrongPassword, setWrongPassword] = useState(false);
-
+  
+  const switchTab = (index) => setOpenTab(index);
+  
   const editHandlerOnChange = (e) => {
     const field = e.target.name;
     if (updatedInfo) setUpdatedInfo(false);
@@ -87,7 +89,6 @@ const SettingsCard = () => {
     'picture',
   ]);
 
-  const switchTab = (index) => setOpenTab(index);
 
   return (
     <div className='settings-container'>
