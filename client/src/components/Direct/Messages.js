@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import '../../styles/messages.css';
 import Message from './Message';
+
+import { resetUnreadCounter } from '../../redux/actions';
 
 const Messages = ({
   data,
@@ -12,6 +14,8 @@ const Messages = ({
   handleChange,
   empty,
 }) => {
+  const dispatch = useDispatch();
+
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
     (prev, curr) => prev === curr
@@ -26,6 +30,12 @@ const Messages = ({
   useEffect(scrollToBottom, [data?.messages?.length]);
 
   console.log({ empty, data });
+
+  useEffect(() => {
+    if (data) {
+      dispatch(resetUnreadCounter({chatId: data.room_id}));
+    }
+  }, [data?.room_id]);
 
   if (!data)
     return (
