@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 import {
   BrowserRouter as Router,
@@ -8,19 +8,8 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import useFetch from './hooks/useFetch';
-
-import useAuth from './hooks/useAuth';
 import equal from 'deep-equal';
 
-import Login from './pages/Login';
-import Header from './components/Header/Header';
-import Signup from './pages/Signup';
-import User from './pages/User';
-import NotFound from './pages/NotFound';
-import Settings from './pages/Settings';
-import About from './pages/About';
-import { useSelector, useDispatch } from 'react-redux';
 import {
   setLoggedInFollowing,
   getChats,
@@ -31,16 +20,30 @@ import {
   setOnline,
   addChat,
 } from './redux/actions';
+
+import useFetch from './hooks/useFetch';
+import useAuth from './hooks/useAuth';
+
+import Login from './pages/Login';
+import Header from './components/Header/Header';
+import Signup from './pages/Signup';
+import User from './pages/User';
+import NotFound from './pages/NotFound';
+import Settings from './pages/Settings';
+import About from './pages/About';
 import Direct from './pages/Direct';
 
+import './App.css';
 //TODO WHEN I RECEIVE A MESSAGE AND I'M INSIDE THIS CHAT, IT SHOULDN'T BE TREATED AS UNREAD
 
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
-// const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
+
   const { request } = useFetch();
+  const { loading } = useAuth();
 
   const [textInput, setTextInput] = useState('');
   const [openDialog, setOpenDialog] = useState(null);
@@ -63,7 +66,7 @@ const App = () => {
       dispatch(
         addMessage({
           info: {
-            messageId: 'Do not know yet',
+            messageId: '//Do not know yet',
             roomId,
             senderId,
             context: textInput,
@@ -84,8 +87,6 @@ const App = () => {
     if (room.unread) {
       dispatch(resetUnreadCounter({ chatId: chat_id }));
 
-      console.log({ chat_id, userId: userInfo.id });
-
       ws.send(
         JSON.stringify({
           action: 'SET_READ',
@@ -100,12 +101,7 @@ const App = () => {
     ws.send(JSON.stringify({ action: 'START_CHAT', me, other }));
   };
 
-  const userInfo = useSelector(
-    (state) => state.loggedInUser,
-    (prev, curr) => {
-      return prev.id === curr.id;
-    }
-  );
+  const userInfo = useSelector((state) => state.loggedInUser);
 
   const chats = Object.values(
     useSelector(
@@ -116,7 +112,7 @@ const App = () => {
 
   const fetchFollowing = useCallback(
     async (info, signal) => {
-      if (userInfo.id) {
+      if (info.id) {
         const responce = await request(
           `/api/follow/following/${userInfo.username}`,
           {},
@@ -129,7 +125,6 @@ const App = () => {
               user: userInfo.username,
             })
           );
-          // dispatch(setFollowing({ users: responce.data, user: info.username }));
         }
       }
     },
@@ -137,9 +132,9 @@ const App = () => {
   );
 
   useEffect(() => {
-    ws.onopen = () => {
-      console.log('Connection established');
-    };
+    // ws.onopen = () => {
+    //   console.log('Connection established');
+    // };
     ws.onmessage = (evt) => {
       const message = JSON.parse(evt.data);
       console.log({ message });
@@ -153,8 +148,6 @@ const App = () => {
           break;
 
         case 'GET_CHATS':
-          console.log({ GET_CHATS: message });
-
           dispatch(
             getChats({
               chats: message.payload.rooms,
@@ -172,7 +165,6 @@ const App = () => {
           break;
 
         case 'GET_ONLINE':
-          console.log({ GET_ONLINE: message });
           dispatch(setOnline({ onlineIds: message.payload }));
           break;
 
@@ -199,10 +191,9 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    fetchFollowing();
+    fetchFollowing(userInfo);
   }, [fetchFollowing]);
 
-  const { loading } = useAuth();
   if (loading) return <div></div>;
 
   if (userInfo.isAuthenticated) {
