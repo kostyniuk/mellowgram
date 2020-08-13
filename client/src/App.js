@@ -103,12 +103,7 @@ const App = () => {
 
   const userInfo = useSelector((state) => state.loggedInUser);
 
-  const chats = Object.values(
-    useSelector(
-      (state) => state.chats,
-      (prev, curr) => equal(prev, curr)
-    )
-  );
+  const chats = Object.values(useSelector((state) => state.chats));
 
   const fetchFollowing = useCallback(
     async (info, signal) => {
