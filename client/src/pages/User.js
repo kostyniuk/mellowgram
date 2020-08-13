@@ -11,7 +11,11 @@ import UserInfo from '../components/User/UserInfo';
 import Posts from '../components/User/Post/Posts';
 
 import '../styles/user.css';
-const User = ({ match, startMessagingHandler }) => {
+const User = ({
+  match,
+  startMessagingHandler,
+  setOpenDialog,
+}) => {
   const dispatch = useDispatch();
 
   const { username } = match.params;
@@ -63,8 +67,11 @@ const User = ({ match, startMessagingHandler }) => {
       <div>
         <Header />
       </div>
-                  
-      <UserInfo startMessagingHandler={startMessagingHandler}/>
+
+      <UserInfo
+        startMessagingHandler={startMessagingHandler}
+        setOpenDialog={setOpenDialog}
+      />
       <Posts />
     </div>
   );
