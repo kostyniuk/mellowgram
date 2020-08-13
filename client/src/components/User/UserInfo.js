@@ -277,10 +277,9 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   return (
     <div className='USER_INFO__container'>
       <FollowingBar followedBy={followedBy} following={following} />
-      <button onClick={notifyNewMessage}>Notify !</button>
       {Object.keys(newMsg).length &&
-        !showNotify.current &&
-        notifyNewMessage(newMsg)}
+        !showNotify.current ?
+        notifyNewMessage(newMsg) : null}
       <ToastContainer
         position='top-center'
         autoClose={5000}

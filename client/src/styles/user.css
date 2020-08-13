@@ -19,11 +19,6 @@
   padding-top: 20px;
 }
 
-.USER_INFO__followingBar {
-  width: 100%;
-}
-
-
 .USER_INFO_CENTER {
   display: flex;
   flex-direction: column;
