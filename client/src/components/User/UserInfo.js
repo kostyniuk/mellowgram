@@ -20,6 +20,7 @@ import Exprerience from './Experience';
 import FollowingBar from './FollowingBar';
 import PicturesBar from './PicturesBar';
 import PictureModal from './PictureModal';
+import EditModal from './EditModal';
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/user.css';
@@ -39,33 +40,12 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const [newMsg, setNewMsg] = useState({});
   const [selectedImg, setSelectedImg] = useState(null);
   const [followingThisUser, setFollowingThisUser] = useState(false);
+  const [editBioModal, setEditBioModal] = useState(false);
 
   const showNotify = useRef(false);
   let same = useRef(true);
 
   let btnClassName = 'green';
-
-  const chats = Object.values(
-    useSelector(
-      (state) => state.chats,
-      (prev, curr) => {
-        const prevChats = Object.values(prev);
-        const currChats = Object.values(curr);
-        prevChats.map((chat, i) => {
-          if (!equal(chat, currChats[i])) {
-            setNewMsg({
-              username: chat.username,
-              picture: chat.picture,
-              context: chat.latestMessage.context,
-              chatId: chat.room_id,
-            });
-            showNotify.current = false;
-          }
-        });
-        return equal(prev.id, curr.id);
-      }
-    )
-  );
 
   const info = useSelector(
     (state) => state.currentPage,
@@ -86,7 +66,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
       isAlreadyFollowed(info.id);
     }
   }, [followingLoggedIn]);
-
 
   const fetchFollowers = useCallback(
     async (info, signal) => {
@@ -239,6 +218,10 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     }
   };
 
+  const handleEditClick = () => {
+    setEditBioModal(true);
+  };
+
   const notifyNewMessage = (msgInfo) => {
     showNotify.current = true;
     toast.dark(
@@ -261,7 +244,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     setOpenDialog(msgInfo.chatId);
   };
 
-
   if (followingThisUser) btnClassName += ' LIKESMODAL_BTN_followed';
 
   if (!info) return <div></div>;
@@ -274,12 +256,14 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   )
     return <div></div>;
 
+  console.log({ info });
+
   return (
     <div className='USER_INFO__container'>
       <FollowingBar followedBy={followedBy} following={following} />
-      {Object.keys(newMsg).length &&
-        !showNotify.current ?
-        notifyNewMessage(newMsg) : null}
+      {Object.keys(newMsg).length && !showNotify.current
+        ? notifyNewMessage(newMsg)
+        : null}
       <ToastContainer
         position='top-center'
         autoClose={5000}
@@ -314,7 +298,12 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           <div className='card-main'>
             <div className={sectionAbout} id='about'>
               <div className='card-content'>
-                <div className='card-subtitle'>ABOUT</div>
+                <div className='card-subtitle'>
+                  <p>ABOUT</p>
+                  {loggedInUser.id === info.id && (
+                    <i className='fa fa-edit' onClick={handleEditClick}></i>
+                  )}
+                </div>
                 <p className='card-desc'>
                   {info.bio || "The user hasn't provided bio information"}
                 </p>
@@ -437,6 +426,9 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           selectedImg={selectedImg}
           setSelectedImg={setSelectedImg}
         />
+      )}
+      {editBioModal && (
+        <EditModal handleEdit={setEditBioModal} info={info.bio} isBio={true} />
       )}
     </div>
   );
