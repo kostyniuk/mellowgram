@@ -28,6 +28,7 @@ const User = ({
     if (json.success) {
       const {
         based_in,
+        bio,
         email,
         fullname,
         number_of_posts,
@@ -39,6 +40,7 @@ const User = ({
       dispatch(
         setCurrentPage({
           id,
+          bio,
           username,
           based_in,
           email,

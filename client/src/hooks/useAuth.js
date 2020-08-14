@@ -20,6 +20,7 @@ const useAuth = () => {
         const { id, username } = responce.data;
         const {
           based_in,
+          bio,
           email,
           fullname,
           number_of_posts,
@@ -30,6 +31,7 @@ const useAuth = () => {
         dispatch(
           authUser({
             id,
+            bio,
             username,
             based_in,
             email,

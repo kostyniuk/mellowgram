@@ -8,6 +8,7 @@ import {
 const initialState = {
   isAuthenticated: false,
   id: null,
+  bio: null,
   username: null,
   based_in: null,
   email: null,
@@ -26,6 +27,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         id: action.payload.id,
+        bio: action.payload.bio,
         username: action.payload.username,
         based_in: action.payload.based_in,
         email: action.payload.email,

@@ -32,6 +32,7 @@ import {
 
 export const authUser = ({
   id,
+  bio,
   username,
   based_in,
   email,
@@ -44,6 +45,7 @@ export const authUser = ({
   type: AUTH_USER,
   payload: {
     id,
+    bio,
     username,
     based_in,
     email,
@@ -61,6 +63,7 @@ export const notAuthUser = () => ({
 
 export const setCurrentPage = ({
   id,
+  bio,
   username,
   based_in,
   email,
@@ -73,6 +76,7 @@ export const setCurrentPage = ({
   type: SET_CURRENT_PAGE,
   payload: {
     id,
+    bio,
     username,
     based_in,
     email,

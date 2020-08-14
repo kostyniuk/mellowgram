@@ -1,5 +1,6 @@
 const initialState = {
   id: null,
+  bio: null,
   username: null,
   based_in: null,
   email: null,
@@ -17,6 +18,7 @@ const currentPageReducer = (state = initialState, action) => {
       return {
         ...state,
         id: action.payload.id,
+        bio: action.payload.bio,
         username: action.payload.username,
         based_in: action.payload.based_in,
         email: action.payload.email,
