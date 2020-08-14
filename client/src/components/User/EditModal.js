@@ -4,15 +4,16 @@ import { motion } from 'framer-motion';
 
 import '../../styles/modal.css';
 import PostInput from './Post/PostInput';
+import EditBioInput from './EditBioInput';
 
-const EditModal = ({ handleEdit, info }) => {
+const EditModal = ({ handleEdit, info, isBio }) => {
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
       handleEdit(null);
     }
   };
 
-  console.log({ info });
+  console.log({ info, isBio });
 
   return (
     <motion.div
@@ -26,15 +27,23 @@ const EditModal = ({ handleEdit, info }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       >
-        <PostInput
-          id={info.id}
-          modal={true}
-          username={info.username}
-          fullname={info.fullname}
-          picture={info.picture}
-          placeholder={info.text}
-          handleEdit={handleEdit}
-        />
+        {isBio && (
+          <EditBioInput
+            bio={info}
+          />
+        )}
+
+        {!isBio && (
+          <PostInput
+            id={info.id}
+            modal={true}
+            username={info.username}
+            fullname={info.fullname}
+            picture={info.picture}
+            placeholder={info.text}
+            handleEdit={handleEdit}
+          />
+        )}
       </motion.div>
     </motion.div>
   );
