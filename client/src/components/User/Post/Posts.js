@@ -131,6 +131,8 @@ const Posts = () => {
 
     await sleep(300);
 
+    console.log({ res });
+
     if (!res.posts.length) {
       setHasMore(false);
       return;
@@ -144,6 +146,9 @@ const Posts = () => {
     dispatch(loadMoreLikes({ likes }));
   };
 
+  console.log({ posts });
+
+  if (posts[0] === null && hasMore) setHasMore(false);
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
   if (!Object.keys(likes).length) return <div></div>;
 
