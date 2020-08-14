@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import useFetch from '../../hooks/useFetch';
+import { updateBio } from '../../redux/actions';
 
 const EditBioInput = ({ bio, closeModal }) => {
   const { request } = useFetch();
+  const dispatch = useDispatch();
 
   const [newBio, setNewBio] = useState(bio || '');
 
@@ -15,11 +18,11 @@ const EditBioInput = ({ bio, closeModal }) => {
       body: JSON.stringify({ bio: newBio }),
     });
 
-    setNewBio('');
-
     if (result.success) {
       console.log('Bio updated');
       closeModal(null);
+      dispatch(updateBio({ newBio }));
+      setNewBio('');
     }
   };
 

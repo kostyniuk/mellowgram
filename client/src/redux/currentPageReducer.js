@@ -1,3 +1,5 @@
+import { UPDATE_BIO } from './types';
+
 const initialState = {
   id: null,
   bio: null,
@@ -29,6 +31,11 @@ const currentPageReducer = (state = initialState, action) => {
         picture: action.payload.picture,
         ready: true,
       };
+
+    case UPDATE_BIO: {
+      return { ...state, bio: action.payload.newBio };
+    }
+
     default: {
       return { ...state, ready: true };
     }
