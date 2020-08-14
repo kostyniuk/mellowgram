@@ -150,6 +150,9 @@
   flex-direction: column;
 }
 .card-subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-weight: 700;
   font-size: 13px;
   color: #000;
