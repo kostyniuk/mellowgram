@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import equal from 'deep-equal';
@@ -9,6 +9,8 @@ import '../../styles/modal.css';
 
 const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
   const { request } = useFetch();
+  const history = useHistory();
+
   const [following, setFollowing] = useState(alreadyFollowed);
 
   const loggedInUser = useSelector(
@@ -68,28 +70,33 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
 
   return (
     <div className='LIKESMODAL_ROW'>
-      <NavLink to={`/${username}`}>
-        <div className='LIKESMODAL__title'>
-          <div className='LIKESMODAL__title__left'>
-            <img
-              src={picture}
-              alt='avatar'
-              className='LIKESMODAL__profile_picture'
-              style={{ marginTop: '0px' }}
-            />
-            <div className='LIKESMODAL__header'>
-              <h3 className='LIKESMODAL__fullname'>{username}</h3>
-            </div>
+      <div className='LIKESMODAL__title'>
+        {/* <NavLink to={`/${username}`}> */}
+        <div
+          className='LIKESMODAL__title__left'
+          onClick={() => {
+            history.push(`/${username}`);
+          }}
+        >
+          <img
+            src={picture}
+            alt='avatar'
+            className='LIKESMODAL__profile_picture'
+            style={{ marginTop: '0px' }}
+          />
+          <div className='LIKESMODAL__header'>
+            <h3 className='LIKESMODAL__fullname'>{username}</h3>
           </div>
-          {id !== loggedInUser.id && (
-            <div className='LIKESMODAL__title__right'>
-              <button className={btnClassName} onClick={followHandler}>
-                {following ? 'Following' : 'Follow'}
-              </button>
-            </div>
-          )}
         </div>
-      </NavLink>
+        {id !== loggedInUser.id && (
+          <div className='LIKESMODAL__title__right'>
+            <button className={btnClassName} onClick={followHandler}>
+              {following ? 'Following' : 'Follow'}
+            </button>
+          </div>
+        )}
+        {/* </NavLink> */}
+      </div>
     </div>
   );
 };
