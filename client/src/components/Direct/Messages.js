@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Message from './Message';
 
 import '../../styles/messages.css';
+
 const Messages = ({
   data,
   textInput,
@@ -21,8 +22,6 @@ const Messages = ({
   };
 
   useEffect(scrollToBottom, [data?.messages?.length]);
-
-  console.log({ empty, data });
 
   if (!data)
     return (
@@ -47,6 +46,7 @@ const Messages = ({
         {data.messages.map((msg) => (
           <Message
             key={msg.id}
+            type={msg.type}
             context={msg.text}
             isOwner={+msg.from === +loggedInUser.id}
             date={msg.date}
