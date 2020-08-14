@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 
-const EditBioInput = ({ bio }) => {
+const EditBioInput = ({ bio, closeModal }) => {
   const { request } = useFetch();
 
   const [newBio, setNewBio] = useState(bio || '');
@@ -19,6 +19,7 @@ const EditBioInput = ({ bio }) => {
 
     if (result.success) {
       console.log('Bio updated');
+      closeModal(null);
     }
   };
 

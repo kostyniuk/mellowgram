@@ -27,11 +27,7 @@ const EditModal = ({ handleEdit, info, isBio }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       >
-        {isBio && (
-          <EditBioInput
-            bio={info}
-          />
-        )}
+        {isBio && <EditBioInput bio={info} closeModal={handleEdit} />}
 
         {!isBio && (
           <PostInput
