@@ -1,0 +1,30 @@
+
+.hr-centered-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: white;
+  text-align: center;
+  height: 1.5em;
+  opacity: 0.9;
+  margin: 20px;
+}
+.hr-centered-text:before {
+  content: '';
+  background: linear-gradient(to right, transparent, #ffffff, transparent);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+}
+.hr-centered-text:after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  padding: 0 0.5em;
+  line-height: 1.5em;
+  color: white;
+  background-color: #000;
+}
