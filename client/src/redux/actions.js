@@ -28,6 +28,7 @@ import {
   RESET_UNREAD_COUNTER,
   SET_ONLINE,
   ADD_CHAT,
+  UPDATE_BIO,
 } from './types';
 
 export const authUser = ({
@@ -218,4 +219,9 @@ export const setOnline = ({ onlineIds }) => ({
 export const addChat = ({ chat }) => ({
   type: ADD_CHAT,
   payload: { chat },
+});
+
+export const updateBio = ({ newBio }) => ({
+  type: UPDATE_BIO,
+  payload: { newBio },
 });
