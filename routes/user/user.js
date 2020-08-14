@@ -29,7 +29,7 @@ router.get('/:username', async (req, res, next) => {
   }
 });
 
-router.post('/bio', isLoggedIn, async (req, res, next) => {
+router.put('/bio', isLoggedIn, async (req, res, next) => {
   try {
     const { bio } = req.body;
     const { user_id } = req.user;
@@ -39,8 +39,9 @@ router.post('/bio', isLoggedIn, async (req, res, next) => {
 
     const result = await db.query(query, params);
 
-    res.status(200).json({ message: `Bio updated: '${bio}'` });
+    res.status(200).json({ success: true, message: `Bio updated: '${bio}'` });
   } catch (e) {
+    res.status(400).json({ success: false });
     console.error({ e });
   }
 });
