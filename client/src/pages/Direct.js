@@ -27,8 +27,6 @@ const Direct = ({
 
   const notOpenSide = 'DIRECT_SIDE_NOT_ACTIVE';
 
-  console.log({ dialog });
-
   return (
     <div className='DIRECT__page'>
       <Header />
