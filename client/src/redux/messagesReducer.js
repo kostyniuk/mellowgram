@@ -1,26 +1,8 @@
 import { GET_MESSAGES, ADD_MESSAGE, ADD_CHAT } from './types';
 import { arrToObj } from '../helpers/index';
 import { adjustTime, addTimeSeparator } from '../helpers/msg';
+
 const initialState = {};
-
-// const adjustTime = (date) => {
-//   const withoutTimeZone = date
-//     .split('T')[1]
-//     .split('.')[0]
-//     .split(':')
-//     .slice(0, 2);
-
-//   const myTime = withoutTimeZone.map((num, i) => {
-//     if (i === 0) {
-//       return (Number(num) + 6).toString();
-//     }
-//     return num;
-//   });
-
-//   return myTime.join(':');
-// };
-
-
 
 const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
