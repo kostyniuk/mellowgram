@@ -11,6 +11,7 @@ import { deepCopy, deleteProperties } from '../helpers';
 
 import '../styles/table.css';
 import '../styles/btn.css';
+import SelectInterests from './SelectInterests';
 
 const SettingsCard = () => {
   const dispatch = useDispatch();
@@ -32,9 +33,9 @@ const SettingsCard = () => {
   const [passwordToDelete, setPasswordToDelete] = useState('');
 
   const [wrongPassword, setWrongPassword] = useState(false);
-  
+
   const switchTab = (index) => setOpenTab(index);
-  
+
   const editHandlerOnChange = (e) => {
     const field = e.target.name;
     if (updatedInfo) setUpdatedInfo(false);
@@ -89,7 +90,6 @@ const SettingsCard = () => {
     'picture',
   ]);
 
-
   return (
     <div className='settings-container'>
       <div className='left-column'>
@@ -99,14 +99,18 @@ const SettingsCard = () => {
           </li>
           <hr class='HRsettings' />
           <li onClick={switchTab.bind(null, 1)}>
-            <i className='fa fa-lock'></i>Edit Profile
+            <i className='fa fa-cog'></i>Edit Profile
           </li>
           <hr class='HRsettings' />
           <li onClick={switchTab.bind(null, 2)}>
-            <i className='fa fa-lock'></i>Change Password
+            <i className='fa fa-list-alt'></i>Edit Interests
           </li>
           <hr class='HRsettings' />
           <li onClick={switchTab.bind(null, 3)}>
+            <i className='fa fa-lock'></i>Change Password
+          </li>
+          <hr class='HRsettings' />
+          <li onClick={switchTab.bind(null, 4)}>
             <i className='fa fa-minus-circle'></i>Delete profile
           </li>
         </ul>
@@ -146,6 +150,27 @@ const SettingsCard = () => {
           </form>
         )}
         {openTab === 2 && (
+          <div className='settings_edit_interests'>
+            <div>
+              <h1>Edit interests</h1>
+              <SelectInterests />
+            </div>
+            <button className='btn green' onClick={submitEdit}>
+              Submit
+            </button>
+            {error && (
+              <h2 style={{ color: 'red', marginTop: '10px' }}>
+                Error: {error}
+              </h2>
+            )}
+            {updatedInfo && (
+              <h2 style={{ color: 'green', marginTop: '10px' }}>
+                Information updated
+              </h2>
+            )}
+          </div>
+        )}
+        {openTab === 3 && (
           <form onSubmit={() => console.log('Submitted')}>
             <h1>Change password</h1>
             <Table
@@ -159,7 +184,7 @@ const SettingsCard = () => {
             <button className='btn green'>Submit</button>
           </form>
         )}
-        {openTab === 3 && (
+        {openTab === 4 && (
           <form>
             <h1>Delete your profile</h1>
             <h2>
