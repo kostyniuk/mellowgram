@@ -6,12 +6,9 @@ const db = require('../config/db');
 router.get('/', async (req, res, next) => {
   try {
     const query = 'SELECT * FROM Interest;';
-
     const { rows } = await db.query(query, []);
-
-    console.log({ rows });
-
-    if (rows) res.status(200).json({ success: true, interests: rows });
+    if (rows) return res.status(200).json({ success: true, interests: rows });
+    return res.json({ success: false });
   } catch (e) {
     res.json({ success: false });
   }
