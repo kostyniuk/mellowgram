@@ -148,6 +148,15 @@
 
 .settings-overview-table {
 }
+
+
+.settings_edit_interests {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .btnSettings:hover {
   background: none;
   background-color: #e83114;
