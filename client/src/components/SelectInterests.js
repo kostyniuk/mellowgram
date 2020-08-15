@@ -5,47 +5,6 @@ import useFetch from '../hooks/useFetch';
 import Select from 'react-select';
 import chroma from 'chroma-js';
 
-const colourOptions = [
-  { value: 'ocean', label: 'Ocean', color: '#00B8D9', isFixed: true },
-  { value: 'blue', label: 'Blue', color: '#0052CC' },
-  { value: 'purple', label: 'Purple', color: '#5243AA' },
-  { value: 'red', label: 'Red', color: '#FF5630', isFixed: true },
-  { value: 'orange', label: 'Orange', color: '#FF8B00' },
-  { value: 'yellow', label: 'Yellow', color: '#FFC400' },
-  { value: 'green', label: 'Green', color: '#36B37E' },
-  { value: 'forest', label: 'Forest', color: '#00875A' },
-  { value: 'slate', label: 'Slate', color: '#253858' },
-  { value: 'silver', label: 'Silver', color: '#666666' },
-];
-
-const flavourOptions = [
-  { value: 'vanilla', label: 'Vanilla', rating: 'safe', color: '#666666' },
-  { value: 'chocolate', label: 'Chocolate', rating: 'good', color: '#666666' },
-  {
-    value: 'strawberry',
-    label: 'Strawberry',
-    rating: 'wild',
-    color: '#666666',
-  },
-  {
-    value: 'salted-caramel',
-    label: 'Salted Caramel',
-    rating: 'crazy',
-    color: '#666666',
-  },
-];
-
-const groupedOptions = [
-  {
-    label: 'Colours',
-    options: colourOptions,
-  },
-  {
-    label: 'Flavours',
-    options: flavourOptions,
-  },
-];
-
 const styles = {
   colourStyles: {
     control: (styles) => ({ ...styles, backgroundColor: 'black' }),
@@ -117,6 +76,8 @@ const styles = {
 const SelectInterests = () => {
   const { request } = useFetch();
 
+  const [interests, setInterests] = useState([]);
+
   const handler = (e) => {
     console.log(e);
   };
@@ -128,14 +89,35 @@ const SelectInterests = () => {
     </div>
   );
 
-  const [interests, setInterests] = useState([]);
 
   const fetchInterests = useCallback(async () => {
     const responce = await request('/api/interest');
     if (responce.success) {
-      console.log(responce.interests);
+      const { interests } = responce;
 
-      setInterests(responce.interests);
+      const labels = Array.from(
+        new Set(interests.map((interest) => interest.interest_category))
+      );
+
+      const groupedOptions = labels.map((interest_category) => {
+        let optionsCurrent = interests.filter(
+          (interest) => interest.interest_category === interest_category
+        );
+
+        optionsCurrent = optionsCurrent.map((interest) => ({
+          id: interest.interest_id,
+          value: interest.interest_name,
+          label: `${interest.interest_emoji} ${interest.interest_name}`,
+          color: interest.interest_color,
+        }));
+
+        return {
+          label: interest_category,
+          options: optionsCurrent,
+        };
+      });
+
+      setInterests(groupedOptions);
     }
   }, [request]);
 
@@ -143,14 +125,16 @@ const SelectInterests = () => {
     fetchInterests();
   }, [fetchInterests]);
 
+  if (!interests) return null;
+
   return (
     <div>
       <Select
-        defaultValue={[colourOptions[2], colourOptions[3]]}
+        // defaultValue={[colourOptions[2], colourOptions[3]]}
         isMulti
         styles={styles.colourStyles}
         name='colors'
-        options={groupedOptions}
+        options={interests}
         formatGroupLabel={formatGroupLabel}
         className='basic-multi-select'
         classNamePrefix='select'
