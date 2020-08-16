@@ -7,10 +7,9 @@
   --insta: hsl(348, 35%, 74%);
   --facebook: #6bacd8cc;
   --green_lighter: rgb(77, 177, 0);
-  --green_dark : rgb(23, 148, 67);
-  --text_cream : rgb(232, 230, 227);
+  --green_dark: rgb(23, 148, 67);
+  --text_cream: rgb(232, 230, 227);
   --lightgrey: #6c6c6c;
-
 }
 
 .green {
@@ -26,6 +25,12 @@
   transition: 0.5s;
   font-family: inherit;
   outline: none;
+}
+
+.follow {
+  background-color: inherit;
+  margin-top: 0;
+  padding: 0;
 }
 
 .LIKESMODAL_BTN_followed {
