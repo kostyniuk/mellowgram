@@ -7,6 +7,8 @@ import {
   setFollowing,
   deleteFollow,
   addFollow,
+  addInterests,
+  resetUnreadCounter,
 } from '../../redux/actions';
 
 import useFetch from '../../hooks/useFetch';
@@ -26,6 +28,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/user.css';
 import '../../styles/btn.css';
 import LikesModal from './LikesModal';
+import InterestBar from './InterestBar';
 
 const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const history = useHistory();
@@ -98,6 +101,21 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     [request, dispatch, setFollowing]
   );
 
+  const fetchInterests = useCallback(
+    async (info, signal) => {
+      const responce = await request(
+        `/api/interest/${info.username}`,
+        {},
+        signal
+      );
+      if (responce.success) {
+        console.log({ responce });
+        dispatch(addInterests({ interests: responce.interests }));
+      }
+    },
+    [request, dispatch]
+  );
+
   const followHandler = async () => {
     if (followingThisUser) {
       const responce = await request(`/api/follow/${info.id}`, {
@@ -153,6 +171,7 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     if (info.id && !same.current) {
       fetchFollowers(info, signal);
       fetchFollowing(info, signal);
+      fetchInterests(info, signal);
     }
 
     return () => {
@@ -248,14 +267,13 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   };
 
   const showFollow = (type) => {
-
     const obj = {};
-    obj.title = type.charAt(0).toUpperCase() + type.slice(1)
+    obj.title = type.charAt(0).toUpperCase() + type.slice(1);
 
     if (type === 'following') {
-      setFollowModal({ ...obj, data: following.users })
+      setFollowModal({ ...obj, data: following.users });
     } else if (type === 'followers') {
-      setFollowModal({ ...obj, data: followedBy.users})
+      setFollowModal({ ...obj, data: followedBy.users });
     }
   };
 
@@ -273,7 +291,8 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
 
   return (
     <div className='USER_INFO__container'>
-      <FollowingBar followedBy={followedBy} following={following} />
+      <InterestBar />
+      {/* <FollowingBar followedBy={followedBy} following={following} /> */}
       {Object.keys(newMsg).length && !showNotify.current
         ? notifyNewMessage(newMsg)
         : null}
@@ -454,7 +473,13 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           setSelectedImg={setSelectedImg}
         />
       )}
-      {followModal && <LikesModal info={followModal} closeHandler={setFollowModal} title={followModal.title} />}
+      {followModal && (
+        <LikesModal
+          info={followModal}
+          closeHandler={setFollowModal}
+          title={followModal.title}
+        />
+      )}
       {editBioModal && (
         <EditModal handleEdit={setEditBioModal} info={info.bio} isBio={true} />
       )}
