@@ -248,10 +248,14 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   };
 
   const showFollow = (type) => {
+
+    const obj = {};
+    obj.title = type.charAt(0).toUpperCase() + type.slice(1)
+
     if (type === 'following') {
-      setFollowModal({data: following.users})
+      setFollowModal({ ...obj, data: following.users })
     } else if (type === 'followers') {
-      setFollowModal({data: followedBy.users})
+      setFollowModal({ ...obj, data: followedBy.users})
     }
   };
 
@@ -450,7 +454,7 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           setSelectedImg={setSelectedImg}
         />
       )}
-      {followModal && <LikesModal info={followModal} closeHandler={setFollowModal} />}
+      {followModal && <LikesModal info={followModal} closeHandler={setFollowModal} title={followModal.title} />}
       {editBioModal && (
         <EditModal handleEdit={setEditBioModal} info={info.bio} isBio={true} />
       )}
