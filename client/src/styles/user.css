@@ -356,6 +356,11 @@
   margin-top: 0px;
 }
 
+.user_info_bottom {
+  display: flex;
+  flex-direction: row;
+}
+
 @media screen and (max-width: 900px) {
   .USER_INFO__container {
     display: flex;
