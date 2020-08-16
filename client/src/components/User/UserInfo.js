@@ -109,7 +109,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
         signal
       );
       if (responce.success) {
-        console.log({ responce });
         dispatch(addInterests({ interests: responce.interests }));
       }
     },

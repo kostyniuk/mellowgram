@@ -48,7 +48,7 @@
 }
 
 .FOLLOWING_BAR_USER:hover {
-  cursor: pointer ;
+  cursor: pointer;
 }
 
 .FOLLOWED_BAR_BODY {
@@ -78,6 +78,24 @@
   object-position: center;
   object-fit: cover;
   margin-top: 0px;
+}
+
+.INTEREST_BAR_CONTAINER {
+  display: flex;
+  flex-direction: column;
+}
+
+.INTEREST_BAR_BODY {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.INTEREST_BAR_BODY ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 @media screen and (max-width: 900px) {
