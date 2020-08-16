@@ -1,30 +1,29 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import '../../styles/followingBar.css';
 
-import { useHistory } from 'react-router-dom';
-
-const UserRow = ({ picture, username }) => {
-  const history = useHistory();
-
-  const handleClickLink = () => {
-    return history.push(`${username}`);
-  };
-
-  return (
-    <div className='FOLLOWING_BAR_USER' onClick={handleClickLink}>
-      <p></p>
-      <div className='FOLLOWING_BAR_USER__header'>
-        <h3 className='FOLLOWING_BAR_USER__username'>{username}</h3>
-      </div>
-    </div>
-  );
-};
-
 const InterestBar = ({ following, followedBy }) => {
+  const interests = useSelector((state) => state.currentPage.interests);
+
+  if (!interests) return <div className='USER_INFO__followingBar'></div>;
+
   return (
     <div className='USER_INFO__followingBar'>
-      <h3>Interests</h3>
+      <div className='INTEREST_BAR_CONTAINER'>
+        <div className='INTEREST_BAR_TITLE'>
+          <h3>Interests</h3>
+        </div>
+        <div className='INTEREST_BAR_BODY'>
+          <ul>
+            {interests.map((interest) => (
+              <li
+                style={{ backgroundColor: interest.interest_color, opacity: '.8', color: 'black' }}
+              >{`${interest.interest_emoji} ${interest.interest_name}`}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
