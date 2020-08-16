@@ -29,6 +29,7 @@ import {
   SET_ONLINE,
   ADD_CHAT,
   UPDATE_BIO,
+  ADD_INTERESTS,
 } from './types';
 
 export const authUser = ({
@@ -224,4 +225,9 @@ export const addChat = ({ chat }) => ({
 export const updateBio = ({ newBio }) => ({
   type: UPDATE_BIO,
   payload: { newBio },
+});
+
+export const addInterests = ({ interests }) => ({
+  type: ADD_INTERESTS,
+  payload: { interests },
 });
