@@ -25,6 +25,7 @@ import EditModal from './EditModal';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/user.css';
 import '../../styles/btn.css';
+import LikesModal from './LikesModal';
 
 const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const history = useHistory();
@@ -41,6 +42,8 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const [selectedImg, setSelectedImg] = useState(null);
   const [followingThisUser, setFollowingThisUser] = useState(false);
   const [editBioModal, setEditBioModal] = useState(false);
+
+  const [followModal, setFollowModal] = useState(null);
 
   const showNotify = useRef(false);
   let same = useRef(true);
@@ -244,6 +247,14 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     setOpenDialog(msgInfo.chatId);
   };
 
+  const showFollow = (type) => {
+    if (type === 'following') {
+      setFollowModal({data: following.users})
+    } else if (type === 'followers') {
+      setFollowModal({data: followedBy.users})
+    }
+  };
+
   if (followingThisUser) btnClassName += ' LIKESMODAL_BTN_followed';
 
   if (!info) return <div></div>;
@@ -255,8 +266,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     following.user !== info.username
   )
     return <div></div>;
-
-  console.log({ info });
 
   return (
     <div className='USER_INFO__container'>
@@ -420,8 +429,18 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           </div>
         </div>
         <div className='user_info_bottom'>
-          <button className='green follow'>Followers</button>
-          <button className='green follow'>Following</button>
+          <button
+            className='green follow'
+            onClick={() => showFollow('followers')}
+          >
+            Followers
+          </button>
+          <button
+            className='green follow'
+            onClick={() => showFollow('following')}
+          >
+            Following
+          </button>
         </div>
       </div>
       <PicturesBar setSelectedImg={setSelectedImg} />
@@ -431,6 +450,7 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           setSelectedImg={setSelectedImg}
         />
       )}
+      {followModal && <LikesModal info={followModal} closeHandler={setFollowModal} />}
       {editBioModal && (
         <EditModal handleEdit={setEditBioModal} info={info.bio} isBio={true} />
       )}
