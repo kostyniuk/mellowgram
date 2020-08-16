@@ -7,7 +7,7 @@ import FollowRow from './FollowRow';
 
 import '../../styles/modal.css';
 
-const LikesModal = ({ closeHandler, info }) => {
+const LikesModal = ({ closeHandler, info, title = 'test' }) => {
   const following = useSelector((state) => state.loggedInFollows);
 
   console.log({ info });
@@ -36,6 +36,10 @@ const LikesModal = ({ closeHandler, info }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       >
+        <div className='LIKES_MODAL_TITLE'>
+          <h3>{title}</h3>
+          <hr className='hr'></hr>
+        </div>
         {info.data &&
           info.data.map((user) => (
             <FollowRow

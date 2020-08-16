@@ -70,6 +70,18 @@
   border: none;
 }
 
+.LIKES_MODAL_TITLE {
+  padding: 15px;
+}
+
+.LIKES_MODAL_TITLE h3 {
+  padding-left: 10px;
+}
+
+.LIKES_MODAL_TITLE hr {
+  margin-bottom: 0px;
+}
+
 @media screen and (max-width: 1200px) {
   .LIKESMODAL_CONTENT {
     margin: 20px;
