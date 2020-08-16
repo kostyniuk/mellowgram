@@ -419,6 +419,10 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
             </div>
           </div>
         </div>
+        <div className='user_info_bottom'>
+          <button className='green follow'>Followers</button>
+          <button className='green follow'>Following</button>
+        </div>
       </div>
       <PicturesBar setSelectedImg={setSelectedImg} />
       {selectedImg && (
