@@ -7,12 +7,14 @@ import FollowRow from './FollowRow';
 
 import '../../styles/modal.css';
 
-const LikesModal = ({ setSelectedImg, likes }) => {
+const LikesModal = ({ closeHandler, info }) => {
   const following = useSelector((state) => state.loggedInFollows);
+
+  console.log({ info });
 
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
-      setSelectedImg(null);
+      closeHandler(null);
     }
   };
 
@@ -34,8 +36,8 @@ const LikesModal = ({ setSelectedImg, likes }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       >
-        {likes.data &&
-          likes.data.map((user) => (
+        {info.data &&
+          info.data.map((user) => (
             <FollowRow
               key={user.person_id}
               id={user.person_id}
