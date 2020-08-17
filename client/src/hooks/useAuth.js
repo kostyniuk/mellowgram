@@ -18,6 +18,11 @@ const useAuth = () => {
       if (responce.success) {
         const json = await request(`/api/user/${responce.data.username}`);
         const { id, username } = responce.data;
+
+        const resInterests = await request(`/api/interest/${username}`);
+
+        const { interests } = resInterests;
+
         const {
           based_in,
           bio,
@@ -40,6 +45,7 @@ const useAuth = () => {
             occupation,
             phone_number,
             picture,
+            interests,
           })
         );
       } else {
