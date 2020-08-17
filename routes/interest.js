@@ -29,4 +29,30 @@ router.get('/:username', async (req, res, next) => {
   }
 });
 
+router.post('/', async (req, res, next) => {
+  try {
+    const { user_id } = req.user;
+    const { interests_ids } = req.body;
+
+    const promises = [];
+
+    interests_ids.forEach((interest_id) => {
+      const query = `INSERT INTO Users_Interests_Map (user_id, interest_id) VALUES ($1, $2);`;
+      promises.push(db.query(query, [user_id, interest_id]));
+    });
+
+    const responce = await Promise.all(promises);
+
+    if (responce[0].rowCount) {
+      return res.json({ success: true, responce });
+    }
+    return res.json({ success: false, responce });
+  } catch (e) {
+    if (e.code === '23505') {
+      return res.json({ success: true, msg: e });
+    }
+    res.json({ success: false, msg: e });
+  }
+});
+
 module.exports = router;
