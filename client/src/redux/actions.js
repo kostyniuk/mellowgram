@@ -43,6 +43,7 @@ export const authUser = ({
   occupation,
   phone_number,
   picture,
+  interests
 }) => ({
   type: AUTH_USER,
   payload: {
@@ -56,6 +57,7 @@ export const authUser = ({
     occupation,
     phone_number,
     picture,
+    interests
   },
 });
 

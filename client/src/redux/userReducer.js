@@ -17,6 +17,7 @@ const initialState = {
   occupation: null,
   phone_number: null,
   picture: null,
+  interests: null,
   ready: false,
 };
 
@@ -36,6 +37,7 @@ const userReducer = (state = initialState, action) => {
         occupation: action.payload.occupation,
         phone_number: action.payload.phone_number,
         picture: action.payload.picture,
+        interests: action.payload.interests,
         ready: true,
       };
     case UPDATE_PROFILE_PICTURE: {
