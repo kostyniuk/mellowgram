@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import '../../styles/followingBar.css';
 
-const InterestBar = ({ following, followedBy }) => {
+const InterestBar = () => {
   const interests = useSelector((state) => state.currentPage.interests);
 
   if (!interests) return <div className='USER_INFO__followingBar'></div>;
@@ -18,7 +18,11 @@ const InterestBar = ({ following, followedBy }) => {
           <ul>
             {interests.map((interest) => (
               <li
-                style={{ backgroundColor: interest.interest_color, opacity: '.8', color: 'black' }}
+                style={{
+                  backgroundColor: interest.interest_color,
+                  opacity: '.8',
+                  color: 'black',
+                }}
               >{`${interest.interest_emoji} ${interest.interest_name}`}</li>
             ))}
           </ul>
