@@ -83,7 +83,26 @@ const SettingsCard = () => {
     setPasswordToDelete('');
   };
 
-  const sendNewActivities = async () => {};
+  const sendNewActivities = async (e) => {
+    let interests_ids = [];
+
+    const method = e ? 'POST' : 'DELETE';
+
+    if (method === 'POST') {
+      interests_ids = e.map((interest) => interest.id);
+    }
+
+    const responce = await request('api/interest/', {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ interests_ids }),
+    });
+
+    console.log({ responce });
+    //TODO -> dispatch(editActivities({newActivities: e}))
+  };
 
   const copy1 = deepCopy(info);
 
