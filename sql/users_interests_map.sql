@@ -15,3 +15,6 @@ ALTER TABLE Users_Interests_Map ADD CONSTRAINT fk_User_Id
 ALTER TABLE Users_Interests_Map ADD CONSTRAINT fk_Interest_Id
   FOREIGN KEY (interest_id) REFERENCES Interest (interest_id)
   ON DELETE CASCADE;
+
+ALTER TABLE Users_Interests_Map ADD CONSTRAINT no_duplicate_activities_for_the_same_user
+ UNIQUE(user_id, interest_id);
