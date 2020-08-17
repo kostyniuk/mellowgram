@@ -95,7 +95,7 @@
   padding-left: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 @media screen and (max-width: 900px) {
