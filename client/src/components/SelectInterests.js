@@ -4,13 +4,12 @@ import useFetch from '../hooks/useFetch';
 
 import Select from 'react-select';
 import chroma from 'chroma-js';
+import { useSelector } from 'react-redux';
 
 const styles = {
   colourStyles: {
     control: (styles) => ({ ...styles, backgroundColor: 'black' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-      console.log({ data });
-
       const color = chroma(data.color);
       return {
         ...styles,
@@ -74,9 +73,36 @@ const styles = {
 };
 
 const SelectInterests = () => {
+  const loggedInInterests = useSelector(
+    (state) => state.loggedInUser.interests
+  );
+
+  const [alreadyInterests, setAlreadyInterests] = useState([]);
+
   const { request } = useFetch();
 
   const [interests, setInterests] = useState([]);
+
+  const distinguishAlreadyInterests = () => {
+    const loggedInInterestsIds = loggedInInterests.map(
+      (myInterest) => +myInterest.interest_id
+    );
+    interests.map((section) => {
+      const { options } = section;
+
+      const filtered = options.filter((interest) =>
+        loggedInInterestsIds.includes(+interest.id)
+      );
+
+      filtered.map((interest) =>
+        setAlreadyInterests((prev) => [...prev, interest])
+      );
+    });
+  };
+
+  useEffect(() => {
+    distinguishAlreadyInterests();
+  }, [loggedInInterests, interests]);
 
   const handler = (e) => {
     console.log(e);
@@ -88,7 +114,6 @@ const SelectInterests = () => {
       <span style={styles.groupBadgeStyles}>{data.options.length}</span>
     </div>
   );
-
 
   const fetchInterests = useCallback(async () => {
     const responce = await request('/api/interest');
@@ -125,12 +150,12 @@ const SelectInterests = () => {
     fetchInterests();
   }, [fetchInterests]);
 
-  if (!interests) return null;
+  if (!interests || !alreadyInterests.length) return null;
 
   return (
     <div>
       <Select
-        // defaultValue={[colourOptions[2], colourOptions[3]]}
+        defaultValue={alreadyInterests}
         isMulti
         styles={styles.colourStyles}
         name='colors'
