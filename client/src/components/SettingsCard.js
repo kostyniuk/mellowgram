@@ -88,6 +88,7 @@ const SettingsCard = () => {
     'ready',
     'isAuthenticated',
     'picture',
+    'interests'
   ]);
 
   return (
