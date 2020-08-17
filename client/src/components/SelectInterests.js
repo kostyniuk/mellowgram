@@ -72,41 +72,57 @@ const styles = {
   },
 };
 
-const SelectInterests = () => {
+const SelectInterests = ({ setSelectActivities }) => {
   const loggedInInterests = useSelector(
     (state) => state.loggedInUser.interests
   );
 
-  const [alreadyInterests, setAlreadyInterests] = useState([]);
+  const [alreadyInterests, setAlreadyInterests] = useState({
+    loaded: false,
+    data: [],
+  });
 
   const { request } = useFetch();
 
   const [interests, setInterests] = useState([]);
 
-  const distinguishAlreadyInterests = () => {
+  const distinguishAlreadyInterests = useCallback(() => {
     const loggedInInterestsIds = loggedInInterests.map(
       (myInterest) => +myInterest.interest_id
     );
-    interests.map((section) => {
+    interests.map((section, i, arr) => {
       const { options } = section;
 
       const filtered = options.filter((interest) =>
         loggedInInterestsIds.includes(+interest.id)
       );
 
-      filtered.map((interest) =>
-        setAlreadyInterests((prev) => [...prev, interest])
-      );
+      if (i !== arr.length - 1) {
+        filtered.map((interest, index, interests) => {
+          setAlreadyInterests((prev) => ({
+            ...prev,
+            data: [...prev.data, interest],
+          }));
+        });
+      } else {
+        if (!filtered.length) {
+          setAlreadyInterests((prev) => ({ ...prev, loaded: true }));
+        } else {
+          filtered.map((interest, index, interests) => {
+            setAlreadyInterests((prev) => ({
+              ...prev,
+              loaded: true,
+              data: [...prev.data, interest],
+            }));
+          });
+        }
+      }
     });
-  };
+  }, [loggedInInterests, interests]);
 
   useEffect(() => {
     distinguishAlreadyInterests();
-  }, [loggedInInterests, interests]);
-
-  const handler = (e) => {
-    console.log(e);
-  };
+  }, [distinguishAlreadyInterests]);
 
   const formatGroupLabel = (data) => (
     <div style={styles.groupStyles}>
@@ -150,12 +166,12 @@ const SelectInterests = () => {
     fetchInterests();
   }, [fetchInterests]);
 
-  if (!interests || !alreadyInterests.length) return null;
+  if (!interests || !alreadyInterests.loaded) return null;
 
   return (
     <div>
       <Select
-        defaultValue={alreadyInterests}
+        defaultValue={!alreadyInterests.fetched ? alreadyInterests.data : []}
         isMulti
         styles={styles.colourStyles}
         name='colors'
@@ -163,7 +179,7 @@ const SelectInterests = () => {
         formatGroupLabel={formatGroupLabel}
         className='basic-multi-select'
         classNamePrefix='select'
-        onChange={handler}
+        onChange={(e) => setSelectActivities(e)}
       />
     </div>
   );
