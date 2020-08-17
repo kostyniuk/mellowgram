@@ -36,6 +36,10 @@ router.post('/', async (req, res, next) => {
 
     const promises = [];
 
+    const deleting = await db.query(
+      `DELETE FROM Users_Interests_Map WHERE user_id = $1`,
+      [user_id]
+    );
     interests_ids.forEach((interest_id) => {
       const query = `INSERT INTO Users_Interests_Map (user_id, interest_id) VALUES ($1, $2);`;
       promises.push(db.query(query, [user_id, interest_id]));
@@ -45,6 +49,27 @@ router.post('/', async (req, res, next) => {
 
     if (responce[0].rowCount) {
       return res.json({ success: true, responce });
+    }
+    return res.json({ success: false, responce });
+  } catch (e) {
+    if (e.code === '23505') {
+      return res.json({ success: true, msg: e });
+    }
+    res.json({ success: false, msg: e });
+  }
+});
+
+router.delete('/', async (req, res, next) => {
+  try {
+    const { user_id } = req.user;
+
+    const responce = await db.query(
+      `DELETE FROM Users_Interests_Map WHERE user_id = $1`,
+      [user_id]
+    );
+
+    if (responce.command) {
+      return res.json({ success: true, msg: 'Activities deleted' });
     }
     return res.json({ success: false, responce });
   } catch (e) {
