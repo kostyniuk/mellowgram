@@ -2,9 +2,21 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import '../../styles/followingBar.css';
+import { useHistory } from 'react-router-dom';
 
 const InterestBar = () => {
-  const interests = useSelector((state) => state.currentPage.interests);
+  const history = useHistory();
+
+  const currentPage = useSelector((state) => state.currentPage);
+  const loggedInUser = useSelector((state) => state.loggedInUser);
+
+  const { interests } = currentPage;
+
+  console.log({ interests, currentPage });
+
+  const redirectToSettings = () => {
+    history.push('/account');
+  };
 
   if (!interests) return <div className='USER_INFO__followingBar'></div>;
 
@@ -12,7 +24,7 @@ const InterestBar = () => {
     <div className='USER_INFO__followingBar'>
       <div className='INTEREST_BAR_CONTAINER'>
         <div className='INTEREST_BAR_TITLE'>
-          <h3>Interests</h3>
+          {interests.length || loggedInUser.id !== currentPage.id ? <h3>Interests</h3> : null}
         </div>
         <div className='INTEREST_BAR_BODY'>
           <ul>
@@ -26,6 +38,16 @@ const InterestBar = () => {
               >{`${interest.interest_emoji} ${interest.interest_name}`}</li>
             ))}
           </ul>
+          {!interests.length && loggedInUser.id === currentPage.id && (
+            <div className='INTEREST_BAR_NO_INTERESTS'>
+              <h3>No interests yet</h3>
+              <i
+                class='fa fa-plus'
+                aria-hidden='true'
+                onClick={redirectToSettings}
+              ></i>
+            </div>
+          )}
         </div>
       </div>
     </div>
