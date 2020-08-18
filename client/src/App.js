@@ -8,8 +8,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import equal from 'deep-equal';
-
 import {
   setLoggedInFollowing,
   getChats,
