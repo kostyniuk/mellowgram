@@ -1,3 +1,13 @@
+:root {
+  --first_interest_color: #FBEEE6;
+  --second_interest_color: #FFE5D8;
+  --third_interest_color: #FFCAD4;
+  --sixth_interest_color: #EBB8C0;
+  --fourth_interest_color: #F3ABB6;
+  --seventh_interest_color: #CE9DAD;
+  --fifth_interest_color: #988189;
+}
+
 .USER_INFO__followingBar {
   display: flex;
   flex-direction: row;
@@ -94,6 +104,7 @@
 
 .INTEREST_BAR_BODY ul {
   padding-left: 20px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
