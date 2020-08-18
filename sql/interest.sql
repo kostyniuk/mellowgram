@@ -19,19 +19,19 @@ INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Most popular',
-'Music', '🎵');
+    'Music', '🎵');
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Most popular',
-'Movies', '🎥' );
+    'Movies', '🎥' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Most popular',
-'Sports', '⚽️' );
+    'Sports', '⚽️' );
 
 
 
@@ -39,273 +39,281 @@ INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Basketball', '🏀' );
+    'Basketball', '🏀' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Football', '🏈' );
+    'Football', '🏈' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Soccer', '⚽️' );
+    'Soccer', '⚽️' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Volleyball', '🏐' );
+    'Volleyball', '🏐' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Marathon running', '🏃' );
+    'Marathon running', '🏃' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Skiing', '⛷' );
+    'Skiing', '⛷' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Tennis', '🎾' );
+    'Tennis', '🎾' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Cycling', '🚵‍♀️' );
+    'Cycling', '🚵‍♀️' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Swimming', '🏊‍♀️' );
+    'Swimming', '🏊‍♀️' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Baseball', '⚾️' );
+    'Baseball', '⚾️' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Sport',
-'Mountain climbing', '🧗‍♀️' );
+    'Mountain climbing', '🧗‍♀️' );
 
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Chess', '♟' );
+    'Chess', '♟' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Playing a musical instrument', '🎸' );
+    'Playing a musical instrument', '🎸' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Reading', '📖' );
+    'Reading', '📖' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Writing', '✍🏼' );
+    'Writing', '✍🏼' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Sketching', '✏️⁣⁣' );
+    'Sketching', '✏️⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Photography', '📸⁣⁣' );
+    'Photography', '📸⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Design', '💻' );
+    'Design', '💻' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Blog writing', '⌨️⁣⁣' );
+    'Blog writing', '⌨️⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Analytical Thinking',
-'Painting', '🖼' );
+    'Painting', '🖼' );
 
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Social Interest⁣⁣',
-'Politics', '👩‍💼' );
+    'Politics', '👩‍💼' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Social Interest⁣⁣',
-'Volunteering', '😚' );
+    'Volunteering', '😚' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Social Interest⁣⁣',
-'Public speaking', '🗣⁣⁣' );
+    'Public speaking', '🗣⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Social Interest⁣⁣',
-'Exploring other cultures', '🗺' );
+    'Exploring other cultures', '🗺' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Social Interest⁣⁣',
-'Dancing', '💃' );
+    'Dancing', '💃' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Social Interest⁣⁣',
-'Camping', '🏕' );
+    'Camping', '🏕' );
 
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Science⁣⁣',
-'Programming', '👨‍💻⁣⁣' );
+    'Programming', '👨‍💻⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Science⁣⁣',
-'History', '🦽⁣⁣' );
+    'History', '🦽⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Science⁣⁣',
-'Geography', '✈️' );
+    'Geography', '✈️' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Science⁣⁣',
-'Biology', '🧬⁣⁣' );
+    'Biology', '🧬⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Science⁣⁣',
-'Chemistry', '🧪' );
+    'Chemistry', '🧪' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Science⁣⁣',
-'Physics', '🚀⁣⁣' );
+    'Physics', '🚀⁣⁣' );
 
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Finance',
-'Marketing', '📈⁣⁣' );
+    'Marketing', '📈⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Finance',
-'Economics', '💵' );
+    'Economics', '💵' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Finance',
-'Blockchain', '🔐' );
+    'Blockchain', '🔐' );
 
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Archery', '🏹' );
+    'Archery', '🏹' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Boardgames', '🧩⁣⁣' );
+    'Boardgames', '🧩⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Gardening', '🍀⁣⁣' );
+    'Gardening', '🍀⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Baking', '👩‍🍳' );
+    'Baking', '👩‍🍳' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Journaling', '🎙⁣⁣' );
+    'Journaling', '🎙⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Calligraphy', '✒️⁣⁣' );
+    'Calligraphy', '✒️⁣⁣' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Fencing', '🤺' );
+    'Fencing', '🤺' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Theater', '🎭' );
+    'Theater', '🎭' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Yoga', '🧘‍♀️' );
+    'Yoga', '🧘‍♀️' );
 
 INSERT INTO Interest
   (interest_category, interest_name, interest_emoji)
 VALUES
   ('Unique',
-'Languages', '🇫🇷' );
+    'Languages', '🇫🇷' );
+
+UPDATE interest SET interest_color = '#FBEEE6' WHERE interest_category = 'Most popular';
+UPDATE interest SET interest_color = '#FFE5D8' WHERE interest_category = 'Sport';
+UPDATE interest SET interest_color = '#FFCAD4' WHERE interest_category = 'Analytical Thinking';
+UPDATE interest SET interest_color = '#EBB8C0' WHERE interest_category = 'Social Interest⁣⁣';
+UPDATE interest SET interest_color = '#F3ABB6' WHERE interest_category = 'Science⁣⁣';
+UPDATE interest SET interest_color = '#CE9DAD' WHERE interest_category = 'Finance';
+UPDATE interest SET interest_color = '#988189' WHERE interest_category = 'Unique';
