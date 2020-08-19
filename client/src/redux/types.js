@@ -27,4 +27,6 @@ export const RESET_UNREAD_COUNTER = 'RESET_UNREAD_COUNTER';
 export const SET_ONLINE = 'SET_ONLINE';
 export const ADD_CHAT = 'ADD_CHAT';
 export const UPDATE_BIO = 'UPDATE_BIO';
-export const ADD_INTERESTS = 'ADD_INTERESTS'
+export const ADD_INTERESTS = 'ADD_INTERESTS';
+export const SET_HOME_POSTS = 'SET_HOME_POSTS';
+export const SET_HOME_LIKES = 'SET_HOME_LIKES';

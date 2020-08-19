@@ -30,6 +30,8 @@ import {
   ADD_CHAT,
   UPDATE_BIO,
   ADD_INTERESTS,
+  SET_HOME_POSTS,
+  SET_HOME_LIKES,
 } from './types';
 
 export const authUser = ({
@@ -232,4 +234,13 @@ export const updateBio = ({ newBio }) => ({
 export const addInterests = ({ interests }) => ({
   type: ADD_INTERESTS,
   payload: { interests },
+});
+
+export const setHomePosts = ({ posts, user }) => ({
+  type: SET_HOME_POSTS,
+  payload: { posts, user },
+});
+export const setHomeLikes = ({ likes }) => ({
+  type: SET_HOME_LIKES,
+  payload: { likes },
 });
