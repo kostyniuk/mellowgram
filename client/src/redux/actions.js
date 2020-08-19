@@ -236,10 +236,11 @@ export const addInterests = ({ interests }) => ({
   payload: { interests },
 });
 
-export const setHomePosts = ({ posts, user }) => ({
+export const setHomePosts = ({ posts, likes }) => ({
   type: SET_HOME_POSTS,
-  payload: { posts, user },
+  payload: { posts, likes },
 });
+
 export const setHomeLikes = ({ likes }) => ({
   type: SET_HOME_LIKES,
   payload: { likes },
