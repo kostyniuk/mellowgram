@@ -7,6 +7,7 @@ import {
   onLike,
   decrementNumberOfLikes,
   incrementNumberOfLikes,
+  OnLikePostHome,
 } from '../../../redux/actions';
 
 const Post = ({
@@ -19,12 +20,14 @@ const Post = ({
   likes,
   postedAt,
   showSettings,
-  loggedInfo,
   setSelectedLikes,
   deletePostHandler,
   editPostHandler,
+  type,
 }) => {
   const dispatch = useDispatch();
+
+  const loggedInUser = useSelector((state) => state.loggedInUser);
 
   const { request } = useFetch();
 
@@ -43,12 +46,16 @@ const Post = ({
     });
 
     if (res?.success) {
-      if (liked) {
-        dispatch(decrementNumberOfLikes(id));
+      if (!type) {
+        if (liked) {
+          dispatch(decrementNumberOfLikes(id));
+        } else {
+          dispatch(incrementNumberOfLikes(id));
+        }
+        dispatch(onLike({ ...loggedInUser, id }));
       } else {
-        dispatch(incrementNumberOfLikes(id));
+        dispatch(OnLikePostHome({ post: id, me: loggedInUser }));
       }
-      dispatch(onLike({ ...loggedInfo, id }));
       setLiked((prev) => !prev);
     }
   };
