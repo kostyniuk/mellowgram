@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
     const query = 'SELECT * FROM Interest ORDER BY interest_id;';
     const { rows } = await db.query(query, []);
 
-    return res.json({ success: false });
+    return res.json({ success: true, interests: rows });
   } catch (e) {
     res.json({ success: false, msg: e });
   }
