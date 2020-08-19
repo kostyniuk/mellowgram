@@ -28,7 +28,7 @@ const Hamburger = ({ handler }) => {
 
 const Header = () => {
   const history = useHistory();
-  
+
   const [open, setOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
 
@@ -68,7 +68,15 @@ const Header = () => {
         </div>
         <ul className={open ? 'nav-items show' : 'nav-items'}>
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
-            <NavLink to='/about'>About us</NavLink>
+            {authorized.isAuthenticated ? (
+              <NavLink to='/home'>
+                <div className='Header__direct'>
+                  <i className='fa fa-home' aria-hidden='true'></i>
+                </div>
+              </NavLink>
+            ) : (
+              <NavLink to='/about'>About us</NavLink>
+            )}
           </li>
           <li className={open ? 'disabled' : ''}>|</li>
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
