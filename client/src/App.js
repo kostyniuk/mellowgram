@@ -35,8 +35,8 @@ import Home from './pages/Home';
 import './App.css';
 //TODO WHEN I RECEIVE A MESSAGE AND I'M INSIDE THIS CHAT, IT SHOULDN'T BE TREATED AS UNREAD
 
-// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
-const ws = new WebSocket(`ws://localhost:5000`);
+const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+// const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
