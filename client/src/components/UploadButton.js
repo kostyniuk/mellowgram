@@ -15,7 +15,6 @@ const UploadButton = () => {
 
   const {username, picture} = useSelector(state => state.loggedInUser)
   const dispatch = useDispatch()
-  console.log({username, picture})
 
   const deleteImage = () => {
     setRemoved(() => true);
@@ -41,7 +40,6 @@ const UploadButton = () => {
       body: fd,
     });
     const data = await response.json();
-    console.log(data);
     dispatch(updateProfilePicture(data.src))
     setNewImage(null);
   };

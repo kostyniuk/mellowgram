@@ -44,7 +44,7 @@ router.get('/home', async (req, res, next) => {
         return { ...post, creatorInfo: creator };
       });
 
-      return res.status(200).json({ success: true, data: patchedPosts });
+      return res.status(200).json({ success: true, posts: patchedPosts });
     }
 
     return res.json({ success: true });

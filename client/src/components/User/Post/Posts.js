@@ -193,7 +193,11 @@ const Posts = () => {
           })}
       </InfiniteScroll>
       {selectedLikes && (
-        <LikesModal closeHandler={setSelectedLikes} info={selectedLikes} title='Likes' />
+        <LikesModal
+          closeHandler={setSelectedLikes}
+          info={selectedLikes}
+          title='Likes'
+        />
       )}
 
       {editModal && <EditModal handleEdit={setEditModal} info={editModal} />}
