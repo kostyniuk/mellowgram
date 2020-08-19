@@ -32,6 +32,8 @@ import {
   ADD_INTERESTS,
   SET_HOME_POSTS,
   SET_HOME_LIKES,
+  LOAD_MORE_HOME_POSTS,
+  ON_LIKE_POST_HOME,
 } from './types';
 
 export const authUser = ({
@@ -45,7 +47,7 @@ export const authUser = ({
   occupation,
   phone_number,
   picture,
-  interests
+  interests,
 }) => ({
   type: AUTH_USER,
   payload: {
@@ -59,7 +61,7 @@ export const authUser = ({
     occupation,
     phone_number,
     picture,
-    interests
+    interests,
   },
 });
 
@@ -241,7 +243,7 @@ export const setHomePosts = ({ posts, likes }) => ({
   payload: { posts, likes },
 });
 
-export const setHomeLikes = ({ likes }) => ({
-  type: SET_HOME_LIKES,
-  payload: { likes },
+export const OnLikePostHome = ({ post, me }) => ({
+  type: ON_LIKE_POST_HOME,
+  payload: { post, me },
 });
