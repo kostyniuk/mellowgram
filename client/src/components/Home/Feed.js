@@ -1,15 +1,18 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import useFetch from '../../hooks/useFetch';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHomePosts } from '../../redux/actions';
+import { sleep } from '../../helpers/index';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
+import Post from '../User/Post/Post';
 
 const Feed = () => {
   const { request } = useFetch();
   const dispatch = useDispatch();
 
   const posts = Object.values(useSelector((state) => state.homePosts)).sort();
+  const [hasMore, setHasMore] = useState(true);
 
   console.log({ posts });
 
@@ -34,13 +37,13 @@ const Feed = () => {
   }, [request]);
 
   const fetchMoreData = async () => {
-    offset.current += 5;
+    offset.current += 10;
     const responce = await request(
-      `/api/post/home?limit=10&offset=${offset.current}`
+      `/api/post/home?limit=5&offset=${offset.current}`
     );
 
     if (responce.success) {
-      const likes = await loadLikes(res.posts);
+      const likes = await loadLikes(responce.posts);
 
       await sleep(300);
 
@@ -50,9 +53,9 @@ const Feed = () => {
       }
 
       dispatch(
-        loadMorePosts({
+        setHomePosts({
           posts: responce.posts,
-          likes
+          likes,
         })
       );
     }
@@ -65,8 +68,35 @@ const Feed = () => {
   return (
     <div>
       <h1>Home</h1>
+      {posts.length && (
+        <InfiniteScroll
+          dataLength={posts.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+          loader={<h4>Loading...</h4>}
+        >
+          {posts
+            .reverse()
+            .slice(1)
+            .map((post) => {
+              return (
+                <Post
+                  key={post.post_id}
+                  id={post.post_id}
+                  picture={post.creatorInfo.picture}
+                  username={post.creatorInfo.username}
+                  text={post.caption}
+                  numberOfLikes={post.number_of_likes}
+                  postedAt={post.created_at}
+                  likes={post.likes}
+                  type='feed'
+                  // setSelectedLikes={setSelectedLikes}
+                />
+              );
+            })}
+        </InfiniteScroll>
+      )}
     </div>
   );
 };
-
 export default Feed;
