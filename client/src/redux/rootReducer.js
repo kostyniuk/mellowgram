@@ -10,6 +10,7 @@ import loggedInFollows from './loggedInFollows';
 import chatsReducer from './chatReducer';
 import messagesReducer from './messagesReducer';
 import onlineUsersReducer from './onlineUsers';
+import homePostsReducer from './homePostsReducer';
 
 const rootReducer = combineReducers({
   loggedInUser: loggedInUserReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   chats: chatsReducer,
   messages: messagesReducer,
   onlineUsers: onlineUsersReducer,
+  homePosts: homePostsReducer,
 });
 
 export default rootReducer;
