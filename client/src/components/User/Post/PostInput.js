@@ -61,38 +61,34 @@ function PostInput({
   };
 
   return (
-    <div>
-      <div>
-        <div className='POST__body POSTINPUT '>
-          <div className='POST__title'>
-            <div className='POST__title__left'>
-              <img
-                src={picture}
-                alt='avatar'
-                className='POST__profile_picture'
-                style={{ marginTop: '0' }}
-              />
-              <div className='POST__header'>
-                <h3 className='POST__fullname'>{fullname}</h3>
-                <h4 className='POST__username'>@{username}</h4>
-              </div>
-            </div>
-          </div>
-          <div className='POST__context'>
-            <textarea
-              value={caption}
-              name='message'
-              autoFocus
-              id='message'
-              rows='4'
-              className='form-input'
-              onChange={(e) => setCaption(e.target.value)}
-            ></textarea>
-            <button className='green' onClick={submitHandler}>
-              Submit
-            </button>
+    <div className='POST__body POSTINPUT '>
+      <div className='POST__title'>
+        <div className='POST__title__left'>
+          <img
+            src={picture}
+            alt='avatar'
+            className='POST__profile_picture'
+            style={{ marginTop: '0' }}
+          />
+          <div className='POST__header'>
+            <h3 className='POST__fullname'>{fullname}</h3>
+            <h4 className='POST__username'>@{username}</h4>
           </div>
         </div>
+      </div>
+      <div className='POST__context'>
+        <textarea
+          value={caption}
+          name='message'
+          autoFocus
+          id='message'
+          rows='4'
+          className='form-input'
+          onChange={(e) => setCaption(e.target.value)}
+        ></textarea>
+        <button className='green' onClick={submitHandler}>
+          Submit
+        </button>
       </div>
     </div>
   );
