@@ -1,0 +1,31 @@
+:root {
+  --bg_color_light: #ebe6e7;
+  --bg_color_dark: #181a19;
+  --text_light: #ffffff;
+  --text_dark: #000;
+  --cream: hsl(348, 11%, 91%);
+  --blue: #3498db;
+  --grey: rgb(44, 44, 44);
+  --lightgrey: #6c6c6c;
+  --pinkish: #ffbcbc;
+}
+
+.FEED_CONTAINER {
+  display: flex;
+}
+
+.FEED_SIDE {
+  width: 30%;
+  min-width: 200px;
+  background-color: var(--grey);
+}
+
+.FEED_SIDE h3 {
+  padding: 10px;
+  height: 100%;
+  line-height: 1;
+}
+
+.FEED_SIDE hr {
+  margin-top: 0px;
+}
