@@ -13,21 +13,25 @@
   margin: auto;
   box-sizing: border-box;
   margin-bottom: 50px;
-  padding: 20px;
+  padding: 50px;
+  align-items: center;
 }
 .POST__body {
   border-radius: 20px;
   padding-bottom: 10px;
   min-height: 100px;
   background: var(--text_dark);
-  width: 100%;
   flex-wrap: wrap;
   flex-direction: row;
   border: 100px solid;
   border-image-slice: 1;
   border-width: 2px;
   /* border-image-source: linear-gradient(to left, #743ad5, #d53a9d); */
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.POSTS_INFINITE_SCROLL {
+  width: 50%;
 }
 
 .POST__title {
@@ -127,7 +131,7 @@
   }
 
   .POST__body {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 
   .POST__like_section {
@@ -166,7 +170,8 @@
 }
 
 .POSTINPUT {
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  width: 50%;
 }
 
 .hr {
