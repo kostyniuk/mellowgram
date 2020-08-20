@@ -69,6 +69,8 @@ const Feed = () => {
     loadIntitialPosts();
   }, [loadIntitialPosts]);
 
+  if (!posts.length) return null;
+
   return (
     <div className='FEED_CONTAINER'>
       <div className='FEED_SIDE'>
