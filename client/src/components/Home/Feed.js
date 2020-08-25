@@ -95,6 +95,7 @@ const Feed = () => {
                     id={post.post_id}
                     picture={post.creatorInfo.picture}
                     username={post.creatorInfo.username}
+                    fullname={post.creatorInfo.fullname}
                     text={post.caption}
                     numberOfLikes={post.number_of_likes}
                     postedAt={post.created_at}
