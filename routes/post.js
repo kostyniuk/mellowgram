@@ -77,7 +77,8 @@ router.get('/:username', async (req, res, next) => {
       ...obj,
       created_at: formated[i],
     }));
-    res.json({ success: true, posts: responce });
+
+    res.json({ success: true, posts: responce, username: username });
   } catch (e) {
     console.error(e);
     res.json({ success: false, posts: null });
