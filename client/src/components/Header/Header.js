@@ -86,6 +86,7 @@ const Header = () => {
                   <i className='fa fa-paper-plane' aria-hidden='true'></i>
                   {unreadCount ? (
                     <Badge
+                      place='header'
                       size='smaller'
                       status='danger'
                       content={getTotalUnread(chats)}
