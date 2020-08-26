@@ -234,22 +234,25 @@ wss.on('connection', function connection(ws, req) {
 
       case 'START_CHAT': {
         const { me, other } = JSON.parse(data);
-        console.log({ me, other });
         (async () => {
           const result = await startChat({ myId: me.id, otherId: other.id });
 
-          clients.map((client) =>
-            console.log({ rooms: client.rooms, id: client.id })
-          );
+
+          if (result.isAlreadyExist) {
+
+            return ws.send(
+              JSON.stringify({
+                action: 'START_CHAT',
+                chat: {room_id: result.chatId},
+                alreadyExists: result.isAlreadyExist,
+              })
+            );
+          }
 
           clients = addChatToMemory({
             chatInfo: { me, other, chat_id: result.chatId },
             clients,
           });
-
-          clients.map((client) =>
-            console.log({ rooms: client.rooms, id: client.id })
-          );
 
           const chatForInitiator = {
             room_id: result.chatId,
