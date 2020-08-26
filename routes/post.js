@@ -12,7 +12,7 @@ const { formParams } = require('../lib/sqlUtils');
 
 router.get('/home', async (req, res, next) => {
   try {
-    const { username } = req.user;
+    const { username, user_id } = req.user;
 
     let { limit, offset } = req.query;
 
@@ -24,8 +24,8 @@ router.get('/home', async (req, res, next) => {
     const { rows } = await db.query(query, params);
 
     if (rows.length) {
-      const userIds = rows.map((obj) => Object.values(obj)).flat();
-
+      let userIds = rows.map((obj) => Object.values(obj)).flat();
+      userIds.push(user_id);
       const addParameters = formParams(userIds.length, 2);
 
       const queryPosts = `SELECT post_id, creator_id, caption, created_at, number_of_likes FROM Post
@@ -34,14 +34,18 @@ router.get('/home', async (req, res, next) => {
       const parametrsPosts = [offset, limit, ...userIds];
 
       const posts = await db.query(queryPosts, parametrsPosts);
+
       const creatorsInfo = await fetchEssentInfo(userIds);
 
       const patchedPosts = posts.rows.map((post) => {
         const { creator_id } = post;
+        let date = transformCreationTime(post.created_at);
+        const formated = formatTime(date);
+
         const creator = creatorsInfo.filter(
           (creator) => creator.person_id === creator_id
         )[0];
-        return { ...post, creatorInfo: creator };
+        return { ...post, created_at: formated, creatorInfo: creator };
       });
 
       return res.status(200).json({ success: true, posts: patchedPosts });
