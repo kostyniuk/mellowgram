@@ -58,7 +58,7 @@ const ChatRow = ({
           <p>
             {latestMessage?.send_at === 'now'
               ? 'now'
-              : adjustTime(latestMessage?.send_at)}
+              : adjustTime(latestMessage?.send_at, 'chat')}
           </p>
           {unreadMessagesCount ? (
             <Badge

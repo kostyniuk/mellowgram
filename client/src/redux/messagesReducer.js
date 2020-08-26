@@ -39,7 +39,8 @@ const messagesReducer = (state = initialState, action) => {
 
       withSeparators = withSeparators.map((chat) => {
         chat.messages = chat.messages.map((message) => {
-          if (!message.type) return { ...message, date: adjustTime(message.date) };
+          if (!message.type)
+            return { ...message, date: adjustTime(message.date, 'message') };
           return message;
         });
         return chat;
