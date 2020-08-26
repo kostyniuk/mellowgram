@@ -1,5 +1,26 @@
-export const adjustTime = (date) => {
+import { monthsNames } from './monthsNames.json';
+import { daysNames } from './daysNames.json';
+
+export const adjustTime = (date, type = 'message') => {
   if (!date) return null;
+
+  if (type === 'chat') {
+    const dateInstance = new Date(date);
+    const now = new Date();
+
+    if (dateInstance.getFullYear() !== now.getFullYear()) {
+      return `${dateInstance.getDate()}.${dateInstance.getMonth()}.${
+        dateInstance.getFullYear
+      }`;
+    } else if (now.getDate() - 7 > dateInstance.getDate()) {
+      const month = dateInstance.getMonth();
+      return `${dateInstance.getDate()}.${
+        month.toString().length === 1 ? '0'.concat(month) : month
+      }`;
+    } else if (now.getDay() !== dateInstance.getDay()) {
+      return daysNames[dateInstance.getDay()];
+    }
+  }
 
   const withoutTimeZone = date
     .split('T')[1]
@@ -28,21 +49,6 @@ export const prepareText = (str) => {
 };
 
 export const addTimeSeparator = (messages) => {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
   const reduced = messages.reduce((prev, current) => {
     const currentMessageDate = {};
     const previousMessageDate = {};
@@ -59,7 +65,7 @@ export const addTimeSeparator = (messages) => {
         {
           type: 'separator',
           date: `${currentMessageDate.day} ${
-            monthNames[currentMessageDate.month]
+            monthsNames[currentMessageDate.month]
           }`,
         },
         current,
@@ -76,7 +82,7 @@ export const addTimeSeparator = (messages) => {
           type: 'separator',
           room_id: current.room_id,
           date: `${currentMessageDate.day} ${
-            monthNames[currentMessageDate.month]
+            monthsNames[currentMessageDate.month]
           }`,
         },
         current,
@@ -89,7 +95,7 @@ export const addTimeSeparator = (messages) => {
         {
           type: 'separator',
           date: `${currentMessageDate.day} ${
-            monthNames[currentMessageDate.month]
+            monthsNames[currentMessageDate.month]
           }`,
         },
         current,
@@ -102,7 +108,7 @@ export const addTimeSeparator = (messages) => {
         {
           type: 'separator',
           date: `${currentMessageDate.day} ${
-            monthNames[currentMessageDate.month]
+            monthsNames[currentMessageDate.month]
           } ${currentMessageDate.year}`,
         },
         current,
