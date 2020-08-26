@@ -18,8 +18,6 @@ const Feed = () => {
   const [hasMore, setHasMore] = useState(true);
   const [selectedLikes, setSelectedLikes] = useState(null);
 
-  console.log({ posts });
-
   const offset = useRef(0);
 
   const loadLikes = useCallback(async (arrOfPosts) => {
@@ -87,7 +85,6 @@ const Feed = () => {
           >
             {posts
               .reverse()
-              .slice(1)
               .map((post) => {
                 return (
                   <Post
