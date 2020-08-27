@@ -29,6 +29,7 @@ import '../../styles/user.css';
 import '../../styles/btn.css';
 import LikesModal from './LikesModal';
 import InterestBar from './InterestBar';
+import Badge from '../Direct/Badge';
 
 const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   const history = useHistory();
@@ -451,18 +452,24 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
           </div>
         </div>
         <div className='user_info_bottom'>
-          <button
-            className='green follow'
-            onClick={() => showFollow('followers')}
-          >
-            Followers
-          </button>
-          <button
-            className='green follow'
-            onClick={() => showFollow('following')}
-          >
-            Following
-          </button>
+          <div className='user_info_bottom_followers'>
+            <button
+              className='green follow'
+              onClick={() => showFollow('followers')}
+            >
+              Followers
+            </button>
+            <Badge size='smaller' content={followedBy.users.length} status='default' />
+          </div>
+          <div className='user_info_bottom_followers'>
+            <button
+              className='green follow'
+              onClick={() => showFollow('following')}
+            >
+              Following
+            </button>
+            <Badge size='smaller' content={following.users.length} status='default' />
+          </div>
         </div>
       </div>
       <PicturesBar setSelectedImg={setSelectedImg} />
