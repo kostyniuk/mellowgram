@@ -27,38 +27,43 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
 
   const dispatch = useDispatch();
 
+  //need to fix here
+
   const followHandler = async () => {
     console.log({ following, id });
     if (following) {
       const responce = await request(`/api/follow/${id}`, { method: 'DELETE' });
       if (responce.success) {
-        dispatch(
-          deleteFollow({
-            producer: {
-              id: loggedInUser.id,
-              username: loggedInUser.username,
-              picture: loggedInUser.picture,
-            },
-            consumer: { id, picture, username },
-            myPage: loggedInUser.id === info.id,
-          })
-        );
+        // dispatch(
+        //   deleteFollow({
+        //     producer: {
+        //       id: loggedInUser.id,
+        //       username: loggedInUser.username,
+        //       picture: loggedInUser.picture,
+        //     },
+        //     consumer: { id, picture, username },
+        //     myPage: loggedInUser.id === info.id,
+        //   })
+        // );
         setFollowing((prev) => !prev);
       }
     } else {
       const responce = await request(`/api/follow/${id}`, { method: 'POST' });
+
+      console.log({ responce });
+
       if (responce.success) {
-        dispatch(
-          addFollow({
-            producer: {
-              id: loggedInUser.id,
-              username: loggedInUser.username,
-              picture: loggedInUser.picture,
-            },
-            consumer: { id, picture, username },
-            myPage: loggedInUser.id === info.id,
-          })
-        );
+        // dispatch(
+        //   addFollow({
+        //     producer: {
+        //       id: loggedInUser.id,
+        //       username: loggedInUser.username,
+        //       picture: loggedInUser.picture,
+        //     },
+        //     consumer: { id, picture, username },
+        //     myPage: loggedInUser.id === info.id,
+        //   })
+        // );
         setFollowing((prev) => !prev);
       }
     }
