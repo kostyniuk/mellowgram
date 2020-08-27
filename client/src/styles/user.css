@@ -359,7 +359,17 @@
 .user_info_bottom {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
 }
+
+.user_info_bottom_followers {
+  display: flex;
+  align-items: baseline;
+  width: auto;
+  flex-direction: rows;
+}
+
 
 @media screen and (max-width: 900px) {
   .USER_INFO__container {
