@@ -43,6 +43,7 @@
 
 .POST__title__left {
   display: flex;
+  cursor: pointer;
 }
 
 .POST__title__right {
