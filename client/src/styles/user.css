@@ -17,6 +17,8 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 20px;
+  background-color: var(--grey);
+  padding-bottom: 40px;
 }
 
 .USER_INFO_CENTER {

@@ -31,7 +31,7 @@
 }
 
 .POSTS_INFINITE_SCROLL {
-  width: 50%;
+  width: 80%;
 }
 
 .POST__title {
@@ -172,7 +172,7 @@
 
 .POSTINPUT {
   margin-bottom: 25px;
-  width: 50%;
+  width: 80%;
 }
 
 .hr {
