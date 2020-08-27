@@ -1,12 +1,14 @@
 import React from 'react';
 
+import { motion } from 'framer-motion';
+
 import '../../styles/hrCentered.css';
 
 const DateHr = ({ date }) => {
   return (
-    <div>
+    <motion.div layout>
       <hr className='hr-centered-text' data-content={date}></hr>
-    </div>
+    </motion.div>
   );
 };
 
