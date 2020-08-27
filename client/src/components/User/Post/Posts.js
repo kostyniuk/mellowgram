@@ -144,6 +144,8 @@ const Posts = () => {
     dispatch(loadMoreLikes({ likes }));
   };
 
+  if (posts[0] === currentPage.username && posts.length === 1 && hasMore)
+    setHasMore(false);
   if (posts[0] === null && hasMore) setHasMore(false);
   if (posts[posts.length - 1] !== currentPage.username) return <div></div>;
   if (!Object.keys(likes).length) return <div></div>;
