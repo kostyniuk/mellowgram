@@ -14,6 +14,10 @@
   display: flex;
 }
 
+.FEED_CENTER {
+  width: 80%;
+}
+
 .FEED_SIDE {
   width: 30%;
   min-width: 200px;
