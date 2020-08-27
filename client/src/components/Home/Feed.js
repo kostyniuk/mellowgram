@@ -76,16 +76,15 @@ const Feed = () => {
         <hr></hr>
       </div>
       <div className='POSTS__container'>
-        {posts.length ? (
-          <InfiniteScroll
-            dataLength={posts.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-          >
-            {posts
-              .reverse()
-              .map((post) => {
+        <div className='FEED_CENTER'>
+          {posts.length ? (
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<h4>Loading...</h4>}
+            >
+              {posts.reverse().map((post) => {
                 return (
                   <Post
                     key={post.post_id}
@@ -103,8 +102,9 @@ const Feed = () => {
                   />
                 );
               })}
-          </InfiniteScroll>
-        ) : null}
+            </InfiniteScroll>
+          ) : null}
+        </div>
       </div>
       <div className='FEED_SIDE'>
         <h3>Mypage</h3>
