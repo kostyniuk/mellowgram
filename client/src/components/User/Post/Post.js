@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 import { useSelector, useDispatch } from 'react-redux';
 
 import useFetch from '../../../hooks/useFetch';
@@ -26,7 +28,7 @@ const Post = ({
   type,
 }) => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const loggedInUser = useSelector((state) => state.loggedInUser);
 
   const { request } = useFetch();
@@ -66,7 +68,10 @@ const Post = ({
     <div>
       <div className='POST__body'>
         <div className='POST__title'>
-          <div className='POST__title__left'>
+          <div
+            className='POST__title__left'
+            onClick={() => history.push(`/${username}`)}
+          >
             <img src={picture} alt='avatar' className='POST__profile_picture' />
             <div className='POST__header'>
               <h3 className='POST__fullname'>{fullname}</h3>
