@@ -16,8 +16,8 @@ const colourStyles = {
     const color = chroma(data.color);
     return {
       ...styles,
-      backgroundColor: isFocused ? 'rgb(23, 148, 67)' : 'black',
-      color: isFocused ? '#fff' : '#fff',
+      backgroundColor: isFocused ? 'rgb(23, 148, 67)' : '#fff',
+      color: isFocused ? '#fff' : '#000',
       cursor: isDisabled ? 'not-allowed' : 'default',
 
       ':active': {

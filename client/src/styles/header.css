@@ -45,6 +45,7 @@ nav {
 
 .search-field {
   color: black;
+  background-color: var(--text_light);
   width: 50%;
 }
 
