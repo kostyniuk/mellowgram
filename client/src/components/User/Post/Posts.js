@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import LikesModal from '../LikesModal';
+import LikesModal from './LikesModal';
 
 import equal from 'deep-equal';
 
