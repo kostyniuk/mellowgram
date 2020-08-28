@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 import '../../styles/modal.css';
 import PostInput from './Post/PostInput';
-import EditBioInput from './EditBioInput';
+import EditBioInput from './Information/EditBioInput';
 
 const EditModal = ({ handleEdit, info, isBio }) => {
   const handleClick = (e) => {
