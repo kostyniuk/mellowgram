@@ -7,7 +7,7 @@ import useFetch from '../hooks/useFetch';
 
 import Header from '../components/Header/Header';
 import NotFound from './NotFound';
-import UserInfo from '../components/User/UserInfo';
+import UserInfo from '../components/User/Information/UserInfo';
 import Posts from '../components/User/Post/Posts';
 
 import '../styles/user.css';

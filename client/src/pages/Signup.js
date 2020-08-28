@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SignupInput from '../components/SignupInput';
+import SignupInput from '../components/Auth/SignupInput';
 import Header from '../components/Header/Header';
 import { useHistory } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';

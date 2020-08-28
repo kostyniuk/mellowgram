@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import useFetch from '../hooks/useFetch';
 
-import LoginInput from '../components/LoginInput';
+import LoginInput from '../components/Auth/LoginInput';
 import Header from '../components/Header/Header';
 
 const Login = () => {
