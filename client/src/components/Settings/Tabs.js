@@ -9,18 +9,22 @@ const Tabs = ({ switchTab }) => {
         </li>
         <hr class='HRsettings' />
         <li onClick={() => switchTab(1)}>
-          <i className='fa fa-cog'></i>Edit Profile
+          <i className='fa fa-map-marker'></i>Edit Location
         </li>
         <hr class='HRsettings' />
         <li onClick={() => switchTab(2)}>
-          <i className='fa fa-list-alt'></i>Edit Interests
+          <i className='fa fa-cog'></i>Edit Profile
         </li>
         <hr class='HRsettings' />
         <li onClick={() => switchTab(3)}>
-          <i className='fa fa-lock'></i>Change Password
+          <i className='fa fa-list-alt'></i>Edit Interests
         </li>
         <hr class='HRsettings' />
         <li onClick={() => switchTab(4)}>
+          <i className='fa fa-lock'></i>Change Password
+        </li>
+        <hr class='HRsettings' />
+        <li onClick={() => switchTab(5)}>
           <i className='fa fa-minus-circle'></i>Delete profile
         </li>
       </ul>
