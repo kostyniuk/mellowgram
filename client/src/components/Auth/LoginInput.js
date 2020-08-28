@@ -1,8 +1,8 @@
 import React from 'react';
 
-import '../styles/loginInput.css';
-import '../styles/input.css';
-import '../styles/btn.css';
+import '../../styles/loginInput.css';
+import '../../styles/input.css';
+import '../../styles/btn.css';
 
 const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
   return (
