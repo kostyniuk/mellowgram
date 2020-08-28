@@ -35,8 +35,8 @@ import Home from './pages/Home';
 import './App.css';
 //TODO WHEN I RECEIVE A MESSAGE AND I'M INSIDE THIS CHAT, IT SHOULDN'T BE TREATED AS UNREAD
 
-const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
-// const ws = new WebSocket(`ws://localhost:5000`);
+// const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
+const ws = new WebSocket(`ws://localhost:5000`);
 
 const App = () => {
   const dispatch = useDispatch();
@@ -102,6 +102,11 @@ const App = () => {
   const startMessagingHandler = ({ me, other }) => {
     ws.send(JSON.stringify({ action: 'START_CHAT', me, other }));
   };
+
+  const fetchGeoKey = useCallback(async () => {
+    const responce = await request('/api/apiKeys/rapidApi');
+    if (responce.success) localStorage.setItem('RAPID_API_KEY', responce.key);
+  }, [request]);
 
   const fetchFollowing = useCallback(
     async (info, signal) => {
@@ -189,7 +194,8 @@ const App = () => {
 
   useEffect(() => {
     fetchFollowing(userInfo);
-  }, [fetchFollowing]);
+    fetchGeoKey();
+  }, [fetchFollowing, fetchGeoKey]);
 
   if (loading) return <div></div>;
 
