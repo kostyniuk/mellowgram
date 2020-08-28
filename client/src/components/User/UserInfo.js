@@ -62,28 +62,27 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     }
   );
 
-  const chats = Object.values(	
-    useSelector(	
-      (state) => state.chats,	
-      (prev, curr) => {	
-        const prevChats = Object.values(prev);	
-        const currChats = Object.values(curr);	
-        prevChats.map((chat, i) => {	
-          if (!equal(chat, currChats[i])) {	
-            setNewMsg({	
-              username: chat.username,	
-              picture: chat.picture,	
-              context: chat.latestMessage.context,	
-              chatId: chat.room_id,	
-            });	
-            showNotify.current = false;	
-          }	
-        });	
-        return equal(prev.id, curr.id);	
-      }	
-    )	
-  );	
-
+  const chats = Object.values(
+    useSelector(
+      (state) => state.chats,
+      (prev, curr) => {
+        const prevChats = Object.values(prev);
+        const currChats = Object.values(curr);
+        prevChats.map((chat, i) => {
+          if (!equal(chat, currChats[i])) {
+            setNewMsg({
+              username: chat.username,
+              picture: chat.picture,
+              context: chat.latestMessage.context,
+              chatId: chat.room_id,
+            });
+            showNotify.current = false;
+          }
+        });
+        return equal(prev.id, curr.id);
+      }
+    )
+  );
 
   const isAlreadyFollowed = (id) => {
     const { users } = followingLoggedIn;
