@@ -27,7 +27,7 @@
   margin: 3% auto;
 }
 .settings-container .left-column {
-  width: 30%;
+  width: 40%;
   color: var(--text_light);
   background: var(--bg_color_dark);
 }
@@ -48,7 +48,7 @@
 }
 
 .settings-container .left-column ul {
-  height: 220px;
+  height: 300px;
   margin: 0;
   list-style-type: none;
   display: flex;
