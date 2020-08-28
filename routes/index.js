@@ -14,6 +14,7 @@ const followRoute = require('./follow');
 const postRoute = require('./post');
 const chatRoute = require('./chat');
 const interestRoute = require('./interest');
+const apiKeys = require('./apiKeys');
 
 router.use('/api/whoami', whoamiRoute);
 router.use('/api/signup', signupRoute);
@@ -26,17 +27,6 @@ router.use('/api/follow', followRoute);
 router.use('/api/post', postRoute);
 router.use('/api/chat', chatRoute);
 router.use('/api/interest', interestRoute);
-
-router.use('/api/test', (req, res, next) => {
-  console.log(req.user);
-
-  res.json('12');
-});
-
-router.use('/api/db', async (req, res, next) => {
-  console.log(req.user);
-  const { rows } = await db.query('select * from user_info;');
-  res.json(rows);
-});
+router.use('/api/apiKeys', apiKeys);
 
 module.exports = router;
