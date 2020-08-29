@@ -1,0 +1,14 @@
+.LOCATION_TAB_CONTAINER {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.LOCATION_TAB_COUNTRY {
+  height: 40%;
+}
+
+.LOCATION_TAB_CITY {
+  height: 40%;
+}
