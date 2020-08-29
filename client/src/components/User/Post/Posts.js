@@ -152,10 +152,7 @@ const Posts = () => {
 
   return (
     <div className='FEED_CONTAINER'>
-      <div className='FEED_SIDE'>
-        <h3>Recomendations</h3>
-        <hr></hr>
-      </div>
+      <div className='FEED_SIDE'></div>
       <div className='POSTS__container'>
         {currentPage.id === loggedInUser.id && (
           <PostInput
@@ -211,10 +208,7 @@ const Posts = () => {
 
         {editModal && <EditModal handleEdit={setEditModal} info={editModal} />}
       </div>
-      <div className='FEED_SIDE'>
-        <h3>Mypage</h3>
-        <hr></hr>
-      </div>
+      <div className='FEED_SIDE'></div>
     </div>
   );
 };
