@@ -8,7 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import Post from '../User/Post/Post';
 
 import '../../styles/home.css';
-import LikesModal from '../User/LikesModal';
+import LikesModal from '../User/Post/LikesModal';
 
 const Feed = () => {
   const { request } = useFetch();

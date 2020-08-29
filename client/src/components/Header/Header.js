@@ -61,7 +61,9 @@ const Header = () => {
             <li className='nav-item search-field'>
               <AsyncSelect
                 handler={handleChange}
-                selectedValue={selectedValue}
+                type='HEADER'
+                urlToFetch='/api/findUser/'
+                noOptionsMessage='No such user'
               />
             </li>
           </ul>
