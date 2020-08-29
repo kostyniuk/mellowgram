@@ -101,6 +101,26 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.put('/location', async (req, res, next) => {
+  try {
+    const { user_id } = req.user;
+    const { location } = req.body;
+
+    const query = `UPDATE Person SET based_in = $2 WHERE person_id = $1`;
+    const params = [user_id, location];
+
+    const result = await db.query(query, params);
+
+    if (result.rowCount) {
+      return res.json({ success: true, location });
+    }
+
+    return res.json({ success: false });
+  } catch (e) {
+    res.json({ success: false });
+  }
+});
+
 router.delete('/delete', isLoggedIn, async (req, res, next) => {
   try {
     const { password } = req.body;
