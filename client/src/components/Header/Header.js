@@ -82,7 +82,7 @@ const Header = () => {
           </li>
           <li className={open ? 'disabled' : ''}>
             {authorized.isAuthenticated ? (
-              <NavLink to='/direct'>
+              <NavLink to='/search'>
                 <div className='Header__direct'>
                   <i class='fa fa-search' aria-hidden='true'></i>
                 </div>
