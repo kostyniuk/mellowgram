@@ -7,6 +7,7 @@ import '../../styles/search.css';
 import useFetch from '../../hooks/useFetch';
 import Slider from './Slider';
 import Radio from './Radio';
+import RadioSingle from './RadioSingle';
 
 const SearchContainer = () => {
   const { request } = useFetch();
@@ -14,11 +15,15 @@ const SearchContainer = () => {
   const [interests, setInterests] = useState([]);
 
   const [selectedInterests, setSelectedInterests] = useState([]);
+  const [matchAll, setMatchAll] = useState(false);
+
   const [maxDistance, setMaxDistance] = useState(null);
   const [noDistance, setNoDistance] = useState({
     checkedCountry: false,
     checkedCity: false,
   });
+
+  const handleMatchAll = (e) => e.target.checked;
 
   const slideHandler = (_, val) => setMaxDistance(val);
 
@@ -86,6 +91,11 @@ const SearchContainer = () => {
               classNamePrefix='select'
               onChange={(e) => setSelectedInterests(e)}
             />
+            <RadioSingle
+              state={matchAll}
+              handleChange={handleMatchAll}
+              label='Match all'
+            />
           </div>
           <div className='SEARCH_OPTIONS_LOCATION'>
             <h4>The location radius within which to find: </h4>
@@ -98,7 +108,10 @@ const SearchContainer = () => {
               />
               <h3 style={{ margin: '5px 20px' }}>km</h3>
             </div>
-            <Radio state={noDistance} handler={setNoDistance} />
+
+            <div className='SEARCH_OPTIONS_RADIO'>
+              <Radio state={noDistance} handler={setNoDistance} />
+            </div>
           </div>
         </div>
       </div>
