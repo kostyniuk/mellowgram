@@ -33,7 +33,8 @@ const EditBioInput = ({ bio, closeModal }) => {
   };
 
   return (
-    <div>
+    <div className='MODAL_BIO_CONTAINER'>
+      <h3>Change bio</h3>
       <textarea
         maxLength={64}
         value={newBio}
@@ -44,18 +45,13 @@ const EditBioInput = ({ bio, closeModal }) => {
         className='form-input'
         onChange={changeBio}
       ></textarea>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}
-      >
+      <div className='MODAL_BIO_DOWN'>
         <button className='green' onClick={submitBio}>
           Submit
         </button>
-        <p style={{color: !leftCharacters && 'red'}}>{leftCharacters}</p>
+        <p className style={{ color: !leftCharacters && 'red'}}>
+          {leftCharacters}
+        </p>
       </div>
     </div>
   );
