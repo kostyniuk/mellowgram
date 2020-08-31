@@ -41,7 +41,7 @@
 .card {
   min-width: 300px;
   max-width: 200px;
-  height: 400px;
+  height: 440px;
   margin: 5% auto;
   position: relative;
   background-color: var(--cream);
