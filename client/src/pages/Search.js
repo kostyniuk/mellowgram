@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../components/Header/Header';
+import SearchContainer from '../components/Search/SearchContainer';
 
 const Search = () => {
   return (
     <div>
-      <h1>Search</h1>
+      <Header />
+      <SearchContainer />
     </div>
   );
 };
