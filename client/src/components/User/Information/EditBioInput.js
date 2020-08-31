@@ -8,6 +8,12 @@ const EditBioInput = ({ bio, closeModal }) => {
   const dispatch = useDispatch();
 
   const [newBio, setNewBio] = useState(bio || '');
+  const [leftCharacters, setLeftCharacters] = useState(64 - bio.length);
+
+  const changeBio = (e) => {
+    setNewBio(e.target.value);
+    setLeftCharacters(64 - e.target.value.length);
+  };
 
   const submitBio = async () => {
     const result = await request('/api/user/bio', {
@@ -29,17 +35,28 @@ const EditBioInput = ({ bio, closeModal }) => {
   return (
     <div>
       <textarea
+        maxLength={64}
         value={newBio}
         name='message'
         autoFocus
         id='message'
         rows='4'
         className='form-input'
-        onChange={(e) => setNewBio(e.target.value)}
+        onChange={changeBio}
       ></textarea>
-      <button className='green' onClick={submitBio}>
-        Submit
-      </button>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+        }}
+      >
+        <button className='green' onClick={submitBio}>
+          Submit
+        </button>
+        <p style={{color: !leftCharacters && 'red'}}>{leftCharacters}</p>
+      </div>
     </div>
   );
 };
