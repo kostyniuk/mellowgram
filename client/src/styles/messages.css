@@ -53,7 +53,7 @@
   padding: 10px;
   height: 100%;
   overflow: auto;
-  background: var(--text_dark);
+  background: var(--grey);
 }
 
 .MESSAGES__send {
