@@ -80,7 +80,15 @@ const Header = () => {
               <NavLink to='/about'>About us</NavLink>
             )}
           </li>
-          <li className={open ? 'disabled' : ''}>|</li>
+          <li className={open ? 'disabled' : ''}>
+            {authorized.isAuthenticated ? (
+              <NavLink to='/direct'>
+                <div className='Header__direct'>
+                  <i class='fa fa-search' aria-hidden='true'></i>
+                </div>
+              </NavLink>
+            ) : '|'}
+          </li>
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
             {authorized.isAuthenticated ? (
               <NavLink to='/direct'>
@@ -107,7 +115,7 @@ const Header = () => {
               <Select
                 id='settings'
                 label='Settings'
-                defaultVal='Settings'
+                defaultVal={<i class='fa fa-cog' aria-hidden='true'></i>}
                 options={categoryOptions}
               />
             ) : (
