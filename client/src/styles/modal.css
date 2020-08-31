@@ -68,6 +68,22 @@
 
 .EDIT {
   border: none;
+  padding: 20px;
+}
+
+.MODAL_BIO_CONTAINER h3 {
+  margin-bottom: 10px;
+}
+
+.MODAL_BIO_DOWN {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.MODAL_BIO_DOWN p {
+  margin-top: 10px;
 }
 
 .LIKES_MODAL_TITLE {
