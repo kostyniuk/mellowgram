@@ -1,0 +1,28 @@
+.SEARCH_CONTAINER {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+}
+.SEARCH_BODY {
+  flex: 0.5;
+  height: 100%;
+  padding: 50px;
+}
+
+.SEARCH_OPTIONS {
+  margin-top: 10px;
+}
+.SEARCH_OPTIONS_LOCATION {
+  margin-top: 20px;
+}
+.SEARCH_OPTIONS_LOCATION_SLIDER {
+  display: flex;
+  flex-direction: row;
+}
+
+.SEARCH_SIDE {
+  display: flex;
+  flex: 0.25;
+  background-color: var(--grey);
+}
