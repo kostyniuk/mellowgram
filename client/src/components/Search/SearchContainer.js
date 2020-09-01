@@ -21,7 +21,7 @@ const SearchContainer = () => {
   const reqParams = rapidApiHeaders();
 
   const [country, setCountry] = useState({ code: null, name: null });
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState({ code: null, name: null });
 
   const [interests, setInterests] = useState([]);
 
@@ -70,23 +70,17 @@ const SearchContainer = () => {
     fetchInterests();
   }, [fetchInterests]);
 
-  console.log({
-    country,
-    city,
-  });
-
   const handleCountry = (e) => {
-
     const value = e?.value;
     const label = e?.value;
 
     setCountry({ code: value, name: label });
-    setCity(null);
+    setCity({ code: null, name: null });
   };
 
   const handleCity = (e) => {
     const value = e?.value;
-    const label = e?.value;
+    const label = e?.label;
     setCity({ code: value, name: label });
   };
 
@@ -107,17 +101,17 @@ const SearchContainer = () => {
     let s = '';
 
     if (Object.values(noDistance).includes(true)) {
-      console.log('here');
       if (noDistance.checkedCountry)
         s += `&country=${myLocation.split(', ')[1]}`;
       if (noDistance.checkedCity) s += `&city=${myLocation.split(', ')[0]}`;
     } else {
-      console.log('asd');
-      if (country) s += `&country=${country.code}`;
-      if (city) s += `&city=${city.name}`;
+      if (country.code) s += `&country=${country.code}`;
+      if (city.name) s += `&city=${city.name}`;
     }
 
-    console.log({ s });
+    if (!s) s += '&country=any&city=any';
+
+    return s;
   };
 
   const formUrl = ({
@@ -138,8 +132,7 @@ const SearchContainer = () => {
 
     s += addInterestsIds(interestsFinal);
     s += isMatchAll(matchAll);
-
-    const locationToSearch = distinguishLocation({
+    s += distinguishLocation({
       noDistance,
       country,
       city,
