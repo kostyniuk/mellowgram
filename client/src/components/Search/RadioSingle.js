@@ -16,17 +16,19 @@ const GreenCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color='default' {...props} />);
 
-const RadioSingle = ({ state, label, handleChange }) => {
+const RadioSingle = ({ state, label, disabled, handleChange }) => {
   return (
     <FormGroup row>
       <FormControlLabel
         control={
           <GreenCheckbox
+            d
             checked={state.checkedCountry}
             onChange={handleChange}
           />
         }
         label={label}
+        disabled={disabled}
       />
     </FormGroup>
   );
