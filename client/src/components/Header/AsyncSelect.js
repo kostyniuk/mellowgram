@@ -17,7 +17,7 @@ const adjustCountry = (countries) =>
 const adjustCity = (cities) =>
   cities.map((city) => ({
     value: city.regionCode,
-    label: city.name,
+    label: `${city.name}, ${city.region}`,
   }));
 
 const adjustToShowSelectValues = (data, type = '') => {
@@ -53,6 +53,8 @@ const AsyncSelectCustom = ({
     const url = urlToFetch + inputValue;
 
     let data = await debounce(500, request.bind(null, url, requestParams));
+
+    console.log({ data });
 
     if (type.includes('RAPID')) {
       data = adjustToShowSelectValues(data.data, type.split('RAPID_API_')[1]);
