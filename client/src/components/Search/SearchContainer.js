@@ -28,6 +28,7 @@ const SearchContainer = () => {
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [matchAll, setMatchAll] = useState(false);
   const [matchMyInterests, setMatchMyInterests] = useState(false);
+  const [errorNoInterestProvided, setErrorNoInterestProvided] = useState(false);
 
   // const [maxDistance, setMaxDistance] = useState(null);
   const [noDistance, setNoDistance] = useState({
@@ -140,9 +141,17 @@ const SearchContainer = () => {
     });
 
     console.log({ interestsFinal, s });
+
+    return s;
   };
 
   const searchHandler = async () => {
+    if (!selectedInterests.length)
+      return (() => {
+        setErrorNoInterestProvided(true);
+        setTimeout(() => setErrorNoInterestProvided(false), 3000);
+      })();
+
     const url = formUrl({
       base: 'api/search',
       country,
@@ -266,6 +275,11 @@ const SearchContainer = () => {
               <Radio state={noDistance} handler={setNoDistance} />
             </div>
           </div>
+          {errorNoInterestProvided && (
+            <p style={{ color: 'red' }}>
+              No Interest Provided. You have to choose at least 1.
+            </p>
+          )}
           <button className='green' onClick={searchHandler}>
             Search
           </button>
