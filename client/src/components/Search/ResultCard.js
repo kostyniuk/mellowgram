@@ -1,33 +1,28 @@
 import React from 'react';
 
-import { useSelector } from 'react-redux';
+const showPart = (arr, n) => arr.slice(0, n);
 
-const ResultCard = () => {
-  const currentPage = useSelector((state) => state.currentPage);
-  const loggedInUser = useSelector((state) => state.loggedInUser);
+const adjustInterests = (interests, n) => {
+  if (interests.length > n) {
+    return showPart(interests, n);
+  }
 
-  let { interests } = loggedInUser;
+  return interests;
+};
 
-  interests = interests.slice(0, 6);
-
-  console.log({ interests });
-
-  if (!interests) return null;
+const ResultCard = ({ info }) => {
+  const { fullname, occupation, picture, location, interests } = info;
+  const showActivities = 6;
+  const adjustedInterests = adjustInterests(interests, showActivities);
 
   return (
     <div className='SEARCH_RESULT_CARD'>
       <div className='card'>
         <div className='card-header'>
           <div className='card-cover'></div>
-          <img
-            className='card-avatar'
-            src={
-              'http://localhost:3000/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg'
-            }
-            alt='avatar'
-          />
-          <h1 className='card-fullname'>ads</h1>
-          <h2 className='card-jobtitle'>adsdsa</h2>
+          <img className='card-avatar' src={picture} alt='avatar' />
+          <h1 className='card-fullname'>{fullname}</h1>
+          <h2 className='card-jobtitle'>{occupation}</h2>
         </div>
         <div className='SEARCH_CARD'>
           <div className='card-title'>
@@ -44,20 +39,20 @@ const ResultCard = () => {
                 <path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' />
                 <circle cx='12' cy='10' r='3' />
               </svg>
-              <h4 className='card-city'>Kyiv</h4>
+              <h4 className='card-city'>{location}</h4>
             </div>
             <div className='card-number-match'>
-              <h4>6/7</h4>
+              <h4 >6/7 matched</h4>
             </div>
           </div>
           <div className='card-interests'>
             <div className='INTEREST_BAR_TITLE'>
-              {interests.length ? <h4>Interests</h4> : null}
+              {adjustedInterests.length ? <h4>Interests</h4> : null}
             </div>
             <div className='INTEREST_BAR_BODY card-my-interests'>
-              {interests.length ? (
+              {adjustedInterests.length ? (
                 <ul>
-                  {interests.map((interest) => (
+                  {adjustedInterests.map((interest) => (
                     <li
                       style={{
                         backgroundColor: interest.interest_color,
@@ -69,9 +64,11 @@ const ResultCard = () => {
                 </ul>
               ) : null}
             </div>
-            <p className='card-contact' style={{ height: '30px' }}>
-              And more...
-            </p>
+            {interests.length > showActivities && (
+              <p className='card-contact SEARCH_AND_MORE' style={{ height: '30px' }}>
+                And more...
+              </p>
+            )}
           </div>
         </div>
       </div>
