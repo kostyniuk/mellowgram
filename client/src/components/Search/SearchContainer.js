@@ -10,39 +10,27 @@ import Radio from './Radio';
 import RadioSingle from './RadioSingle';
 import SearchResult from './SearchResult';
 import AsyncSelectCustom from '../Header/AsyncSelect';
+import { rapidApiHeaders } from '../../helpers';
 
 const SearchContainer = () => {
   const { request } = useFetch();
 
-  const reqParams = {
-    method: 'GET',
-    headers: {
-      'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
-      'x-rapidapi-key': localStorage.getItem('RAPID_API_KEY'),
-    },
-  };
+  const reqParams = rapidApiHeaders();
+
+  const [country, setCountry] = useState({ code: null, name: null });
+  const [city, setCity] = useState(null);
 
   const [interests, setInterests] = useState([]);
 
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [matchAll, setMatchAll] = useState(false);
+  const [matchMyInterests, setMatchMyInterests] = useState(false);
 
-  const [maxDistance, setMaxDistance] = useState(null);
+  // const [maxDistance, setMaxDistance] = useState(null);
   const [noDistance, setNoDistance] = useState({
     checkedCountry: false,
     checkedCity: false,
   });
-
-  const handleMatchAll = (e) => e.target.checked;
-
-  const slideHandler = (_, val) => setMaxDistance(val);
-
-  const formatGroupLabel = (data) => (
-    <div style={styles.groupStyles}>
-      <span>{data.label}</span>
-      <span style={styles.groupBadgeStyles}>{data.options.length}</span>
-    </div>
-  );
 
   const fetchInterests = useCallback(async () => {
     const responce = await request('/api/interest');
@@ -79,6 +67,48 @@ const SearchContainer = () => {
     fetchInterests();
   }, [fetchInterests]);
 
+  console.log({
+    country,
+    city,
+    selectedInterests,
+    matchAll,
+    matchMyInterests,
+    noDistance,
+  });
+
+  const handleCountry = (e) => {
+    setCountry({ code: e.value, name: e.label });
+    setCity(null);
+  };
+
+  const handleCity = (e) => {
+    setCity({ code: e.value, name: e.label });
+  };
+
+  const searchHandler = async () => {
+    if (country && city) {
+      const location = `${city.name}, ${country.name}`;
+      const res = await request('/api/user/location', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ location }),
+      });
+    }
+  };
+
+  const handleRadioChange = (e, handler) => handler(e.target.checked);
+
+  // const slideHandler = (_, val) => setMaxDistance(val);
+
+  const formatGroupLabel = (data) => (
+    <div style={styles.groupStyles}>
+      <span>{data.label}</span>
+      <span style={styles.groupBadgeStyles}>{data.options.length}</span>
+    </div>
+  );
+
   if (!interests.length) return null;
 
   return (
@@ -91,19 +121,26 @@ const SearchContainer = () => {
         <div className='SEARCH_OPTIONS'>
           <div className='SEARCH_OPTIONS_SEARCH'>
             <h3>Interests: </h3>
-            <Select
-              isMulti
-              styles={styles.colourStyles}
-              name='colors'
-              options={interests}
-              formatGroupLabel={formatGroupLabel}
-              className='basic-multi-select'
-              classNamePrefix='select'
-              onChange={(e) => setSelectedInterests(e)}
+            {!matchMyInterests && (
+              <Select
+                isMulti
+                styles={styles.colourStyles}
+                name='colors'
+                options={interests}
+                formatGroupLabel={formatGroupLabel}
+                className='basic-multi-select'
+                classNamePrefix='select'
+                onChange={(e) => setSelectedInterests(e)}
+              />
+            )}
+            <RadioSingle
+              state={matchMyInterests}
+              handleChange={(e) => handleRadioChange(e, setMatchMyInterests)}
+              label='Select mine'
             />
             <RadioSingle
               state={matchAll}
-              handleChange={handleMatchAll}
+              handleChange={(e) => handleRadioChange(e, setMatchAll)}
               label='Match all'
             />
           </div>
@@ -122,13 +159,23 @@ const SearchContainer = () => {
             <div className='SEARCH_LOCATION'>
               <div className='SEARCH_LOCATION_COUNTRY'>
                 <h4>Country/Region</h4>
-                <div style={{ backgroundColor: 'white' }}>
+                <div
+                  style={{
+                    backgroundColor:
+                      noDistance.checkedCity || noDistance.checkedCountry
+                        ? 'black'
+                        : 'white',
+                  }}
+                >
                   <AsyncSelectCustom
                     urlToFetch='https://wft-geo-db.p.rapidapi.com/v1/geo/countries?namePrefix='
-                    // handler={handleCountry}
+                    handler={handleCountry}
                     type='RAPID_API_COUNTRY'
                     requestParams={reqParams}
                     noOptionsMessage='No such country'
+                    isDisabled={
+                      noDistance.checkedCity || noDistance.checkedCountry
+                    }
                   />
                 </div>
               </div>
@@ -136,16 +183,25 @@ const SearchContainer = () => {
                 <h4>City</h4>
                 <div
                   style={{
-                    backgroundColor: 'white',
+                    backgroundColor:
+                      !country.code ||
+                      noDistance.checkedCity ||
+                      noDistance.checkedCountry
+                        ? 'black'
+                        : 'white',
                   }}
                 >
                   <AsyncSelectCustom
-                    // urlToFetch={`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?countryIds=${country.code}&namePrefix=`}
-                    // handler={handleCity}
+                    urlToFetch={`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?countryIds=${country.code}&namePrefix=`}
+                    handler={handleCity}
                     type='RAPID_API_CITY'
                     requestParams={reqParams}
                     noOptionsMessage='No such city'
-                    // isDisabled={!country.code}
+                    isDisabled={
+                      !country.code ||
+                      noDistance.checkedCity ||
+                      noDistance.checkedCountry
+                    }
                   />
                 </div>
               </div>
