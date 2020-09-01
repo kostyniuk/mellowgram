@@ -3,11 +3,13 @@
   flex-direction: row;
   width: 100%;
   height: 100%;
+  background-color: var(--grey);
 }
 .SEARCH_BODY {
-  flex: 0.5;
-  height: 100%;
+  flex: 1;
   padding: 50px;
+  margin: 50px 0px;
+  background-color: black;
 }
 
 .SEARCH_OPTIONS {
@@ -16,12 +18,13 @@
 
 .SEARCH_OPTIONS h3 {
   margin-bottom: 10px;
-} 
+}
 
 .SEARCH_OPTIONS_LOCATION {
   margin-top: 40px;
+  margin-bottom: 20px;
 }
-.SEARCH_OPTIONS_LOCATION h4{
+.SEARCH_OPTIONS_LOCATION h4 {
   margin-bottom: 10px;
 }
 
@@ -39,4 +42,38 @@
   display: flex;
   flex: 0.25;
   background-color: var(--grey);
+}
+
+.SEARCH_RESULTS {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+}
+
+.SEARCH_RESULT_CARD {
+  flex: 1 1 30%; /*grow | shrink | basis */
+}
+
+.SEARCH_CARD {
+  color: black;
+  padding: 20px;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-interests {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-my-interests {
+  margin-top: 5px;
 }
