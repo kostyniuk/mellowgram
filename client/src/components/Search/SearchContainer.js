@@ -9,9 +9,18 @@ import Slider from './Slider';
 import Radio from './Radio';
 import RadioSingle from './RadioSingle';
 import SearchResult from './SearchResult';
+import AsyncSelectCustom from '../Header/AsyncSelect';
 
 const SearchContainer = () => {
   const { request } = useFetch();
+
+  const reqParams = {
+    method: 'GET',
+    headers: {
+      'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
+      'x-rapidapi-key': localStorage.getItem('RAPID_API_KEY'),
+    },
+  };
 
   const [interests, setInterests] = useState([]);
 
@@ -99,18 +108,47 @@ const SearchContainer = () => {
             />
           </div>
           <div className='SEARCH_OPTIONS_LOCATION'>
-            <h4>The location radius within which to find: </h4>
-            <div className='SEARCH_OPTIONS_LOCATION_SLIDER'>
-              <Slider
+            {/* <h4>The location radius within which to find: </h4>
+            <div className='SEARCH_OPTIONS_LOCATION_SLIDER'> */}
+            {/* <Slider
                 slideHandler={slideHandler}
                 min={0}
                 max={1000}
                 isDisabled={noDistance.checkedCountry || noDistance.checkedCity}
               />
               <h3 style={{ margin: '5px 20px' }}>km</h3>
-            </div>
+            </div> */}
 
-            <div className='SEARCH_OPTIONS_RADIO'>
+            <div className='SEARCH_LOCATION'>
+              <div className='SEARCH_LOCATION_COUNTRY'>
+                <h4>Country/Region</h4>
+                <div style={{ backgroundColor: 'white' }}>
+                  <AsyncSelectCustom
+                    urlToFetch='https://wft-geo-db.p.rapidapi.com/v1/geo/countries?namePrefix='
+                    // handler={handleCountry}
+                    type='RAPID_API_COUNTRY'
+                    requestParams={reqParams}
+                    noOptionsMessage='No such country'
+                  />
+                </div>
+              </div>
+              <div className='SEARCH_LOCATION_CITY'>
+                <h4>City</h4>
+                <div
+                  style={{
+                    backgroundColor: 'white',
+                  }}
+                >
+                  <AsyncSelectCustom
+                    // urlToFetch={`https://wft-geo-db.p.rapidapi.com/v1/geo/cities?countryIds=${country.code}&namePrefix=`}
+                    // handler={handleCity}
+                    type='RAPID_API_CITY'
+                    requestParams={reqParams}
+                    noOptionsMessage='No such city'
+                    // isDisabled={!country.code}
+                  />
+                </div>
+              </div>
               <Radio state={noDistance} handler={setNoDistance} />
             </div>
           </div>
