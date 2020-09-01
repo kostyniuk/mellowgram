@@ -8,6 +8,7 @@ import useFetch from '../../hooks/useFetch';
 import Slider from './Slider';
 import Radio from './Radio';
 import RadioSingle from './RadioSingle';
+import SearchResult from './SearchResult';
 
 const SearchContainer = () => {
   const { request } = useFetch();
@@ -113,7 +114,10 @@ const SearchContainer = () => {
               <Radio state={noDistance} handler={setNoDistance} />
             </div>
           </div>
+          <button className='green'>Search</button>
+          <hr></hr>
         </div>
+        <SearchResult />
       </div>
       <div className='SEARCH_SIDE'></div>
     </div>
