@@ -17,6 +17,7 @@ const adjustCountry = (countries) =>
 const adjustCity = (cities) =>
   cities.map((city) => ({
     value: city.regionCode,
+    name: city.name,
     label: `${city.name}, ${city.region}`,
   }));
 
