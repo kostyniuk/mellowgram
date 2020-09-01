@@ -88,8 +88,10 @@ const SearchContainer = () => {
   const addInterestsIds = (interests) => {
     let s = '';
 
+    console.log({ interests });
+
     interests.forEach((val, i, arr) => {
-      s += val.interest_id;
+      s += val.interest_id || val.id;
       if (arr.length !== i + 1) s += ',';
     });
 
