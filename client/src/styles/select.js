@@ -2,7 +2,7 @@ import chroma from 'chroma-js';
 
 export default {
   colourStyles: {
-    control: (styles) => ({ ...styles, backgroundColor: 'black' }),
+    control: (styles) => ({ ...styles, backgroundColor: 'white' }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
       const color = chroma(data.color);
       return {
@@ -19,7 +19,7 @@ export default {
         ':active': {
           ...styles[':active'],
           backgroundColor:
-            !isDisabled && (isSelected ? data.color : color.alpha(0.3).css()),
+            !isDisabled && (isSelected ? data.color : color.alpha(0.9).css()),
         },
       };
     },
@@ -27,12 +27,12 @@ export default {
       const color = chroma(data.color);
       return {
         ...styles,
-        backgroundColor: color.alpha(0.2).css(),
+        backgroundColor: color.alpha(1).css(),
       };
     },
     multiValueLabel: (styles, { data }) => ({
       ...styles,
-      color: data.color,
+      color: 'black',
     }),
     multiValueRemove: (styles, { data }) => ({
       ...styles,
