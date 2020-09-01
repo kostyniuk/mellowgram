@@ -66,6 +66,7 @@ const AsyncSelectCustom = ({
   return (
     <AsyncSelect
       isDisabled={isDisabled}
+      isClearable={true}
       placeholder='Search...'
       cacheOptions
       styles={colorStyles}

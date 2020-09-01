@@ -11,9 +11,12 @@ import RadioSingle from './RadioSingle';
 import SearchResult from './SearchResult';
 import AsyncSelectCustom from '../Header/AsyncSelect';
 import { rapidApiHeaders } from '../../helpers';
+import { useSelector } from 'react-redux';
 
 const SearchContainer = () => {
   const { request } = useFetch();
+
+  const loggedInUser = useSelector((state) => state.loggedInUser);
 
   const reqParams = rapidApiHeaders();
 
@@ -70,32 +73,94 @@ const SearchContainer = () => {
   console.log({
     country,
     city,
-    selectedInterests,
-    matchAll,
-    matchMyInterests,
-    noDistance,
   });
 
   const handleCountry = (e) => {
-    setCountry({ code: e.value, name: e.label });
+
+    const value = e?.value;
+    const label = e?.value;
+
+    setCountry({ code: value, name: label });
     setCity(null);
   };
 
   const handleCity = (e) => {
-    setCity({ code: e.value, name: e.label });
+    const value = e?.value;
+    const label = e?.value;
+    setCity({ code: value, name: label });
+  };
+
+  const addInterestsIds = (interests) => {
+    let s = '';
+
+    interests.forEach((val, i, arr) => {
+      s += val.interest_id;
+      if (arr.length !== i + 1) s += ',';
+    });
+
+    return s;
+  };
+
+  const isMatchAll = (bool) => (bool ? '?matchAll=true' : '?matchAll=false');
+
+  const distinguishLocation = ({ noDistance, country, city, myLocation }) => {
+    let s = '';
+
+    if (Object.values(noDistance).includes(true)) {
+      console.log('here');
+      if (noDistance.checkedCountry)
+        s += `&country=${myLocation.split(', ')[1]}`;
+      if (noDistance.checkedCity) s += `&city=${myLocation.split(', ')[0]}`;
+    } else {
+      console.log('asd');
+      if (country) s += `&country=${country.code}`;
+      if (city) s += `&city=${city.name}`;
+    }
+
+    console.log({ s });
+  };
+
+  const formUrl = ({
+    base = 'api/search',
+    country,
+    city,
+    selectedInterests,
+    matchAll,
+    matchMyInterests,
+    noDistance,
+    myLocation,
+  }) => {
+    let s = base + '?interests=';
+
+    const interestsFinal = matchMyInterests
+      ? loggedInUser.interests
+      : selectedInterests;
+
+    s += addInterestsIds(interestsFinal);
+    s += isMatchAll(matchAll);
+
+    const locationToSearch = distinguishLocation({
+      noDistance,
+      country,
+      city,
+      myLocation,
+    });
+
+    console.log({ interestsFinal, s });
   };
 
   const searchHandler = async () => {
-    if (country && city) {
-      const location = `${city.name}, ${country.name}`;
-      const res = await request('/api/user/location', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ location }),
-      });
-    }
+    const url = formUrl({
+      base: 'api/search',
+      country,
+      city,
+      selectedInterests,
+      matchAll,
+      matchMyInterests,
+      noDistance,
+      myLocation: loggedInUser.based_in,
+    });
+    // const res = await request();?
   };
 
   const handleRadioChange = (e, handler) => handler(e.target.checked);
@@ -208,7 +273,9 @@ const SearchContainer = () => {
               <Radio state={noDistance} handler={setNoDistance} />
             </div>
           </div>
-          <button className='green'>Search</button>
+          <button className='green' onClick={searchHandler}>
+            Search
+          </button>
           <hr></hr>
         </div>
         <SearchResult />
