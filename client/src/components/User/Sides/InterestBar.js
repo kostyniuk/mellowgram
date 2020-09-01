@@ -12,8 +12,6 @@ const InterestBar = () => {
 
   const { interests } = currentPage;
 
-  console.log({ interests, currentPage });
-
   const redirectToSettings = () => {
     history.push('/account');
   };

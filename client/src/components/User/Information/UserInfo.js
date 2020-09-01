@@ -61,6 +61,8 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     }
   );
 
+  console.log({ newMsg });
+
   const chats = Object.values(
     useSelector(
       (state) => state.chats,
