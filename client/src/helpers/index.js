@@ -28,3 +28,11 @@ export const getTotalUnread = (chats) => {
     return cur.unread + prev;
   }, 0);
 };
+
+export const rapidApiHeaders = () => ({
+  method: 'GET',
+  headers: {
+    'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
+    'x-rapidapi-key': localStorage.getItem('RAPID_API_KEY'),
+  },
+});

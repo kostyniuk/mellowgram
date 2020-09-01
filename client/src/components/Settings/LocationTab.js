@@ -5,22 +5,15 @@ import useFetch from '../../hooks/useFetch';
 import AsyncSelectCustom from '../Header/AsyncSelect';
 
 import '../../styles/locationTab.css';
+import { rapidApiHeaders } from '../../helpers';
 
 const LocationTab = () => {
   const { request } = useFetch();
 
-  const reqParams = {
-    method: 'GET',
-    headers: {
-      'x-rapidapi-host': 'wft-geo-db.p.rapidapi.com',
-      'x-rapidapi-key': localStorage.getItem('RAPID_API_KEY'),
-    },
-  };
+  const reqParams = rapidApiHeaders();
 
   const [country, setCountry] = useState({ code: null, name: null });
   const [city, setCity] = useState(null);
-
-  console.log({ country, city });
 
   const handleCountry = (e) => {
     setCountry({ code: e.value, name: e.label });
