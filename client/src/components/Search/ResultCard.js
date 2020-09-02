@@ -2,15 +2,7 @@ import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 
-const showPart = (arr, n) => arr.slice(0, n);
-
-const adjustInterests = (interests, n) => {
-  if (interests.length > n) {
-    return showPart(interests, n);
-  }
-
-  return interests;
-};
+import { adjustInterests } from '../../helpers/search';
 
 const ResultCard = ({ info }) => {
   const history = useHistory();
@@ -40,9 +32,15 @@ const ResultCard = ({ info }) => {
             alt='avatar'
             onClick={handleRedirect}
           />
-          <h1 className='card-fullname SEARCH_RESULT_FULLNAME' onClick={handleRedirect}>
+          <h1
+            className='card-fullname SEARCH_RESULT_FULLNAME'
+            onClick={handleRedirect}
+          >
             {fullname}
           </h1>
+          <h2 className='card-username' onClick={handleRedirect}>
+            @{username}
+          </h2>
           <h2 className='card-jobtitle'>{occupation}</h2>
         </div>
         <div className='SEARCH_CARD'>

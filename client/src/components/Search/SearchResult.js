@@ -1,14 +1,10 @@
 import React from 'react';
+
 import ResultCard from './ResultCard';
-import { useSelector } from 'react-redux';
+
+import { sortByProp } from '../../helpers';
 
 const SearchResult = ({ data }) => {
-  const loggedInUser = useSelector((state) => state.loggedInUser);
-
-  console.log({ data });
-
-  const sortByProp = (arr, prop) => arr.sort((a, b) => b[prop] - a[prop]);
-
   return (
     <div className='SEARCH_RESULTS'>
       {sortByProp(data, 'matched').map((user) => (
