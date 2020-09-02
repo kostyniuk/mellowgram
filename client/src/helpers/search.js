@@ -21,12 +21,16 @@ export const distinguishLocation = ({
   let s = '';
 
   if (Object.values(noDistance).includes(true)) {
-    if (noDistance.checkedCountry) s += `&country=${myLocation.split(', ')[1]}`;
+    if (noDistance.checkedCountry) s += `&country=${myLocation.split(', ')[2]}`;
     if (!noDistance.checkedCity) s += `&city=any`;
-    if (noDistance.checkedCity) s += `&city=${myLocation.split(', ')[0]}`;
+    if (noDistance.checkedCity)
+      s += `&city=${myLocation.split(', ')[0]}, ${
+        myLocation.split(', ')[1]
+      }`;
   } else {
     if (country.code && !city.name) s += `&country=${country.code}&city=any`;
-    if (country.code && city.name) s += `&country=${country.code}&city=${city.name}`;
+    if (country.code && city.name)
+      s += `&country=${country.code}&city=${city.name}`;
   }
 
   if (!s) s += '&country=any&city=any';
