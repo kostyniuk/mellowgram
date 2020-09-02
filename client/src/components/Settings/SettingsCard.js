@@ -25,7 +25,6 @@ const SettingsCard = () => {
   const [openTab, setOpenTab] = useState(0);
   const [edit, setEdit] = useState({
     username: info.username,
-    based_in: info.based_in,
     email: info.email,
     fullname: info.fullname,
     occupation: info.occupation,
@@ -111,7 +110,6 @@ const SettingsCard = () => {
     'id',
     'ready',
     'isAuthenticated',
-    'based_in',
     'picture',
     'interests',
     'uuid',

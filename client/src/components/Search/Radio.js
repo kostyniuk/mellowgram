@@ -21,6 +21,8 @@ export default ({ state, handler }) => {
   const handleChange = (event) => {
     const { name, checked } = event.target;
 
+    console.log({ target: event.tagret });
+
     if (name === 'checkedCity' && checked === true) {
       handler((prev) => {
         for (const radio in prev) {
@@ -38,17 +40,19 @@ export default ({ state, handler }) => {
 
   return (
     <FormGroup row>
-      {!state.checkedCity && <FormControlLabel
-        disabled={state.checkedCity}
-        control={
-          <GreenCheckbox
-            checked={state.checkedCountry}
-            onChange={handleChange}
-            name='checkedCountry'
-          />
-        }
-        label='Only my country'
-      />}
+      {!state.checkedCity && (
+        <FormControlLabel
+          disabled={state.checkedCity}
+          control={
+            <GreenCheckbox
+              checked={state.checkedCountry}
+              onChange={handleChange}
+              name='checkedCountry'
+            />
+          }
+          label='Only my country'
+        />
+      )}
 
       <FormControlLabel
         control={
