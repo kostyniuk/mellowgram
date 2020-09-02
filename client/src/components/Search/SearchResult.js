@@ -2,20 +2,25 @@ import React from 'react';
 import ResultCard from './ResultCard';
 import { useSelector } from 'react-redux';
 
-const SearchResult = () => {
+const SearchResult = ({ data }) => {
   const loggedInUser = useSelector((state) => state.loggedInUser);
+
+  console.log({ data });
 
   return (
     <div className='SEARCH_RESULTS'>
-      <ResultCard
-        info={{
-          fullname: loggedInUser.fullname,
-          occupation: loggedInUser.occupation,
-          picture: loggedInUser.picture,
-          location: loggedInUser.based_in,
-          interests: loggedInUser.interests,
-        }}
-      />
+      {data.map((user) => (
+        <ResultCard
+          info={{
+            username: user.username,
+            fullname: user.fullname,
+            occupation: user.occupation,
+            picture: user.picture,
+            location: user.based_in,
+            interests: Object.values(user.interests),
+          }}
+        />
+      ))}
     </div>
   );
 };
