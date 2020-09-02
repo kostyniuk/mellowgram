@@ -75,7 +75,7 @@ const SearchContainer = () => {
 
   const handleCountry = (e) => {
     const value = e?.value;
-    const label = e?.value;
+    const label = e?.label;
 
     setCountry({ code: value, name: label });
     setCity({ code: null, name: null });
@@ -123,6 +123,8 @@ const SearchContainer = () => {
       <span style={styles.groupBadgeStyles}>{data.options.length}</span>
     </div>
   );
+
+  console.log({ country, city });
 
   if (!interests.length) return null;
 

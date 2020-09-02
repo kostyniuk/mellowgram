@@ -28,9 +28,9 @@ export const distinguishLocation = ({
         myLocation.split(', ')[1]
       }`;
   } else {
-    if (country.code && !city.name) s += `&country=${country.code}&city=any`;
+    if (country.code && !city.name) s += `&country=${country.name}&city=any`;
     if (country.code && city.name)
-      s += `&country=${country.code}&city=${city.name}`;
+      s += `&country=${country.name}&city=${city.name}`;
   }
 
   if (!s) s += '&country=any&city=any';
