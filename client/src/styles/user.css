@@ -123,6 +123,24 @@
   left: 50%;
   transform: translateX(-50%) translateY(-64px);
 }
+
+.card-username {
+  position: absolute;
+  white-space: nowrap;
+  letter-spacing: 1.5px;
+  margin: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-7px);
+  bottom: 165px;
+  text-transform: none;
+  opacity: 0.8;
+  font-size: 14px;
+}
+
+.card-username:hover {
+  cursor: pointer;
+}
+
 .card-fullname {
   position: absolute;
   bottom: 8%;
@@ -370,7 +388,6 @@
   width: auto;
   flex-direction: rows;
 }
-
 
 @media screen and (max-width: 900px) {
   .USER_INFO__container {
