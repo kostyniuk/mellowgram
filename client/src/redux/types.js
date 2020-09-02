@@ -30,3 +30,4 @@ export const UPDATE_BIO = 'UPDATE_BIO';
 export const ADD_INTERESTS = 'ADD_INTERESTS';
 export const SET_HOME_POSTS = 'SET_HOME_POSTS';
 export const ON_LIKE_POST_HOME = 'LIKE_POST_HOME';
+export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';

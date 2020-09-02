@@ -34,6 +34,7 @@ import {
   SET_HOME_LIKES,
   LOAD_MORE_HOME_POSTS,
   ON_LIKE_POST_HOME,
+  SET_SEARCH_RESULTS,
 } from './types';
 
 export const authUser = ({
@@ -246,4 +247,9 @@ export const setHomePosts = ({ posts, likes }) => ({
 export const OnLikePostHome = ({ post, me }) => ({
   type: ON_LIKE_POST_HOME,
   payload: { post, me },
+});
+
+export const setSearchResults = ({ results }) => ({
+  type: SET_SEARCH_RESULTS,
+  payload: { results },
 });
