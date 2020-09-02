@@ -8,9 +8,8 @@ const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_SEARCH_RESULTS: {
       const { results } = action.payload;
-      console.log({ results, state });
 
-      return { ...state, ...results, dispatched: true };
+      return { ...results, dispatched: true };
     }
 
     default: {
