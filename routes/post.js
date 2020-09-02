@@ -23,35 +23,32 @@ router.get('/home', async (req, res, next) => {
     const params = [username];
     const { rows } = await db.query(query, params);
 
-    if (rows.length) {
-      let userIds = rows.map((obj) => Object.values(obj)).flat();
-      userIds.push(user_id);
-      const addParameters = formParams(userIds.length, 2);
+    // if (rows.length) {
+    let userIds = rows.map((obj) => Object.values(obj)).flat();
+    userIds.push(user_id);
+    const addParameters = formParams(userIds.length, 2);
 
-      const queryPosts = `SELECT post_id, creator_id, caption, created_at, number_of_likes FROM Post
+    const queryPosts = `SELECT post_id, creator_id, caption, created_at, number_of_likes FROM Post
     WHERE creator_id in (${addParameters})
     ORDER BY post_id DESC OFFSET $1 LIMIT $2;`;
-      const parametrsPosts = [offset, limit, ...userIds];
+    const parametrsPosts = [offset, limit, ...userIds];
 
-      const posts = await db.query(queryPosts, parametrsPosts);
+    const posts = await db.query(queryPosts, parametrsPosts);
 
-      const creatorsInfo = await fetchEssentInfo(userIds);
+    const creatorsInfo = await fetchEssentInfo(userIds);
 
-      const patchedPosts = posts.rows.map((post) => {
-        const { creator_id } = post;
-        let date = transformCreationTime(post.created_at);
-        const formated = formatTime(date);
+    const patchedPosts = posts.rows.map((post) => {
+      const { creator_id } = post;
+      let date = transformCreationTime(post.created_at);
+      const formated = formatTime(date);
 
-        const creator = creatorsInfo.filter(
-          (creator) => creator.person_id === creator_id
-        )[0];
-        return { ...post, created_at: formated, creatorInfo: creator };
-      });
+      const creator = creatorsInfo.filter(
+        (creator) => creator.person_id === creator_id
+      )[0];
+      return { ...post, created_at: formated, creatorInfo: creator };
+    });
 
-      return res.status(200).json({ success: true, posts: patchedPosts });
-    }
-
-    return res.json({ success: true });
+    return res.status(200).json({ success: true, posts: patchedPosts });
   } catch (e) {
     console.error(e);
     res.json({ success: false, posts: null });
