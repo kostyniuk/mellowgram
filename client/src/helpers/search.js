@@ -10,7 +10,7 @@ export const addInterestsIds = (interests) => {
 };
 
 export const isMatchAll = (bool) =>
-  bool ? '?matchAll=true' : '?matchAll=false';
+  bool ? '&matchAll=true' : '&matchAll=false';
 
 export const distinguishLocation = ({
   noDistance,
@@ -25,9 +25,8 @@ export const distinguishLocation = ({
     if (!noDistance.checkedCity) s += `&city=any`;
     if (noDistance.checkedCity) s += `&city=${myLocation.split(', ')[0]}`;
   } else {
-    if (country.code) s += `&country=${country.code}`;
-    if (!city.name) s += `&city=any`;
-    if (city.name) s += `&city=${city.name}`;
+    if (country.code && !city.name) s += `&country=${country.code}&city=any`;
+    if (country.code && city.name) s += `&country=${country.code}&city=${city.name}`;
   }
 
   if (!s) s += '&country=any&city=any';
@@ -44,7 +43,7 @@ export const formUrl = ({
   matchMyInterests,
   noDistance,
   myLocation,
-  loggedInUser
+  loggedInUser,
 }) => {
   let s = base + '?interests=';
 
