@@ -81,18 +81,44 @@ router.get('/', async (req, res, next) => {
 
     console.log({ rows });
     const prepareResponce = (arr) => {
-      const map = {};
+      const parsed = {};
 
       arr.map((interestsInfo) => {
-        if (!map[interestsInfo.user_id])
-          map[interestsInfo.user_id] = { ...interestsInfo };
+        if (!parsed[interestsInfo.user_id]) {
+          parsed[interestsInfo.user_id] = {
+            ...interestsInfo,
+            interests: {
+              [interestsInfo.interest_id]: {
+                intrest_id: interestsInfo.interest_id,
+                interest_category: interestsInfo.interest_category,
+                interest_name: interestsInfo.interest_name,
+                interest_color: interestsInfo.interest_color,
+                interest_emoji: interestsInfo.interest_emoji,
+              },
+            },
+          };
+          delete parsed[interestsInfo.user_id].interest_id;
+          delete parsed[interestsInfo.user_id].interest_category;
+          delete parsed[interestsInfo.user_id].interest_name;
+          delete parsed[interestsInfo.user_id].interest_color;
+          delete parsed[interestsInfo.user_id].interest_emoji;
+        } else {
+          // console.log({ interestsInfo });
+          parsed[interestsInfo.user_id].interests[interestsInfo.interest_id] = {
+            intrest_id: interestsInfo.interest_id,
+            interest_category: interestsInfo.interest_category,
+            interest_name: interestsInfo.interest_name,
+            interest_color: interestsInfo.interest_color,
+            interest_emoji: interestsInfo.interest_emoji,
+          };
+        }
       });
 
-      console.log({ map });
+      return parsed;
     };
 
-    prepareResponce(rows);
-    res.json({ interests: interests.split(','), matchAll, country, city });
+    const data = prepareResponce(rows);
+    res.json({ success: true, data });
   } catch (e) {
     console.log({ e });
     res.json({ success: false, e });
