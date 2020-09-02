@@ -24,9 +24,7 @@ export const distinguishLocation = ({
     if (noDistance.checkedCountry) s += `&country=${myLocation.split(', ')[2]}`;
     if (!noDistance.checkedCity) s += `&city=any`;
     if (noDistance.checkedCity)
-      s += `&city=${myLocation.split(', ')[0]}, ${
-        myLocation.split(', ')[1]
-      }`;
+      s += `&city=${myLocation.split(', ')[0]}, ${myLocation.split(', ')[1]}`;
   } else {
     if (country.code && !city.name) s += `&country=${country.name}&city=any`;
     if (country.code && city.name)
@@ -65,4 +63,14 @@ export const formUrl = ({
   });
 
   return s;
+};
+
+export const showPart = (arr, n) => arr.slice(0, n);
+
+export const adjustInterests = (interests, n) => {
+  if (interests.length > n) {
+    return showPart(interests, n);
+  }
+
+  return interests;
 };

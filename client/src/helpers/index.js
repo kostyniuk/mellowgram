@@ -36,3 +36,5 @@ export const rapidApiHeaders = () => ({
     'x-rapidapi-key': localStorage.getItem('RAPID_API_KEY'),
   },
 });
+
+export const sortByProp = (arr, prop) => arr.sort((a, b) => b[prop] - a[prop]);
