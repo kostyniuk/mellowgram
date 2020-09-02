@@ -3,6 +3,7 @@
   flex-direction: row;
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background-color: var(--grey);
 }
 .SEARCH_BODY {
@@ -104,4 +105,12 @@
 .SEARCH_LOCATION_CITY {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.SEARCH_RESULT_PICTURE:hover {
+  cursor: pointer;
+}
+
+.SEARCH_RESULT_FULLNAME:hover {
+  cursor: pointer;
 }
