@@ -21,8 +21,6 @@ export default ({ state, handler }) => {
   const handleChange = (event) => {
     const { name, checked } = event.target;
 
-    console.log({ target: event.tagret });
-
     if (name === 'checkedCity' && checked === true) {
       handler((prev) => {
         for (const radio in prev) {
@@ -33,7 +31,7 @@ export default ({ state, handler }) => {
     } else {
       handler((prev) => ({
         ...prev,
-        [event.target.name]: event.target.checked,
+        [name]: checked,
       }));
     }
   };
