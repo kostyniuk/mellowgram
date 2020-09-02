@@ -36,11 +36,7 @@ export default {
     }),
     multiValueRemove: (styles, { data }) => ({
       ...styles,
-      color: data.color,
-      ':hover': {
-        backgroundColor: data.color,
-        color: 'white',
-      },
+      color: 'black',
     }),
   },
   groupStyles: {
