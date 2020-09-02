@@ -13,6 +13,8 @@ import AsyncSelectCustom from '../Header/AsyncSelect';
 import { rapidApiHeaders } from '../../helpers';
 import { useSelector } from 'react-redux';
 
+import { formUrl } from '../../helpers/search';
+
 const SearchContainer = () => {
   const { request } = useFetch();
 
@@ -85,70 +87,8 @@ const SearchContainer = () => {
     setCity({ code: value, name: label });
   };
 
-  const addInterestsIds = (interests) => {
-    let s = '';
-
-    console.log({ interests });
-
-    interests.forEach((val, i, arr) => {
-      s += val.interest_id || val.id;
-      if (arr.length !== i + 1) s += ',';
-    });
-
-    return s;
-  };
-
-  const isMatchAll = (bool) => (bool ? '?matchAll=true' : '?matchAll=false');
-
-  const distinguishLocation = ({ noDistance, country, city, myLocation }) => {
-    let s = '';
-
-    if (Object.values(noDistance).includes(true)) {
-      if (noDistance.checkedCountry)
-        s += `&country=${myLocation.split(', ')[1]}`;
-      if (noDistance.checkedCity) s += `&city=${myLocation.split(', ')[0]}`;
-    } else {
-      if (country.code) s += `&country=${country.code}`;
-      if (city.name) s += `&city=${city.name}`;
-    }
-
-    if (!s) s += '&country=any&city=any';
-
-    return s;
-  };
-
-  const formUrl = ({
-    base = 'api/search',
-    country,
-    city,
-    selectedInterests,
-    matchAll,
-    matchMyInterests,
-    noDistance,
-    myLocation,
-  }) => {
-    let s = base + '?interests=';
-
-    const interestsFinal = matchMyInterests
-      ? loggedInUser.interests
-      : selectedInterests;
-
-    s += addInterestsIds(interestsFinal);
-    s += isMatchAll(matchAll);
-    s += distinguishLocation({
-      noDistance,
-      country,
-      city,
-      myLocation,
-    });
-
-    console.log({ interestsFinal, s });
-
-    return s;
-  };
-
   const searchHandler = async () => {
-    if (!selectedInterests.length)
+    if (!selectedInterests.length && !matchMyInterests)
       return (() => {
         setErrorNoInterestProvided(true);
         setTimeout(() => setErrorNoInterestProvided(false), 3000);
@@ -163,8 +103,14 @@ const SearchContainer = () => {
       matchMyInterests,
       noDistance,
       myLocation: loggedInUser.based_in,
+      loggedInUser,
     });
-    // const res = await request();?
+
+    console.log({ url });
+
+    const res = await request(url);
+
+    console.log({ res });
   };
 
   const handleRadioChange = (e, handler) => handler(e.target.checked);
