@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useHistory } from 'react-router-dom';
+
 const showPart = (arr, n) => arr.slice(0, n);
 
 const adjustInterests = (interests, n) => {
@@ -11,17 +13,28 @@ const adjustInterests = (interests, n) => {
 };
 
 const ResultCard = ({ info }) => {
-  const { fullname, occupation, picture, location, interests } = info;
-  const showActivities = 6;
+  const history = useHistory();
+
+  const { fullname, occupation, picture, location, interests, username } = info;
+  const showActivities = 5;
   const adjustedInterests = adjustInterests(interests, showActivities);
+
+  const handleRedirect = () => history.push(`/${username}`);
 
   return (
     <div className='SEARCH_RESULT_CARD'>
       <div className='card'>
         <div className='card-header'>
           <div className='card-cover'></div>
-          <img className='card-avatar' src={picture} alt='avatar' />
-          <h1 className='card-fullname'>{fullname}</h1>
+          <img
+            className='card-avatar'
+            src={picture}
+            alt='avatar'
+            onClick={handleRedirect}
+          />
+          <h1 className='card-fullname' onClick={handleRedirect}>
+            {fullname}
+          </h1>
           <h2 className='card-jobtitle'>{occupation}</h2>
         </div>
         <div className='SEARCH_CARD'>
@@ -42,7 +55,7 @@ const ResultCard = ({ info }) => {
               <h4 className='card-city'>{location}</h4>
             </div>
             <div className='card-number-match'>
-              <h4 >6/7 matched</h4>
+              <h4>6/7 matched</h4>
             </div>
           </div>
           <div className='card-interests'>
@@ -65,7 +78,10 @@ const ResultCard = ({ info }) => {
               ) : null}
             </div>
             {interests.length > showActivities && (
-              <p className='card-contact SEARCH_AND_MORE' style={{ height: '30px' }}>
+              <p
+                className='card-contact SEARCH_AND_MORE'
+                style={{ height: '30px' }}
+              >
                 And more...
               </p>
             )}
