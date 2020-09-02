@@ -11,15 +11,17 @@ import RadioSingle from './RadioSingle';
 import SearchResult from './SearchResult';
 import AsyncSelectCustom from '../Header/AsyncSelect';
 import { rapidApiHeaders } from '../../helpers';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { formUrl } from '../../helpers/search';
+import { setSearchResults } from '../../redux/actions';
 
 const SearchContainer = () => {
+  const dispatch = useDispatch();
   const { request } = useFetch();
   const reqParams = rapidApiHeaders();
 
-  const [searchResults, setSearchResults] = useState(null);
+  const searchingResults = useSelector((state) => state.search);
 
   const [country, setCountry] = useState({ code: null, name: null });
   const [city, setCity] = useState({ code: null, name: null });
@@ -110,12 +112,14 @@ const SearchContainer = () => {
     const res = await request(url);
 
     console.log({ res });
-    setSearchResults(Object.values(res.data));
+    dispatch(setSearchResults({ results: res.data }));
   };
 
   const handleRadioChange = (e, handler) => handler(e.target.checked);
 
   // const slideHandler = (_, val) => setMaxDistance(val);
+
+  console.log({ searchingResults });
 
   const formatGroupLabel = (data) => (
     <div style={styles.groupStyles}>
@@ -123,8 +127,6 @@ const SearchContainer = () => {
       <span style={styles.groupBadgeStyles}>{data.options.length}</span>
     </div>
   );
-
-  console.log({ searchResults });
 
   if (!interests.length) return null;
 
@@ -235,7 +237,16 @@ const SearchContainer = () => {
           </button>
           <hr></hr>
         </div>
-        {searchResults && <SearchResult data={searchResults} />}
+        {searchingResults.dispatched && Object.keys(searchingResults).length === 1 && (
+          <h1 style={{marginTop: '10px'}}>No results found.</h1>
+        )}
+        {searchingResults.dispatched && (
+          <SearchResult
+            data={Object.values(searchingResults).filter(
+              (el) => typeof el === 'object'
+            )}
+          />
+        )}
       </div>
       <div className='SEARCH_SIDE'></div>
     </div>
