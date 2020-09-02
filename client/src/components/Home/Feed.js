@@ -14,13 +14,14 @@ const Feed = () => {
   const { request } = useFetch();
   const dispatch = useDispatch();
 
-  const posts = Object.values(useSelector((state) => state.homePosts)).sort();
+  let posts = Object.values(useSelector((state) => state.homePosts)).sort();
   const [hasMore, setHasMore] = useState(true);
   const [selectedLikes, setSelectedLikes] = useState(null);
 
   const offset = useRef(0);
 
   const loadLikes = useCallback(async (arrOfPosts) => {
+    if (!arrOfPosts.length) return [];
     const ids = arrOfPosts.map((post) => post.post_id);
     const requests = ids.map((id) => request(`/api/like/${id}`));
     const res = await Promise.all(requests);
@@ -68,6 +69,9 @@ const Feed = () => {
   }, [loadIntitialPosts]);
 
   if (!posts.length) return null;
+
+  posts = posts.filter((el) => el !== true);
+  if (!posts.length) return <div>Follow someone, to fill your feed</div>
 
   return (
     <div className='FEED_CONTAINER'>

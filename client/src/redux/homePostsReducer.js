@@ -16,7 +16,7 @@ const postReducer = (state = initialState, action) => {
         final[post.post_id] = { ...post, likes: likesForThePost };
       });
 
-      return { ...state, ...final };
+      return { ...state, ...final, ready: true };
 
     case ON_LIKE_POST_HOME: {
       const { post, me } = action.payload;
