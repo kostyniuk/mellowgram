@@ -7,9 +7,11 @@ const SearchResult = ({ data }) => {
 
   console.log({ data });
 
+  const sortByProp = (arr, prop) => arr.sort((a, b) => b[prop] - a[prop]);
+
   return (
     <div className='SEARCH_RESULTS'>
-      {data.map((user) => (
+      {sortByProp(data, 'matched').map((user) => (
         <ResultCard
           info={{
             username: user.username,
@@ -17,6 +19,7 @@ const SearchResult = ({ data }) => {
             occupation: user.occupation,
             picture: user.picture,
             location: user.based_in,
+            matched: user.matched,
             interests: Object.values(user.interests),
           }}
         />
