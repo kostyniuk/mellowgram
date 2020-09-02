@@ -151,64 +151,69 @@ const Posts = () => {
   if (!Object.keys(likes).length) return <div></div>;
 
   return (
-    <div className='FEED_CONTAINER'>
-      <div className='FEED_SIDE'></div>
-      <div className='POSTS__container'>
-        {currentPage.id === loggedInUser.id && (
-          <PostInput
-            picture={currentPage.picture}
-            fullname={currentPage.fullname}
-            username={currentPage.username}
-          />
-        )}
-        <div className='POSTS_INFINITE_SCROLL'>
-          <InfiniteScroll
-            dataLength={posts.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            loader={<h4>Loading...</h4>}
-          >
-            {posts
-              .reverse()
-              .slice(1)
-              .map((post) => {
-                return (
-                  <Post
-                    key={post.post_id}
-                    id={post.post_id}
-                    picture={currentPage.picture}
-                    fullname={currentPage.fullname}
-                    username={currentPage.username}
-                    text={post.caption}
-                    numberOfLikes={post.number_of_likes}
-                    postedAt={post.created_at}
-                    showSettings={currentPage.id === loggedInUser.id}
-                    likes={likes[post.post_id]}
-                    loggedInfo={{
-                      user_id: loggedInUser.id,
-                      username: loggedInUser.username,
-                      picture: loggedInUser.picture,
-                    }}
-                    setSelectedLikes={setSelectedLikes}
-                    deletePostHandler={deletePostHandler}
-                    editPostHandler={editPostHandler}
-                  />
-                );
-              })}
-          </InfiniteScroll>
+    <div>
+      <div className='FEED_CONTAINER'>
+        <div className='FEED_SIDE'></div>
+        <div className='POSTS__container'>
+          {currentPage.id === loggedInUser.id && (
+            <PostInput
+              picture={currentPage.picture}
+              fullname={currentPage.fullname}
+              username={currentPage.username}
+            />
+          )}
+          <div className='POSTS_INFINITE_SCROLL'>
+            <InfiniteScroll
+              dataLength={posts.length}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<h4>Loading...</h4>}
+            >
+              {posts
+                .reverse()
+                .slice(1)
+                .map((post) => {
+                  return (
+                    <Post
+                      key={post.post_id}
+                      id={post.post_id}
+                      picture={currentPage.picture}
+                      fullname={currentPage.fullname}
+                      username={currentPage.username}
+                      text={post.caption}
+                      numberOfLikes={post.number_of_likes}
+                      postedAt={post.created_at}
+                      showSettings={currentPage.id === loggedInUser.id}
+                      likes={likes[post.post_id]}
+                      loggedInfo={{
+                        user_id: loggedInUser.id,
+                        username: loggedInUser.username,
+                        picture: loggedInUser.picture,
+                      }}
+                      setSelectedLikes={setSelectedLikes}
+                      deletePostHandler={deletePostHandler}
+                      editPostHandler={editPostHandler}
+                    />
+                  );
+                })}
+            </InfiniteScroll>
+          </div>
+
+          {selectedLikes && (
+            <LikesModal
+              closeHandler={setSelectedLikes}
+              info={selectedLikes}
+              title='Likes'
+            />
+          )}
+
+          {editModal && (
+            <EditModal handleEdit={setEditModal} info={editModal} />
+          )}
         </div>
-
-        {selectedLikes && (
-          <LikesModal
-            closeHandler={setSelectedLikes}
-            info={selectedLikes}
-            title='Likes'
-          />
-        )}
-
-        {editModal && <EditModal handleEdit={setEditModal} info={editModal} />}
+        <div className='FEED_SIDE'></div>
       </div>
-      <div className='FEED_SIDE'></div>
+      <div className='FEED_FOOTER'></div>
     </div>
   );
 };

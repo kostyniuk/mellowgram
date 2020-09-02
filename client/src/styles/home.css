@@ -33,3 +33,8 @@
 .FEED_SIDE hr {
   margin-top: 0px;
 }
+
+.FEED_FOOTER {
+  height: 40px;
+  background-color: var(--grey);
+}
