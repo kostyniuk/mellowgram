@@ -17,10 +17,9 @@ import { formUrl } from '../../helpers/search';
 
 const SearchContainer = () => {
   const { request } = useFetch();
-
-  const loggedInUser = useSelector((state) => state.loggedInUser);
-
   const reqParams = rapidApiHeaders();
+
+  const [searchResults, setSearchResults] = useState(null);
 
   const [country, setCountry] = useState({ code: null, name: null });
   const [city, setCity] = useState({ code: null, name: null });
@@ -37,6 +36,8 @@ const SearchContainer = () => {
     checkedCountry: false,
     checkedCity: false,
   });
+
+  const loggedInUser = useSelector((state) => state.loggedInUser);
 
   const fetchInterests = useCallback(async () => {
     const responce = await request('/api/interest');
@@ -106,11 +107,10 @@ const SearchContainer = () => {
       loggedInUser,
     });
 
-    console.log({ url });
-
     const res = await request(url);
 
     console.log({ res });
+    setSearchResults(Object.values(res.data));
   };
 
   const handleRadioChange = (e, handler) => handler(e.target.checked);
@@ -124,7 +124,7 @@ const SearchContainer = () => {
     </div>
   );
 
-  console.log({ country, city });
+  console.log({ searchResults });
 
   if (!interests.length) return null;
 
@@ -235,7 +235,7 @@ const SearchContainer = () => {
           </button>
           <hr></hr>
         </div>
-        <SearchResult />
+        {searchResults && <SearchResult data={searchResults} />}
       </div>
       <div className='SEARCH_SIDE'></div>
     </div>
