@@ -252,8 +252,8 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
     setBtnExprerience('');
     setBtnContact('');
     if (targetSection === '#experience') {
-      setSectionExperience((prev) => (prev += ' is-active'));
-      setBtnExprerience('is-active');
+      // setSectionExperience((prev) => (prev += ' is-active'));
+      // setBtnExprerience('is-active');
     } else if (targetSection === '#about') {
       setSectionAbout((prev) => (prev += ' is-active'));
       setBtnAbout('is-active');
@@ -387,13 +387,13 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
                   </a>
                 </div>
               </div>
-              <div className={sectionExperience} id='experience'>
+              {/* <div className={sectionExperience} id='experience'>
                 <div className='card-content'>
                   <div className='card-subtitle'>WORK EXPERIENCE</div>
 
                   <Exprerience experience={experience} />
                 </div>
-              </div>
+              </div> */}
               <div className={sectionContact} id='contact'>
                 <div className='card-content'>
                   <div className='card-subtitle'>CONTACT</div>
@@ -443,7 +443,6 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
                       </svg>
                       {info.email}
                     </div>
-                    <button className='green'>WORK</button>
                   </div>
                 </div>
               </div>
@@ -456,13 +455,13 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
                 >
                   ABOUT
                 </button>
-                <button
+                {/* <button
                   className={btnExprerience}
                   data-section='#experience'
                   onClick={handleButtonClick}
                 >
                   EXPERIENCE
-                </button>
+                </button> */}
                 <button
                   className={btnContact}
                   data-section='#contact'
