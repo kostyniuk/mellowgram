@@ -33,9 +33,11 @@ const Header = () => {
   const [selectedValue, setSelectedValue] = useState('');
 
   const authorized = useSelector((state) => state.loggedInUser);
-  const chats = Object.values(useSelector((state) => state.chats));
+  const chats = useSelector((state) => state.chats);
 
-  const unreadCount = getTotalUnread(chats);
+  const unreadCount = getTotalUnread(
+    Object.values(chats).filter((chat) => typeof chat === 'object')
+  );
 
   const handleHamburger = () => {
     setOpen((prev) => !prev);
@@ -87,7 +89,9 @@ const Header = () => {
                   <i class='fa fa-search' aria-hidden='true'></i>
                 </div>
               </NavLink>
-            ) : '|'}
+            ) : (
+              '|'
+            )}
           </li>
           <li className={open ? 'nav-item fade open' : 'nav-item'}>
             {authorized.isAuthenticated ? (
@@ -99,7 +103,7 @@ const Header = () => {
                       place='header'
                       size='smaller'
                       status='danger'
-                      content={getTotalUnread(chats)}
+                      content={unreadCount}
                     />
                   ) : (
                     ''
