@@ -6,14 +6,19 @@ import AsyncSelectCustom from '../Header/AsyncSelect';
 
 import '../../styles/locationTab.css';
 import { rapidApiHeaders } from '../../helpers';
+import { useDispatch } from 'react-redux';
+import { updateLocation } from '../../redux/actions';
 
 const LocationTab = () => {
   const { request } = useFetch();
+  const dispatch = useDispatch();
 
   const reqParams = rapidApiHeaders();
 
   const [country, setCountry] = useState({ code: null, name: null });
   const [city, setCity] = useState(null);
+  const [updatedLocation, setUpdatedLocation] = useState(false);
+  const [error, setError] = useState('');
 
   const handleCountry = (e) => {
     setCountry({ code: e.value, name: e.label });
@@ -21,7 +26,11 @@ const LocationTab = () => {
   };
 
   const handleCity = (e) => {
+    console.log({ e });
+
+    if (!e) return setError('No city provided');
     setCity({ code: e.value, name: e.label });
+    return setError('');
   };
 
   const sendLocation = async () => {
@@ -36,8 +45,18 @@ const LocationTab = () => {
       });
 
       console.log({ res });
+
+      if (res.success) {
+        setUpdatedLocation(true);
+        dispatch(updateLocation({ data: location }));
+        setTimeout(() => setUpdatedLocation(false), 3000);
+      }
+    } else {
+      setError("City or country isn't provided");
     }
   };
+
+  console.log({ country, city });
 
   return (
     <div className='LOCATION_TAB_CONTAINER'>
@@ -67,6 +86,8 @@ const LocationTab = () => {
         </div>
       </div>
       <div className='LOCATION_TAB_SUBMIT'>
+        {error && <h2 style={{ color: 'grey' }}>{error}</h2>}
+        {updatedLocation && <h2 style={{ color: 'white' }}>Updated</h2>}
         <button className='green' onClick={sendLocation}>
           Submit
         </button>
