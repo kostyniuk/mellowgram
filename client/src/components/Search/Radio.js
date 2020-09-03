@@ -15,7 +15,7 @@ const GreenCheckbox = withStyles({
   checked: {},
 })((props) => <Checkbox color='default' {...props} />);
 
-export default ({ state, handler }) => {
+export default ({ state, handler, isDisabled }) => {
   const [disabledCountry, setDisabledCountry] = useState(false);
 
   const handleChange = (event) => {
@@ -38,30 +38,33 @@ export default ({ state, handler }) => {
 
   return (
     <FormGroup row>
-      {!state.checkedCity && (
+      {!state.checkedCity ||
+        (isDisabled && (
+          <FormControlLabel
+            disabled={state.checkedCity}
+            control={
+              <GreenCheckbox
+                checked={state.checkedCountry}
+                onChange={handleChange}
+                name='checkedCountry'
+              />
+            }
+            label='Only my country'
+          />
+        ))}
+
+      {!isDisabled && (
         <FormControlLabel
-          disabled={state.checkedCity}
           control={
             <GreenCheckbox
-              checked={state.checkedCountry}
+              checked={state.checkedCity}
               onChange={handleChange}
-              name='checkedCountry'
+              name='checkedCity'
             />
           }
-          label='Only my country'
+          label='Only my city'
         />
       )}
-
-      <FormControlLabel
-        control={
-          <GreenCheckbox
-            checked={state.checkedCity}
-            onChange={handleChange}
-            name='checkedCity'
-          />
-        }
-        label='Only my city'
-      />
     </FormGroup>
   );
 };

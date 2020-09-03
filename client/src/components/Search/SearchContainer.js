@@ -224,7 +224,11 @@ const SearchContainer = () => {
                   />
                 </div>
               </div>
-              <Radio state={noDistance} handler={setNoDistance} />
+              <Radio
+                state={noDistance}
+                isDisabled={!loggedInUser.based_in}
+                handler={setNoDistance}
+              />
             </div>
           </div>
           {errorNoInterestProvided && (
@@ -237,9 +241,10 @@ const SearchContainer = () => {
           </button>
           <hr></hr>
         </div>
-        {searchingResults.dispatched && Object.keys(searchingResults).length === 1 && (
-          <h1 style={{marginTop: '10px'}}>No results found.</h1>
-        )}
+        {searchingResults.dispatched &&
+          Object.keys(searchingResults).length === 1 && (
+            <h1 style={{ marginTop: '10px' }}>No results found.</h1>
+          )}
         {searchingResults.dispatched && (
           <SearchResult
             data={Object.values(searchingResults).filter(

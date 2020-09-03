@@ -30,7 +30,7 @@ const ChatRow = ({
   if (empty)
     return (
       <div>
-        <p>You have no chats</p>
+        <h3 style={{padding: '20px'}}>You have no chats as of now</h3>
       </div>
     );
 
