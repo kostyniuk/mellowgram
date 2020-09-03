@@ -50,6 +50,10 @@
   flex-direction: column;
 }
 
+#contact {
+  min-height: 285px;
+}
+
 .card.is-active .card-header {
   height: 80px;
 }
@@ -181,20 +185,24 @@
 }
 .card-content {
   display: flex;
+  height: 100%;
   flex-direction: column;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
 }
 .card-desc {
+  display: flex;
+  align-items: center;
+  height: 100%;
   line-height: 1.6;
   color: var(--lightgrey);
   font-size: 14px;
   margin: 0;
   text-align: left;
-  margin-top: 25px;
   font-weight: 400;
   font-family: 'DM Sans', sans-serif;
   word-wrap: break-word;
-  padding-right: 30px;
 }
 .card-social {
   display: flex;
@@ -228,11 +236,9 @@
 }
 .card-buttons {
   display: flex;
+  height: 50px;
   background-color: var(--cream);
   margin-top: auto;
-  position: sticky;
-  bottom: 0;
-  left: 0;
 }
 .card-buttons button {
   flex: 1 1 auto;
@@ -252,6 +258,8 @@
 
 .card-section {
   display: none;
+  height: 100%;
+  min-height: 160px;
 }
 .card-section.is-active {
   display: block;
@@ -329,6 +337,10 @@
   font-family: 'DM Sans', sans-serif;
 }
 .card-contact-wrapper {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
   margin-top: 10px;
 }
 .card-contact {
