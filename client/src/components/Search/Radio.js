@@ -38,20 +38,19 @@ export default ({ state, handler, isDisabled }) => {
 
   return (
     <FormGroup row>
-      {!state.checkedCity ||
-        (isDisabled && (
-          <FormControlLabel
-            disabled={state.checkedCity}
-            control={
-              <GreenCheckbox
-                checked={state.checkedCountry}
-                onChange={handleChange}
-                name='checkedCountry'
-              />
-            }
-            label='Only my country'
-          />
-        ))}
+      {(!state.checkedCity && !isDisabled) && (
+        <FormControlLabel
+          disabled={state.checkedCity}
+          control={
+            <GreenCheckbox
+              checked={state.checkedCountry}
+              onChange={handleChange}
+              name='checkedCountry'
+            />
+          }
+          label='Only my country'
+        />
+      )}
 
       {!isDisabled && (
         <FormControlLabel
