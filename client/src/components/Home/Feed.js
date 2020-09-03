@@ -71,7 +71,12 @@ const Feed = () => {
   if (!posts.length) return null;
 
   posts = posts.filter((el) => el !== true);
-  if (!posts.length) return <div>Follow someone, to fill your feed</div>;
+  if (!posts.length)
+    return (
+      <div className='FEED_EMPTY'>
+        <h1>Follow someone, to fill your feed</h1>
+      </div>
+    );
 
   return (
     <div>
