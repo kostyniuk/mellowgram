@@ -3,6 +3,7 @@ import {
   UPDATE_PROFILE_PICTURE,
   UPDATE_PROFILE_INFO,
   SET_UUID,
+  UPDATE_LOCATION,
 } from './types';
 
 const initialState = {
@@ -25,7 +26,6 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_USER:
-      console.log(state);
       return {
         ...state,
         isAuthenticated: true,
@@ -60,6 +60,10 @@ const userReducer = (state = initialState, action) => {
         phone_number: action.payload.phone_number,
         ready: true,
       };
+    }
+
+    case UPDATE_LOCATION: {
+      return { ...state, based_in: action.payload.data };
     }
 
     case SET_UUID: {

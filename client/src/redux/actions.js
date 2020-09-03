@@ -35,6 +35,7 @@ import {
   LOAD_MORE_HOME_POSTS,
   ON_LIKE_POST_HOME,
   SET_SEARCH_RESULTS,
+  UPDATE_LOCATION,
 } from './types';
 
 export const authUser = ({
@@ -252,4 +253,9 @@ export const OnLikePostHome = ({ post, me }) => ({
 export const setSearchResults = ({ results }) => ({
   type: SET_SEARCH_RESULTS,
   payload: { results },
+});
+
+export const updateLocation = ({ data }) => ({
+  type: UPDATE_LOCATION,
+  payload: { data },
 });
