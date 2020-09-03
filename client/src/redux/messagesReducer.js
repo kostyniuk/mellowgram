@@ -2,7 +2,7 @@ import { GET_MESSAGES, ADD_MESSAGE, ADD_CHAT } from './types';
 import { arrToObj } from '../helpers/index';
 import { adjustTime, addTimeSeparator } from '../helpers/msg';
 
-const initialState = {};
+const initialState = { ready: false };
 
 const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -47,7 +47,7 @@ const messagesReducer = (state = initialState, action) => {
       });
 
       const obj = arrToObj(withSeparators, 'room_id');
-      return { ...state, ...obj };
+      return { ...state, ready: true, ...obj };
     }
 
     case ADD_MESSAGE: {

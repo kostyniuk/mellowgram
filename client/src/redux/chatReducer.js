@@ -6,7 +6,7 @@ import {
   ADD_CHAT,
 } from './types';
 import { arrToObj } from '../helpers/index';
-const initialState = {};
+const initialState = { ready: false };
 
 const chatReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -38,7 +38,7 @@ const chatReducer = (state = initialState, action) => {
 
       const patched = addNumOfUnread(messages);
 
-      return { ...state, ...patched };
+      return { ...state, ...patched, ready: true };
     }
 
     case ADD_MESSAGE: {

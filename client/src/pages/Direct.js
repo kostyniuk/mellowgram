@@ -16,14 +16,16 @@ const Direct = ({
   handleMessageSend,
   setOpenDialog,
 }) => {
-  const chats = Object.values(useSelector((state) => state.chats));
-  const messages = Object.values(useSelector((state) => state.messages));
+  const chats = useSelector((state) => state.chats);
+  const messages = useSelector((state) => state.messages);
 
   useEffect(() => {
     setOpenDialog(null);
   }, []);
 
-  if (!chats.length || !messages.length) return <div></div>;
+  console.log({ chats, messages });
+
+  if (!chats.ready || !messages.ready) return <div></div>;
 
   const notOpenSide = 'DIRECT_SIDE_NOT_ACTIVE';
 
@@ -37,7 +39,9 @@ const Direct = ({
           }
         >
           <Chats
-            chats={chats}
+            chats={Object.values(chats).filter(
+              (chat) => typeof chat === 'object'
+            )}
             openDialog={openDialog}
             handleChatClick={handleChatClick}
             empty={chats[0] === true ? true : false}
@@ -51,7 +55,9 @@ const Direct = ({
           <Messages
             data={
               openDialog
-                ? messages.filter((msgs) => +msgs.room_id === +openDialog)[0]
+                ? Object.values(messages)
+                    .filter((msgs) => typeof msgs === 'object')
+                    .filter((msgs) => +msgs.room_id === +openDialog)[0]
                 : null
             }
             textInput={textInput}
