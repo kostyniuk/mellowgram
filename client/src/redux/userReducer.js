@@ -15,6 +15,7 @@ const initialState = {
   fullname: null,
   number_of_posts: null,
   occupation: null,
+  based_in: null,
   phone_number: null,
   picture: null,
   interests: null,
@@ -24,6 +25,7 @@ const initialState = {
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case AUTH_USER:
+      console.log(state);
       return {
         ...state,
         isAuthenticated: true,
