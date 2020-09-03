@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { updateProfileInfo } from '../../redux/actions';
+import { editAuth } from '../../redux/actions';
 import useFetch from '../../hooks/useFetch';
 
 import { deepCopy, deleteProperties } from '../../helpers';
@@ -63,7 +63,7 @@ const SettingsCard = () => {
       setUpdatedInfo(true);
     }
 
-    dispatch(updateProfileInfo(edit));
+    dispatch(editAuth({ updatedFields: edit }));
   };
 
   const deleteHandlerOnClick = async () => {

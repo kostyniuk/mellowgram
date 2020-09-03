@@ -34,19 +34,7 @@ const useAuth = () => {
           picture,
         } = json.info;
         dispatch(
-          authUser({
-            id,
-            bio,
-            username,
-            based_in,
-            email,
-            fullname,
-            number_of_posts,
-            occupation,
-            phone_number,
-            picture,
-            interests,
-          })
+          authUser({ information: { ...json.info, username, id, interests } })
         );
       } else {
         dispatch(notAuthUser());

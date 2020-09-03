@@ -7,7 +7,7 @@ import AsyncSelectCustom from '../Header/AsyncSelect';
 import '../../styles/locationTab.css';
 import { rapidApiHeaders } from '../../helpers';
 import { useDispatch } from 'react-redux';
-import { updateLocation } from '../../redux/actions';
+import { editAuth } from '../../redux/actions';
 
 const LocationTab = () => {
   const { request } = useFetch();
@@ -26,8 +26,6 @@ const LocationTab = () => {
   };
 
   const handleCity = (e) => {
-    console.log({ e });
-
     if (!e) return setError('No city provided');
     setCity({ code: e.value, name: e.label });
     return setError('');
@@ -44,11 +42,9 @@ const LocationTab = () => {
         body: JSON.stringify({ location }),
       });
 
-      console.log({ res });
-
       if (res.success) {
         setUpdatedLocation(true);
-        dispatch(updateLocation({ data: location }));
+        dispatch(editAuth({ updatedFields: { based_in: location } }));
         setTimeout(() => setUpdatedLocation(false), 3000);
       }
     } else {

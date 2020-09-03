@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import '../../../styles/uploadButton.css';
 
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 
-import {updateProfilePicture}  from '../../../redux/actions'
+import { editAuth } from '../../../redux/actions';
 
 //TODO: need to handle loading photos as well
 
@@ -13,8 +13,8 @@ const UploadButton = () => {
   const [reset, setReset] = useState(false);
   const [removed, setRemoved] = useState(false);
 
-  const {username, picture} = useSelector(state => state.loggedInUser)
-  const dispatch = useDispatch()
+  const { username, picture } = useSelector((state) => state.loggedInUser);
+  const dispatch = useDispatch();
 
   const deleteImage = () => {
     setRemoved(() => true);
@@ -24,7 +24,6 @@ const UploadButton = () => {
     e.preventDefault();
     setNewImage(null);
   };
-
 
   const setProfilePhoto = async (event) => {
     event.preventDefault();
@@ -40,7 +39,7 @@ const UploadButton = () => {
       body: fd,
     });
     const data = await response.json();
-    dispatch(updateProfilePicture(data.src))
+    dispatch(editAuth({ updatedFields: { picture: data.src } }));
     setNewImage(null);
   };
 
