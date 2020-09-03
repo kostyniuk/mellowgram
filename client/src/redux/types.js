@@ -1,8 +1,6 @@
 export const AUTH_USER = 'AUTH_USER';
 export const NOT_AUTH_USER = 'NOT_AUTH_USER';
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-export const UPDATE_PROFILE_PICTURE = 'UPDATE_PROFILE_PICTURE';
-export const UPDATE_PROFILE_INFO = 'UPDATE_PROFILE_INFO';
 export const SET_POSTS = 'SET_POSTS';
 export const ADD_POST = 'ADD_POST';
 export const LOAD_MORE_POSTS = 'LOAD_MORE_POSTS';
@@ -31,4 +29,4 @@ export const ADD_INTERESTS = 'ADD_INTERESTS';
 export const SET_HOME_POSTS = 'SET_HOME_POSTS';
 export const ON_LIKE_POST_HOME = 'LIKE_POST_HOME';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
-export const UPDATE_LOCATION = 'UPDATE_LOCATION';
+export const EDIT_AUTH = 'EDIT_AUTH';

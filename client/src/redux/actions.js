@@ -2,8 +2,6 @@ import {
   AUTH_USER,
   NOT_AUTH_USER,
   SET_CURRENT_PAGE,
-  UPDATE_PROFILE_PICTURE,
-  UPDATE_PROFILE_INFO,
   SET_POSTS,
   ADD_POST,
   LOAD_MORE_POSTS,
@@ -31,39 +29,16 @@ import {
   UPDATE_BIO,
   ADD_INTERESTS,
   SET_HOME_POSTS,
-  SET_HOME_LIKES,
   LOAD_MORE_HOME_POSTS,
   ON_LIKE_POST_HOME,
   SET_SEARCH_RESULTS,
-  UPDATE_LOCATION,
+  EDIT_AUTH,
 } from './types';
 
-export const authUser = ({
-  id,
-  bio,
-  username,
-  based_in,
-  email,
-  fullname,
-  number_of_posts,
-  occupation,
-  phone_number,
-  picture,
-  interests,
-}) => ({
+export const authUser = ({ information }) => ({
   type: AUTH_USER,
   payload: {
-    id,
-    bio,
-    username,
-    based_in,
-    email,
-    fullname,
-    number_of_posts,
-    occupation,
-    phone_number,
-    picture,
-    interests,
+    information,
   },
 });
 
@@ -96,23 +71,6 @@ export const setCurrentPage = ({
     phone_number,
     picture,
   },
-});
-
-export const updateProfilePicture = (picture) => ({
-  type: UPDATE_PROFILE_PICTURE,
-  payload: { picture },
-});
-
-export const updateProfileInfo = ({
-  username,
-  based_in,
-  email,
-  fullname,
-  occupation,
-  phone_number,
-}) => ({
-  type: UPDATE_PROFILE_INFO,
-  payload: { username, based_in, email, fullname, occupation, phone_number },
 });
 
 export const setPosts = ({ posts, user }) => ({
@@ -255,7 +213,7 @@ export const setSearchResults = ({ results }) => ({
   payload: { results },
 });
 
-export const updateLocation = ({ data }) => ({
-  type: UPDATE_LOCATION,
-  payload: { data },
+export const editAuth = ({ updatedFields }) => ({
+  type: EDIT_AUTH,
+  payload: { updatedFields },
 });
