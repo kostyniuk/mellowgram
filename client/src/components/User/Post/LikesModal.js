@@ -20,6 +20,9 @@ const LikesModal = ({ closeHandler, info, title = 'test' }) => {
 
   const isAlreadyFollowed = (id) => {
     const { users } = following;
+
+    if (!users) return false;
+
     const ids = users.map((userObj) => userObj.person_id);
     return ids.includes(id);
   };
