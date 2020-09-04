@@ -10,7 +10,8 @@ const InterestBar = () => {
   const currentPage = useSelector((state) => state.currentPage);
   const loggedInUser = useSelector((state) => state.loggedInUser);
 
-  const { interests } = currentPage;
+  const { interests } =
+    currentPage.id === loggedInUser.id ? loggedInUser : currentPage;
 
   const redirectToSettings = () => {
     history.push('/account');
