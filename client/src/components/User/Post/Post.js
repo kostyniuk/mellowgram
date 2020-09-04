@@ -11,6 +11,7 @@ import {
   incrementNumberOfLikes,
   OnLikePostHome,
 } from '../../../redux/actions';
+import LoginModal from '../Information/LoginModal';
 
 const Post = ({
   id,
@@ -33,6 +34,8 @@ const Post = ({
 
   const { request } = useFetch();
 
+  const [loginModal, setLoginModal] = useState(false);
+
   const [liked, setLiked] = useState(likes?.alreadyLiked);
   let likeButtonClasses = liked ? 'fa fa-heart liked' : 'fa fa-heart';
 
@@ -41,6 +44,8 @@ const Post = ({
   }, [likes]);
 
   const handleLike = async () => {
+    if (!loggedInUser.isAuthenticated) return setLoginModal(true);
+
     const method = liked ? 'DELETE' : 'POST';
 
     const res = await request(`/api/like/${id}`, {
@@ -151,6 +156,7 @@ const Post = ({
           </div>
         </div>
       </div>
+      {loginModal && <LoginModal closeHandler={setLoginModal} />}
       {/* <hr className='hr' /> */}
     </div>
   );
