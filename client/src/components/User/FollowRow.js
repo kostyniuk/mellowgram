@@ -6,12 +6,14 @@ import equal from 'deep-equal';
 import useFetch from './../../hooks/useFetch';
 import { deleteFollow, addFollow } from '../../redux/actions';
 import '../../styles/modal.css';
+import LoginModal from './Information/LoginModal';
 
 const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
   const { request } = useFetch();
   const history = useHistory();
 
   const [following, setFollowing] = useState(alreadyFollowed);
+  const [loginModal, setLoginModal] = useState(false);
 
   const loggedInUser = useSelector(
     (state) => state.loggedInUser,
@@ -25,12 +27,11 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
     }
   );
 
-  const dispatch = useDispatch();
-
   //need to fix here
 
   const followHandler = async () => {
-    console.log({ following, id });
+    if (!loggedInUser.isAuthenticated) return setLoginModal(true);
+
     if (following) {
       const responce = await request(`/api/follow/${id}`, { method: 'DELETE' });
       if (responce.success) {
@@ -102,6 +103,7 @@ const FollowRow = ({ id, username, picture, alreadyFollowed }) => {
         )}
         {/* </NavLink> */}
       </div>
+      {loginModal && <LoginModal closeHandler={setLoginModal} />}
     </div>
   );
 };
