@@ -3,6 +3,8 @@ const router = express.Router();
 
 const db = require('../config/db');
 
+const { formParams } = require('../lib/sqlUtils');
+
 router.get('/', async (req, res, next) => {
   try {
     const query = 'SELECT * FROM Interest ORDER BY interest_id;';
@@ -41,16 +43,20 @@ router.post('/', async (req, res, next) => {
       [user_id]
     );
     interests_ids.forEach((interest_id) => {
-      const query = `INSERT INTO Users_Interests_Map (user_id, interest_id) VALUES ($1, $2);`;
+      const query = `INSERT INTO Users_Interests_Map (user_id, interest_id) VALUES ($1, $2)`;
       promises.push(db.query(query, [user_id, interest_id]));
     });
 
     const responce = await Promise.all(promises);
 
-    if (responce[0].rowCount) {
-      return res.json({ success: true, responce });
-    }
-    return res.json({ success: false, responce });
+    const addParameters = formParams(interests_ids.length, 0);
+
+    const newInterests = await db.query(
+      `SELECT * FROM Interest WHERE interest_id IN  (${addParameters});`,
+      interests_ids
+    );
+
+    return res.json({ success: true, interests: newInterests.rows });
   } catch (e) {
     if (e.code === '23505') {
       return res.json({ success: true, msg: e });
