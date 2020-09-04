@@ -23,7 +23,6 @@ import useFetch from './hooks/useFetch';
 import useAuth from './hooks/useAuth';
 
 import Login from './pages/Login';
-import Header from './components/Header/Header';
 import Signup from './pages/Signup';
 import User from './pages/User';
 import NotFound from './pages/NotFound';
@@ -31,9 +30,9 @@ import Settings from './pages/Settings';
 import About from './pages/About';
 import Direct from './pages/Direct';
 import Home from './pages/Home';
+import Search from './pages/Search';
 
 import './App.css';
-import Search from './pages/Search';
 //TODO WHEN I RECEIVE A MESSAGE AND I'M INSIDE THIS CHAT, IT SHOULDN'T BE TREATED AS UNREAD
 
 // const ws = new WebSocket(`wss://mellowgram.herokuapp.com/`);
