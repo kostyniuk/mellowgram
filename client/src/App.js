@@ -205,11 +205,6 @@ const App = () => {
       <Router>
         <div className='container'>
           <Switch>
-            <Route
-              exact
-              path='/header'
-              render={(props) => <Header {...props} />}
-            />
             <Redirect from='/' exact to={`/${userInfo.username}`} />
             <Redirect from='/login' exact to={`/${userInfo.username}`} />
             <Redirect from='/signup' exact to={`/${userInfo.username}`} />
@@ -273,12 +268,6 @@ const App = () => {
               path='/signup'
               render={(props) => <Signup {...props} />}
             />
-            <Route
-              exact
-              path='/header'
-              render={(props) => <Header {...props} />}
-            />
-
             <Route
               exact
               path='/login'
