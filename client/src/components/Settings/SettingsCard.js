@@ -8,13 +8,13 @@ import { deepCopy, deleteProperties } from '../../helpers';
 
 import '../../styles/table.css';
 import '../../styles/btn.css';
-import Overview from './Overview';
+import Overview from './Tabs/Overview';
 import EditProfile from './EditProfile/EditProfile';
 import EditInterests from './Interests/EditInterests';
-import ChangePassword from './ChangePassword';
-import DeleteProfile from './DeleteProfile';
+import ChangePassword from './Tabs/ChangePassword';
+import DeleteProfile from './Tabs/DeleteProfile';
 import Tabs from './Tabs';
-import LocationTab from './LocationTab';
+import LocationTab from './Tabs/LocationTab';
 
 const SettingsCard = () => {
   const dispatch = useDispatch();
@@ -100,8 +100,9 @@ const SettingsCard = () => {
       body: JSON.stringify({ interests_ids }),
     });
 
-    console.log({ responce });
-    //TODO -> dispatch(editActivities({newActivities: e}))
+    if (responce.success) {
+      dispatch(editAuth({ updatedFields: { interests: responce.interests } }));
+    }
   };
 
   const copy1 = deepCopy(info);
