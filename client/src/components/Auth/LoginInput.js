@@ -4,14 +4,16 @@ import '../../styles/loginInput.css';
 import '../../styles/input.css';
 import '../../styles/btn.css';
 
-const LoginInput = ({ form, changeHandler, submitHandler, err }) => {
+const LoginInput = ({ form, changeHandler, submitHandler, err, modal }) => {
   return (
     <div className='containerInput'>
-      <div className='image'>
-        <h1>
-          Welcome To <span className='welcome'>Mellowgram</span>
-        </h1>
-      </div>
+      {!modal && (
+        <div className='image'>
+          <h1>
+            Welcome To <span className='welcome'>Mellowgram</span>
+          </h1>
+        </div>
+      )}
       <div className='content'>
         <h1>Login</h1>
         <div className='form-group'>
