@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Table from './Table';
-import UploadButton from './EditProfile/UploadButton';
+import Table from '../Table';
+import UploadButton from '../EditProfile/UploadButton';
 
 const Overview = ({ info, adjustedOverwiew }) => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Table from './Table';
+import Table from '../Table';
 
 
 const DeleteProfile = ({deleteHadlerOnChange, deleteHandlerOnClick, wrongPassword, passwordToDelete}) => {

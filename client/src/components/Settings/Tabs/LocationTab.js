@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-import useFetch from '../../hooks/useFetch';
+import useFetch from '../../../hooks/useFetch';
 
-import AsyncSelectCustom from '../Header/AsyncSelect';
+import AsyncSelectCustom from '../../Header/AsyncSelect';
 
-import '../../styles/locationTab.css';
-import { rapidApiHeaders } from '../../helpers';
+import '../../../styles/locationTab.css';
+import { rapidApiHeaders } from '../../../helpers';
 import { useDispatch } from 'react-redux';
-import { editAuth } from '../../redux/actions';
+import { editAuth } from '../../../redux/actions';
 
 const LocationTab = () => {
   const { request } = useFetch();
