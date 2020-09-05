@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import useFetch from '../../../hooks/useFetch';
-import { updateBio } from '../../../redux/actions';
+import { editAuth } from '../../../redux/actions';
 
 const EditBioInput = ({ bio, closeModal }) => {
   const { request } = useFetch();
@@ -27,7 +27,7 @@ const EditBioInput = ({ bio, closeModal }) => {
     if (result.success) {
       console.log('Bio updated');
       closeModal(null);
-      dispatch(updateBio({ newBio }));
+      dispatch(editAuth({ updatedFields: { bio: newBio } }));
       setNewBio('');
     }
   };
@@ -49,7 +49,7 @@ const EditBioInput = ({ bio, closeModal }) => {
         <button className='green' onClick={submitBio}>
           Submit
         </button>
-        <p className style={{ color: !leftCharacters && 'red'}}>
+        <p className style={{ color: !leftCharacters && 'red' }}>
           {leftCharacters}
         </p>
       </div>
