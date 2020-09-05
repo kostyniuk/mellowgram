@@ -31,7 +31,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(cookieParser('12345-67890-09876-54321'));
+app.use(cookieParser(process.env.FOO_COOKIE_SECRET));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -129,7 +129,7 @@ wss.on('connection', function connection(ws, req) {
   }
 
   ws.on('message', function incoming(data) {
-    const { action, id } = JSON.parse(data);
+    const { action } = JSON.parse(data);
     console.log({ action, onlineIds });
 
     switch (action) {
@@ -191,15 +191,11 @@ wss.on('connection', function connection(ws, req) {
             clients = written;
 
             clients.forEach((client) => {
-              // console.log({ clients });
-
               if (
                 client.rooms.map((room) => +room.room_id).includes(+roomId) &&
                 client.connection.readyState === ws.OPEN &&
                 ws !== client.connection
               ) {
-                // console.log({ client });
-
                 client.connection.send(
                   JSON.stringify({
                     action: 'SEND_MESSAGE',
@@ -237,13 +233,11 @@ wss.on('connection', function connection(ws, req) {
         (async () => {
           const result = await startChat({ myId: me.id, otherId: other.id });
 
-
           if (result.isAlreadyExist) {
-
             return ws.send(
               JSON.stringify({
                 action: 'START_CHAT',
-                chat: {room_id: result.chatId},
+                chat: { room_id: result.chatId },
                 alreadyExists: result.isAlreadyExist,
               })
             );
