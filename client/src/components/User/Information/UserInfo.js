@@ -9,6 +9,7 @@ import {
   addFollow,
   addInterests,
   resetUnreadCounter,
+  editAuth,
 } from '../../../redux/actions';
 
 import useFetch from '../../../hooks/useFetch';
@@ -331,7 +332,10 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
                   </div>
                   <div className='card-desc'>
                     <p>
-                      {info.bio || "The user hasn't provided bio information"}
+                      {(loggedInUser.id === info.id
+                        ? loggedInUser.bio
+                        : info.bio) ||
+                        "The user hasn't provided bio information"}
                     </p>
                   </div>
                 </div>
