@@ -113,6 +113,7 @@ const SettingsCard = () => {
     'isAuthenticated',
     'picture',
     'interests',
+    'person_id',
     'uuid',
   ]);
 
