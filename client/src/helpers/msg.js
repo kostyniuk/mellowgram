@@ -1,5 +1,6 @@
 import { monthsNames } from './monthsNames.json';
 import { daysNames } from './daysNames.json';
+import { colorStyles } from '../components/Header/colorStylesSelect';
 
 export const adjustTime = (date, type = 'message') => {
   if (!date) return null;
@@ -8,11 +9,21 @@ export const adjustTime = (date, type = 'message') => {
     const dateInstance = new Date(date);
     const now = new Date();
 
+    console.log({ now, dateInstance });
+
     if (dateInstance.getFullYear() !== now.getFullYear()) {
       return `${dateInstance.getDate()}.${dateInstance.getMonth()}.${
         dateInstance.getFullYear
       }`;
-    } else if (now.getDate() - 7 > dateInstance.getDate()) {
+    } else if (now.getMonth() !== dateInstance.getMonth()) {
+      const month = dateInstance.getMonth();
+      return `${dateInstance.getDate()}.${
+        month.toString().length === 1 ? '0'.concat(month) : month
+      }`;
+    } else if (
+      now.getDate() - 7 > dateInstance.getDate() &&
+      now.getMonth() !== dateInstance.getMonth()
+    ) {
       const month = dateInstance.getMonth();
       return `${dateInstance.getDate()}.${
         month.toString().length === 1 ? '0'.concat(month) : month
@@ -21,6 +32,8 @@ export const adjustTime = (date, type = 'message') => {
       return daysNames[dateInstance.getDay()];
     }
   }
+
+  console.log({ date });
 
   const withoutTimeZone = date
     .split('T')[1]
