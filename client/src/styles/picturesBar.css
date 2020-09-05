@@ -4,6 +4,7 @@
 
 .USER_INFO__picturesBar {
   width: 30%;
+  min-width: 570px;
   border: 100px solid;
   border-image-slice: 1;
   border-width: 2px;
@@ -31,6 +32,10 @@
 .USER_INFO__picturesBar__add {
   display: flex;
   flex-direction: row;
+}
+
+.USER_INFO_picturesBar_body {
+  height: 100%;
 }
 
 .img-grid {

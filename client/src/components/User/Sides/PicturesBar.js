@@ -6,14 +6,27 @@ import '../../../styles/picturesBar.css';
 
 function PicturesBar({ setSelectedImg }) {
   const pictures = [
-    { id: 1, url: 'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg' },
+    {
+      id: 1,
+      url:
+        'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg',
+    },
     { id: 2, url: '/api/public/uploads/user_dloading.jpg' },
     { id: 3, url: '/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg' },
     { id: 4, url: '/api/public/uploads/user_tsunamipapi.jpg' },
     { id: 5, url: '/api/public/uploads/user_dloading.jpg' },
     { id: 6, url: '/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg' },
     { id: 7, url: '/api/public/uploads/user_tsunamipapi.jpg' },
-    { id: 8, url: 'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg' },
+    {
+      id: 8,
+      url:
+        'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg',
+    },
+    {
+      id: 9,
+      url:
+        'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg',
+    },
   ];
 
   return (
@@ -27,24 +40,26 @@ function PicturesBar({ setSelectedImg }) {
           </div>
         </div>
       </div>
-      <div className='img-grid'>
-        {pictures &&
-          pictures.map((doc) => (
-            <motion.div
-              className='img-wrap'
-              key={doc.id}
-              layout
-              onClick={() => setSelectedImg(doc.url)}
-            >
-              <motion.img
-                src={doc.url}
-                alt='uploaded pic'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              />
-            </motion.div>
-          ))}
+      <div className='USER_INFO_picturesBar_body'>
+        <div className='img-grid'>
+          {pictures &&
+            pictures.map((doc) => (
+              <motion.div
+                className='img-wrap'
+                key={doc.id}
+                layout
+                onClick={() => setSelectedImg(doc.url)}
+              >
+                <motion.img
+                  src={doc.url}
+                  alt='uploaded pic'
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                />
+              </motion.div>
+            ))}
+        </div>
       </div>
     </div>
   );
