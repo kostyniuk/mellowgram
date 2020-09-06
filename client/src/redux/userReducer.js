@@ -1,4 +1,10 @@
-import { AUTH_USER, SET_UUID, EDIT_AUTH, LOAD_NEW_PICTURE } from './types';
+import {
+  AUTH_USER,
+  SET_UUID,
+  EDIT_AUTH,
+  LOAD_NEW_PICTURE,
+  REMOVE_PICTURE,
+} from './types';
 
 const initialState = {
   isAuthenticated: false,
@@ -39,6 +45,17 @@ const userReducer = (state = initialState, action) => {
 
       let { pictures } = state;
       pictures.unshift(...pictureMeta);
+
+      return { ...state, pictures };
+    }
+
+    case REMOVE_PICTURE: {
+      const { picture } = action.payload;
+
+      let { pictures } = state;
+      pictures = pictures.filter(
+        (cur) => cur.picture_id !== picture.picture_id
+      );
 
       return { ...state, pictures };
     }

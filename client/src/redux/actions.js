@@ -35,6 +35,7 @@ import {
   EDIT_AUTH,
   EDIT_CURRENT,
   LOAD_NEW_PICTURE,
+  REMOVE_PICTURE,
 } from './types';
 
 export const authUser = ({ information }) => ({
@@ -228,4 +229,9 @@ export const editCurrent = ({ updatedFields }) => ({
 export const loadNewPicture = ({ pictureMeta }) => ({
   type: LOAD_NEW_PICTURE,
   payload: { pictureMeta },
+});
+
+export const removePicture = ({ picture }) => ({
+  type: REMOVE_PICTURE,
+  payload: { picture },
 });

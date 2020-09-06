@@ -32,3 +32,4 @@ export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 export const EDIT_AUTH = 'EDIT_AUTH';
 export const EDIT_CURRENT = 'EDIT_CURRENT';
 export const LOAD_NEW_PICTURE = 'LOAD_NEW_PICTURE';
+export const REMOVE_PICTURE = 'REMOVE_PICTURE';
