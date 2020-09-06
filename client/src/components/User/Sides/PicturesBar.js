@@ -48,18 +48,17 @@ const PicturesBar = ({ setSelectedImg }) => {
       <div className='USER_INFO_picturesBar_header'>
         <h3 className='USER_INFO__picturesBar__title'>My pictures &#8203; </h3>
         <div className='USER_INFO__picturesBar__add'>
-          {loggedInUser.id === currentPage.id &&
-            (pictures.length < 9) && (
-              <div className='UPLOAD_btn_upload ADD_PICTURE'>
-                <input
-                  type='file'
-                  id='UPLOAD_PROFILE_PICTURE'
-                  name=''
-                  onChange={selectImage}
-                />
-                <i className='fa fa-plus' aria-hidden='true'></i>
-              </div>
-            )}
+          {loggedInUser.id === currentPage.id && pictures.length < 9 && (
+            <div className='UPLOAD_btn_upload ADD_PICTURE'>
+              <input
+                type='file'
+                id='UPLOAD_PROFILE_PICTURE'
+                name=''
+                onChange={selectImage}
+              />
+              <i className='fa fa-plus' aria-hidden='true'></i>
+            </div>
+          )}
         </div>
       </div>
       <div className='USER_INFO_picturesBar_body'>
@@ -70,7 +69,7 @@ const PicturesBar = ({ setSelectedImg }) => {
                 className='img-wrap'
                 key={picture.picture_id}
                 layout
-                onClick={() => setSelectedImg(picture.path)}
+                onClick={() => setSelectedImg(picture)}
               >
                 <motion.img
                   src={picture.path}
