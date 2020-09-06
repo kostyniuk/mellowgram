@@ -30,3 +30,5 @@ export const SET_HOME_POSTS = 'SET_HOME_POSTS';
 export const ON_LIKE_POST_HOME = 'LIKE_POST_HOME';
 export const SET_SEARCH_RESULTS = 'SET_SEARCH_RESULTS';
 export const EDIT_AUTH = 'EDIT_AUTH';
+export const EDIT_CURRENT = 'EDIT_CURRENT';
+export const LOAD_NEW_PICTURE = 'LOAD_NEW_PICTURE';
