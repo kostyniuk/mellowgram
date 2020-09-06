@@ -21,20 +21,17 @@ const useAuth = () => {
 
         const resInterests = await request(`/api/interest/${username}`);
 
-        const { interests } = resInterests;
+        const resPictures = await request(
+          `/api/pictures/${responce.data.username}`
+        );
 
-        const {
-          based_in,
-          bio,
-          email,
-          fullname,
-          number_of_posts,
-          occupation,
-          phone_number,
-          picture,
-        } = json.info;
+        const { interests } = resInterests;
+        const { pictures } = resPictures;
+
         dispatch(
-          authUser({ information: { ...json.info, username, id, interests } })
+          authUser({
+            information: { ...json.info, username, id, interests, pictures },
+          })
         );
       } else {
         dispatch(notAuthUser());
