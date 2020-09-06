@@ -16,6 +16,7 @@ const chatRoute = require('./chat');
 const interestRoute = require('./interest');
 const searchRoute = require('./search');
 const apiKeys = require('./apiKeys');
+const picturesRoute = require('./pictures');
 
 router.use('/api/whoami', whoamiRoute);
 router.use('/api/signup', signupRoute);
@@ -29,6 +30,7 @@ router.use('/api/post', postRoute);
 router.use('/api/chat', chatRoute);
 router.use('/api/interest', interestRoute);
 router.use('/api/search', searchRoute);
+router.use('/api/pictures', picturesRoute);
 
 router.use('/api/apiKeys', apiKeys);
 
