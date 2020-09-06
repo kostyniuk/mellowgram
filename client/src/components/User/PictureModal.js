@@ -4,12 +4,14 @@ import { motion } from 'framer-motion';
 
 import '../../styles/picturesBar.css';
 import useFetch from '../../hooks/useFetch';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { removePicture } from '../../redux/actions';
 
 const PictureModal = ({ setSelectedImg, selectedImg }) => {
   const { request } = useFetch();
   const dispatch = useDispatch();
+
+  const loggedInUser = useSelector((state) => state.loggedInUser);
 
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
@@ -41,7 +43,7 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       />
-      <div className='modal_actions'>
+      {loggedInUser.id === setSelectedImg.user_id && <div className='modal_actions'>
         <label>
           <div className='update_picture'>
             <input type='file'></input>
@@ -56,7 +58,7 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
           <i class='fa fa-trash delete_picture_button' aria-hidden='true'></i>
           <p>&#8203; Remove picture</p>
         </div>
-      </div>
+      </div>}
     </motion.div>
   );
 };
