@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
+import useFetch from '../../../hooks/useFetch';
 import { motion } from 'framer-motion';
 
 import '../../../styles/picturesBar.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { editCurrent, loadNewPicture } from '../../../redux/actions';
 
-function PicturesBar({ setSelectedImg }) {
-  const pictures = [
-    {
-      id: 1,
-      url:
-        'https://as01.epimg.net/futbol/imagenes/2019/03/14/champions/1552569020_031070_1552569560_noticia_normal.jpg',
-    },
-    { id: 2, url: '/api/public/uploads/user_dloading.jpg' },
-    { id: 3, url: '/api/public/uploads/N6NCsEnf_6U9RvrfYNXpb.jpg' },
-  ];
+const PicturesBar = ({ setSelectedImg }) => {
+  const { request } = useFetch();
+  const dispatch = useDispatch();
+
+  const currentPage = useSelector((state) => state.currentPage);
+  const loggedInUser = useSelector((state) => state.loggedInUser);
+
+  const pictures =
+    currentPage.id === loggedInUser.id
+      ? loggedInUser.pictures
+      : currentPage.pictures;
+
+  const fetchPictures = useCallback(async () => {
+    const response = await request(`/api/pictures/${currentPage.username}`);
+    dispatch(editCurrent({ updatedFields: { pictures: response.pictures } }));
+  }, [currentPage.id]);
+
+  useEffect(() => {
+    fetchPictures();
+  }, [fetchPictures]);
 
   const selectImage = async (event) => {
     let file = event.target.files[0];
     const fd = new FormData();
     fd.append('picture', file);
     let url = `/api/pictures`;
-    const response = await fetch(url, {
+    const response = await request(url, {
       method: 'POST',
       body: fd,
     });
-    console.log({response})
-
+    if (response.success) {
+      const { data } = response;
+      dispatch(loadNewPicture({ pictureMeta: data }));
+    }
   };
 
   return (
@@ -33,29 +48,32 @@ function PicturesBar({ setSelectedImg }) {
       <div className='USER_INFO_picturesBar_header'>
         <h3 className='USER_INFO__picturesBar__title'>My pictures &#8203; </h3>
         <div className='USER_INFO__picturesBar__add'>
-          <div className='UPLOAD_btn_upload ADD_PICTURE'>
-            <input
-              type='file'
-              id='UPLOAD_PROFILE_PICTURE'
-              name=''
-              onChange={selectImage}
-            />
-            <i className='fa fa-plus' aria-hidden='true'></i>
-          </div>
+          {loggedInUser.id === currentPage.id &&
+            (pictures.length < 9) && (
+              <div className='UPLOAD_btn_upload ADD_PICTURE'>
+                <input
+                  type='file'
+                  id='UPLOAD_PROFILE_PICTURE'
+                  name=''
+                  onChange={selectImage}
+                />
+                <i className='fa fa-plus' aria-hidden='true'></i>
+              </div>
+            )}
         </div>
       </div>
       <div className='USER_INFO_picturesBar_body'>
         <div className='img-grid'>
           {pictures &&
-            pictures.map((doc) => (
+            pictures.map((picture) => (
               <motion.div
                 className='img-wrap'
-                key={doc.id}
+                key={picture.picture_id}
                 layout
-                onClick={() => setSelectedImg(doc.url)}
+                onClick={() => setSelectedImg(picture.path)}
               >
                 <motion.img
-                  src={doc.url}
+                  src={picture.path}
                   alt='uploaded pic'
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -67,6 +85,6 @@ function PicturesBar({ setSelectedImg }) {
       </div>
     </div>
   );
-}
+};
 
 export default PicturesBar;
