@@ -68,4 +68,22 @@ router.get('/:username', async (req, res, next) => {
   }
 });
 
+router.delete('/:pictureId', async (req, res, next) => {
+  try {
+    const { user_id } = req.user;
+    const { pictureId } = req.params;
+
+    const {
+      rows,
+    } = await db.query(
+      `DELETE FROM Picture WHERE picture_id = $1 AND user_id = $2`,
+      [pictureId, user_id]
+    );
+    res.json({ success: true, pictureId });
+  } catch (e) {
+    res.json({ success: false });
+    console.error(e);
+  }
+});
+
 module.exports = router;
