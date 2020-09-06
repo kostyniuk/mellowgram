@@ -43,7 +43,7 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       />
-      {loggedInUser.id === setSelectedImg.user_id && <div className='modal_actions'>
+      {loggedInUser.id === selectedImg.user_id && <div className='modal_actions'>
         <label>
           <div className='update_picture'>
             <input type='file'></input>
