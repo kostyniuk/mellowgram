@@ -30,9 +30,9 @@ const UploadButton = () => {
     const fd = new FormData();
     fd.append('profilePhoto', newImage);
     const method = removed ? 'DELETE' : 'POST';
-    let url = `http://localhost:3000/api/user/${username}/addPicture`;
+    let url = `/api/user/${username}/addPicture`;
     if (removed) {
-      url = `http://localhost:3000/api/user/${username}/deletePicture`;
+      url = `/api/user/${username}/deletePicture`;
     }
     const response = await fetch(url, {
       method,
