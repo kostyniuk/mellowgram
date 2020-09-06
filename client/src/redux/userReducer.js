@@ -1,4 +1,4 @@
-import { AUTH_USER, SET_UUID, EDIT_AUTH } from './types';
+import { AUTH_USER, SET_UUID, EDIT_AUTH, LOAD_NEW_PICTURE } from './types';
 
 const initialState = {
   isAuthenticated: false,
@@ -32,6 +32,15 @@ const userReducer = (state = initialState, action) => {
       const { updatedFields } = action.payload;
 
       return { ...state, ...updatedFields };
+    }
+
+    case LOAD_NEW_PICTURE: {
+      const { pictureMeta } = action.payload;
+
+      let { pictures } = state;
+      pictures.unshift(...pictureMeta);
+
+      return { ...state, pictures };
     }
 
     case SET_UUID: {
