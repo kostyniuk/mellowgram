@@ -33,6 +33,8 @@ import {
   ON_LIKE_POST_HOME,
   SET_SEARCH_RESULTS,
   EDIT_AUTH,
+  EDIT_CURRENT,
+  LOAD_NEW_PICTURE,
 } from './types';
 
 export const authUser = ({ information }) => ({
@@ -216,4 +218,14 @@ export const setSearchResults = ({ results }) => ({
 export const editAuth = ({ updatedFields }) => ({
   type: EDIT_AUTH,
   payload: { updatedFields },
+});
+
+export const editCurrent = ({ updatedFields }) => ({
+  type: EDIT_CURRENT,
+  payload: { updatedFields },
+});
+
+export const loadNewPicture = ({ pictureMeta }) => ({
+  type: LOAD_NEW_PICTURE,
+  payload: { pictureMeta },
 });
