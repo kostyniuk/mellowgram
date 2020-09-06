@@ -3,10 +3,27 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 import '../../styles/picturesBar.css';
+import useFetch from '../../hooks/useFetch';
+import { useDispatch } from 'react-redux';
+import { removePicture } from '../../redux/actions';
 
 const PictureModal = ({ setSelectedImg, selectedImg }) => {
+  const { request } = useFetch();
+  const dispatch = useDispatch();
+
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
+      setSelectedImg(null);
+    }
+  };
+
+  const removeHandler = async () => {
+    const response = await request(`/api/pictures/${selectedImg.picture_id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.success) {
+      dispatch(removePicture({ picture: selectedImg }));
       setSelectedImg(null);
     }
   };
@@ -19,7 +36,7 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
       animate={{ opacity: 1 }}
     >
       <motion.img
-        src={selectedImg}
+        src={selectedImg.path}
         alt='enlarged pic'
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
@@ -35,7 +52,7 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
             <p>&#8203; Load new picture</p>
           </div>
         </label>
-        <div className='remove_picture'>
+        <div className='remove_picture' onClick={removeHandler}>
           <i class='fa fa-trash delete_picture_button' aria-hidden='true'></i>
           <p>&#8203; Remove picture</p>
         </div>
