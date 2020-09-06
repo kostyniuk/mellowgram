@@ -1,4 +1,4 @@
-import { UPDATE_BIO, ADD_INTERESTS } from './types';
+import { UPDATE_BIO, ADD_INTERESTS, ADD_PICTURES, EDIT_CURRENT } from './types';
 
 const initialState = {
   id: null,
@@ -33,14 +33,16 @@ const currentPageReducer = (state = initialState, action) => {
         ready: true,
       };
 
-    case UPDATE_BIO: {
-      return { ...state, bio: action.payload.newBio };
-    }
-
     case ADD_INTERESTS: {
       const { interests } = action.payload;
 
       return { ...state, interests };
+    }
+
+    case EDIT_CURRENT: {
+      const { updatedFields } = action.payload;
+
+      return { ...state, ...updatedFields };
     }
 
     default: {
