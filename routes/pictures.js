@@ -1,6 +1,10 @@
 'use strict';
 
 const express = require('express');
+const { join } = require('path');
+const { promisify } = require('util');
+const { unlink } = require('fs');
+
 const router = express.Router();
 const multer = require('multer');
 const { nanoid } = require('nanoid');
@@ -61,6 +65,7 @@ router.get('/:username', async (req, res, next) => {
     WHERE user_info.username = $1 ORDER BY Picture.created_at DESC LIMIT 9;`,
       [username]
     );
+
     res.json({ success: true, pictures: rows });
   } catch (e) {
     res.json({ success: false });
@@ -72,6 +77,9 @@ router.delete('/:pictureId', async (req, res, next) => {
   try {
     const { user_id } = req.user;
     const { pictureId } = req.params;
+    const { pictureName } = req.body;
+
+    console.log(req.body);
 
     const {
       rows,
@@ -79,6 +87,19 @@ router.delete('/:pictureId', async (req, res, next) => {
       `DELETE FROM Picture WHERE picture_id = $1 AND user_id = $2`,
       [pictureId, user_id]
     );
+
+    const pathToDelete = join(
+      __dirname,
+      '..',
+      'public',
+      'uploads',
+      pictureName
+    );
+
+    const unlinkPromisify = promisify(unlink);
+
+    const deleted = await unlinkPromisify(pathToDelete);
+
     res.json({ success: true, pictureId });
   } catch (e) {
     res.json({ success: false });
