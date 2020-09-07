@@ -22,6 +22,10 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
   const removeHandler = async () => {
     const response = await request(`/api/pictures/${selectedImg.picture_id}`, {
       method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ pictureName: selectedImg.path.split('/').pop() }),
     });
 
     if (response.success) {
@@ -43,22 +47,24 @@ const PictureModal = ({ setSelectedImg, selectedImg }) => {
         initial={{ y: '-100vh' }}
         animate={{ y: 0 }}
       />
-      {loggedInUser.id === selectedImg.user_id && <div className='modal_actions'>
-        <label>
-          <div className='update_picture'>
-            <input type='file'></input>
-            <i
-              class='fa fa-refresh delete_picture_button'
-              aria-hidden='true'
-            ></i>
-            <p>&#8203; Load new picture</p>
+      {loggedInUser.id === selectedImg.user_id && (
+        <div className='modal_actions'>
+          <label>
+            <div className='update_picture'>
+              <input type='file'></input>
+              <i
+                class='fa fa-refresh delete_picture_button'
+                aria-hidden='true'
+              ></i>
+              <p>&#8203; Load new picture</p>
+            </div>
+          </label>
+          <div className='remove_picture' onClick={removeHandler}>
+            <i class='fa fa-trash delete_picture_button' aria-hidden='true'></i>
+            <p>&#8203; Remove picture</p>
           </div>
-        </label>
-        <div className='remove_picture' onClick={removeHandler}>
-          <i class='fa fa-trash delete_picture_button' aria-hidden='true'></i>
-          <p>&#8203; Remove picture</p>
         </div>
-      </div>}
+      )}
     </motion.div>
   );
 };
