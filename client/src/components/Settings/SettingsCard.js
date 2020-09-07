@@ -115,6 +115,7 @@ const SettingsCard = () => {
     'interests',
     'person_id',
     'uuid',
+    'pictures'
   ]);
 
   return (
