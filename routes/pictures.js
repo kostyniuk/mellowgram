@@ -79,8 +79,6 @@ router.delete('/:pictureId', async (req, res, next) => {
     const { pictureId } = req.params;
     const { pictureName } = req.body;
 
-    console.log(req.body);
-
     const {
       rows,
     } = await db.query(
