@@ -133,3 +133,10 @@ label input {
     height: 100%;
   }
 }
+
+@media screen and (max-width: 625px) {
+  
+  .USER_INFO__picturesBar {
+    min-width: 265px;
+  } 
+}

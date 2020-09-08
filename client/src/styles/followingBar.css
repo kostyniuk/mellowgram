@@ -133,3 +133,10 @@
     margin-left: 0px;
   }
 }
+
+@media screen and (max-width: 625px) {
+  
+  .USER_INFO__followingBar {
+    min-width: 265px;
+  } 
+}
