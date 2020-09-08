@@ -401,7 +401,7 @@
   flex-direction: rows;
 }
 
-@media screen and (max-width: 1482px) {
+@media screen and (max-width: 1515px) {
   .USER_INFO__container {
     display: flex;
     flex-direction: column;
