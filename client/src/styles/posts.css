@@ -124,6 +124,8 @@
   color: red;
 }
 
+
+
 @media screen and (max-width: 1200px) {
   .POSTS__container {
     width: 100%;
@@ -147,12 +149,15 @@
 
   .POST__liked_by {
     margin-top: 10px;
+    width: 160px;
   }
 
   .POST_number_of_likes {
     width: 200%;
   }
 }
+
+
 
 .form-input {
   display: block;
@@ -177,4 +182,36 @@
 .hr {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 625px) {
+  .POSTINPUT {
+    width: 100%;
+  }
+  .POSTS_INFINITE_SCROLL {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  
+  .POSTS__container {
+    padding: 20px 5px;
+  }
+  
+  .POST__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+}
+
+@media screen and (max-width: 265px) {
+  
+  .POST__liked_by {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
 }
