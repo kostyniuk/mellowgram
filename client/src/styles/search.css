@@ -114,3 +114,14 @@
 .SEARCH_RESULT_FULLNAME:hover {
   cursor: pointer;
 }
+
+@media screen and (max-width: 425px) {
+
+  .SEARCH_BODY {
+    margin: 0;
+  }
+
+  .SEARCH_SIDE{
+    display: none;
+  }
+}
