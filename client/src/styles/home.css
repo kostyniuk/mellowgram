@@ -46,3 +46,9 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 900px) {
+  .FEED_SIDE{
+    display: none;
+  }
+}

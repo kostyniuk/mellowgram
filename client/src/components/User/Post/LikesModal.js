@@ -10,8 +10,6 @@ import '../../../styles/modal.css';
 const LikesModal = ({ closeHandler, info, title = 'test' }) => {
   const following = useSelector((state) => state.loggedInFollows);
 
-  console.log({ info });
-
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) {
       closeHandler(null);
