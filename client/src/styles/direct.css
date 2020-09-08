@@ -140,5 +140,10 @@
     width: 80%;
     overflow-y: auto;
   }
-
+  
+}
+@media screen and (max-width: 425px) {
+  .CHAT_ROW__center{
+    width: 100%;
+  }
 }
