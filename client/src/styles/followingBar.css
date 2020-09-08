@@ -13,6 +13,7 @@
   flex-direction: row;
   justify-content: space-between;
   width: 30%;
+  min-width: 570px;
   border: 100px solid;
   border-image-slice: 1;
   border-width: 2px;
@@ -123,5 +124,12 @@
     border-radius: 0;
     width: 100%;
     height: 300px;
+  }
+}
+
+@media screen and (max-width: 1515px) {
+  .USER_INFO__followingBar {
+    padding: 20px;
+    margin-left: 0px;
   }
 }
