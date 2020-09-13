@@ -4,7 +4,7 @@ import ResultCard from './ResultCard';
 
 import { sortByProp } from '../../helpers';
 
-const SearchResult = ({ data }) => {
+const SearchResult = ({ data, showMatched }) => {
   return (
     <div className='SEARCH_RESULTS'>
       {sortByProp(data, 'matched').map((user) => (
@@ -18,6 +18,7 @@ const SearchResult = ({ data }) => {
             matched: user.matched,
             interests: Object.values(user.interests),
           }}
+          showMatched={showMatched}
         />
       ))}
     </div>
