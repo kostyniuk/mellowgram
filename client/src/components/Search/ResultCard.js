@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { adjustInterests } from '../../helpers/search';
 
-const ResultCard = ({ info }) => {
+const ResultCard = ({ info, showMatched }) => {
   const history = useHistory();
 
   const {
@@ -60,7 +60,10 @@ const ResultCard = ({ info }) => {
               </svg>
               <h4 className='card-city'>{location.split(',')[0]}</h4>
             </div>
-            <div className='card-number-match'>
+            <div
+              className='card-number-match'
+              onClick={() => showMatched(info.interests)}
+            >
               <h4>{matched} matched</h4>
             </div>
           </div>
