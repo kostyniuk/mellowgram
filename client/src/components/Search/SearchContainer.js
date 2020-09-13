@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { formUrl } from '../../helpers/search';
 import { setSearchResults } from '../../redux/actions';
+import LikesModal from '../User/Post/LikesModal';
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ const SearchContainer = () => {
   const [matchAll, setMatchAll] = useState(false);
   const [matchMyInterests, setMatchMyInterests] = useState(false);
   const [errorNoInterestProvided, setErrorNoInterestProvided] = useState(false);
+
+  const [showMatched, setShowMatched] = useState(false);
 
   // const [maxDistance, setMaxDistance] = useState(null);
   const [noDistance, setNoDistance] = useState({
@@ -119,7 +122,7 @@ const SearchContainer = () => {
 
   // const slideHandler = (_, val) => setMaxDistance(val);
 
-  console.log({ searchingResults });
+  console.log({ selectedInterests, matchMyInterests, showMatched });
 
   const formatGroupLabel = (data) => (
     <div style={styles.groupStyles}>
@@ -129,6 +132,18 @@ const SearchContainer = () => {
   );
 
   if (!interests.length) return null;
+
+  const distingMatched = (selected, obtained, isRandom) => {
+    const selectedIds = selected.map(
+      (interest) => interest.id || interest.interest_id
+    );
+    const filtered = obtained.filter((outInterest) => {
+      console.log({ outInterest, selectedIds });
+      return selectedIds.includes(outInterest.interest_id);
+    });
+
+    return { data: filtered };
+  };
 
   return (
     <div className='SEARCH_CONTAINER'>
@@ -250,10 +265,22 @@ const SearchContainer = () => {
             data={Object.values(searchingResults).filter(
               (el) => typeof el === 'object'
             )}
+            showMatched={setShowMatched}
           />
         )}
       </div>
       <div className='SEARCH_SIDE'></div>
+      {showMatched && (
+        <LikesModal
+          closeHandler={setShowMatched}
+          info={distingMatched(
+            matchMyInterests ? loggedInUser.interests : selectedInterests,
+            showMatched
+          )}
+          title='Matching Interests'
+          type='interests'
+        />
+      )}
     </div>
   );
 };
