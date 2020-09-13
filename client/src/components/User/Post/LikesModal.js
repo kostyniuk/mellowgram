@@ -6,8 +6,9 @@ import { motion } from 'framer-motion';
 import FollowRow from '../FollowRow';
 
 import '../../../styles/modal.css';
+import MatchedRow from '../../Search/MatchedRow';
 
-const LikesModal = ({ closeHandler, info, title = 'test' }) => {
+const LikesModal = ({ closeHandler, info, title = 'test', type = 'users' }) => {
   const following = useSelector((state) => state.loggedInFollows);
 
   const handleClick = (e) => {
@@ -42,6 +43,7 @@ const LikesModal = ({ closeHandler, info, title = 'test' }) => {
           <hr className='hr'></hr>
         </div>
         {info.data &&
+          type === 'users' &&
           info.data.map((user) => (
             <FollowRow
               key={user.person_id}
@@ -49,6 +51,16 @@ const LikesModal = ({ closeHandler, info, title = 'test' }) => {
               picture={user.picture}
               username={user.username}
               alreadyFollowed={isAlreadyFollowed(user.person_id)}
+            />
+          ))}
+        {info.data &&
+          type === 'interests' &&
+          info.data.map((interest, index) => (
+            <MatchedRow
+              key={interest.interest_id}
+              id={interest.interest_id}
+              name={interest.interest_name}
+              color={interest.interest_color}
             />
           ))}
       </motion.div>
