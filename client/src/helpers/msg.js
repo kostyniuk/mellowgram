@@ -1,6 +1,5 @@
 import { monthsNames } from './monthsNames.json';
 import { daysNames } from './daysNames.json';
-import { colorStyles } from '../components/Header/colorStylesSelect';
 
 export const adjustTime = (date, type = 'message') => {
   if (!date) return null;
@@ -8,8 +7,6 @@ export const adjustTime = (date, type = 'message') => {
   if (type === 'chat') {
     const dateInstance = new Date(date);
     const now = new Date();
-
-    console.log({ now, dateInstance });
 
     if (dateInstance.getFullYear() !== now.getFullYear()) {
       return `${dateInstance.getDate()}.${dateInstance.getMonth()}.${
@@ -32,8 +29,6 @@ export const adjustTime = (date, type = 'message') => {
       return daysNames[dateInstance.getDay()];
     }
   }
-
-  console.log({ date });
 
   const withoutTimeZone = date
     .split('T')[1]
