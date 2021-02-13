@@ -13,7 +13,7 @@ export const adjustTime = (date, type = 'message') => {
         dateInstance.getFullYear()
       }`;
     } else if (now.getMonth() !== dateInstance.getMonth()) {
-      const month = dateInstance.getMonth();
+      const month = dateInstance.getMonth() + 1;
       return `${dateInstance.getDate()}.${
         month.toString().length === 1 ? '0'.concat(month) : month
       }`;
