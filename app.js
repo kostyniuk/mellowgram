@@ -63,7 +63,8 @@ app.use(passport.session());
 
 app.use('/api/public', express.static('public'));
 
-app.use(require('./routes'));
+app.use(require('./routes/api'));
+app.use(require('./migrator'));
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client', 'build')));
@@ -182,7 +183,7 @@ wss.on('connection', function connection(ws, req) {
                 room_id: roomId,
                 sender_id: senderId,
                 context,
-                send_at: send_at,
+                send_at: send_at.toString().split('T')[1].split('.')[0],
                 is_read,
               },
               clients,

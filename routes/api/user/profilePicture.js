@@ -5,8 +5,8 @@ const router = express.Router({ mergeParams: true });
 const multer = require('multer');
 const { nanoid } = require('nanoid');
 
-const isAvailable = require('../../lib/isOwnPage');
-const db = require('../../config/db');
+const isAvailable = require('../../../lib/isOwnPage');
+const db = require('../../../config/db');
 
 let id = null;
 

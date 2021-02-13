@@ -62,7 +62,6 @@
   align-items: center;
   padding: 0 20px;
   justify-content: space-between;
-  height: 50px;
   background: rgb(80, 80, 80);
 }
 
@@ -135,4 +134,13 @@
 
 .MESSAGES_btn {
   margin-top: 0;
+}
+
+.MESSASGES__send_input {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 15px 0;
+  align-items: center;
+  justify-content: space-around;
 }

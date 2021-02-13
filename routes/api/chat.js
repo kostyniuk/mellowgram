@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 
-const db = require('../config/db');
+const db = require('../../config/db');
 
 // All chat logic will be handled in ws server. Here si only creation and deletion of rooms
 

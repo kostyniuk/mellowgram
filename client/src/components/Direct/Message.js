@@ -10,6 +10,8 @@ const Message = ({ type, context, isOwner, date }) => {
 
   if (type) return <DateHr date={date} />;
 
+
+
   return (
     <motion.div layout className={className}>
       <div className='MESSAGES__chat-msg-content'>

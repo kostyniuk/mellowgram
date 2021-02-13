@@ -3,9 +3,9 @@
 const express = require('express');
 const router = express.Router();
 
-const db = require('../config/db');
+const db = require('../../config/db');
 
-const fetchEssentInfo = require('../lib/fetchUserEssentialInfo');
+const fetchEssentInfo = require('../../lib/fetchUserEssentialInfo');
 
 router.get('/following/:username', async (req, res, next) => {
   try {

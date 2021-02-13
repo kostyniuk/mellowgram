@@ -2,13 +2,13 @@
 
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const isAvailable = require('../lib/isOwnPage');
-const db = require('../config/db');
+const isAvailable = require('../../lib/isOwnPage');
+const db = require('../../config/db');
 
-const fetchEssentInfo = require('../lib/fetchUserEssentialInfo');
-const transformCreationTime = require('../lib/transformCreationTime');
-const formatTime = require('../lib/formatTime');
-const { formParams } = require('../lib/sqlUtils');
+const fetchEssentInfo = require('../../lib/fetchUserEssentialInfo');
+const transformCreationTime = require('../../lib/transformCreationTime');
+const formatTime = require('../../lib/formatTime');
+const { formParams } = require('../../lib/sqlUtils');
 
 router.get('/home', async (req, res, next) => {
   try {

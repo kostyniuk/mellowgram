@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const db = require('../config/db');
+const db = require('../../config/db');
 
-const { formParams } = require('../lib/sqlUtils');
+const { formParams } = require('../../lib/sqlUtils');
 
 router.get('/', async (req, res, next) => {
   try {
