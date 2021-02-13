@@ -10,7 +10,7 @@ export const adjustTime = (date, type = 'message') => {
 
     if (dateInstance.getFullYear() !== now.getFullYear()) {
       return `${dateInstance.getDate()}.${dateInstance.getMonth()}.${
-        dateInstance.getFullYear
+        dateInstance.getFullYear()
       }`;
     } else if (now.getMonth() !== dateInstance.getMonth()) {
       const month = dateInstance.getMonth();
@@ -63,18 +63,22 @@ export const addTimeSeparator = (messages) => {
 
     currentMessageDate.day = new Date(current.date).getDate();
     currentMessageDate.month = new Date(current.date).getMonth();
-    currentMessageDate.year = new Date(current.date).getFullYear();
+    currentMessageDate.year = new Date(current.date).getFullYear() !== new Date().getFullYear() ? new Date(current.date).getFullYear() : '';
 
     const previousMessage = prev[prev.length - 1];
+
+    const formattedDate = `
+            ${currentMessageDate.day} 
+            ${monthsNames[currentMessageDate.month]}
+            ${currentMessageDate.year}
+          `
 
     if (prev.length === 0)
       return [
         ...prev,
         {
           type: 'separator',
-          date: `${currentMessageDate.day} ${
-            monthsNames[currentMessageDate.month]
-          }`,
+          date: formattedDate,
         },
         current,
       ];
@@ -89,9 +93,7 @@ export const addTimeSeparator = (messages) => {
         {
           type: 'separator',
           room_id: current.room_id,
-          date: `${currentMessageDate.day} ${
-            monthsNames[currentMessageDate.month]
-          }`,
+          date: formattedDate,
         },
         current,
       ];
@@ -102,9 +104,7 @@ export const addTimeSeparator = (messages) => {
         ...prev,
         {
           type: 'separator',
-          date: `${currentMessageDate.day} ${
-            monthsNames[currentMessageDate.month]
-          }`,
+          date: formattedDate
         },
         current,
       ];
@@ -115,9 +115,7 @@ export const addTimeSeparator = (messages) => {
         ...prev,
         {
           type: 'separator',
-          date: `${currentMessageDate.day} ${
-            monthsNames[currentMessageDate.month]
-          } ${currentMessageDate.year}`,
+          date: formattedDate,
         },
         current,
       ];

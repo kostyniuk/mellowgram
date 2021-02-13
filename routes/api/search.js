@@ -1,12 +1,12 @@
 const express = require('express');
 
-const db = require('../config/db');
+const db = require('../../config/db');
 const {
   based_inRegExp,
   isMatchAll,
   prepareResponce,
-} = require('../lib/search');
-const { formParams } = require('../lib/sqlUtils');
+} = require('../../lib/search');
+const { formParams } = require('../../lib/sqlUtils');
 
 const router = express.Router();
 

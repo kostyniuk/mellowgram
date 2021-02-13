@@ -9,7 +9,7 @@ const router = express.Router();
 const multer = require('multer');
 const { nanoid } = require('nanoid');
 
-const db = require('../config/db');
+const db = require('../../config/db');
 
 let id = null;
 

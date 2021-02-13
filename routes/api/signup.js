@@ -3,8 +3,8 @@
 
 const express = require('express');
 const bcrypt = require('bcryptjs');
-const db = require('../config/db');
-const {genPassword, validPassword} = require('../lib/passwordUtils');
+const db = require('../../config/db');
+const {genPassword, validPassword} = require('../../lib/passwordUtils');
 
 const router = express.Router();
 

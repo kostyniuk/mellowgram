@@ -2,14 +2,14 @@
 
 const express = require('express');
 
-const { findIdByUserName, personInfoById } = require('../../lib/sqlUtils');
-const db = require('../../config/db');
+const { findIdByUserName, personInfoById } = require('../../../lib/sqlUtils');
+const db = require('../../../config/db');
 
 const profilePictureRoute = require('./profilePicture');
-const isLoggedIn = require('../../lib/isLoggedIn');
+const isLoggedIn = require('../../../lib/isLoggedIn');
 const router = express.Router();
 
-const { validPassword } = require('../../lib/passwordUtils');
+const { validPassword } = require('../../../lib/passwordUtils');
 
 router.get('/:username', async (req, res, next) => {
   try {

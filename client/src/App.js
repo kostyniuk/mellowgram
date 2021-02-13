@@ -137,6 +137,7 @@ const App = () => {
       const message = JSON.parse(evt.data);
       console.log({ message });
       const { action } = message;
+      console.log({action})
       switch (action) {
         case 'INFORMATION_IS_READY':
           ws.send(JSON.stringify({ action: 'GET_CHATS', id: userInfo.id }));
@@ -168,6 +169,7 @@ const App = () => {
 
         case 'SEND_MESSAGE':
           const { messageInfo } = message;
+          console.log({messageInfo})
           dispatch(addMessage({ info: messageInfo, me: userInfo }));
           break;
 

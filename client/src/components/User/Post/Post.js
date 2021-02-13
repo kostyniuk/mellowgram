@@ -59,7 +59,7 @@ const Post = ({
         } else {
           dispatch(incrementNumberOfLikes(id));
         }
-        dispatch(onLike({ ...loggedInUser, id }));
+        dispatch(onLike({ ...loggedInUser, user_id: loggedInUser.id, id }));
       } else {
         dispatch(OnLikePostHome({ post: id, me: loggedInUser }));
       }

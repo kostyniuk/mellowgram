@@ -17,6 +17,13 @@ import { formUrl } from '../../helpers/search';
 import { setSearchResults } from '../../redux/actions';
 import LikesModal from '../User/Post/LikesModal';
 
+import { Form, Field, FormElement, FieldWrapper } from '@progress/kendo-react-form';
+import { Label, Hint, Error } from '@progress/kendo-react-labels';
+import { TextArea } from '@progress/kendo-react-inputs';
+import { Button } from '@progress/kendo-react-buttons';
+
+import FormTextArea from "../../common/TextInput";
+
 const SearchContainer = () => {
   const dispatch = useDispatch();
   const { request } = useFetch();
@@ -43,6 +50,12 @@ const SearchContainer = () => {
   });
 
   const loggedInUser = useSelector((state) => state.loggedInUser);
+
+  const max = 200;
+  const handleSubmit = (dataItem) => alert(JSON.stringify(dataItem, null, 2));
+
+  const textAreaValidator = (value) => !value ?
+      "Please enter a text." : "";
 
   const fetchInterests = useCallback(async () => {
     const responce = await request('/api/interest');
@@ -178,6 +191,39 @@ const SearchContainer = () => {
               label='Match all'
             />
           </div>
+
+          <Form
+              initialValues={{
+                sendInvitation: ''
+              }}
+              onSubmit={handleSubmit}
+              render={(formRenderProps) => (
+                  <FormElement style={{ width: 250 }}>
+                    <fieldset className={'k-form-fieldset'} style={{ position: 'absolute' }}>
+                      <Field
+                          id={'sendInvitation'}
+                          name={'sendInvitation'}
+                          label={'Send Invitation:'}
+                          max={max}
+                          value={formRenderProps.valueGetter('sendInvitation').length}
+                          hint={'Hint: Enter your text here'}
+                          component={FormTextArea}
+                          validator={textAreaValidator}
+                      />
+                      <div className="k-form-buttons k-justify-content-end">
+                        <Button
+                            primary={true}
+                            type={'submit'}
+                            disabled={!formRenderProps.allowSubmit}
+                        >
+                          Send
+                        </Button>
+                      </div>
+                    </fieldset>
+                  </FormElement>
+              )}
+          />
+          );
           <div className='SEARCH_OPTIONS_LOCATION'>
             {/* <h4>The location radius within which to find: </h4>
             <div className='SEARCH_OPTIONS_LOCATION_SLIDER'> */}
