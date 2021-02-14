@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 
 const useStyles = makeStyles({
   root: {
-    width: 300,
+    width: '50%',
   },
 });
 
@@ -38,17 +38,25 @@ const PrettoSlider = withStyles({
   },
 })(Slider);
 
-export default ({ slideHandler, min, max, isDisabled }) => {
+export default ({ slideHandler, min, max, initialRange, isDisabled }) => {
   const classes = useStyles();
+
+  function valuetext(value) {
+    return `${value}°C`;
+  }
+
+  if (initialRange[1] === `${max}+`) initialRange[1] = max;
 
   return (
     <div className={classes.root}>
       <PrettoSlider
         disabled={isDisabled}
-        defaultValue={30}
-        aria-labelledby='discrete-slider'
+        aria-labelledby="range-slider"
+        value={initialRange}
+        // aria-labelledby='discrete-slider'
         valueLabelDisplay='auto'
-        step={10}
+        step={1}
+        getAriaValueText={valuetext}
         min={min}
         max={max}
         onChange={slideHandler}

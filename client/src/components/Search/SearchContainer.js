@@ -17,11 +17,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { formUrl } from '../../helpers/search';
 import { setSearchResults } from '../../redux/actions';
 import LikesModal from '../User/Post/LikesModal';
+import SelectLanguages from "../Settings/Languages/SelectLanguages";
+import SelectInterests from "../Settings/Interests/SelectInterests";
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
   const { request } = useFetch();
   const reqParams = rapidApiHeaders();
+
+  const loggedInUser = useSelector((state) => state.loggedInUser);
+
 
   const searchingResults = useSelector((state) => state.search);
 
@@ -30,14 +35,17 @@ const SearchContainer = () => {
 
   const [interests, setInterests] = useState([]);
 
-  const [selectedInterests, setSelectedInterests] = useState([]);
+  const [selectedInterests, setSelectedInterests] = useState(loggedInUser.interests);
+  const [selectedAge, setSelectedAge] = useState([loggedInUser.age-2, loggedInUser.age+2])
+  const [selectedLanguages, setselectedLanguages] = useState(loggedInUser.languages);
+
   const [matchAll, setMatchAll] = useState(false);
   const [matchMyInterests, setMatchMyInterests] = useState(false);
   const [errorNoInterestProvided, setErrorNoInterestProvided] = useState(false);
 
   const [showMatched, setShowMatched] = useState(false);
 
-  // const [maxDistance, setMaxDistance] = useState(null);
+  const [maxDistance, setMaxDistance] = useState(null);
   const [noDistance, setNoDistance] = useState({
     checkedCountry: false,
     checkedCity: false,
@@ -45,7 +53,6 @@ const SearchContainer = () => {
 
   const [isAdaptiveSearchEnabled, setisAdaptiveSearchEnabled] = useState(true);
 
-  const loggedInUser = useSelector((state) => state.loggedInUser);
 
   const max = 200;
   const handleSubmit = (dataItem) => alert(JSON.stringify(dataItem, null, 2));
@@ -116,6 +123,8 @@ const SearchContainer = () => {
       country,
       city,
       selectedInterests,
+      selectedAge,
+      selectedLanguages,
       matchAll,
       matchMyInterests,
       noDistance,
@@ -145,7 +154,7 @@ const SearchContainer = () => {
 
   const handleRadioChange = (e, handler) => handler(e.target.checked);
 
-  // const slideHandler = (_, val) => setMaxDistance(val);
+  const slideHandler = (_, val) => val[1] === 100 ? setSelectedAge([val[0], '100+']) : setSelectedAge(val);
 
   console.log({ selectedInterests, matchMyInterests, showMatched });
 
@@ -183,23 +192,22 @@ const SearchContainer = () => {
         <div className= {isAdaptiveSearchEnabled ? 'SEARCH_OPTIONS SEARCH_DISABLED_SEARCH': 'SEARCH_OPTIONS'}>
           <div className='SEARCH_OPTIONS_SEARCH'>
             <h3>Interests: </h3>
-            {!matchMyInterests && (
-              <Select
-                isMulti
-                styles={styles.colourStyles}
-                name='colors'
-                options={interests}
-                formatGroupLabel={formatGroupLabel}
-                className='basic-multi-select'
-                classNamePrefix='select'
-                onChange={(e) => setSelectedInterests(e)}
+                  <SelectInterests
+                // isMulti
+                // styles={styles.colourStyles}
+                // name='colors'
+                // defaultValue={selectedInterests || []}
+                // options={interests}
+                // formatGroupLabel={formatGroupLabel}
+                // className='basic-multi-select'
+                // classNamePrefix='select'
+                  setSelectActivities={setSelectedInterests}
               />
-            )}
-            <RadioSingle
-              state={matchMyInterests}
-              handleChange={(e) => handleRadioChange(e, setMatchMyInterests)}
-              label='Select mine'
-            />
+            {/*<RadioSingle*/}
+            {/*  state={matchMyInterests}*/}
+            {/*  handleChange={(e) => handleRadioChange(e, setMatchMyInterests)}*/}
+            {/*  label='Select mine'*/}
+            {/*/>*/}
             <RadioSingle
               state={matchAll}
               handleChange={(e) => handleRadioChange(e, setMatchAll)}
@@ -207,17 +215,21 @@ const SearchContainer = () => {
             />
           </div>
           <div className='SEARCH_OPTIONS_LOCATION'>
-            {/* <h4>The location radius within which to find: </h4>
-            <div className='SEARCH_OPTIONS_LOCATION_SLIDER'> */}
-            {/* <Slider
+            <h4>Age range </h4>
+            <div className='SEARCH_OPTIONS_LOCATION_SLIDER'>
+            <Slider
+                initialRange={selectedAge}
                 slideHandler={slideHandler}
-                min={0}
-                max={1000}
-                isDisabled={noDistance.checkedCountry || noDistance.checkedCity}
+                min={14}
+                max={100}
+                // isDisabled={noDistance.checkedCountry || noDistance.checkedCity}
               />
-              <h3 style={{ margin: '5px 20px' }}>km</h3>
-            </div> */}
-
+              <h3 style={{ margin: '5px 20px' }}>{selectedAge[0] === selectedAge[1] ? selectedAge[0] : selectedAge.join(' - ')}</h3>
+            </div>
+            <div className='SEARCH_OPTIONS_LOCATION' style={{color: 'black'}}>
+              <h4 style={{color: 'white'}}>Languages they speak </h4>
+              <SelectLanguages setSelectLanguages={setselectedLanguages} />
+            </div>
             <div className='SEARCH_LOCATION'>
               <div className='SEARCH_LOCATION_COUNTRY'>
                 <h4>Country/Region</h4>

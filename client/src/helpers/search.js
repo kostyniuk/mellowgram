@@ -42,12 +42,15 @@ export const formUrl = ({
   city,
   selectedInterests,
   matchAll,
+                          selectedAge, selectedLanguages,
   matchMyInterests,
   noDistance,
   myLocation,
   loggedInUser,
 }) => {
   let s = base + '?interests=';
+
+  console.log({selectedLanguages})
 
   const interestsFinal = matchMyInterests
     ? loggedInUser.interests
@@ -61,6 +64,9 @@ export const formUrl = ({
     city,
     myLocation,
   });
+
+  s+='?age=' + selectedAge.join('-')
+  s+='?languages=' + selectedLanguages.map(language=> language.id).join('-')
 
   return s;
 };
