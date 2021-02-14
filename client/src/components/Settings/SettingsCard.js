@@ -15,6 +15,7 @@ import ChangePassword from './Tabs/ChangePassword';
 import DeleteProfile from './Tabs/DeleteProfile';
 import Tabs from './Tabs';
 import LocationTab from './Tabs/LocationTab';
+import EditLanguages from './Languages/EditLanguages';
 
 const SettingsCard = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const SettingsCard = () => {
   const [openTab, setOpenTab] = useState(0);
   const [edit, setEdit] = useState({
     username: info.username,
+    age: info.age,
     email: info.email,
     fullname: info.fullname,
     occupation: info.occupation,
@@ -105,6 +107,30 @@ const SettingsCard = () => {
     }
   };
 
+  const sendNewLanguages = async (e) => {
+    let language_ids = [];
+
+    const method = e ? 'POST' : 'DELETE';
+
+    if (method === 'POST') {
+      language_ids = e.map((language) => language.id);
+    }
+
+    const responce = await request('api/language/', {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ language_ids }),
+    });
+
+    console.log({responce})
+
+    if (responce.success) {
+      dispatch(editAuth({ updatedFields: { languages: responce.languages } }));
+    }
+  };
+
   const copy1 = deepCopy(info);
 
   const adjustedOverwiew = deleteProperties(copy1, [
@@ -113,6 +139,7 @@ const SettingsCard = () => {
     'isAuthenticated',
     'picture',
     'interests',
+    'languages',
     'person_id',
     'uuid',
     'pictures'
@@ -140,8 +167,11 @@ const SettingsCard = () => {
         {openTab === 3 && (
           <EditInterests sendNewActivities={sendNewActivities} />
         )}
-        {openTab === 4 && <ChangePassword />}
-        {openTab === 5 && (
+        {openTab === 4 && (
+            <EditLanguages sendNewLanguages={sendNewLanguages} />
+        )}
+        {openTab === 5 && <ChangePassword />}
+        {openTab === 6 && (
           <DeleteProfile
             deleteHadlerOnChange={deleteHadlerOnChange}
             deleteHandlerOnClick={deleteHandlerOnClick}

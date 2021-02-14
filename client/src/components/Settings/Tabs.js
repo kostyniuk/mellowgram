@@ -19,12 +19,16 @@ const Tabs = ({ switchTab }) => {
         <li onClick={() => switchTab(3)}>
           <i className='fa fa-list-alt'></i>Edit Interests
         </li>
-        <hr class='HRsettings' />
+        <hr className='HRsettings'/>
         <li onClick={() => switchTab(4)}>
-          <i className='fa fa-lock'></i>Change Password
+          <i className='fa fa-list-alt'></i>Edit Languages
         </li>
         <hr class='HRsettings' />
         <li onClick={() => switchTab(5)}>
+          <i className='fa fa-lock'></i>Change Password
+        </li>
+        <hr class='HRsettings' />
+        <li onClick={() => switchTab(6)}>
           <i className='fa fa-minus-circle'></i>Delete profile
         </li>
       </ul>

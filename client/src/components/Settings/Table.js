@@ -15,6 +15,8 @@ import {
   Paper,
 } from '@material-ui/core';
 
+import _ from 'lodash';
+
 import { adjustToTable } from '../../helpers';
 
 import '../../styles/input.css';
@@ -77,6 +79,11 @@ const useStyles = makeStyles({
   },
 });
 
+const inputType = {
+  password: 'password',
+  age: 'number'
+}
+
 const SimpleTable = ({ tab, data, handler }) => {
   const classes = useStyles();
   const infoRows = adjustToTable(data);
@@ -85,26 +92,32 @@ const SimpleTable = ({ tab, data, handler }) => {
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label='simple table'>
           <TableBody>
-            {infoRows.map((row) => (
-              <StyledTableRow key={row.field}>
+            {infoRows.map((row) => {
+              const inputTypes = _.keys(inputType)
+              const type = _.includes(inputTypes, row.field) ? inputType[row.field] : 'text';
+              console.log({row, type, inputTypes});
+
+              return <StyledTableRow key={row.field}>
                 <StyledTableCellField align='left'>
                   {row.field}
                 </StyledTableCellField>
                 <StyledTableCellValue align='left'>
                   {tab === 'overview' ? (
-                    row.value
+                      row.value
                   ) : (
-                    <input
-                      type={row.field === 'Password' ? 'password' : 'text'}
-                      id='txt'
-                      name={row.field}
-                      value={row.value}
-                      onChange={handler}
-                    />
+                      <input
+                          type={type}
+                          min={14}
+                          id='txt'
+                          name={row.field}
+                          value={row.value}
+                          onChange={handler}
+                      />
                   )}
                 </StyledTableCellValue>
               </StyledTableRow>
-            ))}
+            })
+            }
           </TableBody>
         </Table>
       </TableContainer>

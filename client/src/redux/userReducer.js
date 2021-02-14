@@ -11,7 +11,6 @@ const initialState = {
   id: null,
   bio: null,
   username: null,
-  based_in: null,
   email: null,
   fullname: null,
   number_of_posts: null,

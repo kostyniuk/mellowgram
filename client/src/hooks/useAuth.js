@@ -25,12 +25,17 @@ const useAuth = () => {
           `/api/pictures/${responce.data.username}`
         );
 
+        const resLanguages = await request(`/api/language/${id}`);
+
+        console.log({resLanguages})
+
+        const {languages} = resLanguages
         const { interests } = resInterests;
         const { pictures } = resPictures;
 
         dispatch(
           authUser({
-            information: { ...json.info, username, id, interests, pictures },
+            information: { ...json.info, username, id, interests, languages, pictures },
           })
         );
       } else {

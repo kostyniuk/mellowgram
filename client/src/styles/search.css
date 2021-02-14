@@ -13,8 +13,14 @@
   background-color: black;
 }
 
+div.SEARCH_DISABLED_SEARCH
+{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 .SEARCH_OPTIONS {
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .SEARCH_OPTIONS h3 {

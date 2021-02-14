@@ -11,6 +11,8 @@ const router = express.Router();
 
 const { validPassword } = require('../../../lib/passwordUtils');
 
+const _ = require('lodash');
+
 router.get('/:username', async (req, res, next) => {
   try {
     const { username } = req.params;
@@ -56,13 +58,16 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
       fullname,
       occupation,
       phone_number,
+      age
     } = req.body;
+
+    console.log({username})
 
     const updUser = 'UPDATE User_info SET username=$2 WHERE user_id=$1';
     const paramsUser = [user_id, username];
 
     const updPerson =
-      'UPDATE Person SET email=$2, fullname=$3, based_in=$4, occupation=$5, phone_number=$6 WHERE person_id=$1';
+      'UPDATE Person SET email=$2, fullname=$3, based_in=$4, occupation=$5, phone_number=$6, age=$7 WHERE person_id=$1';
     const paramsPerson = [
       user_id,
       email,
@@ -70,7 +75,12 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
       based_in,
       occupation,
       phone_number,
+      age
     ];
+
+    if (!_.trim(username)) throw new Error('Username cannot be empty')
+    if (!_.trim(email)) throw new Error('Email cannot be empty')
+    if (!_.trim(fullname)) throw new Error('Full name cannot be empty')
 
     const promises = [
       db.query(updUser, paramsUser),
@@ -81,8 +91,11 @@ router.put('/info', isLoggedIn, async (req, res, next) => {
     updated.forEach((result) => {
       if (result.status === 'rejected') {
         let e = null;
-        console.log(result.reason.detail);
-        if (result.reason.detail.includes('username')) {
+        console.log({result})
+        if(result.reason.code === '22P02') {
+          console.log('here')
+          e = 'Age must a number'
+        } else if (result.reason.detail.includes('username')) {
           e = 'This username is already taken.';
         } else if (result.reason.detail.includes('email')) {
           e = 'This email is already used.';

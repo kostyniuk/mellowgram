@@ -8,6 +8,7 @@ import useFetch from '../../hooks/useFetch';
 import Slider from './Slider';
 import Radio from './Radio';
 import RadioSingle from './RadioSingle';
+import Switch from './Switch';
 import SearchResult from './SearchResult';
 import AsyncSelectCustom from '../Header/AsyncSelect';
 import { rapidApiHeaders } from '../../helpers';
@@ -16,13 +17,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { formUrl } from '../../helpers/search';
 import { setSearchResults } from '../../redux/actions';
 import LikesModal from '../User/Post/LikesModal';
-
-import { Form, Field, FormElement, FieldWrapper } from '@progress/kendo-react-form';
-import { Label, Hint, Error } from '@progress/kendo-react-labels';
-import { TextArea } from '@progress/kendo-react-inputs';
-import { Button } from '@progress/kendo-react-buttons';
-
-import FormTextArea from "../../common/TextInput";
 
 const SearchContainer = () => {
   const dispatch = useDispatch();
@@ -48,6 +42,8 @@ const SearchContainer = () => {
     checkedCountry: false,
     checkedCity: false,
   });
+
+  const [isAdaptiveSearchEnabled, setisAdaptiveSearchEnabled] = useState(true);
 
   const loggedInUser = useSelector((state) => state.loggedInUser);
 
@@ -107,13 +103,15 @@ const SearchContainer = () => {
   };
 
   const searchHandler = async () => {
-    if (!selectedInterests.length && !matchMyInterests)
+    let url = '';
+    if(!isAdaptiveSearchEnabled) {
+      if (!selectedInterests.length && !matchMyInterests)
       return (() => {
         setErrorNoInterestProvided(true);
         setTimeout(() => setErrorNoInterestProvided(false), 3000);
       })();
 
-    const url = formUrl({
+    url = formUrl({
       base: 'api/search',
       country,
       city,
@@ -124,6 +122,20 @@ const SearchContainer = () => {
       myLocation: loggedInUser.based_in,
       loggedInUser,
     });
+
+    } else {
+      url = url = formUrl({
+        base: 'api/search',
+        country,
+        city,
+        selectedInterests,
+        matchAll,
+        matchMyInterests,
+        noDistance,
+        myLocation: loggedInUser.based_in,
+        loggedInUser,
+      });
+    }
 
     const res = await request(url);
 
@@ -165,7 +177,10 @@ const SearchContainer = () => {
         <div className='SEARCH_TITLE'>
           <h1>Explore People</h1>
         </div>
-        <div className='SEARCH_OPTIONS'>
+        <div style={{width: '250px', marginTop: '20px'}}>
+          <Switch label={'Enable adaptive search'} initial={isAdaptiveSearchEnabled} changeHandler={setisAdaptiveSearchEnabled}/>
+        </div>
+        <div className= {isAdaptiveSearchEnabled ? 'SEARCH_OPTIONS SEARCH_DISABLED_SEARCH': 'SEARCH_OPTIONS'}>
           <div className='SEARCH_OPTIONS_SEARCH'>
             <h3>Interests: </h3>
             {!matchMyInterests && (
@@ -191,39 +206,6 @@ const SearchContainer = () => {
               label='Match all'
             />
           </div>
-
-          <Form
-              initialValues={{
-                sendInvitation: ''
-              }}
-              onSubmit={handleSubmit}
-              render={(formRenderProps) => (
-                  <FormElement style={{ width: 250 }}>
-                    <fieldset className={'k-form-fieldset'} style={{ position: 'absolute' }}>
-                      <Field
-                          id={'sendInvitation'}
-                          name={'sendInvitation'}
-                          label={'Send Invitation:'}
-                          max={max}
-                          value={formRenderProps.valueGetter('sendInvitation').length}
-                          hint={'Hint: Enter your text here'}
-                          component={FormTextArea}
-                          validator={textAreaValidator}
-                      />
-                      <div className="k-form-buttons k-justify-content-end">
-                        <Button
-                            primary={true}
-                            type={'submit'}
-                            disabled={!formRenderProps.allowSubmit}
-                        >
-                          Send
-                        </Button>
-                      </div>
-                    </fieldset>
-                  </FormElement>
-              )}
-          />
-          );
           <div className='SEARCH_OPTIONS_LOCATION'>
             {/* <h4>The location radius within which to find: </h4>
             <div className='SEARCH_OPTIONS_LOCATION_SLIDER'> */}
@@ -292,29 +274,31 @@ const SearchContainer = () => {
               />
             </div>
           </div>
-          {errorNoInterestProvided && (
+          {!isAdaptiveSearchEnabled && errorNoInterestProvided && (
             <p style={{ color: 'red' }}>
               No Interest Provided. You have to choose at least 1.
             </p>
           )}
+      </div>
+        <div>
           <button className='green' onClick={searchHandler}>
             Search
           </button>
           <hr></hr>
         </div>
         {searchingResults.dispatched &&
-          Object.keys(searchingResults).length === 1 && (
+        Object.keys(searchingResults).length === 1 && (
             <h1 style={{ marginTop: '10px' }}>No results found.</h1>
-          )}
-        {searchingResults.dispatched && (
-          <SearchResult
-            data={Object.values(searchingResults).filter(
-              (el) => typeof el === 'object'
-            )}
-            showMatched={setShowMatched}
-          />
         )}
-      </div>
+        {searchingResults.dispatched && (
+            <SearchResult
+                data={Object.values(searchingResults).filter(
+                    (el) => typeof el === 'object'
+                )}
+                showMatched={setShowMatched}
+            />
+        )}
+        </div>
       <div className='SEARCH_SIDE'></div>
       {showMatched && (
         <LikesModal
