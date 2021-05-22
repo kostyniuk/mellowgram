@@ -12,6 +12,8 @@ export const addInterestsIds = (interests) => {
 export const isMatchAll = (bool) =>
   bool ? '&matchAll=true' : '&matchAll=false';
 
+export const distinguishAdaptiveAge = age => [age-2, age+2];
+
 export const distinguishLocation = ({
   noDistance,
   country,
@@ -42,15 +44,14 @@ export const formUrl = ({
   city,
   selectedInterests,
   matchAll,
-                          selectedAge, selectedLanguages,
+  selectedAge,
+  selectedLanguages,
   matchMyInterests,
   noDistance,
   myLocation,
   loggedInUser,
 }) => {
   let s = base + '?interests=';
-
-  console.log({selectedLanguages})
 
   const interestsFinal = matchMyInterests
     ? loggedInUser.interests
@@ -65,8 +66,10 @@ export const formUrl = ({
     myLocation,
   });
 
-  s+='?age=' + selectedAge.join('-')
-  s+='?languages=' + selectedLanguages.map(language=> language.id).join('-')
+  s+='&age=' + selectedAge.join(',')
+  if(selectedLanguages) {
+    s+='&languages=' + selectedLanguages.map(language=> language.id).join(',')
+  }
 
   return s;
 };

@@ -133,11 +133,13 @@ const SearchContainer = () => {
     });
 
     } else {
-      url = url = formUrl({
+      url = formUrl({
         base: 'api/search',
         country,
         city,
         selectedInterests,
+        selectedAge: [loggedInUser.age-2, loggedInUser.age+2],
+        selectedLanguages: loggedInUser.languages,
         matchAll,
         matchMyInterests,
         noDistance,
@@ -148,7 +150,6 @@ const SearchContainer = () => {
 
     const res = await request(url);
 
-    console.log({ res });
     dispatch(setSearchResults({ results: res.data }));
   };
 
