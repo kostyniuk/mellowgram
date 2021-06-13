@@ -3,6 +3,8 @@ import { UPDATE_BIO, ADD_INTERESTS, ADD_PICTURES, EDIT_CURRENT } from './types';
 const initialState = {
   id: null,
   bio: null,
+  age: null,
+  languages: null,
   username: null,
   based_in: null,
   email: null,
@@ -25,6 +27,8 @@ const currentPageReducer = (state = initialState, action) => {
         username: action.payload.username,
         based_in: action.payload.based_in,
         email: action.payload.email,
+        age: action.payload.age,
+        languages: action.payload.languages,
         fullname: action.payload.fullname,
         number_of_posts: action.payload.number_of_posts,
         occupation: action.payload.occupation,

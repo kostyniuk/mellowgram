@@ -10,7 +10,7 @@
 
 .USER_INFO__followingBar {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   width: 30%;
   min-width: 570px;
@@ -45,6 +45,10 @@
   align-items: center;
 }
 
+
+.INTEREST_TAB__BAR_TITLE {
+  /*padding-bottom: 40px;*/
+}
 .FOLLOWING_BAR_FOLLOWED_BY h3 {
   text-align: center;
 }
@@ -93,6 +97,7 @@
 
 .INTEREST_BAR_CONTAINER {
   width: 100%;
+  height: 50%;
   display: flex;
   flex-direction: column;
 }
@@ -104,12 +109,36 @@
 }
 
 .INTEREST_BAR_BODY ul {
-  padding-left: 20px;
+    margin-bottom: 10px;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+  flex-direction: row;
+  justify-content: start;
+  list-style-type: none;
+  flex-wrap: wrap;
+  align-content: start;
 }
+
+.INTEREST_BAR_BODY__INTEREST {
+  background: #6c6c6c;
+  opacity: .8;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 14px;
+  color: white;
+  width: fit-content;
+  height: fit-content;
+}
+
+.INTEREST_BAR_BODY__INTEREST__MATCHED {
+  background: linear-gradient(90deg, rgb(255, 106, 91), rgb(254, 52, 118));
+}
+
+/*.INTEREST_BAR_BODY__INTEREST:nth-child(3n) {*/
+/*  page-break-after: always;*/
+/*  background: silver;*/
+/*}*/
 
 .INTEREST_BAR_NO_INTERESTS {
   width: 100%;

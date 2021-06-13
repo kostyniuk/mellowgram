@@ -22,10 +22,11 @@ const SelectInterests = ({ setSelectActivities }) => {
   const [interests, setInterests] = useState([]);
 
   const distinguishAlreadyInterests = useCallback(() => {
-    const loggedInInterestsIds = loggedInInterests.map(
+    const loggedInInterestsIds = loggedInInterests && loggedInInterests.length && loggedInInterests.map(
       (myInterest) => +myInterest.interest_id
     );
-    interests.map((section, i, arr) => {
+    console.log({interests})
+    loggedInInterestsIds ? interests.map((section, i, arr) => {
       const { options } = section;
 
       const filtered = options.filter((interest) =>
@@ -52,7 +53,7 @@ const SelectInterests = ({ setSelectActivities }) => {
           });
         }
       }
-    });
+    }) : setAlreadyInterests((prev) => ({ ...prev, loaded: true }));;
   }, [loggedInInterests, interests]);
 
   useEffect(() => {

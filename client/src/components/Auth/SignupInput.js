@@ -16,25 +16,25 @@ const SignupInput = ({ err, form, changeHandler, submitHandler }) => {
       </div>
       <div className='content'>
         <h3>Sign up to meet new friends.</h3>
-        <div className='login'>Login with</div>
-        <div className='links links-signup'>
-          <div className='google'>
-            <i className='fa fa-google'>
-              <span>Google</span>
-            </i>
-          </div>
-          <div className='facebook'>
-            <i className='fa fa-facebook-f'>
-              <span>Facebook</span>
-            </i>
-          </div>
-          <div className='instagram' onClick={() => console.log('instagram')}>
-            <i className='fa fa-instagram'>
-              <span>Instagram</span>
-            </i>
-          </div>
-        </div>
-        <span>OR</span>
+        {/*<div className='login'>Login with</div>*/}
+        {/*<div className='links links-signup'>*/}
+        {/*  <div className='google'>*/}
+        {/*    <i className='fa fa-google'>*/}
+        {/*      <span>Google</span>*/}
+        {/*    </i>*/}
+        {/*  </div>*/}
+        {/*  <div className='facebook'>*/}
+        {/*    <i className='fa fa-facebook-f'>*/}
+        {/*      <span>Facebook</span>*/}
+        {/*    </i>*/}
+        {/*  </div>*/}
+        {/*  <div className='instagram' onClick={() => console.log('instagram')}>*/}
+        {/*    <i className='fa fa-instagram'>*/}
+        {/*      <span>Instagram</span>*/}
+        {/*    </i>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        {/*<span>OR</span>*/}
         <div className='form-group form-group-signup'>
           <label>Email</label>
           <br />
@@ -59,6 +59,39 @@ const SignupInput = ({ err, form, changeHandler, submitHandler }) => {
             value={form.fullName}
             onChange={changeHandler}
           />
+        </div>
+        <div className='form-group' style={
+          {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            marginLeft: '45%',
+            marginTop: '5px',
+            marginBottom: '5px',
+          }
+        }>
+          <label>Gender</label>
+          <div style ={
+            {marginTop: '5px',
+            marginBottom: '5px'}
+          }>
+            <input type="radio" id="contactChoice1"
+                   name="gender"  onChange={changeHandler}           className='form-control'
+                   value="man"/>
+            <label htmlFor="contactChoice1">Male</label>
+          </div>
+          <div>
+            <input type="radio" id="contactChoice2"
+                   name="gender"             className='form-control'
+                   value="woman" onChange={changeHandler}/>
+            <label htmlFor="contactChoice2">Female</label>
+          </div>
+          <div>
+            <input type="radio" id="contactChoice2"
+                   name="gender"             className='form-control'
+                   value="other" onChange={changeHandler}/>
+            <label htmlFor="contactChoice2">Other</label>
+          </div>
         </div>
         <div className='form-group'>
           <label>Username</label>

@@ -52,6 +52,8 @@ export const notAuthUser = () => ({
 export const setCurrentPage = ({
   id,
   bio,
+  age,
+  languages,
   username,
   based_in,
   email,
@@ -68,6 +70,8 @@ export const setCurrentPage = ({
     username,
     based_in,
     email,
+    age,
+    languages,
     fullname,
     number_of_posts,
     occupation,

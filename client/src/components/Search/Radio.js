@@ -18,6 +18,8 @@ const GreenCheckbox = withStyles({
 export default ({ state, handler, isDisabled }) => {
   const [disabledCountry, setDisabledCountry] = useState(false);
 
+  console.log({isDisabled})
+
   const handleChange = (event) => {
     const { name, checked } = event.target;
 

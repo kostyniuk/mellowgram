@@ -21,7 +21,7 @@ const ChatRow = ({
 }) => {
   const loggedInUser = useSelector((state) => state.loggedInUser);
   const onlineUsers = useSelector((state) => state.onlineUsers);
-
+  person_id = person_id || '';
   const className =
     name === openDialog
       ? 'CHAT_ROW__container CHAT_ROW__container_active'

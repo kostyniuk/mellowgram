@@ -14,6 +14,8 @@ import AsyncSelectCustom from '../Header/AsyncSelect';
 import { rapidApiHeaders } from '../../helpers';
 import { useSelector, useDispatch } from 'react-redux';
 
+import _ from 'lodash';
+
 import { formUrl } from '../../helpers/search';
 import { setSearchResults } from '../../redux/actions';
 import LikesModal from '../User/Post/LikesModal';
@@ -36,7 +38,7 @@ const SearchContainer = () => {
   const [interests, setInterests] = useState([]);
 
   const [selectedInterests, setSelectedInterests] = useState(loggedInUser.interests);
-  const [selectedAge, setSelectedAge] = useState([loggedInUser.age-2, loggedInUser.age+2])
+  const [selectedAge, setSelectedAge] = useState([+loggedInUser.age-2, +loggedInUser.age+2])
   const [selectedLanguages, setselectedLanguages] = useState(loggedInUser.languages);
 
   const [matchAll, setMatchAll] = useState(false);
@@ -111,8 +113,10 @@ const SearchContainer = () => {
 
   const searchHandler = async () => {
     let url = '';
+    console.log({isAdaptiveSearchEnabled})
     if(!isAdaptiveSearchEnabled) {
-      if (!selectedInterests.length && !matchMyInterests)
+      const isSelectedINnterests = _.size(selectedInterests)
+      if (!isSelectedINnterests && !matchMyInterests)
       return (() => {
         setErrorNoInterestProvided(true);
         setTimeout(() => setErrorNoInterestProvided(false), 3000);
@@ -133,15 +137,18 @@ const SearchContainer = () => {
     });
 
     } else {
+
+      console.log({loggedInUser})
+
       url = formUrl({
         base: 'api/search',
-        country,
-        city,
-        selectedInterests,
+        country: loggedInUser.based_in,
+        city: loggedInUser.based_in,
+        selectedInterests: loggedInUser.interests,
         selectedAge: [loggedInUser.age-2, loggedInUser.age+2],
         selectedLanguages: loggedInUser.languages,
-        matchAll,
-        matchMyInterests,
+        matchAll: false,
+        matchMyInterests: true,
         noDistance,
         myLocation: loggedInUser.based_in,
         loggedInUser,
@@ -169,6 +176,9 @@ const SearchContainer = () => {
   if (!interests.length) return null;
 
   const distingMatched = (selected, obtained, isRandom) => {
+
+    console.log({selected, obtained})
+
     const selectedIds = selected.map(
       (interest) => interest.id || interest.interest_id
     );
@@ -204,11 +214,11 @@ const SearchContainer = () => {
                 // classNamePrefix='select'
                   setSelectActivities={setSelectedInterests}
               />
-            {/*<RadioSingle*/}
-            {/*  state={matchMyInterests}*/}
-            {/*  handleChange={(e) => handleRadioChange(e, setMatchMyInterests)}*/}
-            {/*  label='Select mine'*/}
-            {/*/>*/}
+            <RadioSingle
+              state={matchMyInterests}
+              handleChange={(e) => handleRadioChange(e, setMatchMyInterests)}
+              label='Select mine'
+            />
             <RadioSingle
               state={matchAll}
               handleChange={(e) => handleRadioChange(e, setMatchAll)}
@@ -309,6 +319,8 @@ const SearchContainer = () => {
                     (el) => typeof el === 'object'
                 )}
                 showMatched={setShowMatched}
+                myInterests={matchMyInterests ? loggedInUser.interests : selectedInterests}
+                distingMatched={distingMatched}
             />
         )}
         </div>

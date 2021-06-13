@@ -291,6 +291,8 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
   )
     return <div></div>;
 
+  console.log({info})
+
   return (
     <div>
       <div className='USER_INFO__container'>
@@ -318,7 +320,7 @@ const UserInfo = ({ startMessagingHandler, setOpenDialog }) => {
             <div className='card-header'>
               <div className='card-cover'></div>
               <img className='card-avatar' src={info.picture} alt='avatar' />
-              <h1 className='card-fullname'>{info.fullname}</h1>
+              <h1 className='card-fullname'>{info.fullname}, {info.age} </h1>
               <h2 className='card-jobtitle'>{info.occupation}</h2>
             </div>
             <div className='card-main'>

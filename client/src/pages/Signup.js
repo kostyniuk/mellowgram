@@ -12,6 +12,7 @@ const Signup = () => {
     fullName: '',
     username: '',
     password: '',
+    gender: ''
   });
 
   const { loading, error, request } = useFetch();

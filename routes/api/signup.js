@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.post('/', async (req, res, next) => {
   try {
-    const { email, fullName, username, password } = req.body;
+    const { email, gender, fullName, username, password } = req.body;
 
     console.log(req.body)
 
@@ -20,12 +20,12 @@ router.post('/', async (req, res, next) => {
     const valuesUser = [username, hash];
     let { rows } = await db.query(queryUser, valuesUser);
 
-    console.log({rows})
+    console.log({rows, gender})
 
     const id = rows[0].user_id;
 
-    const queryPerson = `INSERT INTO person (person_id, fullName, email) VALUES ($1, $2, $3);`;
-    const valuesPerson = [id, fullName, email];
+    const queryPerson = `INSERT INTO person (person_id, fullName, email, gender) VALUES ($1, $2, $3, $4);`;
+    const valuesPerson = [id, fullName, email, gender];
     const result = await db.query(queryPerson, valuesPerson);
 
     res.json({success: true});

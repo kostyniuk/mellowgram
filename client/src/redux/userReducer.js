@@ -12,6 +12,7 @@ const initialState = {
   bio: null,
   username: null,
   email: null,
+  age: null,
   fullname: null,
   number_of_posts: null,
   occupation: null,
