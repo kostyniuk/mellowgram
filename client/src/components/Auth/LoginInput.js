@@ -41,9 +41,9 @@ const LoginInput = ({ form, changeHandler, submitHandler, err, modal }) => {
             onChange={changeHandler}
           />
         </div>
-        <a className='fp' href='/accounts/password/reset'>
-          Forgot Password?
-        </a>
+        {/*<a className='fp' href='/accounts/password/reset'>*/}
+        {/*  Forgot Password?*/}
+        {/*</a>*/}
         <br />
         <button type='button' className='btn green' onClick={submitHandler}>
           Login
