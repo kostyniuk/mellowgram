@@ -177,6 +177,8 @@ const SearchContainer = () => {
 
   const distingMatched = (selected, obtained, isRandom) => {
 
+    if (!selected) return []
+
     console.log({selected, obtained})
 
     const selectedIds = selected.map(

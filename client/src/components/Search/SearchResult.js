@@ -25,6 +25,7 @@ const SearchResult = ({ data, showMatched, myInterests, distingMatched }) => {
           info={{
             username: user.username,
             fullname: user.fullname,
+            age: user.age || '',
             occupation: user.occupation,
             picture: user.picture,
             location: user.based_in,

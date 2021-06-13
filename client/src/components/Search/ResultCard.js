@@ -15,6 +15,7 @@ const ResultCard = ({ info, showMatched }) => {
     interests,
     username,
     matched,
+    age
   } = info;
   const showActivities = 5;
   const adjustedInterests = adjustInterests(interests, showActivities);
@@ -36,7 +37,7 @@ const ResultCard = ({ info, showMatched }) => {
             className='card-fullname SEARCH_RESULT_FULLNAME'
             onClick={handleRedirect}
           >
-            {fullname}
+            {fullname}, {age}
           </h1>
           <h2 className='card-username' onClick={handleRedirect}>
             @{username}

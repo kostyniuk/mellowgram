@@ -31,7 +31,7 @@ const prepareQuery = ({
   SELECT * FROM 
     (SELECT * FROM 
       (SELECT user_info.user_id, user_info.username, pers.fullname, 
-        pers.occupation, pers.based_in, pers.picture, COUNT(uim.interest_id) as matched 
+        pers.occupation, pers.age, pers.based_in, pers.picture, COUNT(uim.interest_id) as matched 
       FROM User_info 
       INNER JOIN Person pers ON pers.person_id = user_info.user_id 
       INNER JOIN Users_interests_map uim ON uim.user_id = user_info.user_id 
@@ -43,7 +43,7 @@ const prepareQuery = ({
         AND user_info.user_id != $1
         ${languages.length ? `AND mtm_ul.language_id IN (${addParametersLanguages})` : ``} 
         ) 
-        GROUP BY user_info.user_id, pers.fullname, pers.occupation, pers.based_in, pers.picture ORDER BY COUNT(uim.interest_id) DESC LIMIT $2 OFFSET $3) 
+        GROUP BY user_info.user_id, pers.fullname, pers.occupation, pers.age, pers.based_in, pers.picture ORDER BY COUNT(uim.interest_id) DESC LIMIT $2 OFFSET $3) 
         AS Info_and_matched 
         INNER JOIN users_interests_map ium ON ium.user_id = Info_and_matched.user_id 
         WHERE Info_and_matched.matched ${isMatchAll(
