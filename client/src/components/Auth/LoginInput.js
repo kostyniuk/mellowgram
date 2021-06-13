@@ -50,24 +50,24 @@ const LoginInput = ({ form, changeHandler, submitHandler, err, modal }) => {
         </button>
         {err && <h4 className='fp login-error'>{err}</h4>}
         <hr />
-        <div className='login'>Or login with</div>
-        <div className='links'>
-          <div className='google'>
-            <i className='fa fa-google'>
-              <span>Google</span>
-            </i>
-          </div>
-          <div className='facebook'>
-            <i className='fa fa-facebook-f'>
-              <span>Facebook</span>
-            </i>
-          </div>
-          <div className='instagram' onClick={() => console.log('instagram')}>
-            <i className='fa fa-instagram'>
-              <span>Instagram</span>
-            </i>
-          </div>
-        </div>
+        {/*<div className='login'>Or login with</div>*/}
+        {/*<div className='links'>*/}
+        {/*  <div className='google'>*/}
+        {/*    <i className='fa fa-google'>*/}
+        {/*      <span>Google</span>*/}
+        {/*    </i>*/}
+        {/*  </div>*/}
+        {/*  <div className='facebook'>*/}
+        {/*    <i className='fa fa-facebook-f'>*/}
+        {/*      <span>Facebook</span>*/}
+        {/*    </i>*/}
+        {/*  </div>*/}
+        {/*  <div className='instagram' onClick={() => console.log('instagram')}>*/}
+        {/*    <i className='fa fa-instagram'>*/}
+        {/*      <span>Instagram</span>*/}
+        {/*    </i>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
         <div className='signup'>
           Don't have an account? &#8203;
           <a href='/signup'>Sign up</a>
